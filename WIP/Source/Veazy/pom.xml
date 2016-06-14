@@ -15,6 +15,7 @@
     <spring.version>4.2.6.RELEASE</spring.version>
     <spring-security.version>4.1.0.RELEASE</spring-security.version>
     <servlet.version>3.1.0</servlet.version>
+    <jstl.version>1.2</jstl.version>
     <hibernate.version>5.1.0.Final</hibernate.version>
     <postgres.version>9.4.1208.jre7</postgres.version>
     <junit.version>4.12</junit.version>
@@ -70,6 +71,11 @@
       <artifactId>javax.servlet-api</artifactId>
       <version>${servlet.version}</version>
       <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>jstl</groupId>
+      <artifactId>jstl</artifactId>
+      <version>${jstl.version}</version>
     </dependency>
     
     <dependency>
