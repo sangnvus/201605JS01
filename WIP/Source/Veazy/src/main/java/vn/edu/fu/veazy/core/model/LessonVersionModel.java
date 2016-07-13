@@ -1,41 +1,25 @@
 package vn.edu.fu.veazy.core.model;
 
-import java.util.Date;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
-public class LessonVersion {
-	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
-	private long lessonId;
+public class LessonVersionModel {
+	
+	private String lessonId;
 	private int version;
 	private LessonVersionState state;
 	private String title;
 	private String description;
-	private long creatorId;
-	private long reviewerId;
+	private String creatorId;
+	private String reviewerId;
 	private String vocabulary;
 	private String grammar;
 	private String reading;
 	private String listening;
 	private String practice;
-	private Date createDate;
-	private Date updateDate;
-	private Date deleteDate;
-	private boolean isDeleted;
-	public long getId() {
-		return id;
-	}
-	public void setId(long id) {
-		this.id = id;
-	}
-	public long getLessonId() {
+	private String article;
+	public String getLessonId() {
 		return lessonId;
 	}
-	public void setLessonId(long lessonId) {
+	public void setLessonId(String lessonId) {
 		this.lessonId = lessonId;
 	}
 	public int getVersion() {
@@ -62,16 +46,16 @@ public class LessonVersion {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public long getCreatorId() {
+	public String getCreatorId() {
 		return creatorId;
 	}
-	public void setCreatorId(long creatorId) {
+	public void setCreatorId(String creatorId) {
 		this.creatorId = creatorId;
 	}
-	public long getReviewerId() {
+	public String getReviewerId() {
 		return reviewerId;
 	}
-	public void setReviewerId(long reviewerId) {
+	public void setReviewerId(String reviewerId) {
 		this.reviewerId = reviewerId;
 	}
 	public String getVocabulary() {
@@ -104,29 +88,11 @@ public class LessonVersion {
 	public void setPractice(String practice) {
 		this.practice = practice;
 	}
-	public Date getCreateDate() {
-		return createDate;
+	public String getArticle() {
+		return article;
 	}
-	public void setCreateDate(Date createDate) {
-		this.createDate = createDate;
-	}
-	public Date getUpdateDate() {
-		return updateDate;
-	}
-	public void setUpdateDate(Date updateDate) {
-		this.updateDate = updateDate;
-	}
-	public Date getDeleteDate() {
-		return deleteDate;
-	}
-	public void setDeleteDate(Date deleteDate) {
-		this.deleteDate = deleteDate;
-	}
-	public boolean isDeleted() {
-		return isDeleted;
-	}
-	public void setDeleted(boolean isDeleted) {
-		this.isDeleted = isDeleted;
+	public void setArticle(String article) {
+		this.article = article;
 	}
 }
 

@@ -9,15 +9,15 @@ package vn.edu.fu.veazy.core.model;
  *
  * @author Hoang Linh
  */
-public class TestAnswer {
+public class ExamAnswer {
 
     private String QuestionId;
     private String UserAnswer;
 
-    public TestAnswer() {
+    public ExamAnswer() {
     }
 
-    public TestAnswer(String QuestionId, String UserAnswer) {
+    public ExamAnswer(String QuestionId, String UserAnswer) {
         this.QuestionId = QuestionId;
         this.UserAnswer = UserAnswer;
     }

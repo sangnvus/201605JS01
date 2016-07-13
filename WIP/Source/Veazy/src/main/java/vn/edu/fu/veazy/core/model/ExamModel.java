@@ -11,14 +11,14 @@ import java.util.List;
  *
  * @author Hoang Linh
  */
-public class TestModel extends BasicModel{
+public class ExamModel extends BasicModel{
 
     private String userId;
     private String courseId;
-    private List<TestAnswer> listQuestions;
+    private List<ExamAnswer> listQuestions;
     private Double result;
 
-    public TestModel() {
+    public ExamModel() {
     }
 
     public String getUserId() {
@@ -37,11 +37,11 @@ public class TestModel extends BasicModel{
         this.courseId = courseId;
     }
 
-    public List<TestAnswer> getListQuestions() {
+    public List<ExamAnswer> getListQuestions() {
         return listQuestions;
     }
 
-    public void setListQuestions(List<TestAnswer> listQuestions) {
+    public void setListQuestions(List<ExamAnswer> listQuestions) {
         this.listQuestions = listQuestions;
     }
 

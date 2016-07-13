@@ -39,7 +39,6 @@
     <property name="dataSource" ref="dataSource"></property>
     <property name="annotatedClasses">
       <list>
-        <value>vn.edu.fu.veazy.core.model.ExModel</value>
         <value>vn.edu.fu.veazy.core.model.UserModel</value>
       </list>
     </property>
@@ -57,5 +56,9 @@
   </bean>
   
   <bean id="userDao" class="vn.edu.fu.veazy.core.dao.HibernateUserDao"/>
-
+  <bean id="courseDao" class="vn.edu.fu.veazy.core.dao.HibernateCourseDao"/>
+  <bean id="examDao" class="vn.edu.fu.veazy.core.dao.HibernateExamDao"/>
+  <bean id="lessonDao" class="vn.edu.fu.veazy.core.dao.HibernateLessonDao"/>
+  <bean id="lessonVersionDao" class="vn.edu.fu.veazy.core.dao.HibernateLessonVersionDao"/>
+  <bean id="questionDao" class="vn.edu.fu.veazy.core.dao.HibernateQuestionDao"/>
 </beans>

@@ -8,9 +8,9 @@ public interface GenericDao<Type, ObjectId> {
     Type findById(ObjectId id) throws Exception;
     List<Type> findByExample(Type exampleInstance) throws Exception;
     List<Type> findByExample(Type exampleInstance, int offset, int limit) throws Exception;
-    List<Type> findAll() throws Exception;
+    List<Type> getAll() throws Exception;
     void update(Type entity) throws Exception;
     void delete(Type entity) throws Exception;
-    Long count() throws Exception;
+    Long getCount() throws Exception;
 
 }
