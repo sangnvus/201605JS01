@@ -67,6 +67,7 @@ public class HibernateLessonDao implements GenericDao<LessonModel, String> {
 
     @Override
     public void delete(LessonModel course) throws Exception {
+    	//TODO set flag?
     	sessionFactory.getCurrentSession().delete(course);
     }
 
