@@ -10,18 +10,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import vn.edu.fu.veazy.core.model.ExamModel;
 
-public class HibernateExamDao implements GenericDao<ExamModel, Integer> {
+public class HibernateExamDao implements GenericDao<ExamModel, String> {
 
     @Autowired
     private SessionFactory sessionFactory;
 
     @Override
-    public void save(ExamModel test) throws Exception {
-        sessionFactory.getCurrentSession().save(test);
+    public void save(ExamModel exam) throws Exception {
+        sessionFactory.getCurrentSession().save(exam);
     }
 
     @Override
-    public ExamModel findById(Integer id) throws Exception {
+    public ExamModel findById(String id) throws Exception {
     	return sessionFactory.getCurrentSession().get(ExamModel.class, id);
     }
 
@@ -60,14 +60,14 @@ public class HibernateExamDao implements GenericDao<ExamModel, Integer> {
     }
 
     @Override
-    public void update(ExamModel test) throws Exception {
+    public void update(ExamModel exam) throws Exception {
         // TODO Auto-generated method stub
-    	sessionFactory.getCurrentSession().update(test);
+    	sessionFactory.getCurrentSession().update(exam);
     }
 
     @Override
-    public void delete(ExamModel test) throws Exception {
-    	sessionFactory.getCurrentSession().delete(test);
+    public void delete(ExamModel exam) throws Exception {
+    	sessionFactory.getCurrentSession().delete(exam);
     }
 
     @Override

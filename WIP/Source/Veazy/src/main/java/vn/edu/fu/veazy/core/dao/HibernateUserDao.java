@@ -5,11 +5,12 @@ import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Example;
+import org.hibernate.criterion.Projections;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import vn.edu.fu.veazy.core.model.UserModel;
 
-public class HibernateUserDao implements GenericDao<UserModel, Integer> {
+public class HibernateUserDao implements GenericDao<UserModel, String> {
 
     @Autowired
     private SessionFactory sessionFactory;
@@ -20,9 +21,8 @@ public class HibernateUserDao implements GenericDao<UserModel, Integer> {
     }
 
     @Override
-    public UserModel findById(Integer id) throws Exception {
-        // TODO Auto-generated method stub
-        return null;
+    public UserModel findById(String id) throws Exception {
+    	return sessionFactory.getCurrentSession().get(UserModel.class, id);
     }
 
     @SuppressWarnings("unchecked")
@@ -53,28 +53,29 @@ public class HibernateUserDao implements GenericDao<UserModel, Integer> {
         }
     }
 
-    @Override
-    public List<UserModel> findAll() throws Exception {
-        // TODO Auto-generated method stub
-        return null;
+    @SuppressWarnings("unchecked")
+	@Override
+    public List<UserModel> getAll() throws Exception {
+        return sessionFactory.getCurrentSession().createCriteria(UserModel.class).list();
     }
 
     @Override
     public void update(UserModel user) throws Exception {
         // TODO Auto-generated method stub
-        
+    	sessionFactory.getCurrentSession().update(user);
     }
 
     @Override
     public void delete(UserModel user) throws Exception {
-        // TODO Auto-generated method stub
-        
+    	sessionFactory.getCurrentSession().delete(user);
     }
 
     @Override
-    public Long count() throws Exception {
-        // TODO Auto-generated method stub
-        return null;
+    public Long getCount() throws Exception {
+    	return (Long) sessionFactory.getCurrentSession()
+    			.createCriteria(UserModel.class)
+    			.setProjection(Projections.rowCount())
+    			.uniqueResult();
     }
 
 }
