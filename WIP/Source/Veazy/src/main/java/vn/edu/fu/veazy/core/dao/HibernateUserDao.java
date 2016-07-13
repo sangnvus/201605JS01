@@ -67,6 +67,7 @@ public class HibernateUserDao implements GenericDao<UserModel, String> {
 
     @Override
     public void delete(UserModel user) throws Exception {
+    	//TODO set flag?
     	sessionFactory.getCurrentSession().delete(user);
     }
 
