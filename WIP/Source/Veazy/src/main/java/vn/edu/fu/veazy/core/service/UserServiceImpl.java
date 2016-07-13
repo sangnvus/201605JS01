@@ -33,7 +33,7 @@ public class UserServiceImpl implements UserService {
         try {
             String email = userForm.getEmail();
             String username = userForm.getUsername();
-            String pw = userForm.getPassword();
+            String pw = userForm.getEncryptedPassword();
             UserModel user = new UserModel(email, username, pw);
             userDao.save(user);
         } catch (Exception e) {
