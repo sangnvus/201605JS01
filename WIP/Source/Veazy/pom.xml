@@ -116,6 +116,13 @@
       <scope>test</scope>
       <type>jar</type>
     </dependency>
+    <!-- https://mvnrepository.com/artifact/org.springframework/spring-test -->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-test</artifactId>
+      <version>${spring.version}</version>
+    </dependency>
+    
     
     <!-- https://mvnrepository.com/artifact/org.json/json -->
     <dependency>
@@ -140,34 +147,6 @@
     <finalName>Veazy</finalName>
     
     <plugins>
-      <!-- <plugin>
-        <groupId>org.codehaus.cargo</groupId>
-        <artifactId>cargo-maven2-plugin</artifactId>
-        <version>1.4.8</version>
-        <configuration>
-          <container>
-            <containerId>tomcat8x</containerId>
-            <home>/opt/tomcat8</home>
-          </container>
-          <configuration>
-            <type>existing</type>
-            <home>/opt/tomcat8</home>
-          </configuration>
-          <deployables>
-            <deployable>
-              <groupId>vn.edu.fu</groupId>
-              <artifactId>ROOT</artifactId>
-              <type>war</type>
-              <properties>
-                <context>${project.build.finalName}</context>
-              </properties>
-            </deployable>
-          </deployables>
-          <deployer>
-            <type>installed</type>
-          </deployer>
-        </configuration>
-      </plugin> -->
 
       <!-- Set JDK Compiler Level -->
       <plugin>

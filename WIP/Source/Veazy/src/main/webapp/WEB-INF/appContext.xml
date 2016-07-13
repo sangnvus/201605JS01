@@ -39,6 +39,7 @@
     <property name="dataSource" ref="dataSource"></property>
     <property name="annotatedClasses">
       <list>
+        <value>vn.edu.fu.veazy.core.model.ExModel</value>
         <value>vn.edu.fu.veazy.core.model.UserModel</value>
       </list>
     </property>
