@@ -67,6 +67,7 @@ public class HibernateQuestionDao implements GenericDao<QuestionModel, String> {
 
     @Override
     public void delete(QuestionModel question) throws Exception {
+    	//TODO set flag?
     	sessionFactory.getCurrentSession().delete(question);
     }
 
