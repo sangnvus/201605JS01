@@ -13,6 +13,8 @@ import vn.edu.fu.veazy.core.common.Const;
 import vn.edu.fu.veazy.core.common.Utils;
 import vn.edu.fu.veazy.core.form.RegisterForm;
 import vn.edu.fu.veazy.core.model.UserModel;
+import vn.edu.fu.veazy.core.response.Response;
+import vn.edu.fu.veazy.core.response.ResponseCode;
 import vn.edu.fu.veazy.core.service.UserService;
 
 /**
@@ -61,41 +63,43 @@ public class UserController {
     @RequestMapping(value = Const.URLMAPPING_REGISTER_PROCEED, method = RequestMethod.POST)
     public @ResponseBody String registerUserProceed(ModelMap model,
             @ModelAttribute("register-form") RegisterForm user) {
+        Response response = new Response(ResponseCode.BAD_REQUEST);
         try {
             // FIXME json object
             LOGGER.debug("Get to register proceed controller successful");
             
             if (!Utils.isValidEmail(user.getEmail())) {
                 LOGGER.error("Submit invalid email!");
-                return "{\"success\":false,\"field\":\"email\","
-                        + "\"msgCode\":\"message.error.invalid_email\"}";
+                response.setCode(ResponseCode.INVALID_EMAIL);
+                return response.toResponseJson();
             }
             
-            UserModel u1 = userService.findUserByEmail(user.getEmail());
-            if (u1 != null) {
+            UserModel userModel = userService.findUserByEmail(user.getEmail());
+            if (userModel != null) {
                 LOGGER.error("Submit duplicated email!");
-                return "{\"success\":false,\"field\":\"email\","
-                        + "\"msgCode\":\"message.error.duplicated_email\"}";
+                response.setCode(ResponseCode.DUPLICATED_EMAIL);
+                return response.toResponseJson();
             }
             
-            u1 = userService.findUserByUsername(user.getUsername());
-            if (u1 != null) {
-                // FIXME return data
-                LOGGER.error("Submit duplicated email!");
-                return "{\"success\":false,\"field\":\"email\","
-                        + "\"msgCode\":\"message.error.duplicated_email\"}";
+            userModel = userService.findUserByUsername(user.getUsername());
+            if (userModel != null) {
+                LOGGER.error("Submit duplicated username!");
+                response.setCode(ResponseCode.DUPLICATED_USERNAME);
+                return response.toResponseJson();
             }
 
             LOGGER.debug("Register new user successfully!");
             
             userService.saveUser(user);
-            return "{\"success\":true}";
+            response.setCode(ResponseCode.SUCCESS);
+            return response.toResponseJson();
         } catch (Exception e) {
             LOGGER.error(e.getMessage());
         }
 
         LOGGER.error("Unknown error occured!");
-        return "{\"success\":false,\"msgCode\":\"message.error.unknown\"}";
+        response.setCode(ResponseCode.INTERNAL_SERVER_ERROR);
+        return response.toResponseJson();
     }
 
 }
