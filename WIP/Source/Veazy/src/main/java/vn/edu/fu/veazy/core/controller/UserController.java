@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import vn.edu.fu.veazy.core.common.Const;
 import vn.edu.fu.veazy.core.common.Utils;
+import vn.edu.fu.veazy.core.form.RegisterForm;
 import vn.edu.fu.veazy.core.model.UserModel;
 import vn.edu.fu.veazy.core.service.UserService;
 
@@ -58,9 +59,12 @@ public class UserController {
      * @return json string
      */
     @RequestMapping(value = Const.URLMAPPING_REGISTER_PROCEED, method = RequestMethod.POST)
-    public @ResponseBody String registerUserProceed(ModelMap model, @ModelAttribute UserModel user) {
+    public @ResponseBody String registerUserProceed(ModelMap model,
+            @ModelAttribute("register-form") RegisterForm user) {
         try {
+            // FIXME json object
             LOGGER.debug("Get to register proceed controller successful");
+            
             if (!Utils.isValidEmail(user.getEmail())) {
                 LOGGER.error("Submit invalid email!");
                 return "{\"success\":false,\"field\":\"email\","
@@ -69,6 +73,14 @@ public class UserController {
             
             UserModel u1 = userService.findUserByEmail(user.getEmail());
             if (u1 != null) {
+                LOGGER.error("Submit duplicated email!");
+                return "{\"success\":false,\"field\":\"email\","
+                        + "\"msgCode\":\"message.error.duplicated_email\"}";
+            }
+            
+            u1 = userService.findUserByUsername(user.getUsername());
+            if (u1 != null) {
+                // FIXME return data
                 LOGGER.error("Submit duplicated email!");
                 return "{\"success\":false,\"field\":\"email\","
                         + "\"msgCode\":\"message.error.duplicated_email\"}";

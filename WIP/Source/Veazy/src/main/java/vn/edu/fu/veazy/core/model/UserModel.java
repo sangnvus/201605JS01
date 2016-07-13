@@ -27,6 +27,30 @@ public class UserModel extends BasicModel{
     public UserModel() {
     }
 
+    public UserModel(String email, String userName, String encryptedPassword) {
+        super();
+        this.email = email;
+        this.userName = userName;
+        this.encryptedPassword = encryptedPassword;
+    }
+
+    public UserModel(String email, String userName, String encryptedPassword, String facebookId, String googleId,
+            String firstName, String lastName, Long dob, String address, Integer role, String hobby, Boolean isBanned) {
+        super();
+        this.email = email;
+        this.userName = userName;
+        this.encryptedPassword = encryptedPassword;
+        this.facebookId = facebookId;
+        this.googleId = googleId;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.dob = dob;
+        this.address = address;
+        this.role = role;
+        this.hobby = hobby;
+        this.isBanned = isBanned;
+    }
+
     public String getEmail() {
         return email;
     }

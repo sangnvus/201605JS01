@@ -19,6 +19,7 @@
     <hibernate.version>5.1.0.Final</hibernate.version>
     <postgres.version>9.4.1208.jre7</postgres.version>
     <junit.version>4.12</junit.version>
+    <json-utils-version>20160212</json-utils-version>
     <commons-logging.version>1.2</commons-logging.version>
     <logback.version>1.0.13</logback.version>
     <jcl-over-slf4j.version>1.7.21</jcl-over-slf4j.version>
@@ -114,6 +115,13 @@
       <version>${junit.version}</version>
       <scope>test</scope>
       <type>jar</type>
+    </dependency>
+    
+    <!-- https://mvnrepository.com/artifact/org.json/json -->
+    <dependency>
+      <groupId>org.json</groupId>
+      <artifactId>json</artifactId>
+      <version>${json-utils-version}</version>
     </dependency>
 
     <!-- Logging -->

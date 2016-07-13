@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import vn.edu.fu.veazy.core.dao.GenericDao;
+import vn.edu.fu.veazy.core.form.RegisterForm;
 import vn.edu.fu.veazy.core.model.UserModel;
 
 @Service
@@ -28,6 +29,22 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
+    public void saveUser(RegisterForm userForm) throws Exception {
+        try {
+            String email = userForm.getEmail();
+            String username = userForm.getUsername();
+            String pw = userForm.getPassword();
+            UserModel user = new UserModel(email, username, pw);
+            userDao.save(user);
+        } catch (Exception e) {
+            // TODO custom exception
+            throw new Exception(e.getMessage(), e);
+        }
+        
+    }
+
+    @Override
+    @Transactional
     public UserModel findUserById(Integer id) throws Exception {
         // TODO Auto-generated method stub
         return null;
@@ -39,6 +56,23 @@ public class UserServiceImpl implements UserService {
         try {
             UserModel u1 = new UserModel();
             u1.setEmail(email);
+            List<UserModel> listSearchResult = userDao.findByExample(u1);
+            if (listSearchResult != null && listSearchResult.size() > 0) {
+                return listSearchResult.get(0);
+            }
+        } catch (Exception e) {
+            // TODO custom exception
+            throw new Exception(e.getMessage(), e);
+            
+        }
+        return null;
+    }
+
+    @Override
+    public UserModel findUserByUsername(String uname) throws Exception {
+        try {
+            UserModel u1 = new UserModel();
+            u1.setUserName(uname);
             List<UserModel> listSearchResult = userDao.findByExample(u1);
             if (listSearchResult != null && listSearchResult.size() > 0) {
                 return listSearchResult.get(0);
