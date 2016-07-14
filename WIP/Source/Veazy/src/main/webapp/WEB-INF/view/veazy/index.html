@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="veazyApp">
+<head>
+	<meta charset="utf-8">
+	<title>Veazy</title>
+	<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
+	<link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css">
+	<link rel="stylesheet" href="bower_components/ng-dialog/css/ngDialog.min.css">
+	<link rel="stylesheet" href="bower_components/ng-dialog/css/ngDialog-theme-default.min.css">
+	<link rel="stylesheet" href="bower_components/ng-dialog/css/ngDialog-theme-plain.min.css">
+	<link rel="stylesheet" href="bower_components/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css">
+
+	<!-- Include Froala Editor styles -->
+	<link rel="stylesheet" href="bower_components/froala-wysiwyg-editor/css/froala_editor.min.css"/>
+	<link rel="stylesheet" href="bower_components/froala-wysiwyg-editor/css/froala_style.min.css"/>
+	<!-- Include Froala Editor Plugins styles -->
+	<link rel="stylesheet" href="bower_components/froala-wysiwyg-editor/css/plugins/char_counter.css">
+	<link rel="stylesheet" href="bower_components/froala-wysiwyg-editor/css/plugins/code_view.css">
+	<link rel="stylesheet" href="bower_components/froala-wysiwyg-editor/css/plugins/colors.css">
+	<link rel="stylesheet" href="bower_components/froala-wysiwyg-editor/css/plugins/emoticons.css">
+	<link rel="stylesheet" href="bower_components/froala-wysiwyg-editor/css/plugins/file.css">
+	<link rel="stylesheet" href="bower_components/froala-wysiwyg-editor/css/plugins/fullscreen.css">
+	<link rel="stylesheet" href="bower_components/froala-wysiwyg-editor/css/plugins/image_manager.css">
+	<link rel="stylesheet" href="bower_components/froala-wysiwyg-editor/css/plugins/image.css">
+	<link rel="stylesheet" href="bower_components/froala-wysiwyg-editor/css/plugins/line_breaker.css">
+	<link rel="stylesheet" href="bower_components/froala-wysiwyg-editor/css/plugins/table.css">
+	<link rel="stylesheet" href="bower_components/froala-wysiwyg-editor/css/plugins/video.css">
+
+	<link rel="stylesheet" href="vendors/img-stack/style.css">
+	<link rel="stylesheet" href="vendors/SlideShowJmpress/css/style.css" />
+
+	<!-- custom styles -->
+	<link rel="stylesheet" href="css/common.css">
+	<link rel="stylesheet" href="css/user-page-style.css">
+	<link rel="stylesheet" href="css/more-bootstrap-btn-style.css">
+	<link rel="stylesheet" href="css/header-style.css">
+	<link rel="stylesheet" href="css/login-style.css">
+	<link rel="stylesheet" href="css/register-style.css">
+	<link rel="stylesheet" href="css/course-list-style.css">
+	<link rel="stylesheet" href="css/lesson-detail-style.css">
+	<link rel="stylesheet" href="css/test-style.css">
+	<link rel="stylesheet" href="css/side-bar-style.css">
+	<link rel="stylesheet" href="css/add-lesson-style.css">
+	<link rel="stylesheet" href="css/add-question-style.css">
+</head>
+<body>
+	<div ui-view autoscroll=""></div>
+
+	<!-- AngularJS -->
+	<script src="bower_components/jquery/dist/jquery.js"></script>
+	<!-- <script src="bower_components/jquery.browser/dist/jquery.browser.js"></script> -->
+	<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+	<script src="bower_components/angular/angular.js"></script>
+	<script src="bower_components/angular-animate/angular-animate.js"></script>
+	<script src="bower_components/angular-route/angular-route.js"></script>
+	<script src="bower_components/angular-resource/angular-resource.js"></script>
+    <script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+	<script src="bower_components/angular-sanitize/angular-sanitize.min.js"></script>
+	<script src="bower_components/ng-dialog/js/ngDialog.min.js"></script>
+	<script src="bower_components/scrollreveal/dist/scrollreveal.min.js"></script>
+	<script src="bower_components/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
+
+	<!-- Include Froala Editor -->
+	<script src="bower_components/froala-wysiwyg-editor/js/froala_editor.min.js"></script>
+	<!-- Include Froala Editor Language -->
+	<script src="bower_components/froala-wysiwyg-editor/js/languages/ja.js"></script>
+	<!-- Include Froala Editor Plugins -->
+	<script src="bower_components/froala-wysiwyg-editor/js/plugins/align.min.js"></script>
+	<script src="bower_components/froala-wysiwyg-editor/js/plugins/char_counter.min.js"></script>
+	<script src="bower_components/froala-wysiwyg-editor/js/plugins/code_beautifier.min.js"></script>
+	<script src="bower_components/froala-wysiwyg-editor/js/plugins/code_view.min.js"></script>
+	<script src="bower_components/froala-wysiwyg-editor/js/plugins/colors.min.js"></script>
+	<script src="bower_components/froala-wysiwyg-editor/js/plugins/emoticons.min.js"></script>
+	<script src="bower_components/froala-wysiwyg-editor/js/plugins/entities.min.js"></script>
+	<script src="bower_components/froala-wysiwyg-editor/js/plugins/file.min.js"></script>
+	<script src="bower_components/froala-wysiwyg-editor/js/plugins/font_family.min.js"></script>
+	<script src="bower_components/froala-wysiwyg-editor/js/plugins/font_size.min.js"></script>
+	<script src="bower_components/froala-wysiwyg-editor/js/plugins/fullscreen.min.js"></script>
+	<script src="bower_components/froala-wysiwyg-editor/js/plugins/image.min.js"></script>
+	<script src="bower_components/froala-wysiwyg-editor/js/plugins/image_manager.min.js"></script>
+	<script src="bower_components/froala-wysiwyg-editor/js/plugins/inline_style.min.js"></script>
+	<script src="bower_components/froala-wysiwyg-editor/js/plugins/line_breaker.min.js"></script>
+	<script src="bower_components/froala-wysiwyg-editor/js/plugins/link.min.js"></script>
+	<script src="bower_components/froala-wysiwyg-editor/js/plugins/lists.min.js"></script>
+	<script src="bower_components/froala-wysiwyg-editor/js/plugins/paragraph_format.min.js"></script>
+	<script src="bower_components/froala-wysiwyg-editor/js/plugins/paragraph_style.min.js"></script>
+	<script src="bower_components/froala-wysiwyg-editor/js/plugins/quote.min.js"></script>
+	<script src="bower_components/froala-wysiwyg-editor/js/plugins/save.min.js"></script>
+	<script src="bower_components/froala-wysiwyg-editor/js/plugins/table.min.js"></script>
+	<script src="bower_components/froala-wysiwyg-editor/js/plugins/video.min.js"></script>
+	<!-- Angular Froala -->
+	<script src="bower_components/angular-froala/src/angular-froala.js"></script>
+
+	<!-- <script src="vendors/chubby-stacks/chubby-stacks-css/js/libs/modernizr.min.js"></script> -->
+	<!-- <script src="vendors/chubby-stacks/chubby-stacks-css/js/general.js"></script> -->
+	<script src="vendors/chubby-stacks/chubby-stacks-css/js/jquery.customInput.js"></script>
+	<script src="vendors/SlideShowJmpress/js/jquery-migrate-1.2.1.min.js"></script>
+    <!-- jmpress plugin -->
+    <script src="vendors/SlideShowJmpress/js/jmpress.js"></script>
+    <!-- jmslideshow plugin : extends the jmpress plugin -->
+    <script src="vendors/SlideShowJmpress/js/jquery.jmslideshow.js"></script>
+    <script src="vendors/SlideShowJmpress/js/modernizr.custom.48780.js"></script>
+
+	<script src="js/app.js"></script>
+
+	<!-- Controller -->
+	<script src="js/controllers/controllers.js"></script>
+	<script src="js/controllers/header-controller.js"></script>
+	<script src="js/controllers/home-controller.js"></script>
+	<script src="js/controllers/login-controller.js"></script>
+	<script src="js/controllers/register-controller.js"></script>
+	<script src="js/controllers/course-list-controller.js"></script>
+	<script src="js/controllers/lesson-detail-controller.js"></script>
+	<script src="js/controllers/search-lesson-dialog-controller.js"></script>
+	<script src="js/controllers/question-detail-controller.js"></script>
+	<script src="js/controllers/test-controller.js"></script>
+	
+	<script src="js/controllers/content-editor-restricted/editor-side-bar-controller.js"></script>
+	<script src="js/controllers/content-editor-restricted/add-lesson-controller.js"></script>
+	<script src="js/controllers/content-editor-restricted/add-question-controller.js"></script>
+	<script src="js/controllers/content-editor-restricted/question-list-controller.js"></script>
+
+	<!-- Directives -->
+	<script src="js/directives/directives.js"></script>
+	<script src="js/directives/header-directive.js"></script>
+	<script src="js/directives/scroll-reveal-directive.js"></script>
+	<script src="js/directives/stacked-list-directive.js"></script>
+	<script src="js/directives/enter-to-search-directive.js"></script>
+	<script src="js/directives/custom-input-directive.js"></script>
+	<script src="js/directives/tab-pane-directive.js"></script>
+	<script src="js/directives/tooltip-directive.js"></script>
+	<script src="js/directives/editor-side-bar-directive.js"></script>
+	<script src="js/directives/jm-slideshow-directive.js"></script>
+
+	<script src="js/filters/filters.js"></script>
+	<script src="js/services/services.js"></script>
+
+	<!-- <script src="bower_components/gentelella/vendors/fastclick/lib/fastclick.js"></script> -->
+    <!-- NProgress -->
+    <!-- <script src="bower_components/gentelella/vendors/nprogress/nprogress.js"></script> -->
+</body>
+</html>

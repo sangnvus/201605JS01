@@ -1,0 +1,63 @@
+<div class="container-fluid add-lesson">
+	<div class="row">
+		<div class="col-md-9 col-md-offset-1">
+			<h1 class="text-center">Create new lesson</h1>
+			<form class="form-horizontal">
+				<div class="form-group">
+					<label class="control-label col-sm-3">レッソン題名</label>
+					<div class="col-sm-9">
+						<input class="form-control" type="text"></input>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-sm-3">減税状態</label>
+					<div class="col-sm-9">
+						<input class="form-control" type="text"></input>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-sm-3">バージョン</label>
+					<div class="col-sm-9">
+						<input class="form-control" type="text"></input>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-sm-3">難レベル</label>
+					<div class="col-sm-9">
+						<select class="form-control" ng-model="selectedLevel" ng-options="level as level.name for level in levels track by level.id"></select>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-sm-3">作家</label>
+					<div class="col-sm-9">
+						<input class="form-control" type="text"></input>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-sm-3">レッソン内容</label>
+					<div class="col-sm-9">
+						<div class="tab-framed">
+							<div class="inner">
+								<ul class="tabs clearfix">
+									<li ng-repeat="section in sections track by $index" ng-class="{'active': $index === 0}"><a href="#section{{$index}}" data-toggle="tab" tab-pane>{{section.name}}</a></li>
+								</ul>
+
+								<div class="tab-content">
+									<div class="tab-pane fade clearfix" ng-repeat="section in sections track by $index" ng-class="{'active in': $index === 0}" id="section{{$index}}">
+										<textarea froala="froalaEditorOptions[$index]" ng-model="newLesson[section.id]"></textarea>
+									</div>
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="form-group text-center">
+					<button type="submit" class="btn btn-grass">作成</button>
+					<button type="button" class="btn btn-bluejeans">下書き保存</button>
+					<button type="button" class="btn btn-danger">キャンセル</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>

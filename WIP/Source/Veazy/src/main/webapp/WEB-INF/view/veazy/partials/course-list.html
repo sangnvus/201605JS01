@@ -1,0 +1,122 @@
+<style type="text/css">
+	.course-list .jms-slideshow {
+		margin: 0 0 20px 0;
+		width: 100%;
+		min-width: 0;
+	}
+
+	.course-list .jms-wrapper {
+		box-sizing: content-box;
+		min-width: 0;
+	}
+
+	.course-list .jms-link:hover,
+	.course-list .jms-link:focus {
+		color: #fff;
+	}
+</style>
+
+<veazy-header></veazy-header>
+<div class="course-list container" scroll-reveal>
+	<!-- <div class="jumbotron">
+		<h1>Welcome to Veazy Courses!</h1>
+		<p>Courses is abcxyz, xyzabc</p>
+	</div> -->
+	<div class="row-fluid jms-slideshow" jm-slideshow>
+		<div class="step" data-color="color-1">
+			<div class="jms-content">
+				<h3>Just when I thought...</h3>
+				<p>From fairest creatures we desire increase, that thereby beauty's rose might never die</p>
+				<a class="jms-link" href="">Read more</a>
+			</div>
+			<img src="./img/1.png" class="img-responsive" />
+		</div>
+		<div class="step" data-color="color-2" data-y="900" data-rotate-x="80">
+			<div class="jms-content">
+				<h3>Holy cannoli!</h3>
+				<p>But as the riper should by time decease, his tender heir might bear his memory</p>
+				<a class="jms-link" href="">Read more</a>
+			</div>
+			<img src="./img/2.png" class="img-responsive" />
+		</div>
+		<div class="step" data-color="color-3" data-x="-100" data-z="1500" data-rotate="170">
+			<div class="jms-content">
+				<h3>No time to waste</h3>
+				<p>Within thine own bud buriest thy content and, tender churl, makest waste in niggarding</p>
+				<a class="jms-link" href="">Read more</a>
+			</div>
+			<img src="./img/3.png" class="img-responsive" />
+		</div>
+		<div class="step" data-color="color-4" data-x="3000">
+			<div class="jms-content">
+				<h3>Supercool!</h3>
+				<p>Making a famine where abundance lies, thyself thy foe, to thy sweet self too cruel</p>
+				<a class="jms-link" href="">Read more</a>
+			</div>
+			<img src="./img/4.png" class="img-responsive" />
+		</div>
+		<div class="step" data-color="color-5" data-x="4500" data-z="1000" data-rotate-y="45">
+			<div class="jms-content">
+				<h3>Did you know that...</h3>
+				<p>Thou that art now the world's fresh ornament and only herald to the gaudy spring</p>
+				<a class="jms-link" href="">Read more</a>
+			</div>
+			<img src="./img/5.png" class="img-responsive" />
+		</div>
+	</div>
+
+	<div class="row-fluid content">
+		<div class="row clearfix">
+			<form class="form-horizontal">
+			<div class="col-md-5">
+				<div class="form-group">
+					<label class="control-label col-sm-3">Course: </label>
+					<div class="col-sm-9">
+						<select class="form-control">
+							<option>All courses</option>
+							<option>Beginner</option>
+							<option>Upper-beginner</option>
+							<option>Intermediate</option>
+							<option>Upper-intermediate</option>
+							<option>Advanced</option>
+							<option>Master</option>
+						</select>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-5 col-md-offset-2">
+				<div class="form-group">
+					<label class="control-label col-sm-3">Search: </label>
+					<div class="col-sm-9">
+						<div class="input-group">
+							<input type="text" class="form-control" placeholder="Enter a keyword to search for lesson"></input>
+							<span class="input-group-btn">
+								<button class="btn btn-secondary btn-bluejeans" type="button"><span class="glyphicon glyphicon-search"></span></button>
+							</span>
+						</div>
+					</div>
+				</div>
+			</div>
+			</form>
+		</div>
+
+		<div class="row-fluid clearfix">
+			<h2>Course of Vietnamese</h2>
+			<ul class="lesson-list">
+				<li class="lesson clearfix" ng-repeat="lesson in [0, 1, 2, 3, 5, 6]">
+					<div class="img-wrapper stack sr-lesson-icon" ng-class="{'pull-left twisted': $even, 'pull-right rotated-left': $odd}">
+						<img src="./img/course-wallpaper-4.jpg" class="img-responsive">
+					</div>
+					<div class="text">
+						<article>
+							<h3>Natural Method</h3>
+							<p>Our online English course allows you to learn as if you were living abroad with a programme arranged around 144 didactic units based on the ABA Films. You will begin to speak and write in an enjoyable way and naturally and spontaneously by actively participating in real-life situations: firstly you listen and understand and then you begin to speak and write.</p>
+							<p>Author: abcxyz</p>
+						</article>
+						<button class="btn btn-success" type="button" ng-class="{'pull-right': $even}" ui-sref="lessondetail">Learn</button>
+					</div>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>

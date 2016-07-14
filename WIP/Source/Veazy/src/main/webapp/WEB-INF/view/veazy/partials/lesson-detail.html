@@ -1,0 +1,81 @@
+<veazy-header></veazy-header>
+<div class="lesson-detail container">
+	<div class="row-fluid">
+		<div class="col-md-9 left">
+			<div class="badge style2 pull-right"></div>
+			<div class="wrapper">
+				<header>
+				<h1 class="lesson-title">第１課　アルファベット</h1>
+				<hr>
+				<label class="detail"><span class="glyphicon glyphicon-calendar"></span>&nbsp;作成日時：２０１６年６月１４日</label><br>
+				<label class="detail"><span class="glyphicon glyphicon-user"></span>&nbsp;作家：Crimson_Death</label><br>
+				<label class="detail"><span class="glyphicon glyphicon-folder-open"></span>&nbsp;コース：<a href="" ui-sref="courselist">初級</a></label>
+				<hr>
+				</header>
+
+				<section class="clearfix">
+					<!-- Tabs Default Style -->
+					<div class="tabs-framed lesson-content">
+						<div class="inner">
+							<!--nav tab-->
+							<ul class="tabs clearfix">
+								<li ng-repeat="section in lessonSections track by $index" ng-class="{'active': $index === 0}"><a href="#section{{$index}}" data-toggle="tab" tab-pane>{{section.name}}</a></li>
+								<div class="dropdown pull-right">
+									<a href="" class="dropdown-toggle" type="button" data-toggle="dropdown">Options
+									<span class="caret"></span></a>
+									<ul class="dropdown-menu">
+										<li><a href="">報告</a></li>
+										<li><a href="">Option 2</a></li>
+										<li><a href="">Option 3</a></li>
+									</ul>
+								</div>
+							</ul>
+
+							<!--content panel-->
+							<div class="tab-content boxed">
+								<div class="tab-pane fade clearfix" ng-repeat="section in lessonSections track by $index" ng-class="{'in active': $index === 0}" id="section{{$index}}">
+									<div class="tab-image pull-right">
+										<img src="../img/course-wallpaper-12.jpg" alt=""/>
+									</div>
+									<h4>{{section.name}}</h4>
+									<p>A cluster balloonist who became the first person to fly the English Channel has Intrepid Jonathan Trappe, 38, took off just like the 78-year-old character Carl Frederickson in the hit movie.</p>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!--lesson navigation-->
+					<a href="" class="pull-left"><span class="glyphicon glyphicon-circle-arrow-left"></span>&nbsp;前のレッソンへ</a>
+					<a href="" class="pull-right">次のレッソンへ&nbsp;<span class="glyphicon glyphicon-circle-arrow-right"></span></a>
+				</section>
+			</div>
+		</div>
+		<div class="col-md-3 right">
+			<!--lesson img, MIGHT NEED TO CHANGE-->
+			<div class="row-fluid text-center clearfix">
+				<img src="./img/lesson-img.jpg" class="" width="150" height="160">
+			</div>
+			<!--search box-->
+			<div class="row-fluid clearfix">
+				<h4 class="item-heading">レッソン検索</h4>
+	            <div class="input-group">
+	            	<input class="form-control" type="text" placeholder="レッソンを検索" enter-to-search="searchLesson()"></input>
+	            	<span class="input-group-btn">
+	            		<button class="btn btn-secondary btn-primary" ng-click="searchLesson()"><span class="glyphicon glyphicon-search"></span></button>
+	            	</span>
+	            </div>
+			</div>
+			<!--list-->
+			<div class="row-fluid clearfix">
+				<h4 class="item-heading">レッソンリスト</h4>
+				<ul class="nav nav-pills nav-stacked lesson-nav" stacked-list>
+					<li ng-repeat="course in courses">
+						<a href="">{{course.name}}</a>
+						<ul class="nav nav-pills nav-stacked" ng-show="course.lessons && course.lessons.length > 0">
+							<li ng-repeat="lesson in course.lessons"><a href="">{{lesson}}</a></li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>

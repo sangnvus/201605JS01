@@ -19,14 +19,14 @@ public class CoreController {
     private final static org.slf4j.Logger LOGGER = LoggerFactory.getLogger(CoreController.class);
 
     /** Core module entry return page. */
-    private static final String ENTRY_PAGE = "core/index";
+    private static final String ENTRY_PAGE = "index";
 
     /**
      * Process request for Core module entry point.
      * 
      * @return path to view
      */
-    @RequestMapping(value = Const.URLMAPPING_HOME, method = RequestMethod.GET)
+    @RequestMapping(value = Const.URLMAPPING_INDEX, method = { RequestMethod.GET, RequestMethod.POST })
     public String entryPoint() {
         try {
             LOGGER.debug("Get to entry successfully");

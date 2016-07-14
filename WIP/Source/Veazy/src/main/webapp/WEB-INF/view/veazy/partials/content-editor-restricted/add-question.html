@@ -1,0 +1,149 @@
+
+<div class="container-fluid add-question">
+	<div class="row">
+		<div class="col-md-9 col-md-offset-1">
+			<h1 class="text-center">Create new question</h1>
+			<form class="form-horizontal" ng-submit="submitNewQuestion()">
+				<!--question type select box-->
+				<div class="form-group">
+					<label class="control-label col-sm-3">Question type:</label>
+					<div class="col-sm-9">
+						<select class="form-control" ng-model="selectedQuestionType" ng-options="type as type.name for type in questionTypes track by type.id" ng-change="toggleQuestionType()"></select>
+					</div>
+				</div>
+				<!--level select box-->
+				<div class="form-group">
+					<label class="control-label col-sm-3">Level:</label>
+					<div class="col-sm-9">
+						<select class="form-control" ng-model="selectedLevel" ng-options="level as level.name for level in levels track by level.id"></select>
+					</div>
+				</div>
+				<!--test skill select box-->
+				<div class="form-group">
+					<label class="control-label col-sm-3">Skill:</label>
+					<div class="col-sm-9">
+						<select class="form-control" ng-model="selectedTestSkill" ng-options="skill as skill.name for skill in testSkills track by skill.id" ng-disabled="selectedQuestionType.id === questionTypes[questionTypes.length - 1].id"></select>
+					</div>
+				</div>
+
+				<!--single question-->
+				<div ng-show="selectedQuestionType.id === questionTypes[0].id">
+					<!--question content-->
+					<div class="form-group">
+						<label class="control-label col-sm-3">Question:</label>
+						<div class="col-sm-9">
+							<textarea class="form-control" ng-model="newQuestion.content" placeholder="Here comes the content of question"></textarea>
+						</div>
+					</div>
+					<!--answer content-->
+					<div class="form-group">
+						<label class="control-label col-sm-3">Answers:</label>
+						<div class="col-sm-9">
+							<div class="row" ng-repeat="answer in newQuestion.answers track by $index">
+								<label class="checkbox-inline">
+									<!--check if the answer is correct-->
+									<div class="col-sm-1 clearfix">
+										<input type="checkbox" ng-model="answer.isCorrectAnswer" ng-init="answer.isCorrectAnswer = false" ng-click="toggleCorrectAnswer(answer)"></input>
+									</div>
+									<!--answer content-->
+									<div class="col-sm-11">
+										<div class="input-group">
+											<input type="text" class="form-control" ng-model="answer.content" placeholder="Here come the content of answer #{{$index + 1}}"></input>
+											<span class="input-group-btn">
+												<button class="btn btn-secondary btn-danger" type="button" ng-disabled="$index < MIN_ANSWER_NUMBER" ng-click="removeAnswer(newQuestion, $index)" tooltip data-toggle="tooltip" data-placement="right" title="Remove this answer"><span class="glyphicon glyphicon-remove"></span></button>
+											</span>
+										</div>
+									</div>
+								</label>
+							</div>
+						</div>
+					</div>
+					<!--button for adding answer into question-->
+					<div class="form-group">
+						<div class="col-sm-9 col-sm-offset-3">
+							<button class="btn btn-primary" type="button" ng-click="addAnswer(newQuestion)" tooltip data-toggle="tooltip" data-placement="right" title="Add more answer"><i class="fa fa-plus" aria-hidden="true"></i></button>
+						</div>
+					</div>
+				</div>
+
+				<!--group question-->
+				<div ng-show="selectedQuestionType.id === questionTypes[1].id">
+					<!--shared content-->
+					<div class="form-group">
+						<label class="col-sm-3 control-label">Shared Content: </label>
+						<div class="col-sm-9">
+							<textarea froala="sharedContentEditorOptions" ng-model="newQuestion.sharedContent"></textarea>
+						</div>
+					</div>
+
+					<!--questions in group-->
+					<div class="form-group" ng-repeat="question in newQuestion.questions track by $index">
+						<label class="col-sm-3 control-label">Question {{$index + 1}}:
+							<!--button for removing question-->
+							<div>
+								<button class="btn btn-danger remove-question" type="button" ng-disabled="$index < MIN_QUESTION_NUMBER_IN_GROUP" ng-click="removeQuestion(newQuestion, $index)" tooltip data-toggle="tooltip" data-placement="bottom" title="Remove this question"><span class="glyphicon glyphicon-remove"></span></button>
+							</div>
+						</label>
+						<div class="col-sm-9">
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Question: </label>
+								<!--question content-->
+								<div class="col-sm-9">
+									<textarea class="form-control" placeholder="Here comes the content of question #{{$index + 1}}" ng-model="question.content"></textarea>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Answers:</label>
+								<div class="col-sm-9">
+									<div class="row" ng-repeat="answer in question.answers track by $index">
+										<label class="checkbox-inline">
+											<!--check if the answer is correct-->
+											<div class="col-sm-1 clearfix">
+												<input type="checkbox" ng-model="answer.isCorrectAnswer" ng-init="answer.isCorrectAnswer = false" ng-click="toggleCorrectAnswer(answer)"></input>
+											</div>
+											<!--answer content-->
+											<div class="col-sm-11">
+												<div class="input-group">
+													<input type="text" class="form-control" placeholder="Here comes the content of answer #{{$index + 1}}" ng-model="answer.content"></input>
+													<span class="input-group-btn">
+														<button class="btn btn-secondary btn-danger" type="button" ng-disabled="$index < MIN_ANSWER_NUMBER" ng-click="removeAnswer(question, $index)" tooltip data-toggle="tooltip" data-placement="right" title="Remove this answer"><span class="glyphicon glyphicon-remove"></span></button>
+													</span>
+												</div>
+											</div>
+										</label>
+									</div>
+								</div>
+							</div>
+							<!--button for adding answer into question in group-->
+							<div class="form-group">
+								<div class="col-sm-9 col-sm-offset-3">
+									<button class="btn btn-primary" type="button" ng-click="addAnswer(question)" tooltip data-toggle="tooltip" data-placement="right" title="Add more answer"><i class="fa fa-plus" aria-hidden="true"></i></button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!--button for adding question into group-->
+					<div class="form-group">
+						<div class="col-sm-9 col-sm-offset-3">
+							<button class="btn btn-primary" type="button" ng-click="addQuestion(newQuestion)" tooltip data-toggle="tooltip" data-placement="right" title="Add more question"><i class="fa fa-plus" aria-hidden="true"></i></button>
+						</div>
+					</div>
+				</div>
+
+				<!--file attachment-->
+				<div class="form-group">
+					<label class="col-sm-3 control-label">File attachment: </label>
+					<div class="col-sm-9">
+						<input type="text" class="form-control"></input>
+					</div>
+				</div>
+
+				<!--submit button-->
+				<div class="form-group text-center">
+					<button class="btn btn-success" type="submit">Submit</button>
+					<button class="btn btn-danger" type="button">Cancel</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>

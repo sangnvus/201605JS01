@@ -1,0 +1,37 @@
+<nav class="veazy-header navbar navbar-default navbar-fixed-top" role="navigation" ng-class="{'shrinked-header':scrollDown}">
+	<div class="navbar-header">
+		<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#example-navbar-collapse">
+			<span class="glyphicon glyphicon-menu-hamburger"></span>
+		</button>
+		<button type="button" class="navbar-toggle" id="login-button">
+			<span class="glyphicon glyphicon-user"></span>
+		</button>
+		<a class="navbar-brand" href="">Veazy</a>
+	</div>
+
+	<div class="collapse navbar-collapse" id="example-navbar-collapse">
+		<ul class="nav navbar-nav">
+			<li><a href="" ui-sref="home"><span class="glyphicon glyphicon-home"></span>&nbsp;ホーム</a></li>
+			<li class="dropdown">
+				<a href="" class="dropdown-toggle" data-toggle="dropdown">
+					<span class="glyphicon glyphicon-book"></span>&nbsp;コース</strong>
+					<b class="caret"></b>
+				</a>
+				<ul class="dropdown-menu">
+					<li><a ui-sref="courselist">初級</a></li>
+					<li><a ui-sref="courselist">初中級</a></li>
+					<li><a ui-sref="courselist">中級</a></li>
+					<li><a ui-sref="courselist">中上級</a></li>
+					<li><a ui-sref="courselist">上級</a></li>
+					<li><a ui-sref="courselist">マスター</a></li>
+				</ul>
+			</li>
+			<li><a ui-sref="test"><span class="glyphicon glyphicon-pencil"></span>&nbsp;テスト</a></li>
+			<li><a href=""><span class="glyphicon glyphicon-search"></span>&nbsp;辞書</a></li>
+			<li><a href=""><span class="glyphicon glyphicon-sunglasses"></span>&nbsp;読書</a></li>
+		</ul>
+		<ul class="nav navbar-right">
+			<li><a ui-sref="login"><span class="glyphicon glyphicon-user"></span>&nbsp;ログイン</a></li>
+		</ul>
+	</div> 
+</nav>

@@ -13,7 +13,7 @@
                                         vn.edu.fu.veazy.cpanel.controller,
                                         vn.edu.fu.veazy.dictionary.controller" />
 
-  <mvc:resources mapping="/res/**" location="/res/def-theme/" />
+  <mvc:resources mapping="/res/**" location="/WEB-INF/view/veazy/" />
 
   <mvc:annotation-driven />
 
@@ -44,7 +44,7 @@
           <value>/WEB-INF/view/veazy/</value>
       </property>
       <property name="suffix">
-          <value>.jsp</value>
+          <value>.html</value>
       </property>
   </bean>
 

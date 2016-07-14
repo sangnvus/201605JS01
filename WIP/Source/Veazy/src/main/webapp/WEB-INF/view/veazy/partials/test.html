@@ -1,0 +1,72 @@
+<veazy-header></veazy-header>
+<div class="do-test">
+	<div class="container">
+		<div class="row">
+			<div class="time">
+				<label>1:30:29</label>
+			</div>
+			<div class="col-sm-8 left">
+				<fieldset>
+					<ul>
+						<li ng-repeat="question in questions track by $index">
+							<p>{{$index + 1}}. {{question.content}}</p>
+							<span ng-repeat="answer in question.answers track by $index">
+								<input name="answer-{{$parent.$index}}-{{$index}}" type="checkbox" id="answer-{{$parent.$index}}-{{$index}}" value="" hidefocus="true" custom-input>
+								<label for="answer-{{$parent.$index}}-{{$index}}" class="checked">{{answer}}</label>
+							</span>
+						</li>
+					</ul>
+					<div class="text-center">
+						<button class="btn btn-success submit-test-btn">提出</button>
+					</div>
+				</fieldset>
+			</div>
+			<div class="col-sm-4 right">
+				<fieldset>
+					<div class="title text-center">
+						<h3>テスト準備</h3>
+					</div>
+					<hr>
+					<div class="form-box">
+						<form class="form-horizontal">
+							<div class="form-group">
+								<label class="control-label col-sm-4" for="">レベル</label>
+								<div class="col-sm-8">
+									<select class="form-control" ng-options="level as level.name for level in levels track by level.id" ng-model="selectedLevel">
+									</select>				
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="control-label col-sm-4">分野</label>
+								<div class="col-sm-8">
+									<select class="form-control" ng-options="skill as skill.name for skill in testSkills track by skill.id" ng-model="selectedTestSkill"></select>			
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="control-label col-sm-4">質問の数</label>
+								<div class="col-sm-8">
+									<input type="number" class="form-control"></input>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="control-label col-sm-4">時間期限</label>
+								<div class="col-sm-8">
+									<input type="text" class="form-control"></input>
+								</div>
+							</div>
+
+							<hr>
+							<div class="form-group text-center">
+								<button class="btn btn-primary create-test-btn">新テストを作成</button>
+								<!-- <button class="chubby-btn chubby-btn-alt"><span>新テストを作成</span></button> -->
+							</div>
+						</form>
+					</div>
+				</fieldset>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,179 @@
+.veazy-header {
+   min-height: 100px;          /*original heigh of nav*/
+   box-sizing: border-box;
+   padding: 15px 0;
+   background-color: #000;
+   font-size: 18px;
+   -webkit-transition: all .3s ease-out;
+      -moz-transition: all .3s ease-out;
+        -o-transition: all .3s ease-out;
+           transition: all .3s ease-out;
+}
+
+/*====shrink animation====*/
+.shrinked-header { 
+   min-height: 65px;
+   padding: 0;
+   background: rgba(0, 0, 0, 1);
+}
+
+/*a*/
+.veazy-header a {
+   color: rgba(255, 255, 255, 255) !important;
+   text-shadow: none;
+}
+.veazy-header a:hover,
+.veazy-header a:focus {
+   color: rgba(84, 238, 35, 0.88) !important;
+}
+
+/*====ul====*/
+.veazy-header ul.navbar-nav,
+.veazy-header ul.navbar-right {
+   margin-top: 6px;
+}
+
+/*====logo====*/
+.veazy-header .navbar-brand {
+   margin-top: 5px;
+   font-size: 24px;
+}
+
+/*====hamburger button====*/
+.veazy-header .navbar-toggle {
+   margin-top: 14px;
+   margin-bottom: 2px;
+   padding: 6px 14px;
+}
+.veazy-header .navbar-toggle:hover,
+.veazy-header .navbar-toggle:focus {
+   background-color: transparent;
+   color: rgba(84, 238, 35, 0.88) !important;
+   border-color: rgba(84, 238, 35, 0.88);
+}
+
+
+/*====dropdown menu====*/
+.veazy-header .dropdown.open > a, 
+.veazy-header .dropdown.open > a:hover, 
+.veazy-header .dropdown.open > a:focus {
+   background-color: transparent;
+}
+
+/*disable properties of chucky style*/
+/*.veazy-header .dropdown {
+   margin-bottom: 0;
+}
+.veazy-header .dropdown a.dropdown-toggle {
+   padding: 15px;
+   text-shadow: none;
+   border: 0;
+   border-radius: 0;
+   background: transparent;
+}
+.veazy-header .dropdown a.dropdown-toggle span {
+   position: static;
+   border: 0;
+   width: auto;
+}
+
+.veazy-header .dropdown a.dropdown-toggle span:before,
+.veazy-header .dropdown a.dropdown-toggle span:after {
+   position: static !important;
+   content: none;
+   border: 0;
+}
+
+.veazy-header .dropdown a.dropdown-toggle span.glyphicon-book:before {
+   font-family: 'Glyphicons Halflings';
+   content: '\e043';
+}
+
+.veazy-header .dropdown-menu {
+   top: 116% !important;
+   min-width: 160px !important;
+   border: 1px solid #ccc;
+   border-radius: 4px !important;
+   font-size: 14px;
+}*/
+
+/*drop-down menu upward triange*/
+.veazy-header .dropdown-menu:before,
+.veazy-header .dropdown-menu:after {
+   position: absolute;
+   display: inline-block;
+   content: '';  
+}
+
+.veazy-header .dropdown-menu:before {
+   top: -10px;
+   left: 20%;
+   border-right: 9px solid transparent;
+   border-bottom: 9px solid rgba(204, 204, 204, 1);
+   border-left: 9px solid transparent;
+   border-bottom-color: rgba(0, 0, 0, 0.2);
+}
+
+.veazy-header .dropdown-menu:after {
+   top: -9px;
+   left: 20%;
+   border-right: 10px solid transparent;
+   border-bottom: 10px solid #fff;
+   border-left: 10px solid transparent;
+}
+
+.veazy-header .dropdown-menu > li > a {
+   color: rgba(0, 0, 0, 1) !important;
+   padding: 6px 15px;
+}
+
+.veazy-header .dropdown-menu > li > a:hover, 
+.veazy-header .dropdown-menu > li > a:focus {
+   background-color: rgba(202, 200, 200, 0.31);
+   /*font-weight: bold;*/
+}
+
+/*====login====*/
+.veazy-header .navbar-right {
+   margin-right: 15px !important;
+}
+
+.veazy-header .navbar-right a {
+   padding: 15px 0;
+}
+
+.veazy-header .navbar-right a:hover,
+.veazy-header .navbar-right a:focus {
+   background-color: transparent;
+}
+
+/*RESPONSIVE*/
+@media (max-width: 768px) {
+   /*hide drop-down menu*/
+   .veazy-header .dropdown-menu:before,
+   .veazy-header .dropdown-menu:after {
+      border: none !important;
+      content: '' !important;
+   }
+
+   .veazy-header .dropdown-menu li {
+      background-color: inherit;
+      border: none;
+   }
+
+   /*white text in drop-down menu*/
+   .veazy-header .dropdown-menu > li > a {
+      color: rgba(255, 255, 255, 255) !important;
+   }
+
+   /*green text while hover & focusing in drop-down menu*/
+      .veazy-header .dropdown-menu > li > a:hover, 
+      .veazy-header .dropdown-menu > li > a:focus {
+      color: rgba(84, 238, 35, 0.88) !important;
+   }
+
+   /*hide log in*/
+   .veazy-header ul.navbar-right {
+      display: none;
+   }
+}

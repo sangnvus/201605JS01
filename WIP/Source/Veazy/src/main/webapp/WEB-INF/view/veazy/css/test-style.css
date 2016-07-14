@@ -1,0 +1,88 @@
+/*===container====*/
+.do-test{
+	padding-top: 115px;
+}
+
+.do-test .left {
+	padding: 0;
+}
+
+.do-test .right {
+	padding-right: 0;
+	z-index: 0;
+}
+
+/*=====fieldset=====*/
+.do-test .left fieldset,
+.do-test .right fieldset {
+	margin-bottom: 40px;
+	background-color: #fff;
+	/*border: 1px solid #d8d8d8;*/
+	box-shadow: 0 2px 6px rgba(0, 0, 0, .2);
+	/*border-radius: 4px;*/
+}
+
+.do-test .left fieldset {
+	padding: 30px 0px;
+}
+
+.do-test .right fieldset {
+	padding: 30px 15px 0 15px;
+}
+
+/*ul*/
+.do-test .left ul {
+	margin: 10px;
+    padding: 10px;
+}
+
+/*p*/
+.do-test .left ul > li > p {
+	font-size: 16px;
+	font-weight: bold;
+	line-height: inherit;
+	margin-bottom: 10px;
+}
+.do-test .left fieldset label {
+	font-weight: normal;
+}
+
+
+/*title*/
+.do-test .title {
+	/*color: rgba(0, 153, 0, 1);*/
+	/*margin-top: 0px;*/
+	/*padding-left: 10px; */
+}
+
+/*form*/
+.do-test .right .form-group {
+	margin: 20px 0;
+}
+
+/*button*/
+.do-test .submit-test-btn {
+	padding: 8px 25px;
+}
+
+.do-test .create-test-btn {
+	/*margin: 10px 0;*/
+	padding: 10px 25px;
+}
+
+/*time*/
+.do-test .time{
+	position: fixed;
+	bottom: 5px;
+	right: 5px;
+	padding:10px 15px 10px 15px	 ;
+	color: #fff;
+	font-size: 20px;
+	background-color: rgb(255, 153, 0);
+	border-radius: 5px;
+	z-index: 1;
+}
+
+.do-test .custom-checkbox {
+	padding-left: 20px;
+}
