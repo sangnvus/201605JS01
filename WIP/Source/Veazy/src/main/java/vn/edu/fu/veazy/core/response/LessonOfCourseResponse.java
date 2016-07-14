@@ -1,5 +1,7 @@
 package vn.edu.fu.veazy.core.response;
 
+import vn.edu.fu.veazy.core.common.JsonUtils;
+
 public class LessonOfCourseResponse {
 	private String lessonId;
 	private String title;
@@ -15,5 +17,8 @@ public class LessonOfCourseResponse {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	
+	@Override
+	public String toString() {
+		return JsonUtils.toJson(this);
+	}
 }

@@ -2,6 +2,7 @@ package vn.edu.fu.veazy.core.response;
 
 import java.util.List;
 
+import vn.edu.fu.veazy.core.common.JsonUtils;
 import vn.edu.fu.veazy.core.model.LessonModel;
 import vn.edu.fu.veazy.core.model.LessonVersionModel;
 
@@ -136,5 +137,8 @@ public class GetLessonVersionResponse {
 	public void setListVersions(List<Integer> listVersions) {
 		this.listVersions = listVersions;
 	}
-	
+	@Override
+	public String toString() {
+		return JsonUtils.toJson(this);
+	}
 }

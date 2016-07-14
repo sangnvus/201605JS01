@@ -2,6 +2,7 @@ package vn.edu.fu.veazy.core.response;
 
 import javax.crypto.Cipher;
 
+import vn.edu.fu.veazy.core.common.JsonUtils;
 import vn.edu.fu.veazy.core.model.LessonModel;
 import vn.edu.fu.veazy.core.model.LessonVersionModel;
 
@@ -115,5 +116,8 @@ public class GetLessonResponse {
 	public void setNextLessonId(String nextLessonId) {
 		this.nextLessonId = nextLessonId;
 	}
-	
+	@Override
+	public String toString() {
+		return JsonUtils.toJson(this);
+	}
 }

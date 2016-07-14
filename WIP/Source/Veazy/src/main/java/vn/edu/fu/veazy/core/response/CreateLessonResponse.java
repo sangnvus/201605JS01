@@ -1,5 +1,6 @@
 package vn.edu.fu.veazy.core.response;
 
+import vn.edu.fu.veazy.core.common.JsonUtils;
 import vn.edu.fu.veazy.core.model.LessonModel;
 import vn.edu.fu.veazy.core.model.LessonVersionModel;
 
@@ -109,6 +110,10 @@ public class CreateLessonResponse {
 	}
 	public void setArticle(String article) {
 		this.article = article;
+	}
+	@Override
+	public String toString() {
+		return JsonUtils.toJson(this);
 	}
 	
 }
