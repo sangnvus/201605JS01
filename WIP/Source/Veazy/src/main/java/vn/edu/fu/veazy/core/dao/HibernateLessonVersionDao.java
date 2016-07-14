@@ -61,7 +61,6 @@ public class HibernateLessonVersionDao implements GenericDao<LessonVersionModel,
 
     @Override
     public void update(LessonVersionModel lessonversion) throws Exception {
-        // TODO Auto-generated method stub
     	sessionFactory.getCurrentSession().update(lessonversion);
     }
 
@@ -79,4 +78,9 @@ public class HibernateLessonVersionDao implements GenericDao<LessonVersionModel,
     			.uniqueResult();
     }
 
+    public List<LessonVersionModel> getVersionOfLesson(String lessonId) throws Exception{
+    	LessonVersionModel versionSample = new LessonVersionModel();
+		versionSample.setLessonId(lessonId);
+		return findByExample(versionSample);
+    }
 }
