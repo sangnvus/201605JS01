@@ -18,6 +18,17 @@ public abstract class BasicModel implements Serializable {
     private Long updateDate;
     private Long deleteDate;
     private boolean deleteFlag;
+	public BasicModel(String id, Long createDate, Long updateDate, Long deleteDate, boolean deleteFlag) {
+		super();
+		this.id = id;
+		this.createDate = createDate;
+		this.updateDate = updateDate;
+		this.deleteDate = deleteDate;
+		this.deleteFlag = deleteFlag;
+	}
+	public BasicModel() {
+	}
+	
 	public String getId() {
 		return id;
 	}

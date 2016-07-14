@@ -40,6 +40,14 @@
     <property name="annotatedClasses">
       <list>
         <value>vn.edu.fu.veazy.core.model.UserModel</value>
+        <value>vn.edu.fu.veazy.core.model.CourseModel</value>
+        <value>vn.edu.fu.veazy.core.model.ExamModel</value>
+        <value>vn.edu.fu.veazy.core.model.LessonModel</value>
+        <value>vn.edu.fu.veazy.core.model.LessonVersionModel</value>
+        <value>vn.edu.fu.veazy.core.model.MessageModel</value>
+        <value>vn.edu.fu.veazy.core.model.QuestionModel</value>
+        <value>vn.edu.fu.veazy.core.model.ReportModel</value>
+        <value>vn.edu.fu.veazy.core.model.TaskModel</value>
       </list>
     </property>
       <property name="hibernateProperties">

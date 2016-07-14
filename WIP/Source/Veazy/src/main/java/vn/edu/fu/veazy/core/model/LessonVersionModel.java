@@ -16,6 +16,29 @@ public class LessonVersionModel extends BasicModel{
 	private String listening;
 	private String practice;
 	private String article;
+	
+	public LessonVersionModel() {
+		super();
+	}
+	public LessonVersionModel(String id, Long createDate, Long updateDate, Long deleteDate, boolean deleteFlag,
+			String lessonId, Integer version, Integer state, String title, String description, String creatorId,
+			String reviewerId, String vocabulary, String grammar, String reading, String listening, String practice,
+			String article) {
+		super(id, createDate, updateDate, deleteDate, deleteFlag);
+		this.lessonId = lessonId;
+		this.version = version;
+		this.state = state;
+		this.title = title;
+		this.description = description;
+		this.creatorId = creatorId;
+		this.reviewerId = reviewerId;
+		this.vocabulary = vocabulary;
+		this.grammar = grammar;
+		this.reading = reading;
+		this.listening = listening;
+		this.practice = practice;
+		this.article = article;
+	}
 	public String getLessonId() {
 		return lessonId;
 	}
