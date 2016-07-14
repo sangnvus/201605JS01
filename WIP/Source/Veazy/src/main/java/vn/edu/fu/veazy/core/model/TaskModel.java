@@ -1,6 +1,6 @@
 package vn.edu.fu.veazy.core.model;
 
-public class TaskModel {
+public class TaskModel extends BasicModel{
 	private String senderId;
 	private String receiverId;
 	private String content;

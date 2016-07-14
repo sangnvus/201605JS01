@@ -1,15 +1,10 @@
-package vn.edu.fu.veazy.core.model;
+package vn.edu.fu.veazy.core.form;
 
-
-public class LessonVersionModel extends BasicModel{
-	
+public class UpdateLessonForm {
 	private String lessonId;
-	private Integer version;
-	private Integer state;
-	private String title;
+	private String courseId;
+	private String lessonTitle;
 	private String description;
-	private String creatorId;
-	private String reviewerId;
 	private String vocabulary;
 	private String grammar;
 	private String reading;
@@ -22,41 +17,23 @@ public class LessonVersionModel extends BasicModel{
 	public void setLessonId(String lessonId) {
 		this.lessonId = lessonId;
 	}
-	public Integer getVersion() {
-		return version;
+	public String getCourseId() {
+		return courseId;
 	}
-	public void setVersion(Integer version) {
-		this.version = version;
+	public void setCourseId(String courseId) {
+		this.courseId = courseId;
 	}
-	public Integer getState() {
-		return state;
+	public String getLessonTitle() {
+		return lessonTitle;
 	}
-	public void setState(Integer state) {
-		this.state = state;
-	}
-	public String getTitle() {
-		return title;
-	}
-	public void setTitle(String title) {
-		this.title = title;
+	public void setLessonTitle(String lessonTitle) {
+		this.lessonTitle = lessonTitle;
 	}
 	public String getDescription() {
 		return description;
 	}
 	public void setDescription(String description) {
 		this.description = description;
-	}
-	public String getCreatorId() {
-		return creatorId;
-	}
-	public void setCreatorId(String creatorId) {
-		this.creatorId = creatorId;
-	}
-	public String getReviewerId() {
-		return reviewerId;
-	}
-	public void setReviewerId(String reviewerId) {
-		this.reviewerId = reviewerId;
 	}
 	public String getVocabulary() {
 		return vocabulary;
@@ -94,7 +71,5 @@ public class LessonVersionModel extends BasicModel{
 	public void setArticle(String article) {
 		this.article = article;
 	}
-	
+
 }
-
-

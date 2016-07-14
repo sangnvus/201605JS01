@@ -61,4 +61,6 @@
   <bean id="lessonDao" class="vn.edu.fu.veazy.core.dao.HibernateLessonDao"/>
   <bean id="lessonVersionDao" class="vn.edu.fu.veazy.core.dao.HibernateLessonVersionDao"/>
   <bean id="questionDao" class="vn.edu.fu.veazy.core.dao.HibernateQuestionDao"/>
+  <bean id="taskDao" class="vn.edu.fu.veazy.core.dao.HibernateTaskDao"/>
+  <bean id="reportDao" class="vn.edu.fu.veazy.core.dao.HibernateReportDao"/>
 </beans>

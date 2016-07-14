@@ -1,7 +1,7 @@
 package vn.edu.fu.veazy.core.model;
 
 
-public class LessonModel {
+public class LessonModel extends BasicModel{
 	private int index;
 	private String courseId;
 	private String currentVersionId;
