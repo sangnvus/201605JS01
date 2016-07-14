@@ -9,6 +9,7 @@ import org.hibernate.criterion.Projections;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import vn.edu.fu.veazy.core.model.LessonModel;
+import vn.edu.fu.veazy.core.model.LessonVersionModel;
 
 public class HibernateLessonDao implements GenericDao<LessonModel, String> {
 
@@ -16,8 +17,8 @@ public class HibernateLessonDao implements GenericDao<LessonModel, String> {
     private SessionFactory sessionFactory;
 
     @Override
-    public void save(LessonModel course) throws Exception {
-        sessionFactory.getCurrentSession().save(course);
+    public void save(LessonModel lesson) throws Exception {
+        sessionFactory.getCurrentSession().save(lesson);
     }
 
     @Override
@@ -60,15 +61,14 @@ public class HibernateLessonDao implements GenericDao<LessonModel, String> {
     }
 
     @Override
-    public void update(LessonModel course) throws Exception {
-        // TODO Auto-generated method stub
-    	sessionFactory.getCurrentSession().update(course);
+    public void update(LessonModel lesson) throws Exception {
+    	sessionFactory.getCurrentSession().update(lesson);
     }
 
     @Override
-    public void delete(LessonModel course) throws Exception {
+    public void delete(LessonModel lesson) throws Exception {
     	//TODO set flag?
-    	sessionFactory.getCurrentSession().delete(course);
+    	sessionFactory.getCurrentSession().delete(lesson);
     }
 
     @Override

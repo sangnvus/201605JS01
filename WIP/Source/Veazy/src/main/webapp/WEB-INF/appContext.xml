@@ -40,6 +40,14 @@
     <property name="annotatedClasses">
       <list>
         <value>vn.edu.fu.veazy.core.model.UserModel</value>
+        <value>vn.edu.fu.veazy.core.model.CourseModel</value>
+        <value>vn.edu.fu.veazy.core.model.ExamModel</value>
+        <value>vn.edu.fu.veazy.core.model.LessonModel</value>
+        <value>vn.edu.fu.veazy.core.model.LessonVersionModel</value>
+        <value>vn.edu.fu.veazy.core.model.MessageModel</value>
+        <value>vn.edu.fu.veazy.core.model.QuestionModel</value>
+        <value>vn.edu.fu.veazy.core.model.ReportModel</value>
+        <value>vn.edu.fu.veazy.core.model.TaskModel</value>
       </list>
     </property>
       <property name="hibernateProperties">
@@ -61,4 +69,6 @@
   <bean id="lessonDao" class="vn.edu.fu.veazy.core.dao.HibernateLessonDao"/>
   <bean id="lessonVersionDao" class="vn.edu.fu.veazy.core.dao.HibernateLessonVersionDao"/>
   <bean id="questionDao" class="vn.edu.fu.veazy.core.dao.HibernateQuestionDao"/>
+  <bean id="taskDao" class="vn.edu.fu.veazy.core.dao.HibernateTaskDao"/>
+  <bean id="reportDao" class="vn.edu.fu.veazy.core.dao.HibernateReportDao"/>
 </beans>
