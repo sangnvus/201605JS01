@@ -61,7 +61,6 @@ public class HibernateUserDao implements GenericDao<UserModel, String> {
 
     @Override
     public void update(UserModel user) throws Exception {
-        // TODO Auto-generated method stub
     	sessionFactory.getCurrentSession().update(user);
     }
 
