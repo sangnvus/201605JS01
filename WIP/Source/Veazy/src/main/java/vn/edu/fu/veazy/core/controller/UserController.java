@@ -1,10 +1,12 @@
 package vn.edu.fu.veazy.core.controller;
 
+import java.util.List;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -16,6 +18,9 @@ import vn.edu.fu.veazy.core.form.RegisterForm;
 import vn.edu.fu.veazy.core.model.UserModel;
 import vn.edu.fu.veazy.core.response.Response;
 import vn.edu.fu.veazy.core.response.ResponseCode;
+import vn.edu.fu.veazy.core.response.data.GetListUsersResponseData;
+import vn.edu.fu.veazy.core.response.data.GetUserResponseData;
+import vn.edu.fu.veazy.core.response.data.LoginResponseData;
 import vn.edu.fu.veazy.core.service.UserService;
 
 /**
@@ -50,45 +55,18 @@ public class UserController {
     private UserService userService;
 
     /**
-     * Process request to register page.
-     *
-     * @param model view model object
-     * @return path to register view jsp
-     */
-    @RequestMapping(value = Const.URLMAPPING_REGISTER, method = RequestMethod.GET)
-    public String registerUser(ModelMap model) {
-        LOGGER.debug("Get to register controller successful");
-        LOGGER.debug("Retrieving register view");
-        return REGISTER_PAGE;
-    }
-
-    /**
-     * Process request to register page.
-     *
-     * @param model view model object
-     * @return path to register view jsp
-     */
-    @RequestMapping(value = Const.URLMAPPING_LOGIN, method = RequestMethod.GET)
-    public String login(ModelMap model) {
-        LOGGER.debug("Get to login controller successful");
-        LOGGER.debug("Retrieving login view");
-        return LOGIN_PAGE;
-    }
-
-    /**
      * Process request of register page.
      *
      * @param model view model object
      * @param registerForm form submitted
      * @return json string
      */
-    @RequestMapping(value = Const.URLMAPPING_REGISTER_PROCEED, method = RequestMethod.POST)
+    @RequestMapping(value = Const.URLMAPPING_REGISTER, method = RequestMethod.POST)
     public @ResponseBody
-    String registerUserProceed(ModelMap model,
+    String register(ModelMap model,
             @ModelAttribute("register-form") RegisterForm registerForm) {
         Response response = new Response(ResponseCode.BAD_REQUEST);
         try {
-            // FIXME json object
             LOGGER.debug("Get to register proceed controller successful");
 
             if (!Utils.isValidEmail(registerForm.getEmail())) {
@@ -114,7 +92,12 @@ public class UserController {
             LOGGER.debug("Register new user successfully!");
 
             userService.saveUser(registerForm);
+            LoginResponseData data = new LoginResponseData();
+            data.setRoll(user.getRole());
+//            TODO
+//            data.setToken(token);
             response.setCode(ResponseCode.SUCCESS);
+            response.setData(data);
             return response.toResponseJson();
         } catch (Exception e) {
             LOGGER.error(e.getMessage());
@@ -132,13 +115,12 @@ public class UserController {
      * @param loginForm form submitted
      * @return json string
      */
-    @RequestMapping(value = Const.URLMAPPING_LOGIN_PROCEED, method = RequestMethod.POST)
+    @RequestMapping(value = Const.URLMAPPING_LOGIN, method = RequestMethod.POST)
     public @ResponseBody
     String loginProceed(ModelMap model,
             @ModelAttribute("login-form") LoginForm loginForm) {
         Response response = new Response(ResponseCode.BAD_REQUEST);
         try {
-            // FIXME json object
             LOGGER.debug("Get to login proceed controller successful");
 
             UserModel user = userService.findUserByUsername(loginForm.getUsername());
@@ -155,10 +137,12 @@ public class UserController {
             }
 
             LOGGER.debug("Login successfully!");
+            LoginResponseData data = new LoginResponseData();
+            data.setRoll(user.getRole());
+//            TODO
+//            data.setToken(token);
             response.setCode(ResponseCode.SUCCESS);
-            //TODO 
-            //response.setData(token authorize ...);
-            return response.toResponseJson();
+            response.setData(data);
         } catch (Exception e) {
             LOGGER.error(e.getMessage());
         }
@@ -167,4 +151,75 @@ public class UserController {
         response.setCode(ResponseCode.INTERNAL_SERVER_ERROR);
         return response.toResponseJson();
     }
+
+    /**
+     * Process request of get user detail.
+     *
+     * @param model view model object
+     * @param userId url
+     * @return json string
+     */
+    @RequestMapping(value = Const.URLMAPPING_GET_USER, method = RequestMethod.GET)
+    public @ResponseBody
+    String getUser(ModelMap model,
+            @PathVariable("user_id") String userId) {
+        Response response = new Response(ResponseCode.BAD_REQUEST);
+        try {
+            // FIXME json object
+            LOGGER.debug("Get to login proceed controller successful");
+
+            UserModel user = userService.findUserById(userId);
+            if (user == null) {
+                LOGGER.error("User not exist!");
+                response.setCode(ResponseCode.USER_NOT_FOUND);
+                return response.toResponseJson();
+            }
+
+            LOGGER.debug("Get user details successfully!");
+            GetUserResponseData data = new GetUserResponseData(user);
+            response.setCode(ResponseCode.SUCCESS);
+            response.setData(data);
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage());
+        }
+
+        LOGGER.error("Unknown error occured!");
+        response.setCode(ResponseCode.INTERNAL_SERVER_ERROR);
+        return response.toResponseJson();
+    }
+
+    /**
+     * Process request of get list user.
+     *
+     * @param model view model object
+     * @return json string
+     */
+    @RequestMapping(value = Const.URLMAPPING_GET_LIST_USERS, method = RequestMethod.GET)
+    public @ResponseBody
+    String getListUser(ModelMap model) {
+        Response response = new Response(ResponseCode.BAD_REQUEST);
+        try {
+            // FIXME json object
+            LOGGER.debug("Get to login proceed controller successful");
+
+            List<UserModel> users = userService.findAllUser();
+            if (users != null && users.size() > 0) {
+                GetListUsersResponseData listUsers = new GetListUsersResponseData();
+                for (UserModel user : users) {
+                    GetUserResponseData data = new GetUserResponseData(user);
+                    listUsers.addUser(data);
+                }
+                LOGGER.debug("Get user details successfully!");
+                response.setCode(ResponseCode.SUCCESS);
+                response.setData(listUsers);
+            }
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage());
+        }
+
+        LOGGER.error("Unknown error occured!");
+        response.setCode(ResponseCode.INTERNAL_SERVER_ERROR);
+        return response.toResponseJson();
+    }
+
 }

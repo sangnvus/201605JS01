@@ -3,17 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package vn.edu.fu.veazy.core.model;
+package vn.edu.fu.veazy.core.response.data;
+
+import vn.edu.fu.veazy.core.model.UserModel;
 
 /**
  *
  * @author Hoang Linh
  */
-public class UserModel extends BasicModel {
+public class GetUserResponseData {
 
     private String email;
     private String userName;
-    private String encryptedPassword;
     private String firstName;
     private String lastName;
     private Long dob;
@@ -21,32 +22,20 @@ public class UserModel extends BasicModel {
     private String address;
     private Integer role;
     private String hobby;
-    private Boolean isBanned;
 
-    public UserModel() {
+    public GetUserResponseData() {
     }
 
-    public UserModel(String email, String userName, String encryptedPassword) {
-        super();
-        this.email = email;
-        this.userName = userName;
-        this.encryptedPassword = encryptedPassword;
-    }
-
-    public UserModel(String email, String userName, String encryptedPassword, String firstName, String lastName,
-            Long dob, Long joinDate, String address, Integer role, String hobby, Boolean isBanned) {
-        super();
-        this.email = email;
-        this.userName = userName;
-        this.encryptedPassword = encryptedPassword;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.dob = dob;
-        this.joinDate = joinDate;
-        this.address = address;
-        this.role = role;
-        this.hobby = hobby;
-        this.isBanned = isBanned;
+    public GetUserResponseData(UserModel user) {
+        this.email = user.getEmail();
+        this.userName = user.getUserName();
+        this.firstName = user.getFirstName();
+        this.lastName = user.getLastName();
+        this.dob = user.getDob();
+        this.joinDate = user.getJoinDate();
+        this.address = user.getAddress();
+        this.role = user.getRole();
+        this.hobby = user.getHobby();
     }
 
     public String getEmail() {
@@ -63,14 +52,6 @@ public class UserModel extends BasicModel {
 
     public void setUserName(String userName) {
         this.userName = userName;
-    }
-
-    public String getEncryptedPassword() {
-        return encryptedPassword;
-    }
-
-    public void setEncryptedPassword(String encryptedPassword) {
-        this.encryptedPassword = encryptedPassword;
     }
 
     public String getFirstName() {
@@ -127,14 +108,6 @@ public class UserModel extends BasicModel {
 
     public void setHobby(String hobby) {
         this.hobby = hobby;
-    }
-
-    public boolean isIsBanned() {
-        return isBanned;
-    }
-
-    public void setIsBanned(Boolean isBanned) {
-        this.isBanned = isBanned;
     }
 
 }
