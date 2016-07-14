@@ -79,10 +79,4 @@ public class HibernateLessonDao implements GenericDao<LessonModel, String> {
     			.uniqueResult();
     }
 
-	public List<LessonModel> getLessonOfCourse(String courseId) throws Exception {
-		LessonModel sample = new LessonModel();
-		sample.setCourseId(courseId);
-		return findByExample(sample);
-	}
-
 }

@@ -78,9 +78,4 @@ public class HibernateLessonVersionDao implements GenericDao<LessonVersionModel,
     			.uniqueResult();
     }
 
-    public List<LessonVersionModel> getVersionOfLesson(String lessonId) throws Exception{
-    	LessonVersionModel versionSample = new LessonVersionModel();
-		versionSample.setLessonId(lessonId);
-		return findByExample(versionSample);
-    }
 }
