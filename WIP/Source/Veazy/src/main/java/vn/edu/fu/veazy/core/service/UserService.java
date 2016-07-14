@@ -8,7 +8,7 @@ import vn.edu.fu.veazy.core.model.UserModel;
 public interface UserService {
     public void saveUser(UserModel user) throws Exception;
     public void saveUser(RegisterForm user) throws Exception;
-    public UserModel findUserById(Integer id) throws Exception;
+    public UserModel findUserById(String id) throws Exception;
     public UserModel findUserByUsername(String email) throws Exception;
     public UserModel findUserByEmail(String email) throws Exception;
     public List<UserModel> findAllUser() throws Exception;

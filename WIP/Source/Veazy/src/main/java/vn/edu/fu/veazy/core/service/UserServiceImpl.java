@@ -1,5 +1,6 @@
 package vn.edu.fu.veazy.core.service;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,7 @@ import vn.edu.fu.veazy.core.model.UserModel;
 public class UserServiceImpl implements UserService {
 
     @Autowired
-    private GenericDao<UserModel, Integer> userDao;
+    private GenericDao<UserModel, String> userDao;
 
     @Override
     @Transactional
@@ -40,13 +41,21 @@ public class UserServiceImpl implements UserService {
             // TODO custom exception
             throw new Exception(e.getMessage(), e);
         }
-        
+
     }
 
     @Override
     @Transactional
-    public UserModel findUserById(Integer id) throws Exception {
-        // TODO Auto-generated method stub
+    public UserModel findUserById(String id) throws Exception {
+        try {
+            UserModel user = userDao.findById(id);
+            if (user != null) {
+                return user;
+            }
+        } catch (Exception e) {
+            // TODO custom exception
+            throw new Exception(e.getMessage(), e);
+        }
         return null;
     }
 
@@ -63,7 +72,7 @@ public class UserServiceImpl implements UserService {
         } catch (Exception e) {
             // TODO custom exception
             throw new Exception(e.getMessage(), e);
-            
+
         }
         return null;
     }
@@ -80,7 +89,7 @@ public class UserServiceImpl implements UserService {
         } catch (Exception e) {
             // TODO custom exception
             throw new Exception(e.getMessage(), e);
-            
+
         }
         return null;
     }
@@ -88,7 +97,15 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public List<UserModel> findAllUser() throws Exception {
-        // TODO Auto-generated method stub
+        try {
+            List<UserModel> users = userDao.findAll();
+            if (users != null && users.size() > 0) {
+                return users;
+            }
+        } catch (Exception e) {
+            // TODO custom exception
+            throw new Exception(e.getMessage(), e);
+        }
         return null;
     }
 
@@ -96,21 +113,21 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public void update(UserModel user) throws Exception {
         // TODO Auto-generated method stub
-        
+
     }
 
     @Override
     @Transactional
     public void delete(UserModel user) throws Exception {
         // TODO Auto-generated method stub
-        
+
     }
 
     @Override
     @Transactional
     public void deleteUsers(List<UserModel> users) throws Exception {
         // TODO Auto-generated method stub
-        
+
     }
 
     @Override
