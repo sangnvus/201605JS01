@@ -98,7 +98,7 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public List<UserModel> findAllUser() throws Exception {
         try {
-            List<UserModel> users = userDao.findAll();
+            List<UserModel> users = userDao.getAll();
             if (users != null && users.size() > 0) {
                 return users;
             }
