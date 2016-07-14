@@ -27,4 +27,9 @@ public class Const {
      */
     public static final String URLMAPPING_LESSON_DETAIL = URL_PREFIX + "/lesson/{lessonId}";
 
+    
+    public static final Integer PUBLISHED = 1;
+    public static final Integer UPDATING = 2;
+    public static final Integer REVIEWING = 3;
+    public static final Integer START_INDEX =1;
 }

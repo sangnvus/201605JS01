@@ -6,6 +6,18 @@ public class MessageModel extends BasicModel{
 	private String senderId;
 	private String receiverId;
 	private boolean readFlag;
+	
+	public MessageModel() {
+		super();
+	}
+	public MessageModel(String id, Long createDate, Long updateDate, Long deleteDate, boolean deleteFlag,
+			String content, String senderId, String receiverId, boolean readFlag) {
+		super(id, createDate, updateDate, deleteDate, deleteFlag);
+		this.content = content;
+		this.senderId = senderId;
+		this.receiverId = receiverId;
+		this.readFlag = readFlag;
+	}
 	public String getContent() {
 		return content;
 	}

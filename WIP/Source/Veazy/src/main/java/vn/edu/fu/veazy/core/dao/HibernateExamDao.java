@@ -61,7 +61,6 @@ public class HibernateExamDao implements GenericDao<ExamModel, String> {
 
     @Override
     public void update(ExamModel exam) throws Exception {
-        // TODO Auto-generated method stub
     	sessionFactory.getCurrentSession().update(exam);
     }
 

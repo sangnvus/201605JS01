@@ -61,7 +61,6 @@ public class HibernateLessonVersionDao implements GenericDao<LessonVersionModel,
 
     @Override
     public void update(LessonVersionModel lessonversion) throws Exception {
-        // TODO Auto-generated method stub
     	sessionFactory.getCurrentSession().update(lessonversion);
     }
 

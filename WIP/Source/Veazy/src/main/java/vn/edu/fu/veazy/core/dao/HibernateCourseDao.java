@@ -62,7 +62,6 @@ public class HibernateCourseDao implements GenericDao<CourseModel, String> {
 
     @Override
     public void update(CourseModel course) throws Exception {
-        // TODO Auto-generated method stub
     	sessionFactory.getCurrentSession().update(course);
     }
 

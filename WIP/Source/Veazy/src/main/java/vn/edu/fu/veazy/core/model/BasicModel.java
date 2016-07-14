@@ -6,7 +6,6 @@
 package vn.edu.fu.veazy.core.model;
 
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  *
@@ -15,32 +14,43 @@ import java.util.Date;
 public abstract class BasicModel implements Serializable {
 
     private String id;
-    private Date createDate;
-    private Date updateDate;
-    private Date deleteDate;
+    private Long createDate;
+    private Long updateDate;
+    private Long deleteDate;
     private boolean deleteFlag;
+	public BasicModel(String id, Long createDate, Long updateDate, Long deleteDate, boolean deleteFlag) {
+		super();
+		this.id = id;
+		this.createDate = createDate;
+		this.updateDate = updateDate;
+		this.deleteDate = deleteDate;
+		this.deleteFlag = deleteFlag;
+	}
+	public BasicModel() {
+	}
+	
 	public String getId() {
 		return id;
 	}
 	public void setId(String id) {
 		this.id = id;
 	}
-	public Date getCreateDate() {
+	public Long getCreateDate() {
 		return createDate;
 	}
-	public void setCreateDate(Date createDate) {
+	public void setCreateDate(Long createDate) {
 		this.createDate = createDate;
 	}
-	public Date getUpdateDate() {
+	public Long getUpdateDate() {
 		return updateDate;
 	}
-	public void setUpdateDate(Date updateDate) {
+	public void setUpdateDate(Long updateDate) {
 		this.updateDate = updateDate;
 	}
-	public Date getDeleteDate() {
+	public Long getDeleteDate() {
 		return deleteDate;
 	}
-	public void setDeleteDate(Date deleteDate) {
+	public void setDeleteDate(Long deleteDate) {
 		this.deleteDate = deleteDate;
 	}
 	public boolean isDeleteFlag() {
@@ -49,6 +59,4 @@ public abstract class BasicModel implements Serializable {
 	public void setDeleteFlag(boolean deleteFlag) {
 		this.deleteFlag = deleteFlag;
 	}
-
-   
 }

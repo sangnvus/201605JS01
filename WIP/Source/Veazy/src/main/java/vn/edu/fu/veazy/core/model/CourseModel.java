@@ -5,6 +5,12 @@ public class CourseModel extends BasicModel{
 	
 	private String name;
 	private int index;
+	
+	public CourseModel(String name, int index) {
+		super();
+		this.name = name;
+		this.index = index;
+	}
 	public String getName() {
 		return name;
 	}

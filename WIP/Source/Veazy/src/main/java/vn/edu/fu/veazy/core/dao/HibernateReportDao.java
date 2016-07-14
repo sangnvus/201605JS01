@@ -8,28 +8,29 @@ import org.hibernate.criterion.Example;
 import org.hibernate.criterion.Projections;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import vn.edu.fu.veazy.core.model.QuestionModel;
+import vn.edu.fu.veazy.core.model.ReportModel;
 
-public class HibernateQuestionDao implements GenericDao<QuestionModel, String> {
+
+public class HibernateReportDao implements GenericDao<ReportModel, String> {
 
     @Autowired
     private SessionFactory sessionFactory;
 
     @Override
-    public void save(QuestionModel question) throws Exception {
-        sessionFactory.getCurrentSession().save(question);
+    public void save(ReportModel report) throws Exception {
+        sessionFactory.getCurrentSession().save(report);
     }
 
     @Override
-    public QuestionModel findById(String id) throws Exception {
-    	return sessionFactory.getCurrentSession().get(QuestionModel.class, id);
+    public ReportModel findById(String id) throws Exception {
+    	return sessionFactory.getCurrentSession().get(ReportModel.class, id);
     }
 
     @SuppressWarnings("unchecked")
     @Override
-    public List<QuestionModel> findByExample(QuestionModel exampleInstance) throws Exception {
+    public List<ReportModel> findByExample(ReportModel exampleInstance) throws Exception {
         try {
-            return sessionFactory.getCurrentSession().createCriteria(QuestionModel.class)
+            return sessionFactory.getCurrentSession().createCriteria(ReportModel.class)
                                                      .add(Example.create(exampleInstance))
                                                      .list();
         } catch (HibernateException e) {
@@ -40,9 +41,9 @@ public class HibernateQuestionDao implements GenericDao<QuestionModel, String> {
 
     @SuppressWarnings("unchecked")
     @Override
-    public List<QuestionModel> findByExample(QuestionModel exampleInstance, int offset, int limit) throws Exception {
+    public List<ReportModel> findByExample(ReportModel exampleInstance, int offset, int limit) throws Exception {
         try {
-            return sessionFactory.getCurrentSession().createCriteria(QuestionModel.class)
+            return sessionFactory.getCurrentSession().createCriteria(ReportModel.class)
                                                      .add(Example.create(exampleInstance))
                                                      .setFirstResult(offset)
                                                      .setMaxResults(limit)
@@ -55,27 +56,28 @@ public class HibernateQuestionDao implements GenericDao<QuestionModel, String> {
 
     @SuppressWarnings("unchecked")
 	@Override
-    public List<QuestionModel> getAll() throws Exception {
-        return sessionFactory.getCurrentSession().createCriteria(QuestionModel.class).list();
+    public List<ReportModel> getAll() throws Exception {
+        return sessionFactory.getCurrentSession().createCriteria(ReportModel.class).list();
     }
 
     @Override
-    public void update(QuestionModel question) throws Exception {
-    	sessionFactory.getCurrentSession().update(question);
+    public void update(ReportModel report) throws Exception {
+    	sessionFactory.getCurrentSession().update(report);
     }
 
     @Override
-    public void delete(QuestionModel question) throws Exception {
+    public void delete(ReportModel report) throws Exception {
     	//TODO set flag?
-    	sessionFactory.getCurrentSession().delete(question);
+    	sessionFactory.getCurrentSession().delete(report);
     }
 
     @Override
     public Long getCount() throws Exception {
     	return (Long) sessionFactory.getCurrentSession()
-    			.createCriteria(QuestionModel.class)
+    			.createCriteria(ReportModel.class)
     			.setProjection(Projections.rowCount())
     			.uniqueResult();
     }
 
+	
 }
