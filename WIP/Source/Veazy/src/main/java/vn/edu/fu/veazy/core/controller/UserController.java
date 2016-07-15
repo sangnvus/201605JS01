@@ -89,15 +89,18 @@ public class UserController {
                 return response.toResponseJson();
             }
 
-            LOGGER.debug("Register new user successfully!");
-
             userService.saveUser(registerForm);
             LoginResponseData data = new LoginResponseData();
+
+            user = userService.findUserByUsername(registerForm.getUsername());
             data.setRoll(user.getRole());
 //            TODO
 //            data.setToken(token);
             response.setCode(ResponseCode.SUCCESS);
             response.setData(data);
+
+            LOGGER.debug("Register new user successfully!");
+            
             return response.toResponseJson();
         } catch (Exception e) {
             LOGGER.error(e.getMessage());

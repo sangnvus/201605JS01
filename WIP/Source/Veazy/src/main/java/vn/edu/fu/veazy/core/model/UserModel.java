@@ -5,32 +5,62 @@
  */
 package vn.edu.fu.veazy.core.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
+
 /**
  *
  * @author Hoang Linh
  */
+@Entity
+@DynamicInsert
+@DynamicUpdate
+@Table(name = "`User`")
 public class UserModel extends BasicModel {
 
+    @Id
+    @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+    @Column(name = "email", columnDefinition="VARCHAR(254) UNIQUE", nullable = false)
     private String email;
+    @Column(name = "userName", columnDefinition="VARCHAR(30) UNIQUE", nullable = false)
     private String userName;
+    @Column(name = "password", columnDefinition="CHAR(32)", nullable = false)
     private String encryptedPassword;
+    @Column(name = "firstName", columnDefinition="VARCHAR(30)", nullable = true)
     private String firstName;
+    @Column(name = "lastName", columnDefinition="VARCHAR(30)", nullable = true)
     private String lastName;
+    @Column(name = "dob", nullable = true)
     private Long dob;
+    @Column(name = "joinDate", nullable = false)
     private Long joinDate;
+    @Column(name = "address", nullable = true)
     private String address;
-    private Integer role;
+    @Column(name = "role", columnDefinition="INT DEFAULT 1", nullable = false)
+    private Integer role = 1;
+    @Column(name = "hobby", nullable = true)
     private String hobby;
-    private Boolean isBanned;
+    @Column(name = "isBanned", columnDefinition="BOOLEAN DEFAULT FALSE", nullable = false)
+    private Boolean isBanned = false;
 
     public UserModel() {
     }
 
-    public UserModel(String email, String userName, String encryptedPassword) {
+    public UserModel(String email, String userName, String encryptedPassword, Long joinDate) {
         super();
         this.email = email;
         this.userName = userName;
         this.encryptedPassword = encryptedPassword;
+        this.joinDate = joinDate;
     }
 
     public UserModel(String email, String userName, String encryptedPassword, String firstName, String lastName,

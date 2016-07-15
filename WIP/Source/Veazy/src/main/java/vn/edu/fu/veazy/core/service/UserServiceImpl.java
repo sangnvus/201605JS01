@@ -18,7 +18,7 @@ public class UserServiceImpl implements UserService {
     private GenericDao<UserModel, String> userDao;
 
     @Override
-    @Transactional
+    //@Transactional
     public void saveUser(UserModel user) throws Exception {
         try {
             userDao.save(user);
@@ -29,13 +29,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    @Transactional
+    //@Transactional
     public void saveUser(RegisterForm userForm) throws Exception {
         try {
             String email = userForm.getEmail();
             String username = userForm.getUsername();
             String pw = userForm.getEncryptedPassword();
-            UserModel user = new UserModel(email, username, pw);
+            Long now = System.currentTimeMillis();
+            UserModel user = new UserModel(email, username, pw, now);
             userDao.save(user);
         } catch (Exception e) {
             // TODO custom exception
@@ -45,7 +46,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    @Transactional
+    //@Transactional
     public UserModel findUserById(String id) throws Exception {
         try {
             UserModel user = userDao.findById(id);
@@ -60,7 +61,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    @Transactional
+    //@Transactional
     public UserModel findUserByEmail(String email) throws Exception {
         try {
             UserModel u1 = new UserModel();
@@ -95,7 +96,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    @Transactional
+    //@Transactional
     public List<UserModel> findAllUser() throws Exception {
         try {
             List<UserModel> users = userDao.getAll();
@@ -110,28 +111,28 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    @Transactional
+    //@Transactional
     public void update(UserModel user) throws Exception {
         // TODO Auto-generated method stub
 
     }
 
     @Override
-    @Transactional
+    //@Transactional
     public void delete(UserModel user) throws Exception {
         // TODO Auto-generated method stub
 
     }
 
     @Override
-    @Transactional
+    //@Transactional
     public void deleteUsers(List<UserModel> users) throws Exception {
         // TODO Auto-generated method stub
 
     }
 
     @Override
-    @Transactional
+    //@Transactional
     public int size() throws Exception {
         // TODO Auto-generated method stub
         return 0;
