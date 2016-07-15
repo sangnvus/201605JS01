@@ -12,27 +12,23 @@ import org.springframework.transaction.annotation.Transactional;
 
 import vn.edu.fu.veazy.core.model.UserModel;
 
-@Repository
 public class HibernateUserDao implements GenericDao<UserModel, String> {
 
     @Autowired
     private SessionFactory sessionFactory;
 
     @Override
-    @Transactional
     public void save(UserModel user) throws Exception {
         sessionFactory.getCurrentSession().save(user);
     }
 
     @Override
-    @Transactional
     public UserModel findById(String id) throws Exception {
     	return sessionFactory.getCurrentSession().get(UserModel.class, id);
     }
 
     @SuppressWarnings("unchecked")
     @Override
-    @Transactional
     public List<UserModel> findByExample(UserModel exampleInstance) throws Exception {
         try {
             return sessionFactory.getCurrentSession().createCriteria(UserModel.class)
@@ -46,7 +42,6 @@ public class HibernateUserDao implements GenericDao<UserModel, String> {
 
     @SuppressWarnings("unchecked")
     @Override
-    @Transactional
     public List<UserModel> findByExample(UserModel exampleInstance, int offset, int limit) throws Exception {
         try {
             return sessionFactory.getCurrentSession().createCriteria(UserModel.class)
@@ -62,26 +57,22 @@ public class HibernateUserDao implements GenericDao<UserModel, String> {
 
     @SuppressWarnings("unchecked")
 	@Override
-    @Transactional
     public List<UserModel> getAll() throws Exception {
         return sessionFactory.getCurrentSession().createCriteria(UserModel.class).list();
     }
 
     @Override
-    @Transactional
     public void update(UserModel user) throws Exception {
     	sessionFactory.getCurrentSession().update(user);
     }
 
     @Override
-    @Transactional
     public void delete(UserModel user) throws Exception {
     	//TODO set flag?
     	sessionFactory.getCurrentSession().delete(user);
     }
 
     @Override
-    @Transactional
     public Long getCount() throws Exception {
     	return (Long) sessionFactory.getCurrentSession()
     			.createCriteria(UserModel.class)
