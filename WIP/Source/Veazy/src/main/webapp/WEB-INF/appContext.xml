@@ -21,9 +21,7 @@
                            http://www.springframework.org/schema/task
                            http://www.springframework.org/schema/task/spring-task-3.2.xsd">
 
-  <context:component-scan base-package="vn.edu.fu.veazy.core.controller,vn.edu.fu.veazy.core.service,
-                                        vn.edu.fu.veazy.cpanel.controller,vn.edu.fu.veazy.cpanel.service,
-                                        vn.edu.fu.veazy.dictionary.controller,vn.edu.fu.veazy.dictionary.service" />
+  <context:component-scan base-package="vn.edu.fu.veazy.core, vn.edu.fu.veazy.cpanel, vn.edu.fu.veazy.dictionary" />
 
   <tx:annotation-driven />
 

@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import vn.edu.fu.veazy.core.model.UserModel;
 
+@Repository
 public class HibernateUserDao implements GenericDao<UserModel, String> {
 
     @Autowired
