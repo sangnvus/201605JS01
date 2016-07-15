@@ -1,13 +1,10 @@
-package vn.edu.fu.veazy.core.model;
+package vn.edu.fu.veazy.core.response;
 
-
-public class CourseModel extends BasicModel{
-	
+public class GetCourseResponse {
 	private String name;
 	private int index;
 	private String description;
-	public CourseModel(String name, int index, String description) {
-		super();
+	public GetCourseResponse(String name, int index, String description) {
 		this.name = name;
 		this.index = index;
 		this.description = description;
@@ -30,5 +27,4 @@ public class CourseModel extends BasicModel{
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	
 }
