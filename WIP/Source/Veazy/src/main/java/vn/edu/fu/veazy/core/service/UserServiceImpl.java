@@ -49,14 +49,11 @@ public class UserServiceImpl implements UserService {
     public UserModel findUserById(String id) throws Exception {
         try {
             UserModel user = userDao.findById(id);
-            if (user != null) {
-                return user;
-            }
+            return user;
         } catch (Exception e) {
             // TODO custom exception
             throw new Exception(e.getMessage(), e);
         }
-        return null;
     }
 
     @Override

@@ -1,5 +1,6 @@
 package vn.edu.fu.veazy.core.controller;
 
+import java.security.Principal;
 import java.util.List;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,12 +16,16 @@ import vn.edu.fu.veazy.core.common.Const;
 import vn.edu.fu.veazy.core.common.Utils;
 import vn.edu.fu.veazy.core.form.LoginForm;
 import vn.edu.fu.veazy.core.form.RegisterForm;
+import vn.edu.fu.veazy.core.model.ExamModel;
 import vn.edu.fu.veazy.core.model.UserModel;
 import vn.edu.fu.veazy.core.response.Response;
 import vn.edu.fu.veazy.core.response.ResponseCode;
+import vn.edu.fu.veazy.core.response.data.ExamResponseData;
+import vn.edu.fu.veazy.core.response.data.GetLearnerExamsResponseData;
 import vn.edu.fu.veazy.core.response.data.GetListUsersResponseData;
 import vn.edu.fu.veazy.core.response.data.GetUserResponseData;
 import vn.edu.fu.veazy.core.response.data.LoginResponseData;
+import vn.edu.fu.veazy.core.service.ExamService;
 import vn.edu.fu.veazy.core.service.UserService;
 
 /**
@@ -43,28 +48,21 @@ public class UserController {
     private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(UserController.class);
 
     /**
-     * Register page path
-     */
-    private static final String REGISTER_PAGE = "core/register";
-    private static final String LOGIN_PAGE = "core/login";
-
-    /**
      * User service instance
      */
     @Autowired
     private UserService userService;
+    private ExamService examService;
 
     /**
      * Process request of register page.
      *
-     * @param model view model object
      * @param registerForm form submitted
      * @return json string
      */
     @RequestMapping(value = Const.URLMAPPING_REGISTER, method = RequestMethod.POST)
     public @ResponseBody
-    String register(ModelMap model,
-            @ModelAttribute("register-form") RegisterForm registerForm) {
+    String register(@ModelAttribute("register-form") RegisterForm registerForm) {
         Response response = new Response(ResponseCode.BAD_REQUEST);
         try {
             LOGGER.debug("Get to register proceed controller successful");
@@ -111,14 +109,12 @@ public class UserController {
     /**
      * Process request of login page.
      *
-     * @param model view model object
      * @param loginForm form submitted
      * @return json string
      */
     @RequestMapping(value = Const.URLMAPPING_LOGIN, method = RequestMethod.POST)
     public @ResponseBody
-    String loginProceed(ModelMap model,
-            @ModelAttribute("login-form") LoginForm loginForm) {
+    String loginProceed(@ModelAttribute("login-form") LoginForm loginForm) {
         Response response = new Response(ResponseCode.BAD_REQUEST);
         try {
             LOGGER.debug("Get to login proceed controller successful");
@@ -155,14 +151,12 @@ public class UserController {
     /**
      * Process request of get user detail.
      *
-     * @param model view model object
      * @param userId url
      * @return json string
      */
     @RequestMapping(value = Const.URLMAPPING_GET_USER, method = RequestMethod.GET)
     public @ResponseBody
-    String getUser(ModelMap model,
-            @PathVariable("user_id") String userId) {
+    String getUser(@PathVariable("user_id") String userId) {
         Response response = new Response(ResponseCode.BAD_REQUEST);
         try {
             // FIXME json object
@@ -191,16 +185,15 @@ public class UserController {
     /**
      * Process request of get list user.
      *
-     * @param model view model object
      * @return json string
      */
     @RequestMapping(value = Const.URLMAPPING_GET_LIST_USERS, method = RequestMethod.GET)
     public @ResponseBody
-    String getListUser(ModelMap model) {
+    String getListUser() {
         Response response = new Response(ResponseCode.BAD_REQUEST);
         try {
             // FIXME json object
-            LOGGER.debug("Get to login proceed controller successful");
+            LOGGER.debug("Get to get list users controller successful");
 
             List<UserModel> users = userService.findAllUser();
             if (users != null && users.size() > 0) {
@@ -213,6 +206,47 @@ public class UserController {
                 response.setCode(ResponseCode.SUCCESS);
                 response.setData(listUsers);
             }
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage());
+        }
+
+        LOGGER.error("Unknown error occured!");
+        response.setCode(ResponseCode.INTERNAL_SERVER_ERROR);
+        return response.toResponseJson();
+    }
+
+    /**
+     * Process request of get learner exams.
+     *
+     * @param principal
+     * @return json string
+     */
+    @RequestMapping(value = Const.URLMAPPING_GET_LEARNER_EXAMS, method = RequestMethod.GET)
+    public @ResponseBody
+    String getLearnerExamss(Principal principal) {
+        Response response = new Response(ResponseCode.BAD_REQUEST);
+        try {
+            LOGGER.debug("Get to get learner exams controller successful");
+            String userName = principal.getName();
+            UserModel user = userService.findUserByUsername(userName);
+            if (user == null) {
+                LOGGER.debug("user not found!");
+                response.setCode(ResponseCode.USER_NOT_FOUND);
+                return response.toResponseJson();
+            }
+            List<ExamModel> exams = examService.findLearnerExams(userName);
+            if (exams == null || exams.isEmpty()) {
+                LOGGER.debug("Cannot find Learner Exams!");
+                response.setCode(ResponseCode.USER_EXAMS_NOT_FOUND);
+            }
+            GetLearnerExamsResponseData data = new GetLearnerExamsResponseData();
+            for (ExamModel exam : exams) {
+                ExamResponseData erd = new ExamResponseData(exam);
+                data.addExam(erd);
+            }
+            LOGGER.debug("Get learner exams successfully!");
+            response.setCode(ResponseCode.SUCCESS);
+            response.setData(data);
         } catch (Exception e) {
             LOGGER.error(e.getMessage());
         }
