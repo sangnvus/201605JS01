@@ -32,6 +32,10 @@ public class CourseController {
             List<GetCourseResponse> data =  courseService.getCourses();
             response.setCode(ResponseCode.SUCCESS);
             response.setData(data);
+            
+            LOGGER.debug("Get courses successfully!");
+            
+            return response.toResponseJson();
         } catch (Exception e) {
             LOGGER.error(e.getMessage());
         }
