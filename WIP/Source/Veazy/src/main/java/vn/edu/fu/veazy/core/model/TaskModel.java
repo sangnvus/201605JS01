@@ -1,9 +1,24 @@
 package vn.edu.fu.veazy.core.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
+
+@Entity
+@DynamicInsert
+@DynamicUpdate
+@Table(name = "`Task`")
 public class TaskModel extends BasicModel{
+	@Column(name = "senderId")
 	private String senderId;
+	@Column(name = "receiverId")
 	private String receiverId;
+	@Column(name = "content", nullable = false)
 	private String content;
+	@Column(name = "isRead", columnDefinition="BOOLEAN DEFAULT FALSE", nullable = false)
 	private boolean readFlag;
 	
 	public TaskModel() {

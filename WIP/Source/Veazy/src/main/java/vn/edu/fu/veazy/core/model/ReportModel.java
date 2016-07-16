@@ -1,10 +1,26 @@
 package vn.edu.fu.veazy.core.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
+
+@Entity
+@DynamicInsert
+@DynamicUpdate
+@Table(name = "`Report`")
 public class ReportModel extends BasicModel{
+	@Column(name = "senderId")
 	private String senderId;
+	@Column(name = "isRead", columnDefinition="BOOLEAN DEFAULT FALSE", nullable = false)
 	private boolean readFlag;
+	@Column(name = "content")
 	private String content;
+	@Column(name = "lessonId")
 	private String lessonId;
+	@Column(name = "questionId")
 	private String questionId;
 	
 	public ReportModel() {
