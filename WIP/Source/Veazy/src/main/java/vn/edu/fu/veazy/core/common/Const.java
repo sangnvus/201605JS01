@@ -20,6 +20,8 @@ public class Const {
     
     public static final String URLMAPPING_GET_USER = URL_PREFIX + "/users/{user_id}";
     public static final String URLMAPPING_GET_LIST_USERS = URL_PREFIX + "/users";
+    public static final String URLMAPPING_GET_LEARNER_EXAMS = URL_PREFIX + "/users/{user_id}/exams";
+    public static final String URLMAPPING_GET_LEARNER_EXAM_STATISTIC = URL_PREFIX + "/users/{user_id}/exams/statistics";
     
     //lesson api
     public static final String URLMAPPING_CREATE_LESSON = URL_PREFIX + "/lessons";

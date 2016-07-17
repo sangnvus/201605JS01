@@ -32,6 +32,7 @@ public class ResponseCode{
     public static final int USER_NOT_FOUND = 430;
     public static final int USER_NOT_ALLOW = 431;
     public static final int USER_INACTIVE = 432;
+    public static final int USER_EXAMS_NOT_FOUND = 433;
 
     public static final int INTERNAL_SERVER_ERROR = 500;
 
