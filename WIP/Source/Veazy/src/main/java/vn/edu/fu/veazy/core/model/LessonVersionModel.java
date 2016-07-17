@@ -17,7 +17,7 @@ public class LessonVersionModel extends BasicModel{
 	private Integer version;
 	@Column(name = "state",columnDefinition="INT DEFAULT 1", nullable = false)
 	private Integer state;
-	@Column(name = "title", columnDefinition="NVARCHAR(254)", nullable = false)
+	@Column(name = "title", columnDefinition="VARCHAR(254)", nullable = false)
 	private String title;
 	@Column(name = "title", nullable = false)
 	private String description;
