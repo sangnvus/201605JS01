@@ -43,23 +43,9 @@ public class LessonController {
             CreateLessonResponse data =  lessonService.createLesson(requesterId, form);
             response.setCode(ResponseCode.SUCCESS);
             response.setData(data);
-        } catch (Exception e) {
-            LOGGER.error(e.getMessage());
-        }
-
-        LOGGER.error("Unknown error occured!");
-        response.setCode(ResponseCode.INTERNAL_SERVER_ERROR);
-        return response.toResponseJson();
-    }
-    
-    @RequestMapping(value = Const.URLMAPPING_GET_LESSON_VERSION, method = RequestMethod.GET)
-    public @ResponseBody
-    String getLessonVersion(@PathVariable("lesson_id") String lessonId,@PathVariable("version") Integer version) {
-        Response response = new Response(ResponseCode.BAD_REQUEST);
-        try {
-        	GetLessonVersionResponse data = lessonService.getLessonVersion(lessonId, version);
-            response.setCode(ResponseCode.SUCCESS);
-            response.setData(data);
+            LOGGER.debug("Create new lesson successfully!");
+            
+            return response.toResponseJson();
         } catch (Exception e) {
             LOGGER.error(e.getMessage());
         }
@@ -78,6 +64,10 @@ public class LessonController {
         	//TODO get requester id
         	lessonService.updateLesson(requesterId, form);
             response.setCode(ResponseCode.SUCCESS);
+            
+            LOGGER.debug("Update lesson successfully!");
+            
+            return response.toResponseJson();
         } catch (Exception e) {
             LOGGER.error(e.getMessage());
         }
@@ -96,6 +86,10 @@ public class LessonController {
         	//TODO get requester id
         	lessonService.publishLessonVersion(requesterId, lessonId);
             response.setCode(ResponseCode.SUCCESS);
+            
+            LOGGER.debug("Publish lesson successfully!");
+            
+            return response.toResponseJson();
         } catch (Exception e) {
             LOGGER.error(e.getMessage());
         }
@@ -114,6 +108,10 @@ public class LessonController {
         	//TODO get requester id
         	lessonService.reportLesson(requesterId, lessonId, form.getContent());
             response.setCode(ResponseCode.SUCCESS);
+            
+            LOGGER.debug("Report lesson successfully!");
+            
+            return response.toResponseJson();
         } catch (Exception e) {
             LOGGER.error(e.getMessage());
         }
@@ -131,6 +129,10 @@ public class LessonController {
         	List<LessonOfCourseResponse> data = lessonService.getLessonsOfCourse(courseId);
             response.setCode(ResponseCode.SUCCESS);
             response.setData(data);
+            
+            LOGGER.debug("Get lesson of course successfully!");
+            
+            return response.toResponseJson();
         } catch (Exception e) {
             LOGGER.error(e.getMessage());
         }
@@ -148,6 +150,10 @@ public class LessonController {
         	GetLessonResponse data = lessonService.getLesson(lessonId);
             response.setCode(ResponseCode.SUCCESS);
             response.setData(data);
+            
+            LOGGER.debug("Get lesson successfully!");
+            
+            return response.toResponseJson();
         } catch (Exception e) {
             LOGGER.error(e.getMessage());
         }
@@ -156,4 +162,24 @@ public class LessonController {
         response.setCode(ResponseCode.INTERNAL_SERVER_ERROR);
         return response.toResponseJson();
     }
+
+	@RequestMapping(value = Const.URLMAPPING_GET_LESSON_VERSION, method = RequestMethod.GET)
+	public @ResponseBody
+	String getLessonVersion(@PathVariable("lesson_id") String lessonId,@PathVariable("version") Integer version) {
+	    Response response = new Response(ResponseCode.BAD_REQUEST);
+	    try {
+	    	GetLessonVersionResponse data = lessonService.getLessonVersion(lessonId, version);
+	        response.setCode(ResponseCode.SUCCESS);
+	        response.setData(data);
+	        LOGGER.debug("Get lesson version successfully!");
+	        
+	        return response.toResponseJson();
+	    } catch (Exception e) {
+	        LOGGER.error(e.getMessage());
+	    }
+	
+	    LOGGER.error("Unknown error occured!");
+	    response.setCode(ResponseCode.INTERNAL_SERVER_ERROR);
+	    return response.toResponseJson();
+	}
 }

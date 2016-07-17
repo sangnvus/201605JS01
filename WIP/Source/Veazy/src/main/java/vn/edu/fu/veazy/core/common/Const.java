@@ -35,8 +35,8 @@ public class Const {
     //course api
     public static final String URLMAPPING_GET_COURSES = URL_PREFIX + "/courses";
     
-    public static final Integer PUBLISHED = 1;
-    public static final Integer UPDATING = 2;
-    public static final Integer REVIEWING = 3;
+    public static final Integer UPDATING = 1;
+    public static final Integer REVIEWING = 2;
+    public static final Integer PUBLISHED = 3;
     public static final Integer START_INDEX =1;
 }
