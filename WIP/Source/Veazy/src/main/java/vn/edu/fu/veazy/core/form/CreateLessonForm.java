@@ -1,8 +1,5 @@
 package vn.edu.fu.veazy.core.form;
 
-import vn.edu.fu.veazy.core.model.LessonModel;
-import vn.edu.fu.veazy.core.model.LessonVersionModel;
-
 public class CreateLessonForm {
 	private String courseId;
 	private String lessonTitle;

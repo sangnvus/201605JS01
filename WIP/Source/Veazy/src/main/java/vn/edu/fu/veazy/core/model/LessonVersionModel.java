@@ -1,20 +1,41 @@
 package vn.edu.fu.veazy.core.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
+@Entity
+@DynamicInsert
+@DynamicUpdate
+@Table(name = "`LessonVersion`")
 public class LessonVersionModel extends BasicModel{
-	
+	@Column(name = "lessonId", nullable = false)
 	private String lessonId;
+	@Column(name = "version",columnDefinition="INT DEFAULT 1", nullable = false)
 	private Integer version;
+	@Column(name = "state",columnDefinition="INT DEFAULT 1", nullable = false)
 	private Integer state;
+	@Column(name = "title", columnDefinition="VARCHAR(254)", nullable = false)
 	private String title;
+	@Column(name = "title", nullable = false)
 	private String description;
+	@Column(name = "creatorId", nullable = false)
 	private String creatorId;
+	@Column(name = "reviewerId", nullable = true)
 	private String reviewerId;
+	@Column(name = "vocab")
 	private String vocabulary;
+	@Column(name = "grammar")
 	private String grammar;
+	@Column(name = "reading")
 	private String reading;
+	@Column(name = "listening")
 	private String listening;
+	@Column(name = "practice")
 	private String practice;
+	@Column(name = "article")
 	private String article;
 	
 	public LessonVersionModel() {
