@@ -24,11 +24,7 @@ import org.hibernate.annotations.DynamicUpdate;
 @DynamicUpdate
 @Table(name = "`User`")
 public class UserModel extends BasicModel {
-
-    @Id
-    @Column(name = "id", nullable = false)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    
     @Column(name = "email", columnDefinition="VARCHAR(254) UNIQUE", nullable = false)
     private String email;
     @Column(name = "userName", columnDefinition="VARCHAR(30) UNIQUE", nullable = false)

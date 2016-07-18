@@ -69,4 +69,7 @@
   <bean id="questionDao" class="vn.edu.fu.veazy.core.dao.HibernateQuestionDao"/>
   <bean id="taskDao" class="vn.edu.fu.veazy.core.dao.HibernateTaskDao"/>
   <bean id="reportDao" class="vn.edu.fu.veazy.core.dao.HibernateReportDao"/>
+  
+  <bean id="veazyAuthenProvider" class="vn.edu.fu.veazy.core.provider.VeazyAuthenProvider"/>
+
 </beans>

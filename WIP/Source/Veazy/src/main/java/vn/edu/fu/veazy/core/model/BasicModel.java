@@ -7,12 +7,22 @@ package vn.edu.fu.veazy.core.model;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
+
 /**
  *
  * @author Hoang Linh
  */
+@MappedSuperclass
 public abstract class BasicModel implements Serializable {
 
+    @Id
+    @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
     private Long createDate;
     private Long updateDate;
