@@ -12,7 +12,7 @@ import org.hibernate.annotations.DynamicUpdate;
 @DynamicUpdate
 @Table(name = "Lesson")
 public class LessonModel extends BasicModel{
-	@Column(name = "index", columnDefinition="UNIQUE", nullable = false)
+	@Column(name = "index", columnDefinition="int UNIQUE", nullable = false)
 	private int index;
 	@Column(name = "courseid", nullable = false)
 	private String courseId;

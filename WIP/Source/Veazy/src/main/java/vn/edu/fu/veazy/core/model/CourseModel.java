@@ -14,7 +14,7 @@ import org.hibernate.annotations.DynamicUpdate;
 public class CourseModel extends BasicModel{
 	@Column(name = "name", columnDefinition="VARCHAR(50) UNIQUE", nullable = false)
 	private String name;
-	@Column(name = "index", columnDefinition="UNIQUE", nullable = false)
+	@Column(name = "index", columnDefinition="int UNIQUE", nullable = false)
 	private int index;
 	@Column(name = "des")
 	private String description;
