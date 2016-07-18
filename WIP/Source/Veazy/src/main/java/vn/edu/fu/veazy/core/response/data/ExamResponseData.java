@@ -13,7 +13,7 @@ import vn.edu.fu.veazy.core.model.ExamModel;
  */
 public class ExamResponseData {
 
-    private String examId;
+    private Integer examId;
     private Double result;
 
     public ExamResponseData() {
@@ -24,11 +24,11 @@ public class ExamResponseData {
         this.result = exam.getResult();
     }
 
-    public String getExamId() {
+    public Integer getExamId() {
         return examId;
     }
 
-    public void setExamId(String examId) {
+    public void setExamId(Integer examId) {
         this.examId = examId;
     }
 

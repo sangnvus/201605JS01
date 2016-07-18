@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import vn.edu.fu.veazy.core.model.ExamModel;
 
-public class HibernateExamDao implements GenericDao<ExamModel, String> {
+public class HibernateExamDao implements GenericDao<ExamModel, Integer> {
 
     @Autowired
     private SessionFactory sessionFactory;
@@ -21,7 +21,7 @@ public class HibernateExamDao implements GenericDao<ExamModel, String> {
     }
 
     @Override
-    public ExamModel findById(String id) throws Exception {
+    public ExamModel findById(Integer id) throws Exception {
     	return sessionFactory.getCurrentSession().get(ExamModel.class, id);
     }
 

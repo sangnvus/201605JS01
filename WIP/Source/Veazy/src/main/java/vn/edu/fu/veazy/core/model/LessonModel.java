@@ -10,7 +10,7 @@ import org.hibernate.annotations.DynamicUpdate;
 @Entity
 @DynamicInsert
 @DynamicUpdate
-@Table(name = "`Lesson`")
+@Table(name = "Lesson")
 public class LessonModel extends BasicModel{
 	@Column(name = "index", columnDefinition="UNIQUE", nullable = false)
 	private int index;
@@ -22,7 +22,7 @@ public class LessonModel extends BasicModel{
 	public LessonModel() {
 		super();
 	}
-	public LessonModel(String id, Long createDate, Long updateDate, Long deleteDate, boolean deleteFlag, int index,
+	public LessonModel(Integer id, Long createDate, Long updateDate, Long deleteDate, boolean deleteFlag, int index,
 			String courseId, String currentVersionId) {
 		super(id, createDate, updateDate, deleteDate, deleteFlag);
 		this.index = index;

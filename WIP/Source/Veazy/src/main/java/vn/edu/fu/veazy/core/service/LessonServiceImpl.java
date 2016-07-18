@@ -26,13 +26,13 @@ import vn.edu.fu.veazy.core.response.LessonOfCourseResponse;
 @Service
 public class LessonServiceImpl implements LessonService{
 	@Autowired
-	private GenericDao<LessonModel, String> lessonDao;
+	private GenericDao<LessonModel, Integer> lessonDao;
 	@Autowired
-	private GenericDao<LessonVersionModel, String> lessonVersionDao;
+	private GenericDao<LessonVersionModel, Integer> lessonVersionDao;
 	@Autowired
-	private GenericDao<ReportModel, String> reportDao;
+	private GenericDao<ReportModel, Integer> reportDao;
 	@Autowired
-	private GenericDao<TaskModel, String> taskDao;
+	private GenericDao<TaskModel, Integer> taskDao;
 	
 	@Override
 	@Transactional
@@ -70,8 +70,8 @@ public class LessonServiceImpl implements LessonService{
 		lessonDao.save(lesson);
 		lessonVersionDao.save(lessonVersion);
 		
-		lesson.setCurrentVersionId(lessonVersion.getId());
-		lessonVersion.setLessonId(lesson.getId());
+		lesson.setCurrentVersionId(String.valueOf(lessonVersion.getId()));
+		lessonVersion.setLessonId(String.valueOf(lesson.getId()));
 		
 		lessonDao.update(lesson);
 		lessonVersionDao.update(lessonVersion);
@@ -85,7 +85,7 @@ public class LessonServiceImpl implements LessonService{
 	@Transactional
 	public GetLessonVersionResponse getLessonVersion(String lessonId, Integer version) throws Exception {
 		//get lesson
-		LessonModel lesson =  lessonDao.findById(lessonId);
+		LessonModel lesson =  lessonDao.findById(Integer.valueOf(lessonId));
 		if(lesson == null){
 			throw new Exception("lesson doesn't exist");
 		}
@@ -118,7 +118,7 @@ public class LessonServiceImpl implements LessonService{
 	@Transactional
 	public void updateLesson(String requesterId, UpdateLessonForm form) throws Exception {
 		//get lesson
-		LessonModel lesson = lessonDao.findById(form.getLessonId());
+		LessonModel lesson = lessonDao.findById(Integer.valueOf(form.getLessonId()));
 		if(lesson == null){
 			throw new Exception("lesson doesn't exist");
 		}
@@ -218,9 +218,10 @@ public class LessonServiceImpl implements LessonService{
 		List<LessonOfCourseResponse> listResult = new Vector<LessonOfCourseResponse>();
 		for (LessonModel lessonModel : listLesson) {
 			LessonOfCourseResponse response = new LessonOfCourseResponse();
-			response.setLessonId(lessonModel.getId());
+			response.setLessonId(String.valueOf(lessonModel.getId()));
 			//get title from current version
-			LessonVersionModel version = lessonVersionDao.findById(lessonModel.getCurrentVersionId());
+			LessonVersionModel version = lessonVersionDao
+			        .findById(Integer.valueOf(lessonModel.getCurrentVersionId()));
 			response.setTitle(version.getTitle());
 			listResult.add(response);
 		}
@@ -230,25 +231,26 @@ public class LessonServiceImpl implements LessonService{
 	@Override
 	@Transactional
 	public GetLessonResponse getLesson(String lessonId) throws Exception {
-		LessonModel lesson =  lessonDao.findById(lessonId);
+		LessonModel lesson =  lessonDao.findById(Integer.valueOf(lessonId));
 		if(lesson == null){
 			throw new Exception("lesson doesn't exist");
 		}
-		LessonVersionModel currentVersion = lessonVersionDao.findById(lesson.getCurrentVersionId());
+		LessonVersionModel currentVersion = lessonVersionDao
+		        .findById(Integer.valueOf(lesson.getCurrentVersionId()));
 		//get previous,next lesson id
 		String nextId = null,previousId = null;
 		if(lesson.getIndex() != Const.START_INDEX){
 			LessonModel sample = new LessonModel();
 			sample.setCourseId(lesson.getCourseId());
 			sample.setIndex(lesson.getIndex()-1);
-			previousId = lessonDao.findByExample(sample).get(0).getId();
+			previousId = String.valueOf(lessonDao.findByExample(sample).get(0).getId());
 		}
 		LessonModel sample = new LessonModel();
 		sample.setCourseId(lesson.getCourseId());
 		sample.setIndex(lesson.getIndex()+1);
 		List<LessonModel> listLesson = lessonDao.findByExample(sample);
 		if(listLesson != null && !listLesson.isEmpty()){
-			nextId = listLesson.get(0).getId();
+			nextId = String.valueOf(listLesson.get(0).getId());
 		}
 		
 		return new GetLessonResponse(lesson,currentVersion,nextId,previousId);

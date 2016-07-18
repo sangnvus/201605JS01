@@ -9,7 +9,7 @@ import org.hibernate.annotations.DynamicUpdate;
 @Entity
 @DynamicInsert
 @DynamicUpdate
-@Table(name = "`LessonVersion`")
+@Table(name = "LessonVersion")
 public class LessonVersionModel extends BasicModel{
 	@Column(name = "lessonId", nullable = false)
 	private String lessonId;
@@ -19,7 +19,7 @@ public class LessonVersionModel extends BasicModel{
 	private Integer state;
 	@Column(name = "title", columnDefinition="VARCHAR(254)", nullable = false)
 	private String title;
-	@Column(name = "title", nullable = false)
+	@Column(name = "description", nullable = false)
 	private String description;
 	@Column(name = "creatorId", nullable = false)
 	private String creatorId;
@@ -41,7 +41,7 @@ public class LessonVersionModel extends BasicModel{
 	public LessonVersionModel() {
 		super();
 	}
-	public LessonVersionModel(String id, Long createDate, Long updateDate, Long deleteDate, boolean deleteFlag,
+	public LessonVersionModel(Integer id, Long createDate, Long updateDate, Long deleteDate, boolean deleteFlag,
 			String lessonId, Integer version, Integer state, String title, String description, String creatorId,
 			String reviewerId, String vocabulary, String grammar, String reading, String listening, String practice,
 			String article) {

@@ -12,7 +12,7 @@ import org.springframework.stereotype.Repository;
 import vn.edu.fu.veazy.core.model.ReportModel;
 
 @Repository
-public class HibernateReportDao implements GenericDao<ReportModel, String> {
+public class HibernateReportDao implements GenericDao<ReportModel, Integer> {
 
     @Autowired
     private SessionFactory sessionFactory;
@@ -23,7 +23,7 @@ public class HibernateReportDao implements GenericDao<ReportModel, String> {
     }
 
     @Override
-    public ReportModel findById(String id) throws Exception {
+    public ReportModel findById(Integer id) throws Exception {
     	return sessionFactory.getCurrentSession().get(ReportModel.class, id);
     }
 

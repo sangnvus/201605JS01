@@ -12,7 +12,7 @@ import org.springframework.stereotype.Repository;
 import vn.edu.fu.veazy.core.model.LessonVersionModel;
 
 @Repository
-public class HibernateLessonVersionDao implements GenericDao<LessonVersionModel, String> {
+public class HibernateLessonVersionDao implements GenericDao<LessonVersionModel, Integer> {
 
     @Autowired
     private SessionFactory sessionFactory;
@@ -23,7 +23,7 @@ public class HibernateLessonVersionDao implements GenericDao<LessonVersionModel,
     }
 
     @Override
-    public LessonVersionModel findById(String id) throws Exception {
+    public LessonVersionModel findById(Integer id) throws Exception {
     	return sessionFactory.getCurrentSession().get(LessonVersionModel.class, id);
     }
 

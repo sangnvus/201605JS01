@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import vn.edu.fu.veazy.core.model.UserModel;
 
 @Repository
-public class HibernateUserDao implements GenericDao<UserModel, String> {
+public class HibernateUserDao implements GenericDao<UserModel, Integer> {
 
     @Autowired
     private SessionFactory sessionFactory;
@@ -24,7 +24,7 @@ public class HibernateUserDao implements GenericDao<UserModel, String> {
     }
 
     @Override
-    public UserModel findById(String id) throws Exception {
+    public UserModel findById(Integer id) throws Exception {
     	return sessionFactory.getCurrentSession().get(UserModel.class, id);
     }
 

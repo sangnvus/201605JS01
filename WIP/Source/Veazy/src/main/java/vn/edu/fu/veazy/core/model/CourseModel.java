@@ -10,7 +10,7 @@ import org.hibernate.annotations.DynamicUpdate;
 @Entity
 @DynamicInsert
 @DynamicUpdate
-@Table(name = "`Course`")
+@Table(name = "Course")
 public class CourseModel extends BasicModel{
 	@Column(name = "name", columnDefinition="VARCHAR(50) UNIQUE", nullable = false)
 	private String name;

@@ -15,7 +15,7 @@ import vn.edu.fu.veazy.core.model.UserModel;
 public class UserServiceImpl implements UserService {
 
     @Autowired
-    private GenericDao<UserModel, String> userDao;
+    private GenericDao<UserModel, Integer> userDao;
 
     @Override
     @Transactional
@@ -49,7 +49,7 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public UserModel findUserById(String id) throws Exception {
         try {
-            UserModel user = userDao.findById(id);
+            UserModel user = userDao.findById(Integer.valueOf(id));
             if (user != null) {
                 return user;
             }

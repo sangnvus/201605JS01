@@ -31,7 +31,7 @@ public class VeazyAuthenProvider implements AuthenticationProvider, UserDetailsS
     private Logger LOGGER = LoggerFactory.getLogger(VeazyAuthenProvider.class);
     
     @Autowired
-    private GenericDao<UserModel, String> userDao;
+    private GenericDao<UserModel, Integer> userDao;
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {

@@ -12,7 +12,7 @@ import org.springframework.stereotype.Repository;
 import vn.edu.fu.veazy.core.model.TaskModel;
 
 @Repository
-public class HibernateTaskDao implements GenericDao<TaskModel, String> {
+public class HibernateTaskDao implements GenericDao<TaskModel, Integer> {
 
     @Autowired
     private SessionFactory sessionFactory;
@@ -23,7 +23,7 @@ public class HibernateTaskDao implements GenericDao<TaskModel, String> {
     }
 
     @Override
-    public TaskModel findById(String id) throws Exception {
+    public TaskModel findById(Integer id) throws Exception {
     	return sessionFactory.getCurrentSession().get(TaskModel.class, id);
     }
 

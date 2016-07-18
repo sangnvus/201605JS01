@@ -35,6 +35,10 @@ public class Const {
     //course api
     public static final String URLMAPPING_GET_COURSES = URL_PREFIX + "/courses";
     
+    
+    
+    /************************* Content status ***************************/
+    
     public static final Integer UPDATING = 1;
     public static final Integer REVIEWING = 2;
     public static final Integer PUBLISHED = 3;

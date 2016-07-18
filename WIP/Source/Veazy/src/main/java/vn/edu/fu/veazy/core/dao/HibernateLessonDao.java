@@ -13,7 +13,7 @@ import vn.edu.fu.veazy.core.model.LessonModel;
 import vn.edu.fu.veazy.core.model.LessonVersionModel;
 
 @Repository
-public class HibernateLessonDao implements GenericDao<LessonModel, String> {
+public class HibernateLessonDao implements GenericDao<LessonModel, Integer> {
 
     @Autowired
     private SessionFactory sessionFactory;
@@ -24,7 +24,7 @@ public class HibernateLessonDao implements GenericDao<LessonModel, String> {
     }
 
     @Override
-    public LessonModel findById(String id) throws Exception {
+    public LessonModel findById(Integer id) throws Exception {
     	return sessionFactory.getCurrentSession().get(LessonModel.class, id);
     }
 

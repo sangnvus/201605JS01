@@ -8,6 +8,8 @@ package vn.edu.fu.veazy.core.service;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import vn.edu.fu.veazy.core.dao.GenericDao;
 import vn.edu.fu.veazy.core.model.ExamModel;
 
@@ -19,9 +21,10 @@ import vn.edu.fu.veazy.core.model.ExamModel;
 public class ExamServiceImpl implements ExamService {
 
     @Autowired
-    private GenericDao<ExamModel, String> examDao;
+    private GenericDao<ExamModel, Integer> examDao;
 
     @Override
+    @Transactional
     public List<ExamModel> findLearnerExams(String learnerId) throws Exception {
         try {
             ExamModel exam = new ExamModel();

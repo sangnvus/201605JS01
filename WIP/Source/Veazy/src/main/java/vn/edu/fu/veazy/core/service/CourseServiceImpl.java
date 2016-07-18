@@ -14,7 +14,7 @@ import vn.edu.fu.veazy.core.response.GetCourseResponse;
 @Service
 public class CourseServiceImpl implements CourseService{
 	@Autowired
-	private GenericDao<CourseModel, String> courseDao;
+	private GenericDao<CourseModel, Integer> courseDao;
 
 	@Override
     @Transactional

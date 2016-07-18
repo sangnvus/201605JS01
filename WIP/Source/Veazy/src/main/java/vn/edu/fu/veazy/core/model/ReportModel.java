@@ -10,7 +10,7 @@ import org.hibernate.annotations.DynamicUpdate;
 @Entity
 @DynamicInsert
 @DynamicUpdate
-@Table(name = "`Report`")
+@Table(name = "Report")
 public class ReportModel extends BasicModel{
 	@Column(name = "senderId")
 	private String senderId;
@@ -26,7 +26,7 @@ public class ReportModel extends BasicModel{
 	public ReportModel() {
 		super();
 	}
-	public ReportModel(String id, Long createDate, Long updateDate, Long deleteDate, boolean deleteFlag,
+	public ReportModel(Integer id, Long createDate, Long updateDate, Long deleteDate, boolean deleteFlag,
 			String senderId, boolean readFlag, String content, String lessonId, String questionId) {
 		super(id, createDate, updateDate, deleteDate, deleteFlag);
 		this.senderId = senderId;

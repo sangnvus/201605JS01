@@ -23,12 +23,12 @@ public abstract class BasicModel implements Serializable {
     @Id
     @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String id;
+    private Integer id;
     private Long createDate;
     private Long updateDate;
     private Long deleteDate;
     private boolean deleteFlag;
-	public BasicModel(String id, Long createDate, Long updateDate, Long deleteDate, boolean deleteFlag) {
+	public BasicModel(Integer id, Long createDate, Long updateDate, Long deleteDate, boolean deleteFlag) {
 		super();
 		this.id = id;
 		this.createDate = createDate;
@@ -39,10 +39,10 @@ public abstract class BasicModel implements Serializable {
 	public BasicModel() {
 	}
 	
-	public String getId() {
+	public Integer getId() {
 		return id;
 	}
-	public void setId(String id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 	public Long getCreateDate() {

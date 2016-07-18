@@ -10,7 +10,7 @@ import org.hibernate.annotations.DynamicUpdate;
 @Entity
 @DynamicInsert
 @DynamicUpdate
-@Table(name = "`Message`")
+@Table(name = "Message")
 public class MessageModel extends BasicModel{
 	@Column(name = "content")
 	private String content;
@@ -24,7 +24,7 @@ public class MessageModel extends BasicModel{
 	public MessageModel() {
 		super();
 	}
-	public MessageModel(String id, Long createDate, Long updateDate, Long deleteDate, boolean deleteFlag,
+	public MessageModel(Integer id, Long createDate, Long updateDate, Long deleteDate, boolean deleteFlag,
 			String content, String senderId, String receiverId, boolean readFlag) {
 		super(id, createDate, updateDate, deleteDate, deleteFlag);
 		this.content = content;

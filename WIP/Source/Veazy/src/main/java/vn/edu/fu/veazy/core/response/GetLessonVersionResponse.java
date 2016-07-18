@@ -24,7 +24,7 @@ public class GetLessonVersionResponse {
 	private String article;
 	private List<Integer>listVersions;
 	public GetLessonVersionResponse(LessonModel lesson, LessonVersionModel version, List<Integer> listVersions){
-		lessonId = lesson.getId();
+		lessonId = String.valueOf(lesson.getId());
 		courseId = lesson.getCourseId();
 		this.version = version.getVersion();
 		lessonTitle = version.getTitle();

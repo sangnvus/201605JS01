@@ -10,7 +10,7 @@ import org.hibernate.annotations.DynamicUpdate;
 @Entity
 @DynamicInsert
 @DynamicUpdate
-@Table(name = "`Task`")
+@Table(name = "Task")
 public class TaskModel extends BasicModel{
 	@Column(name = "senderId")
 	private String senderId;
@@ -24,7 +24,7 @@ public class TaskModel extends BasicModel{
 	public TaskModel() {
 		super();
 	}
-	public TaskModel(String id, Long createDate, Long updateDate, Long deleteDate, boolean deleteFlag, String senderId,
+	public TaskModel(Integer id, Long createDate, Long updateDate, Long deleteDate, boolean deleteFlag, String senderId,
 			String receiverId, String content, boolean readFlag) {
 		super(id, createDate, updateDate, deleteDate, deleteFlag);
 		this.senderId = senderId;
