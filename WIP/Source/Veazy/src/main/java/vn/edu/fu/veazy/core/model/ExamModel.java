@@ -6,16 +6,29 @@
 package vn.edu.fu.veazy.core.model;
 
 import java.util.List;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 
 /**
  *
  * @author Hoang Linh
  */
+@Entity
+@DynamicInsert
+@DynamicUpdate
+@Table(name = "`Exam`")
 public class ExamModel extends BasicModel{
 
+    @Column(name = "userId", nullable = false)
     private String userId;
+    @Column(name = "courseId", nullable = false)
     private String courseId;
+    @Column(name = "listQuestions", nullable = false)
     private List<ExamAnswer> listQuestions;
+    @Column(name = "result", columnDefinition="DOUBLE DEFAULT 0.0",nullable = false)
     private Double result;
 
     public ExamModel() {

@@ -26,118 +26,115 @@ import vn.edu.fu.veazy.core.response.ResponseCode;
 import vn.edu.fu.veazy.core.service.LessonService;
 import vn.edu.fu.veazy.core.service.UserService;
 
-
 @Controller("Lesson Controller")
 public class LessonController {
 
-    /** Logger object . */
+    /**
+     * Logger object .
+     */
     private final static org.slf4j.Logger LOGGER = LoggerFactory.getLogger(LessonController.class);
-    
+
     @Autowired
     private LessonService lessonService;
     @Autowired
     private UserService userService;
-    
+
     @RequestMapping(value = Const.URLMAPPING_CREATE_LESSON, method = RequestMethod.POST)
     public @ResponseBody
-    String createLesson(Principal principal,@ModelAttribute("create-lesson-form") CreateLessonForm form) {
+    String createLesson(Principal principal, @ModelAttribute("create-lesson-form") CreateLessonForm form) {
         Response response = new Response(ResponseCode.BAD_REQUEST);
         try {
-        	String userName = principal.getName();
+            String userName = principal.getName();
             UserModel user = userService.findUserByUsername(userName);
-                    	        	
-            CreateLessonResponse data =  lessonService.createLesson(user.getId(), form);
+
+            CreateLessonResponse data = lessonService.createLesson(user.getId(), form);
             response.setCode(ResponseCode.SUCCESS);
             response.setData(data);
             LOGGER.debug("Create new lesson successfully!");
-            
+
             return response.toResponseJson();
         } catch (Exception e) {
             LOGGER.error(e.getMessage());
+            LOGGER.error("Unknown error occured!");
+            response.setCode(ResponseCode.INTERNAL_SERVER_ERROR);
         }
-
-        LOGGER.error("Unknown error occured!");
-        response.setCode(ResponseCode.INTERNAL_SERVER_ERROR);
         return response.toResponseJson();
     }
-    
+
     @RequestMapping(value = Const.URLMAPPING_UPDATE_LESSON, method = RequestMethod.POST)
     public @ResponseBody
-    String updateLesson(Principal principal,@ModelAttribute("update-lesson-form") UpdateLessonForm form,@PathVariable("lesson_id") String lessonId) {
+    String updateLesson(Principal principal, @ModelAttribute("update-lesson-form") UpdateLessonForm form, @PathVariable("lesson_id") String lessonId) {
         Response response = new Response(ResponseCode.BAD_REQUEST);
         try {
-        	String userName = principal.getName();
+            String userName = principal.getName();
             UserModel user = userService.findUserByUsername(userName);
-        	lessonService.updateLesson(user.getId(), form);
+            lessonService.updateLesson(user.getId(), form);
             response.setCode(ResponseCode.SUCCESS);
-            
+
             LOGGER.debug("Update lesson successfully!");
-            
+
             return response.toResponseJson();
         } catch (Exception e) {
             LOGGER.error(e.getMessage());
+            LOGGER.error("Unknown error occured!");
+            response.setCode(ResponseCode.INTERNAL_SERVER_ERROR);
         }
-
-        LOGGER.error("Unknown error occured!");
-        response.setCode(ResponseCode.INTERNAL_SERVER_ERROR);
         return response.toResponseJson();
     }
-    
+
     @RequestMapping(value = Const.URLMAPPING_PUBLISH_LESSON, method = RequestMethod.POST)
     public @ResponseBody
-    String publishLesson(Principal principal,@PathVariable("lesson_id") Integer lessonId) {
+    String publishLesson(Principal principal, @PathVariable("lesson_id") Integer lessonId) {
         Response response = new Response(ResponseCode.BAD_REQUEST);
         try {
-        	String userName = principal.getName();
+            String userName = principal.getName();
             UserModel user = userService.findUserByUsername(userName);
-        	lessonService.publishLessonVersion(user.getId(), lessonId);
+            lessonService.publishLessonVersion(user.getId(), lessonId);
             response.setCode(ResponseCode.SUCCESS);
-            
+
             LOGGER.debug("Publish lesson successfully!");
-            
+
             return response.toResponseJson();
         } catch (Exception e) {
             LOGGER.error(e.getMessage());
+            LOGGER.error("Unknown error occured!");
+            response.setCode(ResponseCode.INTERNAL_SERVER_ERROR);
         }
-
-        LOGGER.error("Unknown error occured!");
-        response.setCode(ResponseCode.INTERNAL_SERVER_ERROR);
         return response.toResponseJson();
     }
-    
+
     @RequestMapping(value = Const.URLMAPPING_REPORT_LESSON, method = RequestMethod.POST)
     public @ResponseBody
-    String reportLesson(Principal principal,@ModelAttribute("report-lesson-form") ReportLessonForm form,@PathVariable("lesson_id") Integer lessonId) {
+    String reportLesson(Principal principal, @ModelAttribute("report-lesson-form") ReportLessonForm form, @PathVariable("lesson_id") Integer lessonId) {
         Response response = new Response(ResponseCode.BAD_REQUEST);
         try {
-        	String userName = principal.getName();
+            String userName = principal.getName();
             UserModel user = userService.findUserByUsername(userName);
-        	lessonService.reportLesson(user.getId(), lessonId, form.getContent());
+            lessonService.reportLesson(user.getId(), lessonId, form.getContent());
             response.setCode(ResponseCode.SUCCESS);
-            
+
             LOGGER.debug("Report lesson successfully!");
-            
+
             return response.toResponseJson();
         } catch (Exception e) {
             LOGGER.error(e.getMessage());
+            LOGGER.error("Unknown error occured!");
+            response.setCode(ResponseCode.INTERNAL_SERVER_ERROR);
         }
-
-        LOGGER.error("Unknown error occured!");
-        response.setCode(ResponseCode.INTERNAL_SERVER_ERROR);
         return response.toResponseJson();
     }
-    
+
     @RequestMapping(value = Const.URLMAPPING_GET_LESSON_COURSE, method = RequestMethod.GET)
     public @ResponseBody
     String getLessonOfCourse(@PathVariable("course_id") Integer courseId) {
         Response response = new Response(ResponseCode.BAD_REQUEST);
         try {
-        	List<LessonOfCourseResponse> data = lessonService.getLessonsOfCourse(courseId);
+            List<LessonOfCourseResponse> data = lessonService.getLessonsOfCourse(courseId);
             response.setCode(ResponseCode.SUCCESS);
             response.setData(data);
-            
+
             LOGGER.debug("Get lesson of course successfully!");
-            
+
             return response.toResponseJson();
         } catch (Exception e) {
             LOGGER.error(e.getMessage());
@@ -147,18 +144,18 @@ public class LessonController {
         response.setCode(ResponseCode.INTERNAL_SERVER_ERROR);
         return response.toResponseJson();
     }
-    
+
     @RequestMapping(value = Const.URLMAPPING_GET_LESSON, method = RequestMethod.GET)
     public @ResponseBody
     String getLesson(@PathVariable("lesson_id") Integer lessonId) {
         Response response = new Response(ResponseCode.BAD_REQUEST);
         try {
-        	GetLessonResponse data = lessonService.getLesson(lessonId);
+            GetLessonResponse data = lessonService.getLesson(lessonId);
             response.setCode(ResponseCode.SUCCESS);
             response.setData(data);
-            
+
             LOGGER.debug("Get lesson successfully!");
-            
+
             return response.toResponseJson();
         } catch (Exception e) {
             LOGGER.error(e.getMessage());
@@ -169,23 +166,23 @@ public class LessonController {
         return response.toResponseJson();
     }
 
-	@RequestMapping(value = Const.URLMAPPING_GET_LESSON_VERSION, method = RequestMethod.GET)
-	public @ResponseBody
-	String getLessonVersion(@PathVariable("lesson_id") Integer lessonId,@PathVariable("version") Integer version) {
-	    Response response = new Response(ResponseCode.BAD_REQUEST);
-	    try {
-	    	GetLessonVersionResponse data = lessonService.getLessonVersion(lessonId, version);
-	        response.setCode(ResponseCode.SUCCESS);
-	        response.setData(data);
-	        LOGGER.debug("Get lesson version successfully!");
-	        
-	        return response.toResponseJson();
-	    } catch (Exception e) {
-	        LOGGER.error(e.getMessage());
-	    }
-	
-	    LOGGER.error("Unknown error occured!");
-	    response.setCode(ResponseCode.INTERNAL_SERVER_ERROR);
-	    return response.toResponseJson();
-	}
+    @RequestMapping(value = Const.URLMAPPING_GET_LESSON_VERSION, method = RequestMethod.GET)
+    public @ResponseBody
+    String getLessonVersion(@PathVariable("lesson_id") Integer lessonId, @PathVariable("version") Integer version) {
+        Response response = new Response(ResponseCode.BAD_REQUEST);
+        try {
+            GetLessonVersionResponse data = lessonService.getLessonVersion(lessonId, version);
+            response.setCode(ResponseCode.SUCCESS);
+            response.setData(data);
+            LOGGER.debug("Get lesson version successfully!");
+
+            return response.toResponseJson();
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage());
+        }
+
+        LOGGER.error("Unknown error occured!");
+        response.setCode(ResponseCode.INTERNAL_SERVER_ERROR);
+        return response.toResponseJson();
+    }
 }

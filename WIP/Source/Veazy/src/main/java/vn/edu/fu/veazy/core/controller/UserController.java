@@ -102,10 +102,9 @@ public class UserController {
             return response.toResponseJson();
         } catch (Exception e) {
             LOGGER.error(e.getMessage());
+            LOGGER.error("Unknown error occured!");
+            response.setCode(ResponseCode.INTERNAL_SERVER_ERROR);
         }
-
-        LOGGER.error("Unknown error occured!");
-        response.setCode(ResponseCode.INTERNAL_SERVER_ERROR);
         return response.toResponseJson();
     }
 
@@ -144,10 +143,9 @@ public class UserController {
             response.setData(data);
         } catch (Exception e) {
             LOGGER.error(e.getMessage());
+            LOGGER.error("Unknown error occured!");
+            response.setCode(ResponseCode.INTERNAL_SERVER_ERROR);
         }
-
-        LOGGER.error("Unknown error occured!");
-        response.setCode(ResponseCode.INTERNAL_SERVER_ERROR);
         return response.toResponseJson();
     }
 
@@ -210,10 +208,9 @@ public class UserController {
             }
         } catch (Exception e) {
             LOGGER.error(e.getMessage());
+            LOGGER.error("Unknown error occured!");
+            response.setCode(ResponseCode.INTERNAL_SERVER_ERROR);
         }
-
-        LOGGER.error("Unknown error occured!");
-        response.setCode(ResponseCode.INTERNAL_SERVER_ERROR);
         return response.toResponseJson();
     }
 
@@ -251,10 +248,9 @@ public class UserController {
             response.setData(data);
         } catch (Exception e) {
             LOGGER.error(e.getMessage());
+            LOGGER.error("Unknown error occured!");
+            response.setCode(ResponseCode.INTERNAL_SERVER_ERROR);
         }
-
-        LOGGER.error("Unknown error occured!");
-        response.setCode(ResponseCode.INTERNAL_SERVER_ERROR);
         return response.toResponseJson();
     }
 }

@@ -6,24 +6,53 @@
 package vn.edu.fu.veazy.core.model;
 
 import java.util.List;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 
 /**
  *
  * @author Hoang Linh
  */
+@Entity
+@DynamicInsert
+@DynamicUpdate
+@Table(name = "`Question`")
 public class QuestionModel extends BasicModel {
 
+    @Column(name = "questionCode", columnDefinition = "VARCHAR(30) UNIQUE", nullable = false)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private String questionCode;
-    private Boolean isUpdating;
+    @Column(name = "creatorId", nullable = false)
     private String creatorId;
-    private String questionAnswerType;
-    private Integer questionVersion;
-    private Integer questionType;
-    private Integer questionSkill;
+    @Column(name = "questionAnswerType", columnDefinition="INT DEFAULT 1", nullable = false)
+    private Integer questionAnswerType = 1;
+    @Column(name = "questionType", columnDefinition="INT DEFAULT 1", nullable = false)
+    private Integer questionType = 1;
+    @Column(name = "questionType", columnDefinition="INT DEFAULT 1", nullable = false)
+    private Integer questionSkill = 1;
+    @Column(name = "numberOfQuestion", columnDefinition="INT DEFAULT 1", nullable = false)
+    // numberOfQuestion = 1 if Singular 
+    // >1 if Group(the origin question)
+    // =0 if is a question of Group
+    private Integer numberOfQuestion;
+    @Column(name = "courseid", nullable = false)
     private String courseId;
+    @Column(name = "question", nullable = false)
     private String question;
+    @OneToMany
+    @Column(name = "listAnswers", nullable = false)
     private List<Answer> listAnswers;
+    @Column(name = "content", nullable = true)
+    private List<String> content;
+    @Column(name = "state", columnDefinition="INT DEFAULT 1", nullable = false)
     private Integer state;
+    @Column(name = "attachment", nullable = true)
     private String attachment;
 
     public QuestionModel() {
@@ -37,12 +66,20 @@ public class QuestionModel extends BasicModel {
         this.questionCode = questionCode;
     }
 
-    public Boolean getIsUpdating() {
-        return isUpdating;
+    public Integer getNumberOfQuestion() {
+        return numberOfQuestion;
     }
 
-    public void setIsUpdating(Boolean isUpdating) {
-        this.isUpdating = isUpdating;
+    public void setNumberOfQuestion(Integer numberOfQuestion) {
+        this.numberOfQuestion = numberOfQuestion;
+    }
+
+    public List<String> getContent() {
+        return content;
+    }
+
+    public void setContent(List<String> content) {
+        this.content = content;
     }
 
     public String getCreatorId() {
@@ -53,20 +90,12 @@ public class QuestionModel extends BasicModel {
         this.creatorId = creatorId;
     }
 
-    public String getQuestionAnswerType() {
+    public Integer getQuestionAnswerType() {
         return questionAnswerType;
     }
 
-    public void setQuestionAnswerType(String questionAnswerType) {
+    public void setQuestionAnswerType(Integer questionAnswerType) {
         this.questionAnswerType = questionAnswerType;
-    }
-
-    public Integer getQuestionVersion() {
-        return questionVersion;
-    }
-
-    public void setQuestionVersion(Integer questionVersion) {
-        this.questionVersion = questionVersion;
     }
 
     public Integer getQuestionType() {

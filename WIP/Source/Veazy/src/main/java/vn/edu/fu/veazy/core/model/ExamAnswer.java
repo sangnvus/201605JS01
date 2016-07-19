@@ -5,37 +5,49 @@
  */
 package vn.edu.fu.veazy.core.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
+
 /**
  *
  * @author Hoang Linh
  */
-public class ExamAnswer {
+@Entity
+@DynamicInsert
+@DynamicUpdate
+@Table(name = "`ExamAnswer`")
+public class ExamAnswer extends BasicModel {
 
-    private String QuestionId;
-    private String UserAnswer;
+    @Column(name = "questionId", nullable = false)
+    private String questionId;
+    @Column(name = "userAnswer", nullable = false)
+    private String userAnswer;
 
     public ExamAnswer() {
     }
 
     public ExamAnswer(String QuestionId, String UserAnswer) {
-        this.QuestionId = QuestionId;
-        this.UserAnswer = UserAnswer;
+        this.questionId = QuestionId;
+        this.userAnswer = UserAnswer;
     }
 
     public String getQuestionId() {
-        return QuestionId;
+        return questionId;
     }
 
     public void setQuestionId(String QuestionId) {
-        this.QuestionId = QuestionId;
+        this.questionId = QuestionId;
     }
 
     public String getUserAnswer() {
-        return UserAnswer;
+        return userAnswer;
     }
 
     public void setUserAnswer(String UserAnswer) {
-        this.UserAnswer = UserAnswer;
+        this.userAnswer = UserAnswer;
     }
 
 }

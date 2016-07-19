@@ -5,14 +5,26 @@
  */
 package vn.edu.fu.veazy.core.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
+
 /**
  *
  * @author Hoang Linh
  */
-public class Answer {
+@Entity
+@DynamicInsert
+@DynamicUpdate
+@Table(name = "`Answer`")
+public class Answer extends BasicModel {
 
+    @Column(name = "answer", nullable = false)
     private String answer;
-    private Boolean isRight;
+    @Column(name = "isBanned", columnDefinition="BOOLEAN DEFAULT FALSE", nullable = true)
+    private Boolean isRight = false;
 
     public Answer() {
     }
@@ -32,5 +44,4 @@ public class Answer {
     public void setIsRight(Boolean isRight) {
         this.isRight = isRight;
     }
-
 }
