@@ -16,6 +16,7 @@ public class Const {
     public static final String URL_PREFIX = "/api";
     public static final String URLMAPPING_REGISTER = URL_PREFIX + "/register";
     public static final String URLMAPPING_LOGIN = URL_PREFIX + "/login";
+    public static final String URLMAPPING_LOGOUT = URL_PREFIX + "/logout";
     public static final String URLMAPPING_RESET_PASSWORD = URL_PREFIX + "/users/reset_password";
     
     public static final String URLMAPPING_GET_USER = URL_PREFIX + "/users/{user_id}";

@@ -7,19 +7,23 @@
     http://www.springframework.org/schema/security/spring-security-4.1.xsd">
 
     <http auto-config="true" use-expressions="true" create-session="always" >
+        <intercept-url pattern="/register" access="!isAuthenticated()" />
+        <intercept-url pattern="/login" access="!isAuthenticated()" />
         <intercept-url pattern="/api/register" access="!isAuthenticated()" />
         <intercept-url pattern="/api/login" access="!isAuthenticated()" />
         <intercept-url pattern="/api/editor**" access="hasRole('2')" />
         <intercept-url pattern="/api/cm**" access="hasRole('3')" />
         <intercept-url pattern="/api/admin**" access="hasRole('4')" />
-        <intercept-url pattern="/api/**" access="isAuthenticated()" />
-        <form-login 
-            login-page="/login" 
+        <intercept-url pattern="/api/user**" access="isAuthenticated()" />
+        <intercept-url pattern="/**" access="!isAuthenticated()" />
+        <!-- login-page="/login" 
             default-target-url="/" 
-            authentication-failure-url="/login?error" 
+            authentication-failure-url="/login?error"  -->
+        <form-login 
+            authentication-failure-url="/login?error"
             username-parameter="username"
             password-parameter="password" />
-        <logout logout-success-url="/login?logout" />
+        <!-- <logout logout-success-url="/login?logout" /> -->
         <session-management session-fixation-protection="migrateSession"/>
         <!-- <remember-me data-source-ref="dataSource" token-validity-seconds="86400"/> 1 day -->
         <csrf disabled="true" />

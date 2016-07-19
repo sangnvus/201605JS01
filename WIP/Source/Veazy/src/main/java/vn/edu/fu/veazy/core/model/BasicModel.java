@@ -27,6 +27,7 @@ public abstract class BasicModel implements Serializable {
     private Long createDate;
     private Long updateDate;
     private Long deleteDate;
+    @Column(columnDefinition="boolean default false", nullable = false)
     private boolean deleteFlag;
 	public BasicModel(Integer id, Long createDate, Long updateDate, Long deleteDate, boolean deleteFlag) {
 		super();

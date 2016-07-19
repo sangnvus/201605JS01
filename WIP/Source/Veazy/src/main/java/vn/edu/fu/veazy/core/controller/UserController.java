@@ -2,8 +2,15 @@ package vn.edu.fu.veazy.core.controller;
 
 import java.security.Principal;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -118,37 +125,19 @@ public class UserController {
     @RequestMapping(value = Const.URLMAPPING_LOGIN, method = RequestMethod.POST)
     public @ResponseBody
     String loginProceed(@ModelAttribute("login-form") LoginForm loginForm) {
-        Response response = new Response(ResponseCode.BAD_REQUEST);
-        try {
-            LOGGER.debug("Get to login proceed controller successful");
-
-            UserModel user = userService.findUserByUsername(loginForm.getUsername());
-            if (user == null) {
-                LOGGER.error("UserName not exist!");
-                response.setCode(ResponseCode.USER_NOT_FOUND);
-                return response.toResponseJson();
-            }
-            String password = loginForm.getEncryptedPassword();
-            if (password == null || password.equals("") || !password.equals(user.getEncryptedPassword())) {
-                LOGGER.error("Incorrect password!");
-                response.setCode(ResponseCode.INCORRECT_PASSWORD);
-                return response.toResponseJson();
-            }
-
-            LOGGER.debug("Login successfully!");
-            LoginResponseData data = new LoginResponseData();
-            data.setRoll(user.getRole());
-//            TODO
-//            data.setToken(token);
-            response.setCode(ResponseCode.SUCCESS);
-            response.setData(data);
-        } catch (Exception e) {
-            LOGGER.error(e.getMessage());
-        }
-
-        LOGGER.error("Unknown error occured!");
-        response.setCode(ResponseCode.INTERNAL_SERVER_ERROR);
+        Response response = new Response(ResponseCode.SUCCESS);
         return response.toResponseJson();
+    }
+    
+    @RequestMapping(value = Const.URLMAPPING_LOGOUT, method = RequestMethod.GET)
+    public String logoutProceed (HttpServletRequest request, HttpServletResponse response) {
+        Response responseObj = new Response(ResponseCode.BAD_REQUEST);
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth != null){    
+            new SecurityContextLogoutHandler().logout(request, response, auth);
+            responseObj.setCode(ResponseCode.SUCCESS);
+        }
+        return responseObj.toResponseJson();
     }
 
     /**
