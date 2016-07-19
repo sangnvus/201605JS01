@@ -18,7 +18,10 @@ public class CourseModel extends BasicModel{
 	private int index;
 	@Column(name = "des")
 	private String description;
-	public CourseModel(String name, int index, String description) {
+	public CourseModel() {
+        super();
+    }
+    public CourseModel(String name, int index, String description) {
 		super();
 		this.name = name;
 		this.index = index;
