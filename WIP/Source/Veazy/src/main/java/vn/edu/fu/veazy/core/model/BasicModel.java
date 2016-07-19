@@ -24,13 +24,9 @@ public abstract class BasicModel implements Serializable {
     @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @Column(name = "createDate",columnDefinition = "LONG" ,nullable = true)
     private Long createDate;
-    @Column(name = "updateDate",columnDefinition = "LONG" ,nullable = true)
     private Long updateDate;
-    @Column(name = "deleteDate",columnDefinition = "LONG" ,nullable = true)
     private Long deleteDate;
-    @Column(name = "deleteFlag",columnDefinition = "LONG" ,nullable = true)
     private boolean deleteFlag;
 
     public BasicModel() {
