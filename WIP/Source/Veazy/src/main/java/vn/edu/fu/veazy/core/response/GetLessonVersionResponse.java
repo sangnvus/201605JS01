@@ -7,13 +7,13 @@ import vn.edu.fu.veazy.core.model.LessonModel;
 import vn.edu.fu.veazy.core.model.LessonVersionModel;
 
 public class GetLessonVersionResponse {
-	private String lessonId;
-	private String courseId;
+	private Integer lessonId;
+	private Integer courseId;
 	private Integer version;
 	private String lessonTitle;
 	private String description;
-	private String creatorId;
-	private String reviewerId;
+	private Integer creatorId;
+	private Integer reviewerId;
 	private Long createDate;
 	private Long updateDate;
 	private String vocabulary;
@@ -24,7 +24,7 @@ public class GetLessonVersionResponse {
 	private String article;
 	private List<Integer>listVersions;
 	public GetLessonVersionResponse(LessonModel lesson, LessonVersionModel version, List<Integer> listVersions){
-		lessonId = String.valueOf(lesson.getId());
+		lessonId = lesson.getId();
 		courseId = lesson.getCourseId();
 		this.version = version.getVersion();
 		lessonTitle = version.getTitle();
@@ -41,16 +41,16 @@ public class GetLessonVersionResponse {
 		article=version.getArticle();
 		this.listVersions = listVersions;
 	}
-	public String getLessonId() {
+	public Integer getLessonId() {
 		return lessonId;
 	}
-	public void setLessonId(String lessonId) {
+	public void setLessonId(Integer lessonId) {
 		this.lessonId = lessonId;
 	}
-	public String getCourseId() {
+	public Integer getCourseId() {
 		return courseId;
 	}
-	public void setCourseId(String courseId) {
+	public void setCourseId(Integer courseId) {
 		this.courseId = courseId;
 	}
 	public Integer getVersion() {
@@ -71,16 +71,16 @@ public class GetLessonVersionResponse {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public String getCreatorId() {
+	public Integer getCreatorId() {
 		return creatorId;
 	}
-	public void setCreatorId(String creatorId) {
+	public void setCreatorId(Integer creatorId) {
 		this.creatorId = creatorId;
 	}
-	public String getReviewerId() {
+	public Integer getReviewerId() {
 		return reviewerId;
 	}
-	public void setReviewerId(String reviewerId) {
+	public void setReviewerId(Integer reviewerId) {
 		this.reviewerId = reviewerId;
 	}
 	public Long getCreateDate() {

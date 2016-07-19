@@ -15,15 +15,15 @@ public class LessonModel extends BasicModel{
 	@Column(name = "index", columnDefinition="int UNIQUE", nullable = false)
 	private int index;
 	@Column(name = "courseid", nullable = false)
-	private String courseId;
+	private Integer courseId;
 	@Column(name = "versionId", nullable = false)
-	private String currentVersionId;
+	private Integer currentVersionId;
 	
 	public LessonModel() {
 		super();
 	}
 	public LessonModel(Integer id, Long createDate, Long updateDate, Long deleteDate, boolean deleteFlag, int index,
-			String courseId, String currentVersionId) {
+			Integer courseId, Integer currentVersionId) {
 		super(id, createDate, updateDate, deleteDate, deleteFlag);
 		this.index = index;
 		this.courseId = courseId;
@@ -35,16 +35,16 @@ public class LessonModel extends BasicModel{
 	public void setIndex(int index) {
 		this.index = index;
 	}
-	public String getCourseId() {
+	public Integer getCourseId() {
 		return courseId;
 	}
-	public void setCourseId(String courseId) {
+	public void setCourseId(Integer courseId) {
 		this.courseId = courseId;
 	}
-	public String getCurrentVersionId() {
+	public Integer getCurrentVersionId() {
 		return currentVersionId;
 	}
-	public void setCurrentVersionId(String currentVersionId) {
+	public void setCurrentVersionId(Integer currentVersionId) {
 		this.currentVersionId = currentVersionId;
 	}
 	

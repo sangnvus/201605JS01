@@ -13,9 +13,9 @@ import org.hibernate.annotations.DynamicUpdate;
 @Table(name = "Task")
 public class TaskModel extends BasicModel{
 	@Column(name = "senderId")
-	private String senderId;
+	private Integer senderId;
 	@Column(name = "receiverId")
-	private String receiverId;
+	private Integer receiverId;
 	@Column(name = "content", nullable = false)
 	private String content;
 	@Column(name = "isRead", columnDefinition="BOOLEAN DEFAULT FALSE", nullable = false)
@@ -24,24 +24,24 @@ public class TaskModel extends BasicModel{
 	public TaskModel() {
 		super();
 	}
-	public TaskModel(Integer id, Long createDate, Long updateDate, Long deleteDate, boolean deleteFlag, String senderId,
-			String receiverId, String content, boolean readFlag) {
+	public TaskModel(Integer id, Long createDate, Long updateDate, Long deleteDate, boolean deleteFlag, Integer senderId,
+			Integer receiverId, String content, boolean readFlag) {
 		super(id, createDate, updateDate, deleteDate, deleteFlag);
 		this.senderId = senderId;
 		this.receiverId = receiverId;
 		this.content = content;
 		this.readFlag = readFlag;
 	}
-	public String getSenderId() {
+	public Integer getSenderId() {
 		return senderId;
 	}
-	public void setSenderId(String senderId) {
+	public void setSenderId(Integer senderId) {
 		this.senderId = senderId;
 	}
-	public String getReceiverId() {
+	public Integer getReceiverId() {
 		return receiverId;
 	}
-	public void setReceiverId(String receiverId) {
+	public void setReceiverId(Integer receiverId) {
 		this.receiverId = receiverId;
 	}
 	public String getContent() {
