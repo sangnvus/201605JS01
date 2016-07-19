@@ -36,7 +36,7 @@ public class LessonServiceImpl implements LessonService{
 	
 	@Override
 	@Transactional
-	public CreateLessonResponse createLesson(String creatorId, CreateLessonForm form) throws Exception {
+	public CreateLessonResponse createLesson(Integer creatorId, CreateLessonForm form) throws Exception {
 		// get data from form
 		LessonModel lesson = new LessonModel();
 		lesson.setCourseId(form.getCourseId());
@@ -70,8 +70,8 @@ public class LessonServiceImpl implements LessonService{
 		lessonDao.save(lesson);
 		lessonVersionDao.save(lessonVersion);
 		
-		lesson.setCurrentVersionId(String.valueOf(lessonVersion.getId()));
-		lessonVersion.setLessonId(String.valueOf(lesson.getId()));
+		lesson.setCurrentVersionId(lessonVersion.getId());
+		lessonVersion.setLessonId(lesson.getId());
 		
 		lessonDao.update(lesson);
 		lessonVersionDao.update(lessonVersion);
@@ -83,7 +83,7 @@ public class LessonServiceImpl implements LessonService{
 
 	@Override
 	@Transactional
-	public GetLessonVersionResponse getLessonVersion(String lessonId, Integer version) throws Exception {
+	public GetLessonVersionResponse getLessonVersion(Integer lessonId, Integer version) throws Exception {
 		//get lesson
 		LessonModel lesson =  lessonDao.findById(Integer.valueOf(lessonId));
 		if(lesson == null){
@@ -116,7 +116,7 @@ public class LessonServiceImpl implements LessonService{
 
 	@Override
 	@Transactional
-	public void updateLesson(String requesterId, UpdateLessonForm form) throws Exception {
+	public void updateLesson(Integer requesterId, UpdateLessonForm form) throws Exception {
 		//get lesson
 		LessonModel lesson = lessonDao.findById(Integer.valueOf(form.getLessonId()));
 		if(lesson == null){
@@ -163,7 +163,7 @@ public class LessonServiceImpl implements LessonService{
 
 	@Override
 	@Transactional
-	public void publishLessonVersion(String requesterId, String lessionId) throws Exception {
+	public void publishLessonVersion(Integer requesterId, Integer lessionId) throws Exception {
 		LessonVersionModel sample = new LessonVersionModel();
 		sample.setLessonId(lessionId);
 		sample.setState(Const.UPDATING);
@@ -195,7 +195,7 @@ public class LessonServiceImpl implements LessonService{
 
 	@Override
 	@Transactional
-	public void reportLesson(String reporterId, String lessonId, String content) throws Exception {
+	public void reportLesson(Integer reporterId, Integer lessonId, String content) throws Exception {
 		ReportModel report = new ReportModel();
 		report.setSenderId(reporterId);
 		report.setContent(content);
@@ -208,7 +208,7 @@ public class LessonServiceImpl implements LessonService{
 
 	@Override
 	@Transactional
-	public List<LessonOfCourseResponse> getLessonsOfCourse(String courseId) throws Exception {
+	public List<LessonOfCourseResponse> getLessonsOfCourse(Integer courseId) throws Exception {
 		LessonModel sample = new LessonModel();
 		sample.setCourseId(courseId);
 		List<LessonModel> listLesson = lessonDao.findByExample(sample);
@@ -230,40 +230,40 @@ public class LessonServiceImpl implements LessonService{
 
 	@Override
 	@Transactional
-	public GetLessonResponse getLesson(String lessonId) throws Exception {
+	public GetLessonResponse getLesson(Integer lessonId) throws Exception {
 		LessonModel lesson =  lessonDao.findById(Integer.valueOf(lessonId));
 		if(lesson == null){
 			throw new Exception("lesson doesn't exist");
 		}
 		LessonVersionModel currentVersion = lessonVersionDao
-		        .findById(Integer.valueOf(lesson.getCurrentVersionId()));
+		        .findById(lesson.getCurrentVersionId());
 		//get previous,next lesson id
-		String nextId = null,previousId = null;
+		Integer nextId = null,previousId = null;
 		if(lesson.getIndex() != Const.START_INDEX){
 			LessonModel sample = new LessonModel();
 			sample.setCourseId(lesson.getCourseId());
 			sample.setIndex(lesson.getIndex()-1);
-			previousId = String.valueOf(lessonDao.findByExample(sample).get(0).getId());
+			previousId = lessonDao.findByExample(sample).get(0).getId();
 		}
 		LessonModel sample = new LessonModel();
 		sample.setCourseId(lesson.getCourseId());
 		sample.setIndex(lesson.getIndex()+1);
 		List<LessonModel> listLesson = lessonDao.findByExample(sample);
 		if(listLesson != null && !listLesson.isEmpty()){
-			nextId = String.valueOf(listLesson.get(0).getId());
+			nextId = listLesson.get(0).getId();
 		}
 		
 		return new GetLessonResponse(lesson,currentVersion,nextId,previousId);
 	}
 	
-	private List<LessonModel> getLessonOfCourse(String courseId) throws Exception {
+	private List<LessonModel> getLessonOfCourse(Integer courseId) throws Exception {
 		LessonModel sample = new LessonModel();
 		sample.setCourseId(courseId);
 		return lessonDao.findByExample(sample);
 	}
 	
 
-    private List<LessonVersionModel> getVersionOfLesson(String lessonId) throws Exception{
+    private List<LessonVersionModel> getVersionOfLesson(Integer lessonId) throws Exception{
     	LessonVersionModel versionSample = new LessonVersionModel();
 		versionSample.setLessonId(lessonId);
 		return lessonVersionDao.findByExample(versionSample);
