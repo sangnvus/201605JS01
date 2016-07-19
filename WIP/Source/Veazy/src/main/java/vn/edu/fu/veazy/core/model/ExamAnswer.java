@@ -7,6 +7,8 @@ package vn.edu.fu.veazy.core.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
@@ -21,25 +23,26 @@ import org.hibernate.annotations.DynamicUpdate;
 @Table(name = "`ExamAnswer`")
 public class ExamAnswer extends BasicModel {
 
-    @Column(name = "questionId", nullable = false)
-    private String questionId;
+    @ManyToOne
+    @JoinColumn(name="exammodel_id")
+    private ExamModel question;
     @Column(name = "userAnswer", nullable = false)
     private String userAnswer;
 
     public ExamAnswer() {
     }
 
-    public ExamAnswer(String QuestionId, String UserAnswer) {
-        this.questionId = QuestionId;
+    public ExamAnswer(ExamModel question, String UserAnswer) {
+        this.question = question;
         this.userAnswer = UserAnswer;
     }
 
-    public String getQuestionId() {
-        return questionId;
+    public ExamModel getQuestionId() {
+        return question;
     }
 
-    public void setQuestionId(String QuestionId) {
-        this.questionId = QuestionId;
+    public void setQuestionId(ExamModel question) {
+        this.question = question;
     }
 
     public String getUserAnswer() {

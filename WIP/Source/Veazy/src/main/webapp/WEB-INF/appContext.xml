@@ -40,10 +40,12 @@
         <value>vn.edu.fu.veazy.core.model.UserModel</value>
         <value>vn.edu.fu.veazy.core.model.CourseModel</value>
         <value>vn.edu.fu.veazy.core.model.ExamModel</value>
+        <value>vn.edu.fu.veazy.core.model.ExamAnswer</value>
         <value>vn.edu.fu.veazy.core.model.LessonModel</value>
         <value>vn.edu.fu.veazy.core.model.LessonVersionModel</value>
         <value>vn.edu.fu.veazy.core.model.MessageModel</value>
         <value>vn.edu.fu.veazy.core.model.QuestionModel</value>
+        <value>vn.edu.fu.veazy.core.model.Answer</value>
         <value>vn.edu.fu.veazy.core.model.ReportModel</value>
         <value>vn.edu.fu.veazy.core.model.TaskModel</value>
       </list>
@@ -52,7 +54,7 @@
         <props>
           <prop key="hibernate.dialect">org.hibernate.dialect.PostgreSQL82Dialect</prop>
           <prop key="hibernate.show_sql">true</prop>
-          <prop key="hibernate.hbm2ddl.auto">update</prop>
+          <prop key="hibernate.hbm2ddl.auto">create-drop</prop>
         </props>
       </property>
   </bean>

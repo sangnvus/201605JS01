@@ -7,6 +7,7 @@ package vn.edu.fu.veazy.core.model;
 
 import java.util.List;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -34,7 +35,7 @@ public class QuestionModel extends BasicModel {
     private Integer questionAnswerType = 1;
     @Column(name = "questionType", columnDefinition="INT DEFAULT 1", nullable = false)
     private Integer questionType = 1;
-    @Column(name = "questionType", columnDefinition="INT DEFAULT 1", nullable = false)
+    @Column(name = "questionSkill", columnDefinition="INT DEFAULT 1", nullable = false)
     private Integer questionSkill = 1;
     @Column(name = "numberOfQuestion", columnDefinition="INT DEFAULT 1", nullable = false)
     // numberOfQuestion = 1 if Singular 
@@ -45,9 +46,10 @@ public class QuestionModel extends BasicModel {
     private String courseId;
     @Column(name = "question", nullable = false)
     private String question;
-    @OneToMany
+    @OneToMany(mappedBy = "question")
     @Column(name = "listAnswers", nullable = false)
     private List<Answer> listAnswers;
+    @ElementCollection
     @Column(name = "content", nullable = true)
     private List<String> content;
     @Column(name = "state", columnDefinition="INT DEFAULT 1", nullable = false)
