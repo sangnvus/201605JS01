@@ -12,7 +12,7 @@ import org.hibernate.annotations.DynamicUpdate;
 @Table(name = "LessonVersion")
 public class LessonVersionModel extends BasicModel{
 	@Column(name = "lessonId", nullable = false)
-	private String lessonId;
+	private Integer lessonId;
 	@Column(name = "version",columnDefinition="INT DEFAULT 1", nullable = false)
 	private Integer version;
 	@Column(name = "state",columnDefinition="INT DEFAULT 1", nullable = false)
@@ -22,9 +22,9 @@ public class LessonVersionModel extends BasicModel{
 	@Column(name = "description", nullable = false)
 	private String description;
 	@Column(name = "creatorId", nullable = false)
-	private String creatorId;
+	private Integer creatorId;
 	@Column(name = "reviewerId", nullable = true)
-	private String reviewerId;
+	private Integer reviewerId;
 	@Column(name = "vocab")
 	private String vocabulary;
 	@Column(name = "grammar")
@@ -42,8 +42,8 @@ public class LessonVersionModel extends BasicModel{
 		super();
 	}
 	public LessonVersionModel(Integer id, Long createDate, Long updateDate, Long deleteDate, boolean deleteFlag,
-			String lessonId, Integer version, Integer state, String title, String description, String creatorId,
-			String reviewerId, String vocabulary, String grammar, String reading, String listening, String practice,
+			Integer lessonId, Integer version, Integer state, String title, String description, Integer creatorId,
+			Integer reviewerId, String vocabulary, String grammar, String reading, String listening, String practice,
 			String article) {
 		super(id, createDate, updateDate, deleteDate, deleteFlag);
 		this.lessonId = lessonId;
@@ -60,10 +60,10 @@ public class LessonVersionModel extends BasicModel{
 		this.practice = practice;
 		this.article = article;
 	}
-	public String getLessonId() {
+	public Integer getLessonId() {
 		return lessonId;
 	}
-	public void setLessonId(String lessonId) {
+	public void setLessonId(Integer lessonId) {
 		this.lessonId = lessonId;
 	}
 	public Integer getVersion() {
@@ -90,16 +90,16 @@ public class LessonVersionModel extends BasicModel{
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public String getCreatorId() {
+	public Integer getCreatorId() {
 		return creatorId;
 	}
-	public void setCreatorId(String creatorId) {
+	public void setCreatorId(Integer creatorId) {
 		this.creatorId = creatorId;
 	}
-	public String getReviewerId() {
+	public Integer getReviewerId() {
 		return reviewerId;
 	}
-	public void setReviewerId(String reviewerId) {
+	public void setReviewerId(Integer reviewerId) {
 		this.reviewerId = reviewerId;
 	}
 	public String getVocabulary() {

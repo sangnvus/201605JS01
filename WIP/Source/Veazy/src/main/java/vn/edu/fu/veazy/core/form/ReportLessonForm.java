@@ -1,21 +1,21 @@
 package vn.edu.fu.veazy.core.form;
 
 public class ReportLessonForm {
-	private String lessonId;
+	private Integer lessonId;
 	private String content;
 	
 	public ReportLessonForm() {
 		super();
 	}
-	public ReportLessonForm(String lessonId, String content) {
+	public ReportLessonForm(Integer lessonId, String content) {
 		super();
 		this.lessonId = lessonId;
 		this.content = content;
 	}
-	public String getLessonId() {
+	public Integer getLessonId() {
 		return lessonId;
 	}
-	public void setLessonId(String lessonId) {
+	public void setLessonId(Integer lessonId) {
 		this.lessonId = lessonId;
 	}
 	public String getContent() {

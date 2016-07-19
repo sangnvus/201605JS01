@@ -15,9 +15,9 @@ public class MessageModel extends BasicModel{
 	@Column(name = "content")
 	private String content;
 	@Column(name = "senderId")
-	private String senderId;
+	private Integer senderId;
 	@Column(name = "receiverId")
-	private String receiverId;
+	private Integer receiverId;
 	@Column(name = "isRead", columnDefinition="BOOLEAN DEFAULT FALSE", nullable = false)
 	private boolean readFlag;
 	
@@ -25,7 +25,7 @@ public class MessageModel extends BasicModel{
 		super();
 	}
 	public MessageModel(Integer id, Long createDate, Long updateDate, Long deleteDate, boolean deleteFlag,
-			String content, String senderId, String receiverId, boolean readFlag) {
+			String content, Integer senderId, Integer receiverId, boolean readFlag) {
 		super(id, createDate, updateDate, deleteDate, deleteFlag);
 		this.content = content;
 		this.senderId = senderId;
@@ -38,16 +38,16 @@ public class MessageModel extends BasicModel{
 	public void setContent(String content) {
 		this.content = content;
 	}
-	public String getSenderId() {
+	public Integer getSenderId() {
 		return senderId;
 	}
-	public void setSenderId(String senderId) {
+	public void setSenderId(Integer senderId) {
 		this.senderId = senderId;
 	}
-	public String getReceiverId() {
+	public Integer getReceiverId() {
 		return receiverId;
 	}
-	public void setReceiverId(String receiverId) {
+	public void setReceiverId(Integer receiverId) {
 		this.receiverId = receiverId;
 	}
 	public boolean isReadFlag() {

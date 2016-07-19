@@ -1,7 +1,7 @@
 package vn.edu.fu.veazy.core.form;
 
 public class CreateLessonForm {
-	private String courseId;
+	private Integer courseId;
 	private String lessonTitle;
 	private String description;
 	private String vocabulary;
@@ -10,10 +10,10 @@ public class CreateLessonForm {
 	private String listening;
 	private String practice;
 	private String article;
-	public String getCourseId() {
+	public Integer getCourseId() {
 		return courseId;
 	}
-	public void setCourseId(String courseId) {
+	public void setCourseId(Integer courseId) {
 		this.courseId = courseId;
 	}
 	public String getLessonTitle() {

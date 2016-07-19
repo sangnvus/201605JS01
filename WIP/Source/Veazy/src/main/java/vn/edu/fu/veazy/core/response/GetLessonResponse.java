@@ -7,8 +7,8 @@ import vn.edu.fu.veazy.core.model.LessonModel;
 import vn.edu.fu.veazy.core.model.LessonVersionModel;
 
 public class GetLessonResponse {
-	private String lessonId;
-	private String courseId;
+	private Integer lessonId;
+	private Integer courseId;
 	private String lessonTitle;
 	private String description;
 
@@ -21,10 +21,10 @@ public class GetLessonResponse {
 	private String practice;
 	private String article;
 
-	private String previousLessonId;
-	private String nextLessonId;
-	public GetLessonResponse(LessonModel lesson, LessonVersionModel currentVersion, String nextId, String previousId) {
-		 lessonId = String.valueOf(lesson.getId());
+	private Integer previousLessonId;
+	private Integer nextLessonId;
+	public GetLessonResponse(LessonModel lesson, LessonVersionModel currentVersion, Integer nextId, Integer previousId) {
+		 lessonId = lesson.getId();
 		 courseId = lesson.getCourseId();
 		 lessonTitle = currentVersion.getTitle();
 		 description = currentVersion.getDescription();
@@ -38,16 +38,16 @@ public class GetLessonResponse {
 		 previousLessonId = previousId;
 		 nextLessonId = nextId;
 	}
-	public String getLessonId() {
+	public Integer getLessonId() {
 		return lessonId;
 	}
-	public void setLessonId(String lessonId) {
+	public void setLessonId(Integer lessonId) {
 		this.lessonId = lessonId;
 	}
-	public String getCourseId() {
+	public Integer getCourseId() {
 		return courseId;
 	}
-	public void setCourseId(String courseId) {
+	public void setCourseId(Integer courseId) {
 		this.courseId = courseId;
 	}
 	public String getLessonTitle() {
@@ -104,16 +104,16 @@ public class GetLessonResponse {
 	public void setArticle(String article) {
 		this.article = article;
 	}
-	public String getPreviousLessonId() {
+	public Integer getPreviousLessonId() {
 		return previousLessonId;
 	}
-	public void setPreviousLessonId(String previousLessonId) {
+	public void setPreviousLessonId(Integer previousLessonId) {
 		this.previousLessonId = previousLessonId;
 	}
-	public String getNextLessonId() {
+	public Integer getNextLessonId() {
 		return nextLessonId;
 	}
-	public void setNextLessonId(String nextLessonId) {
+	public void setNextLessonId(Integer nextLessonId) {
 		this.nextLessonId = nextLessonId;
 	}
 	@Override

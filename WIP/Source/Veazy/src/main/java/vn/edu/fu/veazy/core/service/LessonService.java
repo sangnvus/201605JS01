@@ -10,11 +10,11 @@ import vn.edu.fu.veazy.core.response.GetLessonVersionResponse;
 import vn.edu.fu.veazy.core.response.LessonOfCourseResponse;
 
 public interface LessonService {
-	CreateLessonResponse createLesson(String creatorId,CreateLessonForm form) throws Exception;
-	GetLessonVersionResponse getLessonVersion(String lessonId,Integer version) throws Exception;
-	void updateLesson(String requesterId,UpdateLessonForm form) throws Exception;
-	void publishLessonVersion(String requesterId,String lessionId) throws Exception;
-	void reportLesson(String reporterId,String lessonId,String content) throws Exception;
-	List<LessonOfCourseResponse> getLessonsOfCourse(String courseId) throws Exception;
-	GetLessonResponse getLesson(String lessonId)throws Exception;
+	CreateLessonResponse createLesson(Integer creatorId,CreateLessonForm form) throws Exception;
+	GetLessonVersionResponse getLessonVersion(Integer lessonId,Integer version) throws Exception;
+	void updateLesson(Integer requesterId,UpdateLessonForm form) throws Exception;
+	void publishLessonVersion(Integer requesterId,Integer lessionId) throws Exception;
+	void reportLesson(Integer reporterId,Integer lessonId,String content) throws Exception;
+	List<LessonOfCourseResponse> getLessonsOfCourse(Integer courseId) throws Exception;
+	GetLessonResponse getLesson(Integer lessonId)throws Exception;
 }

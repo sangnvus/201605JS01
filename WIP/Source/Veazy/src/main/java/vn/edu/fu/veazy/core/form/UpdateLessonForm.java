@@ -1,8 +1,8 @@
 package vn.edu.fu.veazy.core.form;
 
 public class UpdateLessonForm {
-	private String lessonId;
-	private String courseId;
+	private Integer lessonId;
+	private Integer courseId;
 	private String lessonTitle;
 	private String description;
 	private String vocabulary;
@@ -11,16 +11,16 @@ public class UpdateLessonForm {
 	private String listening;
 	private String practice;
 	private String article;
-	public String getLessonId() {
+	public Integer getLessonId() {
 		return lessonId;
 	}
-	public void setLessonId(String lessonId) {
+	public void setLessonId(Integer lessonId) {
 		this.lessonId = lessonId;
 	}
-	public String getCourseId() {
+	public Integer getCourseId() {
 		return courseId;
 	}
-	public void setCourseId(String courseId) {
+	public void setCourseId(Integer courseId) {
 		this.courseId = courseId;
 	}
 	public String getLessonTitle() {

@@ -5,12 +5,12 @@ import vn.edu.fu.veazy.core.model.LessonModel;
 import vn.edu.fu.veazy.core.model.LessonVersionModel;
 
 public class CreateLessonResponse {
-	private String lessonId;
-	private String courseId;
+	private Integer lessonId;
+	private Integer courseId;
 	private Integer version;
 	private String lessonTitle;
 	private String description;
-	private String creatorId;
+	private Integer creatorId;
 	private Long createDate;
 	private String vocabulary;
 	private String grammar;
@@ -19,7 +19,7 @@ public class CreateLessonResponse {
 	private String practice;
 	private String article;
 	public CreateLessonResponse(LessonModel lesson,LessonVersionModel version){
-		lessonId = String.valueOf(lesson.getId());
+		lessonId = lesson.getId();
 		courseId = lesson.getCourseId();
 		this.version = version.getVersion();
 		lessonTitle = version.getTitle();
@@ -33,16 +33,16 @@ public class CreateLessonResponse {
 		practice = version.getPractice();
 		article = version.getArticle();
 	}
-	public String getLessonId() {
+	public Integer getLessonId() {
 		return lessonId;
 	}
-	public void setLessonId(String lessonId) {
+	public void setLessonId(Integer lessonId) {
 		this.lessonId = lessonId;
 	}
-	public String getCourseId() {
+	public Integer getCourseId() {
 		return courseId;
 	}
-	public void setCourseId(String courseId) {
+	public void setCourseId(Integer courseId) {
 		this.courseId = courseId;
 	}
 	public Integer getVersion() {
@@ -63,10 +63,10 @@ public class CreateLessonResponse {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public String getCreatorId() {
+	public Integer getCreatorId() {
 		return creatorId;
 	}
-	public void setCreatorId(String creatorId) {
+	public void setCreatorId(Integer creatorId) {
 		this.creatorId = creatorId;
 	}
 	public Long getCreateDate() {
