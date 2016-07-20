@@ -16,6 +16,8 @@ public class TaskModel extends BasicModel{
 	private Integer senderId;
 	@Column(name = "receiverId")
 	private Integer receiverId;
+	@Column(name = "title", nullable = false)
+	private String title;
 	@Column(name = "content", nullable = false)
 	private String content;
 	@Column(name = "isRead", columnDefinition="BOOLEAN DEFAULT FALSE", nullable = false)
@@ -24,14 +26,24 @@ public class TaskModel extends BasicModel{
 	public TaskModel() {
 		super();
 	}
-	public TaskModel(Integer id, Long createDate, Long updateDate, Long deleteDate, boolean deleteFlag, Integer senderId,
-			Integer receiverId, String content, boolean readFlag) {
-		super(id, createDate, updateDate, deleteDate, deleteFlag);
+	
+	public TaskModel(Integer senderId, Integer receiverId, String title, String content, boolean readFlag) {
+		super();
 		this.senderId = senderId;
 		this.receiverId = receiverId;
+		this.title = title;
 		this.content = content;
 		this.readFlag = readFlag;
 	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
 	public Integer getSenderId() {
 		return senderId;
 	}

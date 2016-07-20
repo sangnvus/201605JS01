@@ -71,11 +71,13 @@ public class LessonServiceImpl implements LessonService{
 		
 		//save to db
 		lessonDao.save(lesson);
+
 		lessonVersion.setLessonId(lesson.getId());
 
         lessonVersionDao.save(lessonVersion);
         
         lesson.setCurrentVersionId(lessonVersion.getId());
+
 		lessonDao.update(lesson);
 		
 		return new CreateLessonResponse(lesson,lessonVersion);
@@ -140,6 +142,19 @@ public class LessonServiceImpl implements LessonService{
 				throw new Exception("requester isn't creator");
 			}
 			updatingVersion.setUpdateDate(System.currentTimeMillis());
+			
+			updatingVersion.setArticle(form.getArticle());
+			updatingVersion.setGrammar(form.getGrammar());
+			updatingVersion.setListening(form.getListening());
+			updatingVersion.setPractice(form.getPractice());
+			updatingVersion.setReading(form.getReading());
+			updatingVersion.setVocabulary(form.getVocabulary());
+			
+			updatingVersion.setDescription(form.getDescription());
+			updatingVersion.setTitle(form.getLessonTitle());
+			
+			//save to db
+			lessonVersionDao.update(updatingVersion);
 		}else{
 			updatingVersion = new LessonVersionModel();
 			updatingVersion.setCreatorId(requesterId);
@@ -147,20 +162,22 @@ public class LessonServiceImpl implements LessonService{
 			updatingVersion.setVersion(getVersionOfLesson(form.getLessonId()).size()+1);
 			updatingVersion.setLessonId(form.getCourseId());
 			updatingVersion.setState(Const.UPDATING);
+			
+			updatingVersion.setArticle(form.getArticle());
+			updatingVersion.setGrammar(form.getGrammar());
+			updatingVersion.setListening(form.getListening());
+			updatingVersion.setPractice(form.getPractice());
+			updatingVersion.setReading(form.getReading());
+			updatingVersion.setVocabulary(form.getVocabulary());
+			
+			updatingVersion.setDescription(form.getDescription());
+			updatingVersion.setTitle(form.getLessonTitle());
+			
+			//save to db
+			lessonVersionDao.save(updatingVersion);
 		}
 		
-		updatingVersion.setArticle(form.getArticle());
-		updatingVersion.setGrammar(form.getGrammar());
-		updatingVersion.setListening(form.getListening());
-		updatingVersion.setPractice(form.getPractice());
-		updatingVersion.setReading(form.getReading());
-		updatingVersion.setVocabulary(form.getVocabulary());
 		
-		updatingVersion.setDescription(form.getDescription());
-		updatingVersion.setTitle(form.getLessonTitle());
-		
-		//save to db
-		lessonVersionDao.save(updatingVersion);
 	}
 
 	@Override
@@ -259,16 +276,65 @@ public class LessonServiceImpl implements LessonService{
 		return new GetLessonResponse(lesson,currentVersion,nextId,previousId);
 	}
 	
+	@Override
+	public void approveLessonChange(Integer reviewerId, Integer lessonId) throws Exception {
+		LessonModel lesson = lessonDao.findById(lessonId);
+		//get version in reviewing state
+		LessonVersionModel sample = new LessonVersionModel();
+		sample.setLessonId(lessonId);
+		sample.setState(Const.REVIEWING);
+		List<LessonVersionModel> reviewingVersions=  lessonVersionDao.findByExample(sample);
+		LessonVersionModel reviewingVersion = null;
+		
+		//check if have reviewing version or not
+		if(reviewingVersions != null && reviewingVersions.size()>0){
+			reviewingVersion = reviewingVersions.get(0);
+			reviewingVersion.setReviewerId(reviewerId);
+			reviewingVersion.setState(Const.PUBLISHED);
+			
+			lesson.setCurrentVersionId(reviewingVersion.getId());
+			
+			lessonDao.update(lesson);
+			lessonVersionDao.update(reviewingVersion);
+			
+			//TODO create task notify to creator
+		}else{
+			
+			throw new Exception("không có version cần approve");
+		}
+	}
+
+	@Override
+	public void declineLessonChange(Integer reviewerId, Integer lessonId, String comment) throws Exception {
+		//get version in reviewing state
+		LessonVersionModel sample = new LessonVersionModel();
+		sample.setLessonId(lessonId);
+		sample.setState(Const.REVIEWING);
+		List<LessonVersionModel> reviewingVersions=  lessonVersionDao.findByExample(sample);
+		LessonVersionModel reviewingVersion = null;
+		
+		//check if have reviewing version or not
+		if(reviewingVersions != null && reviewingVersions.size()>0){
+			reviewingVersion = reviewingVersions.get(0);
+			reviewingVersion.setState(Const.UPDATING);
+
+			lessonVersionDao.update(reviewingVersion);
+			
+			//TODO create task notify to creator
+		}else{
+			throw new Exception("không có version cần review");
+		}
+	}
+
 	private List<LessonModel> getLessonOfCourse(Integer courseId) throws Exception {
 		LessonModel sample = new LessonModel();
 		sample.setCourseId(courseId);
 		return lessonDao.findByExample(sample);
 	}
-	
 
-    private List<LessonVersionModel> getVersionOfLesson(Integer lessonId) throws Exception{
-    	LessonVersionModel versionSample = new LessonVersionModel();
+	private List<LessonVersionModel> getVersionOfLesson(Integer lessonId) throws Exception{
+		LessonVersionModel versionSample = new LessonVersionModel();
 		versionSample.setLessonId(lessonId);
 		return lessonVersionDao.findByExample(versionSample);
-    }
+	}
 }

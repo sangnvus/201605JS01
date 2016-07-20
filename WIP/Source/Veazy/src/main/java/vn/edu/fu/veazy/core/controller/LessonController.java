@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import vn.edu.fu.veazy.core.common.Const;
 import vn.edu.fu.veazy.core.form.CreateLessonForm;
+import vn.edu.fu.veazy.core.form.DeclineLessonChangeForm;
 import vn.edu.fu.veazy.core.form.ReportLessonForm;
 import vn.edu.fu.veazy.core.form.UpdateLessonForm;
 import vn.edu.fu.veazy.core.model.UserModel;
@@ -187,4 +188,49 @@ public class LessonController {
         response.setCode(ResponseCode.INTERNAL_SERVER_ERROR);
         return response.toResponseJson();
     }
+
+	
+	@RequestMapping(value = Const.URLMAPPING_APPROVE_LESSON, method = RequestMethod.POST)
+	public @ResponseBody
+	String approveLessonChange(Principal principal,@PathVariable("lesson_id") Integer lessonId) {
+	    Response response = new Response(ResponseCode.BAD_REQUEST);
+	    try {
+	    	String userName = principal.getName();
+            UserModel user = userService.findUserByUsername(userName);
+	    	lessonService.approveLessonChange(user.getId(), lessonId);
+	    	
+	        response.setCode(ResponseCode.SUCCESS);
+	        LOGGER.debug("approve lesson change successfully!");
+	        
+	        return response.toResponseJson();
+	    } catch (Exception e) {
+	        LOGGER.error(e.getMessage());
+	    }
+	
+	    LOGGER.error("Unknown error occured!");
+	    response.setCode(ResponseCode.INTERNAL_SERVER_ERROR);
+	    return response.toResponseJson();
+	}
+	
+	@RequestMapping(value = Const.URLMAPPING_DECLINE_LESSON, method = RequestMethod.POST)
+	public @ResponseBody
+	String declineLessonChange(Principal principal,@PathVariable("lesson_id") Integer lessonId,@ModelAttribute("decline-lesson-form") DeclineLessonChangeForm form) {
+	    Response response = new Response(ResponseCode.BAD_REQUEST);
+	    try {
+	    	String userName = principal.getName();
+            UserModel user = userService.findUserByUsername(userName);
+	    	lessonService.declineLessonChange(user.getId(), lessonId, form.getComment());
+	    	
+	        response.setCode(ResponseCode.SUCCESS);
+	        LOGGER.debug("decline lesson change successfully!");
+	        
+	        return response.toResponseJson();
+	    } catch (Exception e) {
+	        LOGGER.error(e.getMessage());
+	    }
+	
+	    LOGGER.error("Unknown error occured!");
+	    response.setCode(ResponseCode.INTERNAL_SERVER_ERROR);
+	    return response.toResponseJson();
+	}
 }
