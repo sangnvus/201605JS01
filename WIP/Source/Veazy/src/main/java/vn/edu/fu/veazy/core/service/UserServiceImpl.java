@@ -34,7 +34,7 @@ public class UserServiceImpl implements UserService {
         try {
             String email = userForm.getEmail();
             String username = userForm.getUsername();
-            String pw = userForm.getEncryptedPassword();
+            String pw = userForm.getPassword();
             Long now = System.currentTimeMillis();
             UserModel user = new UserModel(email, username, pw, now);
             userDao.save(user);

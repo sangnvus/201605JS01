@@ -4,6 +4,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import vn.edu.fu.veazy.core.common.Const;
 
@@ -18,16 +19,13 @@ public class CoreController {
     /** Logger object . */
     private final static org.slf4j.Logger LOGGER = LoggerFactory.getLogger(CoreController.class);
 
-    /** Core module entry return page. */
-    private static final String ENTRY_PAGE = "core/index";
-
     /**
      * Process request for Core module entry point.
      * 
      * @return path to view
      */
     @RequestMapping(value = Const.URLMAPPING_HOME, method = RequestMethod.GET)
-    public String entryPoint() {
+    public @ResponseBody String entryPoint() {
         try {
             LOGGER.debug("Get to entry successfully");
         } catch (Exception e) {
@@ -35,7 +33,7 @@ public class CoreController {
         }
 
         LOGGER.debug("Retrieving view");
-        return ENTRY_PAGE;
+        return "Indexing page";
     }
 
 }

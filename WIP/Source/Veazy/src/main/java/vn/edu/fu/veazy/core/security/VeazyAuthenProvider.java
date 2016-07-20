@@ -1,4 +1,4 @@
-package vn.edu.fu.veazy.core.provider;
+package vn.edu.fu.veazy.core.security;
 
 import java.util.ArrayList;
 import java.util.HashSet;

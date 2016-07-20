@@ -7,7 +7,7 @@ package vn.edu.fu.veazy.core.form;
 public class RegisterForm {
 
     private String username;
-    private String encryptedPassword;
+    private String password;
     private String email;
 
     public RegisterForm() {
@@ -21,12 +21,12 @@ public class RegisterForm {
         this.username = username;
     }
 
-    public String getEncryptedPassword() {
-        return encryptedPassword;
+    public String getPassword() {
+        return password;
     }
 
-    public void setEncryptedPassword(String encryptedPassword) {
-        this.encryptedPassword = encryptedPassword;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getEmail() {

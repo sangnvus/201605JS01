@@ -129,7 +129,8 @@ public class UserController {
     }
     
     @RequestMapping(value = Const.URLMAPPING_LOGOUT, method = RequestMethod.GET)
-    public String logoutProceed (HttpServletRequest request, HttpServletResponse response) {
+    public @ResponseBody
+    String logoutProceed (HttpServletRequest request, HttpServletResponse response) {
         Response responseObj = new Response(ResponseCode.BAD_REQUEST);
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (auth != null){    
