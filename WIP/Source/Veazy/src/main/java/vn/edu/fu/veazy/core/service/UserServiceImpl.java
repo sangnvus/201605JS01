@@ -47,9 +47,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public UserModel findUserById(String id) throws Exception {
+    public UserModel findUserById(Integer id) throws Exception {
         try {
-            UserModel user = userDao.findById(Integer.valueOf(id));
+            UserModel user = userDao.findById(id);
             if (user != null) {
                 return user;
             }
@@ -138,4 +138,11 @@ public class UserServiceImpl implements UserService {
         // TODO Auto-generated method stub
         return 0;
     }
+
+	@Override
+	public void changeUserRoll(Integer userId, int role) throws Exception {
+		UserModel user = findUserById(userId);
+		user.setRole(role);
+		userDao.update(user);
+	}
 }

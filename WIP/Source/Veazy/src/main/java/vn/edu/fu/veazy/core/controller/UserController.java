@@ -13,10 +13,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import vn.edu.fu.veazy.core.common.Const;
 import vn.edu.fu.veazy.core.common.Utils;
+import vn.edu.fu.veazy.core.form.ChangeRoleForm;
+import vn.edu.fu.veazy.core.form.DeclineLessonChangeForm;
 import vn.edu.fu.veazy.core.form.LoginForm;
 import vn.edu.fu.veazy.core.form.RegisterForm;
 import vn.edu.fu.veazy.core.model.ExamModel;
 import vn.edu.fu.veazy.core.model.UserModel;
+import vn.edu.fu.veazy.core.response.LessonOfCourseResponse;
 import vn.edu.fu.veazy.core.response.Response;
 import vn.edu.fu.veazy.core.response.ResponseCode;
 import vn.edu.fu.veazy.core.response.data.ExamResponseData;
@@ -159,7 +162,7 @@ public class UserController {
      */
     @RequestMapping(value = Const.URLMAPPING_GET_USER, method = RequestMethod.GET)
     public @ResponseBody
-    String getUser(@PathVariable("user_id") String userId) {
+    String getUser(@PathVariable("user_id") Integer userId) {
         Response response = new Response(ResponseCode.BAD_REQUEST);
         try {
             // FIXME json object
@@ -249,6 +252,26 @@ public class UserController {
             LOGGER.debug("Get learner exams successfully!");
             response.setCode(ResponseCode.SUCCESS);
             response.setData(data);
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage());
+        }
+
+        LOGGER.error("Unknown error occured!");
+        response.setCode(ResponseCode.INTERNAL_SERVER_ERROR);
+        return response.toResponseJson();
+    }
+    
+    @RequestMapping(value = Const.URLMAPPING_CHANGE_ROLE, method = RequestMethod.GET)
+    public @ResponseBody
+    String changeUserRoll(@PathVariable("user_id") Integer userId,@ModelAttribute("change-role-form") ChangeRoleForm form) {
+        Response response = new Response(ResponseCode.BAD_REQUEST);
+        try {
+        	userService.changeUserRoll(userId, form.getRole());
+            response.setCode(ResponseCode.SUCCESS);
+            
+            LOGGER.debug("change user role successfully!");
+            
+            return response.toResponseJson();
         } catch (Exception e) {
             LOGGER.error(e.getMessage());
         }
