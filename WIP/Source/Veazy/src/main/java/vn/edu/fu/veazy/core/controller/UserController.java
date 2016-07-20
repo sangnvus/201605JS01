@@ -12,6 +12,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -45,6 +46,7 @@ import vn.edu.fu.veazy.core.service.UserService;
  * @author minhnn
  *
  */
+@CrossOrigin
 @Controller("Core User Controller")
 public class UserController {
 
@@ -98,9 +100,7 @@ public class UserController {
             LoginResponseData data = new LoginResponseData();
 
             user = userService.findUserByUsername(registerForm.getUsername());
-            data.setRoll(user.getRole());
-//            TODO
-//            data.setToken(token);
+            data.setRole(user.getRole());
             response.setCode(ResponseCode.SUCCESS);
             response.setData(data);
 

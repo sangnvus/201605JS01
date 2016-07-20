@@ -21,7 +21,7 @@ import org.hibernate.annotations.DynamicUpdate;
 @DynamicInsert
 @DynamicUpdate
 @Table(name = "`Answer`")
-public class Answer extends BasicModel {
+public class AnswerModel extends BasicModel {
 
     @ManyToOne
     @JoinColumn(name="questionmodel_id")
@@ -31,7 +31,7 @@ public class Answer extends BasicModel {
     @Column(name = "isBanned", columnDefinition="BOOLEAN DEFAULT FALSE", nullable = true)
     private Boolean isRight = false;
 
-    public Answer() {
+    public AnswerModel() {
     }
 
     public String getAnswer() {

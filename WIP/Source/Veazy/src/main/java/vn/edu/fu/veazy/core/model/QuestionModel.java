@@ -5,6 +5,7 @@
  */
 package vn.edu.fu.veazy.core.model;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
@@ -15,6 +16,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
+import vn.edu.fu.veazy.core.form.AnswerForm;
+import vn.edu.fu.veazy.core.form.QuestionForm;
 
 /**
  *
@@ -30,34 +33,50 @@ public class QuestionModel extends BasicModel {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private String questionCode;
     @Column(name = "creatorId", nullable = false)
-    private String creatorId;
-    @Column(name = "questionAnswerType", columnDefinition="INT DEFAULT 1", nullable = false)
+    private Integer creatorId;
+    @Column(name = "questionAnswerType", columnDefinition = "INT DEFAULT 1", nullable = false)
     private Integer questionAnswerType = 1;
-    @Column(name = "questionType", columnDefinition="INT DEFAULT 1", nullable = false)
+    @Column(name = "questionType", columnDefinition = "INT DEFAULT 1", nullable = false)
     private Integer questionType = 1;
-    @Column(name = "questionSkill", columnDefinition="INT DEFAULT 1", nullable = false)
+    @Column(name = "questionSkill", columnDefinition = "INT DEFAULT 1", nullable = false)
     private Integer questionSkill = 1;
-    @Column(name = "numberOfQuestion", columnDefinition="INT DEFAULT 1", nullable = false)
+    @Column(name = "numberOfQuestion", columnDefinition = "INT DEFAULT 1", nullable = false)
     // numberOfQuestion = 1 if Singular 
     // >1 if Group(the origin question)
     // =0 if is a question of Group
-    private Integer numberOfQuestion;
+    private Integer numberOfQuestion = 1;
     @Column(name = "courseid", nullable = false)
-    private String courseId;
+    private Integer courseId;
     @Column(name = "question", nullable = false)
     private String question;
     @OneToMany(mappedBy = "question")
     @Column(name = "listAnswers", nullable = false)
-    private List<Answer> listAnswers;
+    private List<AnswerModel> listAnswers = new ArrayList<>();
     @ElementCollection
     @Column(name = "content", nullable = true)
-    private List<String> content;
-    @Column(name = "state", columnDefinition="INT DEFAULT 1", nullable = false)
-    private Integer state;
+    private List<Integer> content;
+    @Column(name = "state", columnDefinition = "INT DEFAULT 1", nullable = false)
+    private Integer state = 1;
     @Column(name = "attachment", nullable = true)
     private String attachment;
 
     public QuestionModel() {
+    }
+
+    public QuestionModel(QuestionForm form) {
+        this.attachment = form.getAttachment();
+        this.courseId = form.getCourseId();
+        for (AnswerForm form1 : form.getListAnswers()) {
+            AnswerModel model = new AnswerModel();
+            model.setAnswer(form1.getAnswer());
+            model.setIsRight(form1.getIsRight());
+            model.setQuestion(this);
+            this.listAnswers.add(model);
+        }
+        this.question = form.getQuestion();
+        this.questionAnswerType = form.getQuestionAnswerType();
+        this.questionSkill = form.getQuestionSkil();
+        this.questionType = form.getQuestionType();
     }
 
     public String getQuestionCode() {
@@ -76,19 +95,19 @@ public class QuestionModel extends BasicModel {
         this.numberOfQuestion = numberOfQuestion;
     }
 
-    public List<String> getContent() {
+    public List<Integer> getContent() {
         return content;
     }
 
-    public void setContent(List<String> content) {
+    public void setContent(List<Integer> content) {
         this.content = content;
     }
 
-    public String getCreatorId() {
+    public Integer getCreatorId() {
         return creatorId;
     }
 
-    public void setCreatorId(String creatorId) {
+    public void setCreatorId(Integer creatorId) {
         this.creatorId = creatorId;
     }
 
@@ -116,11 +135,11 @@ public class QuestionModel extends BasicModel {
         this.questionSkill = questionSkill;
     }
 
-    public String getCourseId() {
+    public Integer getCourseId() {
         return courseId;
     }
 
-    public void setCourseId(String courseId) {
+    public void setCourseId(Integer courseId) {
         this.courseId = courseId;
     }
 
@@ -132,11 +151,11 @@ public class QuestionModel extends BasicModel {
         this.question = question;
     }
 
-    public List<Answer> getListAnswers() {
+    public List<AnswerModel> getListAnswers() {
         return listAnswers;
     }
 
-    public void setListAnswers(List<Answer> listAnswers) {
+    public void setListAnswers(List<AnswerModel> listAnswers) {
         this.listAnswers = listAnswers;
     }
 
