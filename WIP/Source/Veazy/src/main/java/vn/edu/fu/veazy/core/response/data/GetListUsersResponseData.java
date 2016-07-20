@@ -5,6 +5,7 @@
  */
 package vn.edu.fu.veazy.core.response.data;
 
+import java.util.ArrayList;
 import java.util.List;
 import vn.edu.fu.veazy.core.model.UserModel;
 
@@ -17,6 +18,7 @@ public class GetListUsersResponseData {
     private List<GetUserResponseData> listUsers;
 
     public GetListUsersResponseData() {
+        listUsers = new ArrayList<GetUserResponseData>();
     }
 
     public List<GetUserResponseData> getListUsers() {

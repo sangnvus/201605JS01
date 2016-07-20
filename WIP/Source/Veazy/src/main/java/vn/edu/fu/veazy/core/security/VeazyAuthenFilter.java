@@ -35,8 +35,8 @@ public class VeazyAuthenFilter extends AbstractAuthenticationProcessingFilter {
                     "Authentication method not supported: " + request.getMethod());
         }
 
-        String username = request.getParameter(usernameParameter);;
-        String password = request.getParameter(passwordParameter);;
+        String username = request.getParameter(usernameParameter);
+        String password = request.getParameter(passwordParameter);
 
         if (username == null) {
             username = "";

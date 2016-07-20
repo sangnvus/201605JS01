@@ -38,9 +38,6 @@ public class VeazyAuthenProvider implements AuthenticationProvider, UserDetailsS
         String username = authentication.getName();
         String password = authentication.getCredentials().toString();
         
-        LOGGER.debug(username);
-        LOGGER.debug(password);
-        
         User theOneThatGotAway = (User) loadUserByUsername(username);
         
         return new UsernamePasswordAuthenticationToken(username, password, theOneThatGotAway.getAuthorities());

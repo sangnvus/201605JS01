@@ -3,11 +3,13 @@ package vn.edu.fu.veazy.core.service;
 import java.util.List;
 import java.util.Vector;
 
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import vn.edu.fu.veazy.core.common.Const;
+import vn.edu.fu.veazy.core.controller.LessonController;
 import vn.edu.fu.veazy.core.dao.GenericDao;
 import vn.edu.fu.veazy.core.dao.HibernateLessonDao;
 import vn.edu.fu.veazy.core.dao.HibernateLessonVersionDao;
@@ -25,6 +27,7 @@ import vn.edu.fu.veazy.core.response.GetLessonVersionResponse;
 import vn.edu.fu.veazy.core.response.LessonOfCourseResponse;
 @Service
 public class LessonServiceImpl implements LessonService{
+    private final static org.slf4j.Logger LOGGER = LoggerFactory.getLogger(LessonServiceImpl.class);
 	@Autowired
 	private GenericDao<LessonModel, Integer> lessonDao;
 	@Autowired
@@ -68,13 +71,12 @@ public class LessonServiceImpl implements LessonService{
 		
 		//save to db
 		lessonDao.save(lesson);
-		lessonVersionDao.save(lessonVersion);
-		
-		lesson.setCurrentVersionId(lessonVersion.getId());
 		lessonVersion.setLessonId(lesson.getId());
-		
+
+        lessonVersionDao.save(lessonVersion);
+        
+        lesson.setCurrentVersionId(lessonVersion.getId());
 		lessonDao.update(lesson);
-		lessonVersionDao.update(lessonVersion);
 		
 		return new CreateLessonResponse(lesson,lessonVersion);
 		
@@ -213,6 +215,7 @@ public class LessonServiceImpl implements LessonService{
 		sample.setCourseId(courseId);
 		List<LessonModel> listLesson = lessonDao.findByExample(sample);
 		if(listLesson == null || listLesson.isEmpty()){
+		    LOGGER.error(listLesson + ": No lesson for " + sample.getCourseId());
 			return null;
 		}
 		List<LessonOfCourseResponse> listResult = new Vector<LessonOfCourseResponse>();

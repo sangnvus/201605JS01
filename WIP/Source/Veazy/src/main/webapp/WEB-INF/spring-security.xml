@@ -16,6 +16,7 @@
         <intercept-url pattern="/api/cm**" access="hasRole('3')" />
         <intercept-url pattern="/api/admin**" access="hasRole('4')" /> -->
         <intercept-url pattern="/api/users/**" access="isAuthenticated()" />
+        <intercept-url pattern="/api/lessons" access="isAuthenticated()" />
         <!-- <intercept-url pattern="/**" access="permitAll()" /> -->
         <custom-filter ref="veazyAuthenFilter" position="FORM_LOGIN_FILTER" />
         <session-management session-fixation-protection="migrateSession"/>

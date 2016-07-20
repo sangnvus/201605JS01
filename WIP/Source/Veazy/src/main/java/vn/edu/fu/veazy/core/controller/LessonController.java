@@ -63,11 +63,12 @@ public class LessonController {
 
     @RequestMapping(value = Const.URLMAPPING_UPDATE_LESSON, method = RequestMethod.POST)
     public @ResponseBody
-    String updateLesson(Principal principal, @ModelAttribute("update-lesson-form") UpdateLessonForm form, @PathVariable("lesson_id") String lessonId) {
+    String updateLesson(Principal principal, @ModelAttribute("update-lesson-form") UpdateLessonForm form, @PathVariable("lesson_id") Integer lessonId) {
         Response response = new Response(ResponseCode.BAD_REQUEST);
         try {
             String userName = principal.getName();
             UserModel user = userService.findUserByUsername(userName);
+            form.setLessonId(lessonId);
             lessonService.updateLesson(user.getId(), form);
             response.setCode(ResponseCode.SUCCESS);
 
@@ -82,7 +83,7 @@ public class LessonController {
         return response.toResponseJson();
     }
 
-    @RequestMapping(value = Const.URLMAPPING_PUBLISH_LESSON, method = RequestMethod.POST)
+    @RequestMapping(value = Const.URLMAPPING_PUBLISH_LESSON, method = RequestMethod.GET)
     public @ResponseBody
     String publishLesson(Principal principal, @PathVariable("lesson_id") Integer lessonId) {
         Response response = new Response(ResponseCode.BAD_REQUEST);
@@ -110,6 +111,7 @@ public class LessonController {
         try {
             String userName = principal.getName();
             UserModel user = userService.findUserByUsername(userName);
+            form.setLessonId(lessonId);
             lessonService.reportLesson(user.getId(), lessonId, form.getContent());
             response.setCode(ResponseCode.SUCCESS);
 

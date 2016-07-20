@@ -16,7 +16,7 @@ public class LessonModel extends BasicModel{
 	private int index;
 	@Column(name = "courseid", nullable = false)
 	private Integer courseId;
-	@Column(name = "versionId", nullable = false)
+	@Column(name = "versionId", nullable = true)
 	private Integer currentVersionId;
 	
 	public LessonModel() {

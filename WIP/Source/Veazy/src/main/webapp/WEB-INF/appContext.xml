@@ -54,7 +54,7 @@
         <props>
           <prop key="hibernate.dialect">org.hibernate.dialect.PostgreSQL82Dialect</prop>
           <prop key="hibernate.show_sql">true</prop>
-          <prop key="hibernate.hbm2ddl.auto">create-drop</prop>
+          <prop key="hibernate.hbm2ddl.auto">update</prop>
         </props>
       </property>
   </bean>
@@ -74,16 +74,14 @@
   
   <bean id="veazyAuthenFilter" class="vn.edu.fu.veazy.core.security.VeazyAuthenFilter">
     <property name="authenticationManager" ref="authenticationManager" />
-    <property name="alwaysUseDefaultTargetUrl" value="false" />
+    <!-- <property name="alwaysUseDefaultTargetUrl" value="false" /> -->
     <property name="authenticationFailureHandler">
         <bean class="org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler">
             <property name="defaultFailureUrl" value="/login?login_error"/>       
         </bean>
     </property>
     <property name="authenticationSuccessHandler">
-        <bean class="org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler">
-            <property name="defaultSuccessUrl" value="/api/login"/>       
-        </bean>
+        <bean class="org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler"></bean>
     </property>
   </bean>
   <bean id="veazyAuthenProvider" class="vn.edu.fu.veazy.core.security.VeazyAuthenProvider"/>
