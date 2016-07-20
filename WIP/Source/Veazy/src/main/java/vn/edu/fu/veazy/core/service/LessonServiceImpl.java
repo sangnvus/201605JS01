@@ -68,13 +68,12 @@ public class LessonServiceImpl implements LessonService{
 		
 		//save to db
 		lessonDao.save(lesson);
+		
+		lessonVersion.setLessonId(lesson.getId());
 		lessonVersionDao.save(lessonVersion);
 		
 		lesson.setCurrentVersionId(lessonVersion.getId());
-		lessonVersion.setLessonId(lesson.getId());
-		
 		lessonDao.update(lesson);
-		lessonVersionDao.update(lessonVersion);
 		
 		return new CreateLessonResponse(lesson,lessonVersion);
 		
@@ -317,10 +316,8 @@ public class LessonServiceImpl implements LessonService{
 			
 			//TODO create task notify to creator
 		}else{
-			
 			throw new Exception("không có version cần review");
 		}
-		
 	}
 
 	private List<LessonModel> getLessonOfCourse(Integer courseId) throws Exception {
