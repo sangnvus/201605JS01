@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import vn.edu.fu.veazy.core.dao.GenericDao;
 import vn.edu.fu.veazy.core.model.TaskModel;
@@ -14,11 +15,13 @@ public class TaskServiceImpl implements TaskService{
 	private GenericDao<TaskModel, Integer> taskDao;
 
 	@Override
+	@Transactional
 	public TaskModel getTask(Integer id) throws Exception {
 		return taskDao.findById(id);	
 	}
 
 	@Override
+	@Transactional
 	public List<TaskModel> getSentTasks(Integer senderId) throws Exception {
 		TaskModel task = new TaskModel();
 		task.setSenderId(senderId);
@@ -26,6 +29,7 @@ public class TaskServiceImpl implements TaskService{
 	}
 
 	@Override
+	@Transactional
 	public List<TaskModel> getReceivedTasks(Integer receiverId) throws Exception {
 		TaskModel task = new TaskModel();
 		task.setReceiverId(receiverId);
@@ -34,6 +38,7 @@ public class TaskServiceImpl implements TaskService{
 	}
 
 	@Override
+	@Transactional
 	public List<TaskModel> getAllTasks(Integer userId) throws Exception {
 		List<TaskModel> tasks = getSentTasks(userId);
 		tasks.addAll(getReceivedTasks(userId));
