@@ -17,4 +17,6 @@ public interface LessonService {
 	void reportLesson(Integer reporterId,Integer lessonId,String content) throws Exception;
 	List<LessonOfCourseResponse> getLessonsOfCourse(Integer courseId) throws Exception;
 	GetLessonResponse getLesson(Integer lessonId)throws Exception;
+	void approveLessonChange(Integer reviewerId,Integer lessonId) throws Exception;
+	void declineLessonChange(Integer reviewerId,Integer lessonId, String comment) throws Exception;
 }
