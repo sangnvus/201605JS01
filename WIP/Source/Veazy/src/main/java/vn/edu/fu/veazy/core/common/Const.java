@@ -41,8 +41,10 @@ public class Const {
     public static final String URLMAPPING_GET_COURSES = URL_PREFIX + "/courses";
     
     //task api
-    
-    
+    public static final String URLMAPPING_GET_TASK = URL_PREFIX + "/task/{task_id}";
+    public static final String URLMAPPING_GET_SENT_TASK = URL_PREFIX + "/task/sent";
+    public static final String URLMAPPING_GET_RECEIVED_TASK = URL_PREFIX + "/task/received";
+    public static final String URLMAPPING_GET_ALL_TASK = URL_PREFIX + "/task/all";
     /************************* Content status ***************************/
     
     public static final Integer UPDATING = 1;
@@ -55,6 +57,7 @@ public class Const {
     public static final Integer CONTENT_MANAGER =2;
     public static final Integer EDITOR =3;
     public static final Integer LEARNER =4;
+	
 	
     
 }
