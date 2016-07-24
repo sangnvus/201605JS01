@@ -1,7 +1,5 @@
 package vn.edu.fu.veazy.dictionary.model;
 
-import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -23,16 +21,16 @@ public class JaviModel {
     private Integer id;
 	@Column(name = "word", nullable = false)
 	private String word;
-	@Column(name = "kana", nullable = false)
+	@Column(name = "kana", nullable = true)
 	private String kana;
 	@Column(name = "means", nullable = false)
-	private List<WordMean> means;
-	public JaviModel(Integer id, String word, String kana, List<WordMean> mean) {
+	private String means;
+	public JaviModel(Integer id, String word, String kana, String means) {
 		super();
 		this.id = id;
 		this.word = word;
 		this.kana = kana;
-		this.means = mean;
+		this.means = means;
 	}
 	public JaviModel() {
 		super();
@@ -55,10 +53,11 @@ public class JaviModel {
 	public void setKana(String kana) {
 		this.kana = kana;
 	}
-	public List<WordMean> getMeans() {
+	public String getMeans() {
 		return means;
 	}
-	public void setMeans(List<WordMean> mean) {
-		this.means = mean;
+	public void setMeans(String means) {
+		this.means = means;
 	}
+	
 }

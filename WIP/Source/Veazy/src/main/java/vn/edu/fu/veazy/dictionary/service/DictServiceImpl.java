@@ -1,11 +1,17 @@
 package vn.edu.fu.veazy.dictionary.service;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Vector;
 
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import vn.edu.fu.veazy.core.dao.GenericDao;
 import vn.edu.fu.veazy.core.response.LookupWordResponse;
@@ -16,7 +22,7 @@ import vn.edu.fu.veazy.dictionary.model.ExampleModel;
 import vn.edu.fu.veazy.dictionary.model.JaviModel;
 import vn.edu.fu.veazy.dictionary.model.VijaModel;
 import vn.edu.fu.veazy.dictionary.model.WordMean;
-
+@Service
 public class DictServiceImpl implements DictService{
 	private final static org.slf4j.Logger LOGGER = LoggerFactory.getLogger(LessonServiceImpl.class);
 	@Autowired
@@ -56,9 +62,10 @@ public class DictServiceImpl implements DictService{
 		return result;
 	}
 
-	private LookupWordResponse loadFull(String word, List<WordMean> wordMeans) throws Exception {
+	private LookupWordResponse loadFull(String word, String jsonMean) throws Exception {
 		LookupWordResponse result = new LookupWordResponse();
 		result.setWord(word);
+		WordMean[] wordMeans = json2WordMean(jsonMean);
 		if(wordMeans != null){
 			List<ResponseWordMean> means = new Vector<ResponseWordMean>();
 			for (WordMean m : wordMeans) {
@@ -84,5 +91,13 @@ public class DictServiceImpl implements DictService{
 			result.add(rExample);
 		}
 		return result;
+	}
+	
+	private WordMean[] json2WordMean(String json) throws JsonParseException, JsonMappingException, IOException{
+		if(json == null || json.isEmpty()){
+			return null;
+		}
+		ObjectMapper mapper = new ObjectMapper();
+		return mapper.readValue(json, WordMean[].class);
 	}
 }

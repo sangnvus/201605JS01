@@ -1,7 +1,5 @@
 package vn.edu.fu.veazy.dictionary.model;
 
-import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -24,15 +22,16 @@ public class VijaModel {
 	@Column(name = "word", nullable = false)
 	private String word;
 	@Column(name = "mean", nullable = false)
-	private List<WordMean> means;
-	public VijaModel(Integer id, String word, List<WordMean> means) {
+	private String means;
+	
+	public VijaModel() {
+		super();
+	}
+	public VijaModel(Integer id, String word, String means) {
 		super();
 		this.id = id;
 		this.word = word;
 		this.means = means;
-	}
-	public VijaModel() {
-		super();
 	}
 	public Integer getId() {
 		return id;
@@ -46,10 +45,11 @@ public class VijaModel {
 	public void setWord(String word) {
 		this.word = word;
 	}
-	public List<WordMean> getMeans() {
+	public String getMeans() {
 		return means;
 	}
-	public void setMeans(List<WordMean> means) {
+	public void setMeans(String means) {
 		this.means = means;
 	}
+	
 }
