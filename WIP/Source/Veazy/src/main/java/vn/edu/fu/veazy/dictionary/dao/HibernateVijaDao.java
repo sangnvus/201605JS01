@@ -7,11 +7,12 @@ import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Example;
 import org.hibernate.criterion.Projections;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import vn.edu.fu.veazy.core.dao.GenericDao;
 import vn.edu.fu.veazy.dictionary.model.VijaModel;
 
-
+@Repository
 public class HibernateVijaDao implements GenericDao<VijaModel, Integer> {
 
     @Autowired
