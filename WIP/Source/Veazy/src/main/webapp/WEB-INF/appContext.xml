@@ -48,6 +48,9 @@
         <value>vn.edu.fu.veazy.core.model.Answer</value>
         <value>vn.edu.fu.veazy.core.model.ReportModel</value>
         <value>vn.edu.fu.veazy.core.model.TaskModel</value>
+        <value>vn.edu.fu.veazy.dictionary.model.ExampleModel</value>
+        <value>vn.edu.fu.veazy.dictionary.model.VijaModel</value>
+        <value>vn.edu.fu.veazy.dictionary.model.JaviModel</value>
       </list>
     </property>
       <property name="hibernateProperties">
@@ -71,6 +74,10 @@
   <bean id="questionDao" class="vn.edu.fu.veazy.core.dao.HibernateQuestionDao"/>
   <bean id="taskDao" class="vn.edu.fu.veazy.core.dao.HibernateTaskDao"/>
   <bean id="reportDao" class="vn.edu.fu.veazy.core.dao.HibernateReportDao"/>
+  <bean id="exampleDao" class="vn.edu.fu.veazy.dictionary.dao.HibernateExampleDao"/>
+  <bean id="vijaDao" class="vn.edu.fu.veazy.dictionary.dao.HibernateVijaDao"/>
+  <bean id="javiDao" class="vn.edu.fu.veazy.dictionary.dao.HibernateJaviDao"/>
+  
   
   <bean id="veazyAuthenFilter" class="vn.edu.fu.veazy.core.security.VeazyAuthenFilter">
     <property name="authenticationManager" ref="authenticationManager" />

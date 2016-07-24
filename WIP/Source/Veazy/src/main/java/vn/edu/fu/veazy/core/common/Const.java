@@ -45,6 +45,10 @@ public class Const {
     public static final String URLMAPPING_GET_SENT_TASK = URL_PREFIX + "/task/sent";
     public static final String URLMAPPING_GET_RECEIVED_TASK = URL_PREFIX + "/task/received";
     public static final String URLMAPPING_GET_ALL_TASK = URL_PREFIX + "/task/all";
+    
+    //dictionary
+    public static final String URLMAPPING_LOOKUP_JAVI = URL_PREFIX + "/dict/javi/{key}";
+    public static final String URLMAPPING_LOOKUP_VIJA = URL_PREFIX + "/dict/vija/{key}";
     /************************* Content status ***************************/
     
     public static final Integer UPDATING = 1;
