@@ -28,23 +28,23 @@ public class LessonVersionModel{
 	private Integer state;
 	@Column(name = "title", columnDefinition="VARCHAR(254)", nullable = false)
 	private String title;
-	@Column(name = "description", nullable = false)
+	@Column(name = "description",columnDefinition ="text",  nullable = false)
 	private String description;
 	@Column(name = "creatorId", nullable = false)
 	private Integer creatorId;
 	@Column(name = "reviewerId", nullable = true)
 	private Integer reviewerId;
-	@Column(name = "vocab")
+	@Column(name = "vocab",columnDefinition ="text" )
 	private String vocabulary;
-	@Column(name = "grammar")
+	@Column(name = "grammar",columnDefinition ="text")
 	private String grammar;
-	@Column(name = "reading")
+	@Column(name = "reading",columnDefinition ="text")
 	private String reading;
-	@Column(name = "listening")
+	@Column(name = "listening",columnDefinition ="text")
 	private String listening;
-	@Column(name = "practice")
+	@Column(name = "practice",columnDefinition ="text")
 	private String practice;
-	@Column(name = "article")
+	@Column(name = "article",columnDefinition ="text")
 	private String article;
 	
 	public LessonVersionModel() {
