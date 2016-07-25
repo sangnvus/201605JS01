@@ -7,6 +7,9 @@ package vn.edu.fu.veazy.core.common;
  *
  */
 public class Const {
+    
+    /************************* CORS Config ******************************/
+    public static final boolean CORS_HEADER_ENABLED = true;
 
     /************************* URL Mapping ******************************/
     /**
@@ -20,6 +23,8 @@ public class Const {
     public static final String URLMAPPING_RESET_PASSWORD = URL_PREFIX + "/users/reset_password";
     
     public static final String URLMAPPING_GET_USER = URL_PREFIX + "/users/{user_id}";
+    public static final String URLMAPPING_GET_CURRENT_USER = URL_PREFIX + "/user";
+    public static final String URLMAPPING_UPDATE_CURRENT_USER = URL_PREFIX + "/user/update";
     public static final String URLMAPPING_GET_LIST_USERS = URL_PREFIX + "/users";
     public static final String URLMAPPING_GET_LEARNER_EXAMS = URL_PREFIX + "/users/{user_id}/exams";
     public static final String URLMAPPING_GET_LEARNER_EXAM_STATISTIC = URL_PREFIX + "/users/{user_id}/exams/statistics";

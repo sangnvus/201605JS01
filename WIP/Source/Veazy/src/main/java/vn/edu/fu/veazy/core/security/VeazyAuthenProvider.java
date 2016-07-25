@@ -36,9 +36,17 @@ public class VeazyAuthenProvider implements AuthenticationProvider, UserDetailsS
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         String username = authentication.getName();
-        String password = authentication.getCredentials().toString();
+        String password = authentication.getCredentials().toString().trim();
+        
+        LOGGER.debug("<" + username + ">");
+        LOGGER.debug("<" + password + ">");
         
         User theOneThatGotAway = (User) loadUserByUsername(username);
+        LOGGER.debug(theOneThatGotAway + "");
+        if (theOneThatGotAway != null) LOGGER.debug("<" + theOneThatGotAway.getPassword() + ">");
+        if (theOneThatGotAway == null || !password.equals(theOneThatGotAway.getPassword().trim())) {
+            return null;
+        }
         
         return new UsernamePasswordAuthenticationToken(username, password, theOneThatGotAway.getAuthorities());
     }
@@ -61,7 +69,8 @@ public class VeazyAuthenProvider implements AuthenticationProvider, UserDetailsS
         }
         if (listMatchUsers == null || listMatchUsers.size() != 1) {
             // FIXME custom exception
-            throw new IllegalArgumentException("Username not found");
+//            throw new IllegalArgumentException("Username not found");
+            return null;
         }
         UserModel onlyOne = listMatchUsers.get(0);
         List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();

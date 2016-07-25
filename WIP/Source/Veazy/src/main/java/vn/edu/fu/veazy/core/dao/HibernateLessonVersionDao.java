@@ -80,4 +80,11 @@ public class HibernateLessonVersionDao implements GenericDao<LessonVersionModel,
     			.uniqueResult();
     }
 
+    @Override
+    public Object executeSql(String sql, Class clazz) throws Exception {
+        // TODO Auto-generated method stub
+        return null;
+        
+    }
+
 }

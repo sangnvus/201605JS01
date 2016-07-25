@@ -6,6 +6,7 @@ import java.util.List;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,6 +27,7 @@ import vn.edu.fu.veazy.core.response.ResponseCode;
 import vn.edu.fu.veazy.core.service.LessonService;
 import vn.edu.fu.veazy.core.service.UserService;
 
+@CrossOrigin(origins="http://localhost:3003")
 @Controller("Lesson Controller")
 public class LessonController {
 
@@ -45,6 +47,7 @@ public class LessonController {
         Response response = new Response(ResponseCode.BAD_REQUEST);
         try {
             String userName = principal.getName();
+            LOGGER.debug(userName);
             UserModel user = userService.findUserByUsername(userName);
 
             CreateLessonResponse data = lessonService.createLesson(user.getId(), form);

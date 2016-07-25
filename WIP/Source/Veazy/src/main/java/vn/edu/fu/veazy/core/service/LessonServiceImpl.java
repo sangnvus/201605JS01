@@ -43,13 +43,6 @@ public class LessonServiceImpl implements LessonService{
 		// get data from form
 		LessonModel lesson = new LessonModel();
 		lesson.setCourseId(form.getCourseId());
-		List<LessonModel> listLesson = getLessonOfCourse(form.getCourseId());
-		if(listLesson == null || listLesson.isEmpty()){
-			lesson.setIndex(Const.START_INDEX);
-		}
-		else{
-			lesson.setIndex(listLesson.size()+1);
-		}
 		LessonVersionModel lessonVersion = new LessonVersionModel();
 		lessonVersion.setCreatorId(creatorId);
 		lessonVersion.setDescription(form.getDescription());
@@ -145,7 +138,7 @@ public class LessonServiceImpl implements LessonService{
 			updatingVersion.setCreatorId(requesterId);
 			updatingVersion.setCreateDate(System.currentTimeMillis());
 			updatingVersion.setVersion(getVersionOfLesson(form.getLessonId()).size()+1);
-			updatingVersion.setLessonId(form.getCourseId());
+			updatingVersion.setLessonId(form.getLessonId());
 			updatingVersion.setState(Const.UPDATING);
 		}
 		
@@ -209,11 +202,13 @@ public class LessonServiceImpl implements LessonService{
 	}
 
 	@Override
+    @SuppressWarnings("unchecked")
 	@Transactional
 	public List<LessonOfCourseResponse> getLessonsOfCourse(Integer courseId) throws Exception {
 		LessonModel sample = new LessonModel();
 		sample.setCourseId(courseId);
-		List<LessonModel> listLesson = lessonDao.findByExample(sample);
+		String sql = "select * from Lesson les where les.courseId = " + courseId;
+        List<LessonModel> listLesson = (List<LessonModel>) lessonDao.executeSql(sql, LessonModel.class);
 		if(listLesson == null || listLesson.isEmpty()){
 		    LOGGER.error(listLesson + ": No lesson for " + sample.getCourseId());
 			return null;

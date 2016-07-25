@@ -12,6 +12,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
@@ -26,8 +27,9 @@ import org.hibernate.annotations.DynamicUpdate;
 @Table(name = "`Question`")
 public class QuestionModel extends BasicModel {
 
-    @Column(name = "questionCode", columnDefinition = "VARCHAR(30) UNIQUE", nullable = false)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Column(name = "questionCode", nullable = false)
+    @SequenceGenerator(name="code_sequence", sequenceName="question_code_seq", allocationSize=1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="code_sequence")
     private String questionCode;
     @Column(name = "creatorId", nullable = false)
     private String creatorId;

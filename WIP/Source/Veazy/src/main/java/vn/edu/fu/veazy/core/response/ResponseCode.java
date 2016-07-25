@@ -26,6 +26,11 @@ public class ResponseCode{
     public static final int EMAIL_NOT_FOUND = 412;
     public static final int DUPLICATED_USERNAME = 413;
 
+    public static final int CORRUPTED_FORM = 460;
+    public static final int USERNAME_EXPECTED = 461;
+    public static final int PASSWORD_EXPECTED = 462;
+    public static final int EMAIL_EXPECTED = 463;
+
     public static final int INVALID_PASSWORD = 420;
     public static final int INCORRECT_PASSWORD = 421;
 
