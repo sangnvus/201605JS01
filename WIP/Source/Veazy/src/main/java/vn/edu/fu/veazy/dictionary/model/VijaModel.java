@@ -19,9 +19,9 @@ public class VijaModel {
     @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-	@Column(name = "word", nullable = false)
+	@Column(name = "word",columnDefinition ="text", nullable = false)
 	private String word;
-	@Column(name = "mean", nullable = false)
+	@Column(name = "mean",columnDefinition ="text", nullable = false)
 	private String means;
 	
 	public VijaModel() {
