@@ -9,13 +9,13 @@ package vn.edu.fu.veazy.core.response.data;
  *
  * @author Hoang Linh
  */
-public class QuestionResponseData {
+public class AddQuestionResponseData {
     private Integer questionId;
 
-    public QuestionResponseData() {
+    public AddQuestionResponseData() {
     }
 
-    public QuestionResponseData(Integer questionId) {
+    public AddQuestionResponseData(Integer questionId) {
         this.questionId = questionId;
     }
 

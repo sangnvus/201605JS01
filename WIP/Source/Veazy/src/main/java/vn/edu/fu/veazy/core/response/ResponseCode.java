@@ -34,6 +34,7 @@ public class ResponseCode{
     public static final int USER_INACTIVE = 432;
     public static final int USER_EXAMS_NOT_FOUND = 433;
 
+    public static final int QUESTION_NOT_FOUND = 440;
     public static final int INTERNAL_SERVER_ERROR = 500;
 
     public static final int UNSUPPORTED_API = 600;

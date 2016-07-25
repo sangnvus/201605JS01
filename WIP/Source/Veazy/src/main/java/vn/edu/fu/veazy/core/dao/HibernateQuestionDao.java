@@ -17,12 +17,14 @@ public class HibernateQuestionDao implements GenericDao<QuestionModel, Integer> 
 
     @Override
     public void save(QuestionModel question) throws Exception {
+        Long now = System.currentTimeMillis();
+        question.setCreateDate(now);
         sessionFactory.getCurrentSession().save(question);
     }
 
     @Override
     public QuestionModel findById(Integer id) throws Exception {
-    	return sessionFactory.getCurrentSession().get(QuestionModel.class, id);
+        return sessionFactory.getCurrentSession().get(QuestionModel.class, id);
     }
 
     @SuppressWarnings("unchecked")
@@ -30,8 +32,8 @@ public class HibernateQuestionDao implements GenericDao<QuestionModel, Integer> 
     public List<QuestionModel> findByExample(QuestionModel exampleInstance) throws Exception {
         try {
             return sessionFactory.getCurrentSession().createCriteria(QuestionModel.class)
-                                                     .add(Example.create(exampleInstance))
-                                                     .list();
+                    .add(Example.create(exampleInstance))
+                    .list();
         } catch (HibernateException e) {
             // TODO custom exception
             throw new Exception(e.getMessage(), e);
@@ -43,10 +45,10 @@ public class HibernateQuestionDao implements GenericDao<QuestionModel, Integer> 
     public List<QuestionModel> findByExample(QuestionModel exampleInstance, int offset, int limit) throws Exception {
         try {
             return sessionFactory.getCurrentSession().createCriteria(QuestionModel.class)
-                                                     .add(Example.create(exampleInstance))
-                                                     .setFirstResult(offset)
-                                                     .setMaxResults(limit)
-                                                     .list();
+                    .add(Example.create(exampleInstance))
+                    .setFirstResult(offset)
+                    .setMaxResults(limit)
+                    .list();
         } catch (HibernateException e) {
             // TODO custom exception
             throw new Exception(e.getMessage(), e);
@@ -54,28 +56,32 @@ public class HibernateQuestionDao implements GenericDao<QuestionModel, Integer> 
     }
 
     @SuppressWarnings("unchecked")
-	@Override
+    @Override
     public List<QuestionModel> getAll() throws Exception {
         return sessionFactory.getCurrentSession().createCriteria(QuestionModel.class).list();
     }
 
     @Override
     public void update(QuestionModel question) throws Exception {
-    	sessionFactory.getCurrentSession().update(question);
+        Long now = System.currentTimeMillis();
+        question.setUpdateDate(now);
+        sessionFactory.getCurrentSession().update(question);
     }
 
     @Override
     public void delete(QuestionModel question) throws Exception {
-    	//TODO set flag?
-    	sessionFactory.getCurrentSession().delete(question);
+        question.setDeleteFlag(true);
+        Long now = System.currentTimeMillis();
+        question.setDeleteDate(now);
+        sessionFactory.getCurrentSession().update(question);
     }
 
     @Override
     public Long getCount() throws Exception {
-    	return (Long) sessionFactory.getCurrentSession()
-    			.createCriteria(QuestionModel.class)
-    			.setProjection(Projections.rowCount())
-    			.uniqueResult();
+        return (Long) sessionFactory.getCurrentSession()
+                .createCriteria(QuestionModel.class)
+                .setProjection(Projections.rowCount())
+                .uniqueResult();
     }
 
 }

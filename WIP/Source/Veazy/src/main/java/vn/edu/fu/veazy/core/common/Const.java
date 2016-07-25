@@ -40,6 +40,8 @@ public class Const {
     //question api
     public static final String URLMAPPING_CREATE_QUESTION = URL_PREFIX + "/questions";
     public static final String URLMAPPING_UPDATE_QUESTION = URL_PREFIX + "/questions/{quetsion_id}";
+    public static final String URLMAPPING_GET_QUESTION = URL_PREFIX + "/questions/{quetsion_id}";
+    public static final String URLMAPPING_GET_LIST_QUESTIONS = URL_PREFIX + "/questions";
     public static final String URLMAPPING_DELETE_QUESTION = URL_PREFIX + "/questions/{quetsion_id}";
     public static final String URLMAPPING_REPORT_QUESTION = URL_PREFIX + "/questions/{quetsion_id}/report";
     

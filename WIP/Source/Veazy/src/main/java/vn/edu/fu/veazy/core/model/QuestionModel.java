@@ -6,6 +6,7 @@
 package vn.edu.fu.veazy.core.model;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
@@ -27,7 +28,7 @@ import vn.edu.fu.veazy.core.form.QuestionForm;
 @DynamicInsert
 @DynamicUpdate
 @Table(name = "`Question`")
-public class QuestionModel extends BasicModel {
+public class QuestionModel extends BasicModel implements Comparator<QuestionModel>{
 
     @Column(name = "questionCode", columnDefinition = "VARCHAR(30) UNIQUE", nullable = false)
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -45,7 +46,7 @@ public class QuestionModel extends BasicModel {
     // >1 if Group(the origin question)
     // =0 if is a question of Group
     private Integer numberOfQuestion = 1;
-    @Column(name = "courseid", nullable = false)
+    @Column(name = "courseId", nullable = false)
     private Integer courseId;
     @Column(name = "question", nullable = false)
     private String question;
@@ -173,6 +174,11 @@ public class QuestionModel extends BasicModel {
 
     public void setAttachment(String attachment) {
         this.attachment = attachment;
+    }
+
+    @Override
+    public int compare(QuestionModel question1, QuestionModel question2) {
+        return question1.getNumberOfQuestion().compareTo(question2.getNumberOfQuestion());
     }
 
 }

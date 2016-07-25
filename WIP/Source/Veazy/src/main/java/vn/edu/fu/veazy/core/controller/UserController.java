@@ -212,7 +212,7 @@ public class UserController {
      */
     @RequestMapping(value = Const.URLMAPPING_GET_LEARNER_EXAMS, method = RequestMethod.GET)
     public @ResponseBody
-    String getLearnerExamss(Principal principal) {
+    String getLearnerExams(Principal principal) {
         Response response = new Response(ResponseCode.BAD_REQUEST);
         try {
             LOGGER.debug("Get to get learner exams controller successful");
