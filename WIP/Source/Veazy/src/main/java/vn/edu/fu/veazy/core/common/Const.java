@@ -34,21 +34,20 @@ public class Const {
     public static final String URLMAPPING_REPORT_LESSON = URL_PREFIX + "/lessons/report/{lesson_id}";
     public static final String URLMAPPING_GET_LESSON_COURSE = URL_PREFIX + "/courses/{course_id}/lessons";
     public static final String URLMAPPING_GET_LESSON = URL_PREFIX + "/lessons/{lesson_id}";
-    public static final String URLMAPPING_APPROVE_LESSON = URL_PREFIX + "/lessons/{lesson_id}/approve";
-    public static final String URLMAPPING_DECLINE_LESSON = URL_PREFIX + "/lessons/{lesson_id}/decline";
+    public static final String URLMAPPING_DELETE_LESSON = URL_PREFIX + "/lessons/delete/{lesson_id}";
     
     //course api
     public static final String URLMAPPING_GET_COURSES = URL_PREFIX + "/courses";
     
-    //task api
-    public static final String URLMAPPING_GET_TASK = URL_PREFIX + "/task/{task_id}";
-    public static final String URLMAPPING_GET_SENT_TASK = URL_PREFIX + "/task/sent";
-    public static final String URLMAPPING_GET_RECEIVED_TASK = URL_PREFIX + "/task/received";
-    public static final String URLMAPPING_GET_ALL_TASK = URL_PREFIX + "/task/all";
+    //report api
+    public static final String URLMAPPING_GET_REPORT = URL_PREFIX + "/report/{report_id}";
+    public static final String URLMAPPING_GET_ALL_REPORT = URL_PREFIX + "/report/received";
+    public static final String URLMAPPING_READ_REPORT = URL_PREFIX + "/report/read/{report_id}";
+    public static final String URLMAPPING_DELETE_REPORT = URL_PREFIX + "/report/delete/{report_id}";
     
     //dictionary
-    public static final String URLMAPPING_LOOKUP_JAVI = URL_PREFIX + "/dict/javi/{key}";
-    public static final String URLMAPPING_LOOKUP_VIJA = URL_PREFIX + "/dict/vija/{key}";
+    public static final String URLMAPPING_LOOKUP_JAVI = URL_PREFIX + "/dict/javi/";
+    public static final String URLMAPPING_LOOKUP_VIJA = URL_PREFIX + "/dict/vija/";
     /************************* Content status ***************************/
     
     public static final Integer UPDATING = 1;
