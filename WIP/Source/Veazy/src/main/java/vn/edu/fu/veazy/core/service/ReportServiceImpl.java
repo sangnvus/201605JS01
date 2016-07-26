@@ -30,6 +30,7 @@ public class ReportServiceImpl implements ReportService{
 	}
 
 	@Override
+	@Transactional
 	public void readReport(Integer id) throws Exception {
 		ReportModel report = reportDao.findById(id);
 		report.setReadFlag(true);
@@ -37,6 +38,7 @@ public class ReportServiceImpl implements ReportService{
 	}
 
 	@Override
+	@Transactional
 	public void deleteReport(Integer id) throws Exception {
 		ReportModel report = reportDao.findById(id);
 		report.setDeleteFlag(true);
