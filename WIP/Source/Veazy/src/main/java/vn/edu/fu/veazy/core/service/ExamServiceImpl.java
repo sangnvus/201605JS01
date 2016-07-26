@@ -25,7 +25,7 @@ public class ExamServiceImpl implements ExamService {
 
     @Override
     @Transactional
-    public List<ExamModel> findLearnerExams(String learnerId) throws Exception {
+    public List<ExamModel> findLearnerExams(Integer learnerId) throws Exception {
         try {
             ExamModel exam = new ExamModel();
             //TODO need to check about getUserById method in dao
@@ -36,6 +36,11 @@ public class ExamServiceImpl implements ExamService {
             // TODO custom exception
             throw new Exception(e.getMessage(), e);
         }
+    }
+
+    @Override
+    public ExamModel saveExam(ExamModel exam) throws Exception {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

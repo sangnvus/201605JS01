@@ -26,23 +26,33 @@ public class ExamAnswer extends BasicModel {
     @ManyToOne
     @JoinColumn(name="exammodel_id")
     private ExamModel question;
+    @Column(name = "questionId", nullable = false)
+    private Integer questionId;
     @Column(name = "userAnswer", nullable = false)
     private String userAnswer;
 
     public ExamAnswer() {
     }
 
-    public ExamAnswer(ExamModel question, String UserAnswer) {
-        this.question = question;
-        this.userAnswer = UserAnswer;
+    public ExamAnswer(Integer questionId, String userAnswer) {
+        this.questionId = questionId;
+        this.userAnswer = userAnswer;
     }
 
-    public ExamModel getQuestionId() {
+    public ExamModel getQuestion() {
         return question;
     }
 
-    public void setQuestionId(ExamModel question) {
+    public void setQuestion(ExamModel question) {
         this.question = question;
+    }
+
+    public Integer getQuestionId() {
+        return questionId;
+    }
+
+    public void setQuestionId(Integer questionId) {
+        this.questionId = questionId;
     }
 
     public String getUserAnswer() {

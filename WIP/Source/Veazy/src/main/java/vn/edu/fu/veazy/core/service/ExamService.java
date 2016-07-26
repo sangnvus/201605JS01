@@ -4,5 +4,6 @@ import java.util.List;
 import vn.edu.fu.veazy.core.model.ExamModel;
 
 public interface ExamService {
-    public List<ExamModel> findLearnerExams(String learnerId) throws Exception;
+    public ExamModel saveExam(ExamModel exam) throws Exception;
+    public List<ExamModel> findLearnerExams(Integer learnerId) throws Exception;
 }
