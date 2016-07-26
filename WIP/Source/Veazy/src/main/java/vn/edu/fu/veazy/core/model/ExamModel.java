@@ -24,31 +24,37 @@ import org.hibernate.annotations.DynamicUpdate;
 public class ExamModel extends BasicModel{
 
     @Column(name = "userId", nullable = false)
-    private String userId;
+    private Integer userId;
     @Column(name = "courseId", nullable = false)
-    private String courseId;
+    private Integer courseId;
     @OneToMany(mappedBy = "question")
     @Column(name = "listQuestions", nullable = false)
     private List<ExamAnswer> listQuestions;
     @Column(name = "result", columnDefinition="FLOAT4 DEFAULT 0.0",nullable = false)
-    private Double result;
+    private Double result = 0.0;
 
     public ExamModel() {
     }
 
-    public String getUserId() {
+    public ExamModel(Integer userId, Integer courseId, List<ExamAnswer> listQuestions) {
+        this.userId = userId;
+        this.courseId = courseId;
+        this.listQuestions = listQuestions;
+    }
+
+    public Integer getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
+    public void setUserId(Integer userId) {
         this.userId = userId;
     }
 
-    public String getCourseId() {
+    public Integer getCourseId() {
         return courseId;
     }
 
-    public void setCourseId(String courseId) {
+    public void setCourseId(Integer courseId) {
         this.courseId = courseId;
     }
 

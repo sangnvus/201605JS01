@@ -6,6 +6,7 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
+import vn.edu.fu.veazy.core.form.ReportForm;
 
 @Entity
 @DynamicInsert
@@ -26,6 +27,13 @@ public class ReportModel extends BasicModel{
 	public ReportModel() {
 		super();
 	}
+        
+        public ReportModel(ReportForm form, Integer senderId, Integer questionId) {
+        super();
+        this.content = form.getContent();
+        this.senderId = senderId;
+        this.questionId = questionId;
+    }
 	public ReportModel(Integer id, Long createDate, Long updateDate, Long deleteDate, boolean deleteFlag,
 			Integer senderId, boolean readFlag, String content, Integer lessonId, Integer questionId) {
 		super(id, createDate, updateDate, deleteDate, deleteFlag);

@@ -9,13 +9,13 @@ package vn.edu.fu.veazy.core.response;
  *
  * @author Hoang Linh
  */
-public class ResponseCode{
+public class ResponseCode {
 
     public static final int SUCCESS = 200;
     public static final int CREATED = 201;
 
     public static final int FOUND = 302;
-    
+
     public static final int BAD_REQUEST = 400;
     public static final int UNAUTHORIZED = 401;
     public static final int PERMISSION_DENIED = 403;
@@ -34,6 +34,7 @@ public class ResponseCode{
     public static final int USER_INACTIVE = 432;
     public static final int USER_EXAMS_NOT_FOUND = 433;
 
+    public static final int QUESTION_NOT_FOUND = 440;
     public static final int INTERNAL_SERVER_ERROR = 500;
 
     public static final int UNSUPPORTED_API = 600;
