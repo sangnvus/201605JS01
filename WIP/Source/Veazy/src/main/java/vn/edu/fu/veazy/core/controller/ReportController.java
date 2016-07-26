@@ -19,7 +19,7 @@ import vn.edu.fu.veazy.core.response.ResponseCode;
 import vn.edu.fu.veazy.core.service.ReportService;
 import vn.edu.fu.veazy.core.service.UserService;
 
-@Controller("Reprot Controller")
+@Controller("Report Controller")
 public class ReportController {
 	/**
      * Logger object .
