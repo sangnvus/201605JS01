@@ -28,20 +28,20 @@ public class Const {
     
     //lesson api
     public static final String URLMAPPING_CREATE_LESSON = URL_PREFIX + "/lessons/new";
-    public static final String URLMAPPING_GET_LESSON_VERSION = URL_PREFIX + "/lessons/{lesson_id}/ver{version}";
+    public static final String URLMAPPING_GET_LESSON_VERSION = URL_PREFIX + "/lessons/getversion/{lesson_id}/ver{version}";
     public static final String URLMAPPING_UPDATE_LESSON = URL_PREFIX + "/lessons/update/{lesson_id}";
     public static final String URLMAPPING_PUBLISH_LESSON = URL_PREFIX + "/lessons/publish/{lesson_id}";
     public static final String URLMAPPING_REPORT_LESSON = URL_PREFIX + "/lessons/report/{lesson_id}";
-    public static final String URLMAPPING_GET_LESSON_COURSE = URL_PREFIX + "/courses/{course_id}/lessons";
-    public static final String URLMAPPING_GET_LESSON = URL_PREFIX + "/lessons/{lesson_id}";
+    public static final String URLMAPPING_GET_LESSON_COURSE = URL_PREFIX + "/courses/{course_id}";
+    public static final String URLMAPPING_GET_LESSON = URL_PREFIX + "/lessons/get/{lesson_id}";
     public static final String URLMAPPING_DELETE_LESSON = URL_PREFIX + "/lessons/delete/{lesson_id}";
     
     //course api
     public static final String URLMAPPING_GET_COURSES = URL_PREFIX + "/courses";
     
     //report api
-    public static final String URLMAPPING_GET_REPORT = URL_PREFIX + "/report/{report_id}";
-    public static final String URLMAPPING_GET_ALL_REPORT = URL_PREFIX + "/report/received";
+    public static final String URLMAPPING_GET_REPORT = URL_PREFIX + "/report/get/{report_id}";
+    public static final String URLMAPPING_GET_ALL_REPORT = URL_PREFIX + "/report/all";
     public static final String URLMAPPING_READ_REPORT = URL_PREFIX + "/report/read/{report_id}";
     public static final String URLMAPPING_DELETE_REPORT = URL_PREFIX + "/report/delete/{report_id}";
     
