@@ -18,7 +18,9 @@ public class LessonVersionModel{
     @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+	@Column(name = "createDate")
     private Long createDate;
+	@Column(name = "updateDate")
     private Long updateDate;
 	@Column(name = "lessonId", nullable = false)
 	private Integer lessonId;

@@ -19,7 +19,9 @@ public class ReportModel {
     @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+	@Column(name = "createDate")
     private Long createDate;
+	@Column(name = "deleteDate")
     private Long deleteDate;
     @Column(name = "isDeleted",columnDefinition="boolean default false", nullable = false)
     private boolean deleteFlag;
