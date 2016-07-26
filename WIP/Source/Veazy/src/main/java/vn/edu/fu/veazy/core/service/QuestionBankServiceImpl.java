@@ -20,6 +20,7 @@ import vn.edu.fu.veazy.core.model.QuestionModel;
  *
  * @author Hoang Linh
  */
+@Service
 public class QuestionBankServiceImpl implements QuestionBankService {
 
     @Autowired

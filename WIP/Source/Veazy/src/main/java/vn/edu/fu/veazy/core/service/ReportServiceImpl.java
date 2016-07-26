@@ -15,6 +15,7 @@ import vn.edu.fu.veazy.core.model.ReportModel;
  *
  * @author Hoang Linh
  */
+@Service
 public class ReportServiceImpl implements ReportService {
 
     @Autowired

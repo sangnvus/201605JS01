@@ -28,7 +28,7 @@ public class AnswerModel extends BasicModel {
     private QuestionModel question;
     @Column(name = "answer", nullable = false)
     private String answer;
-    @Column(name = "isBanned", columnDefinition="BOOLEAN DEFAULT FALSE", nullable = true)
+    @Column(name = "isRight", columnDefinition="BOOLEAN DEFAULT FALSE", nullable = true)
     private Boolean isRight = false;
 
     public AnswerModel() {

@@ -233,7 +233,7 @@ public class QuestionController {
      * @param questionId url path
      * @return json string
      */
-    @RequestMapping(value = Const.URLMAPPING_GET_LESSON, method = RequestMethod.GET)
+    @RequestMapping(value = Const.URLMAPPING_GET_QUESTION, method = RequestMethod.GET)
     public @ResponseBody
     String getQuestion(@PathVariable("question_id") Integer questionId) {
         Response response = new Response(ResponseCode.BAD_REQUEST);
