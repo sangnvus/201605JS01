@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Random;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import vn.edu.fu.veazy.core.common.Const;
 import vn.edu.fu.veazy.core.dao.GenericDao;

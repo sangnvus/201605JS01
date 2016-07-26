@@ -274,7 +274,7 @@ public class QuestionController {
      * @param questionId url path
      * @return json string
      */
-    @RequestMapping(value = Const.URLMAPPING_DELETE_QUESTION, method = RequestMethod.GET)
+    @RequestMapping(value = Const.URLMAPPING_DELETE_QUESTION, method = RequestMethod.DELETE)
     public @ResponseBody
     String deleteQuestion(@PathVariable("question_id") Integer questionId) {
         Response response = new Response(ResponseCode.BAD_REQUEST);
