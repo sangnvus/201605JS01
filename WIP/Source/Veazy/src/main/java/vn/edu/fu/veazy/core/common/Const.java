@@ -28,12 +28,12 @@ public class Const {
     
     //lesson api
     public static final String URLMAPPING_CREATE_LESSON = URL_PREFIX + "/lessons/new";
-    public static final String URLMAPPING_GET_LESSON_VERSION = URL_PREFIX + "/lessons/getversion/{lesson_id}/ver{version}";
+    public static final String URLMAPPING_GET_LESSON_VERSION = URL_PREFIX + "/lessons/{lesson_id}/ver{version}";
     public static final String URLMAPPING_UPDATE_LESSON = URL_PREFIX + "/lessons/update/{lesson_id}";
     public static final String URLMAPPING_PUBLISH_LESSON = URL_PREFIX + "/lessons/publish/{lesson_id}";
     public static final String URLMAPPING_REPORT_LESSON = URL_PREFIX + "/lessons/report/{lesson_id}";
-    public static final String URLMAPPING_GET_LESSON_COURSE = URL_PREFIX + "/courses/getlessons/{course_id}/";
-    public static final String URLMAPPING_GET_LESSON = URL_PREFIX + "/lessons/get/{lesson_id}";
+    public static final String URLMAPPING_GET_LESSON_COURSE = URL_PREFIX + "/courses/{course_id}/lessons";
+    public static final String URLMAPPING_GET_LESSON = URL_PREFIX + "/lessons/{lesson_id}";
     public static final String URLMAPPING_DELETE_LESSON = URL_PREFIX + "/lessons/delete/{lesson_id}";
     
     //course api
