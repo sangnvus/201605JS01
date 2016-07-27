@@ -37,6 +37,7 @@ public class Const {
     public static final String URLMAPPING_REPORT_LESSON = URL_PREFIX + "/lessons/report/{lesson_id}";
     public static final String URLMAPPING_GET_LESSON_COURSE = URL_PREFIX + "/courses/{course_id}/lessons";
     public static final String URLMAPPING_GET_LESSON = URL_PREFIX + "/lessons/{lesson_id}";
+    public static final String URLMAPPING_GET_ALL_LESSON = URL_PREFIX + "/lessons";
     
     //course api
     public static final String URLMAPPING_GET_COURSES = URL_PREFIX + "/courses";

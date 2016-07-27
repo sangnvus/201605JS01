@@ -2,7 +2,7 @@ package vn.edu.fu.veazy.core.response;
 
 import vn.edu.fu.veazy.core.common.JsonUtils;
 
-public class LessonOfCourseResponse {
+public class BriefLessonResponse {
 	private String lessonId;
 	private String title;
 	private String description;

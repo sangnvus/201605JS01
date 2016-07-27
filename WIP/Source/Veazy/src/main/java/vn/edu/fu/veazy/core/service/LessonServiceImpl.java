@@ -21,10 +21,10 @@ import vn.edu.fu.veazy.core.model.LessonModel;
 import vn.edu.fu.veazy.core.model.LessonVersionModel;
 import vn.edu.fu.veazy.core.model.ReportModel;
 import vn.edu.fu.veazy.core.model.TaskModel;
+import vn.edu.fu.veazy.core.response.BriefLessonResponse;
 import vn.edu.fu.veazy.core.response.CreateLessonResponse;
 import vn.edu.fu.veazy.core.response.GetLessonResponse;
 import vn.edu.fu.veazy.core.response.GetLessonVersionResponse;
-import vn.edu.fu.veazy.core.response.LessonOfCourseResponse;
 @Service
 public class LessonServiceImpl implements LessonService{
     private final static org.slf4j.Logger LOGGER = LoggerFactory.getLogger(LessonServiceImpl.class);
@@ -204,7 +204,7 @@ public class LessonServiceImpl implements LessonService{
 	@Override
     @SuppressWarnings("unchecked")
 	@Transactional
-	public List<LessonOfCourseResponse> getLessonsOfCourse(Integer courseId) throws Exception {
+	public List<BriefLessonResponse> getLessonsOfCourse(Integer courseId) throws Exception {
 		LessonModel sample = new LessonModel();
 		sample.setCourseId(courseId);
 		String sql = "select * from Lesson les where les.courseId = " + courseId;
@@ -213,9 +213,9 @@ public class LessonServiceImpl implements LessonService{
 		    LOGGER.error(listLesson + ": No lesson for " + sample.getCourseId());
 			return null;
 		}
-		List<LessonOfCourseResponse> listResult = new Vector<LessonOfCourseResponse>();
+		List<BriefLessonResponse> listResult = new Vector<BriefLessonResponse>();
 		for (LessonModel lessonModel : listLesson) {
-			LessonOfCourseResponse response = new LessonOfCourseResponse();
+		    BriefLessonResponse response = new BriefLessonResponse();
 			response.setLessonId(String.valueOf(lessonModel.getId()));
 			//get title from current version
 			LessonVersionModel version = lessonVersionDao
@@ -226,6 +226,28 @@ public class LessonServiceImpl implements LessonService{
 		}
 		return listResult;
 	}
+
+    @Override
+    @Transactional
+    public List<BriefLessonResponse> getAllLesson() throws Exception {
+        List<LessonModel> listLesson = (List<LessonModel>) lessonDao.getAll();
+        if(listLesson == null || listLesson.isEmpty()){
+            LOGGER.error(listLesson + ": No lesson");
+            return null;
+        }
+        List<BriefLessonResponse> listResult = new Vector<BriefLessonResponse>();
+        for (LessonModel lessonModel : listLesson) {
+            BriefLessonResponse response = new BriefLessonResponse();
+            response.setLessonId(String.valueOf(lessonModel.getId()));
+            //get title from current version
+            LessonVersionModel version = lessonVersionDao
+                    .findById(Integer.valueOf(lessonModel.getCurrentVersionId()));
+            response.setTitle(version.getTitle());
+            response.setDescription(version.getDescription());
+            listResult.add(response);
+        }
+        return listResult;
+    }
 
 	@Override
 	@Transactional
