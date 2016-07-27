@@ -16,6 +16,8 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
+import org.hibernate.annotations.Generated;
+import org.hibernate.annotations.GenerationTime;
 
 /**
  *
@@ -27,9 +29,12 @@ import org.hibernate.annotations.DynamicUpdate;
 @Table(name = "`Question`")
 public class QuestionModel extends BasicModel {
 
-    @Column(name = "questionCode", nullable = false)
-    @SequenceGenerator(name="code_sequence", sequenceName="question_code_seq", allocationSize=1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="code_sequence")
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -3809065581217809381L;
+    @Column(name = "questionCode", columnDefinition="serial", nullable = false)
+    @Generated(GenerationTime.INSERT)
     private String questionCode;
     @Column(name = "creatorId", nullable = false)
     private String creatorId;

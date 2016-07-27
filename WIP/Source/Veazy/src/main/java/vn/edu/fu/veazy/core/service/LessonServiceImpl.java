@@ -221,6 +221,7 @@ public class LessonServiceImpl implements LessonService{
 			LessonVersionModel version = lessonVersionDao
 			        .findById(Integer.valueOf(lessonModel.getCurrentVersionId()));
 			response.setTitle(version.getTitle());
+			response.setDescription(version.getDescription());
 			listResult.add(response);
 		}
 		return listResult;

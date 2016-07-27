@@ -1,6 +1,6 @@
 HTTP/1.1 200 OK
 Server: Apache-Coyote/1.1
-Set-Cookie: JSESSIONID=8793BEA41E2913DCD2C5040F31668BFB; Path=/Veazy/; HttpOnly
+Set-Cookie: JSESSIONID=F756B6C8B1703AA5759F288609946A39; Path=/Veazy/; HttpOnly
 Access-Control-Allow-Origin: http://localhost:3003
 Access-Control-Allow-Methods: POST, GET, OPTIONS, PUT, DELETE, HEAD
 Access-Control-Allow-Headers: X-PINGOTHER, Origin, X-Requested-With, Content-Type, Accept
@@ -13,5 +13,5 @@ X-XSS-Protection: 1; mode=block
 X-Frame-Options: DENY
 X-Content-Type-Options: nosniff
 Transfer-Encoding: chunked
-Date: Sun, 24 Jul 2016 15:42:01 GMT
+Date: Tue, 26 Jul 2016 10:58:35 GMT
 

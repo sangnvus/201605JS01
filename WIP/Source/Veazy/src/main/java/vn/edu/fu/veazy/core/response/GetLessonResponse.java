@@ -16,10 +16,10 @@ public class GetLessonResponse {
 
 	private String vocabulary;
 	private String grammar;
-	private String reading;
+	private String conversation;
 	private String listening;
 	private String practice;
-	private String article;
+	private String reading;
 
 	private Integer previousLessonId;
 	private Integer nextLessonId;
@@ -31,10 +31,10 @@ public class GetLessonResponse {
 		 updateDate = currentVersion.getUpdateDate();
 		 vocabulary = currentVersion.getVocabulary();
 		 grammar = currentVersion.getGrammar();
-		 reading = currentVersion.getReading();
+		 conversation = currentVersion.getReading();
 		 listening = currentVersion.getListening();
 		 practice = currentVersion.getPractice();
-		 article = currentVersion.getArticle();
+		 reading = currentVersion.getArticle();
 		 previousLessonId = previousId;
 		 nextLessonId = nextId;
 	}
@@ -80,11 +80,11 @@ public class GetLessonResponse {
 	public void setGrammar(String grammar) {
 		this.grammar = grammar;
 	}
-	public String getReading() {
-		return reading;
+	public String getConversation() {
+		return conversation;
 	}
-	public void setReading(String reading) {
-		this.reading = reading;
+	public void setConversation(String conversation) {
+		this.conversation = conversation;
 	}
 	public String getListening() {
 		return listening;
@@ -98,11 +98,11 @@ public class GetLessonResponse {
 	public void setPractice(String practice) {
 		this.practice = practice;
 	}
-	public String getArticle() {
-		return article;
+	public String getReading() {
+		return reading;
 	}
-	public void setArticle(String article) {
-		this.article = article;
+	public void setReading(String reading) {
+		this.reading = reading;
 	}
 	public Integer getPreviousLessonId() {
 		return previousLessonId;

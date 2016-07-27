@@ -9,15 +9,16 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
+import org.hibernate.annotations.Generated;
+import org.hibernate.annotations.GenerationTime;
 
 @Entity
 @DynamicInsert
 @DynamicUpdate
 @Table(name = "Lesson")
 public class LessonModel extends BasicModel{
-	@Column(name = "index", nullable = false)
-	@SequenceGenerator(name="index_sequence", sequenceName="lesson_index_seq", allocationSize=1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="index_sequence")
+	@Column(name = "index", columnDefinition="serial", nullable = false)
+	@Generated(GenerationTime.INSERT)
 	private int index;
 	@Column(name = "courseid", nullable = false)
 	private Integer courseId;

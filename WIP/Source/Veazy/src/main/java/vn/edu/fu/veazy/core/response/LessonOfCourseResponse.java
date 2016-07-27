@@ -5,7 +5,14 @@ import vn.edu.fu.veazy.core.common.JsonUtils;
 public class LessonOfCourseResponse {
 	private String lessonId;
 	private String title;
-	public String getLessonId() {
+	private String description;
+	public String getDescription() {
+        return description;
+    }
+    public void setDescription(String description) {
+        this.description = description;
+    }
+    public String getLessonId() {
 		return lessonId;
 	}
 	public void setLessonId(String lessonId) {
