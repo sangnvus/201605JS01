@@ -2,6 +2,9 @@ package vn.edu.fu.veazy.core.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.DynamicInsert;
@@ -11,7 +14,11 @@ import org.hibernate.annotations.DynamicUpdate;
 @DynamicInsert
 @DynamicUpdate
 @Table(name = "Course")
-public class CourseModel extends BasicModel{
+public class CourseModel{
+	@Id
+    @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 	@Column(name = "name", columnDefinition="VARCHAR(50) UNIQUE", nullable = false)
 	private String name;
 	@Column(name = "index", columnDefinition="int UNIQUE", nullable = false)

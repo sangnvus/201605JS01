@@ -6,44 +6,40 @@ import java.util.List;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import vn.edu.fu.veazy.core.common.Const;
-import vn.edu.fu.veazy.core.form.CreateLessonForm;
-import vn.edu.fu.veazy.core.model.TaskModel;
+import vn.edu.fu.veazy.core.model.ReportModel;
 import vn.edu.fu.veazy.core.model.UserModel;
-import vn.edu.fu.veazy.core.response.CreateLessonResponse;
 import vn.edu.fu.veazy.core.response.Response;
 import vn.edu.fu.veazy.core.response.ResponseCode;
-import vn.edu.fu.veazy.core.service.LessonService;
-import vn.edu.fu.veazy.core.service.TaskService;
+import vn.edu.fu.veazy.core.service.ReportService;
 import vn.edu.fu.veazy.core.service.UserService;
 
-@Controller("Task Controller")
-public class TaskController {
+@Controller("Report Controller")
+public class ReportController {
 	/**
      * Logger object .
      */
     private final static org.slf4j.Logger LOGGER = LoggerFactory.getLogger(LessonController.class);
 
     @Autowired
-    private TaskService taskService;
+    private ReportService reportService;
     @Autowired
     private UserService userService;
     
-    @RequestMapping(value = Const.URLMAPPING_GET_TASK, method = RequestMethod.GET)
+    @RequestMapping(value = Const.URLMAPPING_GET_REPORT, method = RequestMethod.GET)
     public @ResponseBody
-    String getTask(@PathVariable("task_id") Integer taskId) {
+    String getReport(@PathVariable("report_id") Integer reportId) {
         Response response = new Response(ResponseCode.BAD_REQUEST);
         try {
-            TaskModel data = taskService.getTask(taskId);
+            ReportModel data = reportService.getReport(reportId);
             response.setCode(ResponseCode.SUCCESS);
             response.setData(data);
-            LOGGER.debug("get task successfully!");
+            LOGGER.debug("get report successfully!");
 
             return response.toResponseJson();
         } catch (Exception e) {
@@ -54,18 +50,19 @@ public class TaskController {
         return response.toResponseJson();
     }
     
-    @RequestMapping(value = Const.URLMAPPING_GET_SENT_TASK, method = RequestMethod.GET)
+        
+    @RequestMapping(value = Const.URLMAPPING_GET_ALL_REPORT, method = RequestMethod.GET)
     public @ResponseBody
-    String getSentTasks(Principal principal) {
+    String getAllReport(Principal principal) {
         Response response = new Response(ResponseCode.BAD_REQUEST);
         try {
             String userName = principal.getName();
             UserModel user = userService.findUserByUsername(userName);
 
-            List<TaskModel> data = taskService.getSentTasks(user.getId());
+            List<ReportModel> data = reportService.getAllReports(user.getId());
             response.setCode(ResponseCode.SUCCESS);
             response.setData(data);
-            LOGGER.debug("get sent tasks successfully!");
+            LOGGER.debug("get all reports successfully!");
 
             return response.toResponseJson();
         } catch (Exception e) {
@@ -76,18 +73,15 @@ public class TaskController {
         return response.toResponseJson();
     }
     
-    @RequestMapping(value = Const.URLMAPPING_GET_RECEIVED_TASK, method = RequestMethod.GET)
+    
+    @RequestMapping(value = Const.URLMAPPING_READ_REPORT, method = RequestMethod.GET)
     public @ResponseBody
-    String getReceivedTasks(Principal principal) {
+    String readReport(@PathVariable("report_id") Integer reportId) {
         Response response = new Response(ResponseCode.BAD_REQUEST);
         try {
-            String userName = principal.getName();
-            UserModel user = userService.findUserByUsername(userName);
-
-            List<TaskModel> data = taskService.getReceivedTasks(user.getId());
+            reportService.readReport(reportId);
             response.setCode(ResponseCode.SUCCESS);
-            response.setData(data);
-            LOGGER.debug("get received successfully!");
+            LOGGER.debug("make report as read successfully!");
 
             return response.toResponseJson();
         } catch (Exception e) {
@@ -98,18 +92,14 @@ public class TaskController {
         return response.toResponseJson();
     }
     
-    @RequestMapping(value = Const.URLMAPPING_GET_ALL_TASK, method = RequestMethod.GET)
+    @RequestMapping(value = Const.URLMAPPING_DELETE_REPORT, method = RequestMethod.GET)
     public @ResponseBody
-    String getAllTasks(Principal principal) {
+    String deleteReport(@PathVariable("report_id") Integer reportId) {
         Response response = new Response(ResponseCode.BAD_REQUEST);
         try {
-            String userName = principal.getName();
-            UserModel user = userService.findUserByUsername(userName);
-
-            List<TaskModel> data = taskService.getAllTasks(user.getId());
+            reportService.deleteReport(reportId);
             response.setCode(ResponseCode.SUCCESS);
-            response.setData(data);
-            LOGGER.debug("get all task successfully!");
+            LOGGER.debug("delete report successfully!");
 
             return response.toResponseJson();
         } catch (Exception e) {
@@ -119,4 +109,5 @@ public class TaskController {
         }
         return response.toResponseJson();
     }
+
 }

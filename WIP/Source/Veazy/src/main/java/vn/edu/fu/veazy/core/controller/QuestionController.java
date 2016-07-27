@@ -308,7 +308,7 @@ public class QuestionController {
      * @param reportForm form submitted
      * @return json string
      */
-    @RequestMapping(value = Const.URLMAPPING_DELETE_QUESTION, method = RequestMethod.GET)
+    @RequestMapping(value = Const.URLMAPPING_REPORT_QUESTION, method = RequestMethod.GET)
     public @ResponseBody
     String reportQuestion(@PathVariable("question_id") Integer questionId,
             Principal principal, @ModelAttribute("report-form") ReportForm reportForm) {

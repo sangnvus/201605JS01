@@ -19,11 +19,11 @@ public class JaviModel {
     @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-	@Column(name = "word", nullable = false)
+	@Column(name = "word", columnDefinition ="text", nullable = false)
 	private String word;
-	@Column(name = "kana", nullable = true)
+	@Column(name = "kana", columnDefinition ="text", nullable = true)
 	private String kana;
-	@Column(name = "means", nullable = false)
+	@Column(name = "mean", columnDefinition ="text", nullable = false)
 	private String means;
 	public JaviModel(Integer id, String word, String kana, String means) {
 		super();

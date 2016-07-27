@@ -16,9 +16,9 @@ public class ExampleModel {
 	@Id
     @Column(name = "id", nullable = false)
     private Integer id;
-	@Column(name = "ja", nullable = false)
+	@Column(name = "ja", columnDefinition ="text", nullable = false)
 	private String ja;
-	@Column(name = "vi", nullable = false)
+	@Column(name = "vi",columnDefinition ="text", nullable = false)
 	private String vi;
 	public ExampleModel(Integer id, String ja, String vi) {
 		super();

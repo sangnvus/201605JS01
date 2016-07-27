@@ -227,7 +227,7 @@ public class UserController {
                 response.setCode(ResponseCode.USER_NOT_FOUND);
                 return response.toResponseJson();
             }
-            List<ExamModel> exams = examService.findLearnerExams(userName);
+            List<ExamModel> exams = examService.findLearnerExams(user.getId());
             if (exams == null || exams.isEmpty()) {
                 LOGGER.debug("Cannot find Learner Exams!");
                 response.setCode(ResponseCode.USER_EXAMS_NOT_FOUND);

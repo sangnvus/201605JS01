@@ -36,8 +36,10 @@ public class Const {
     public static final String URLMAPPING_REPORT_LESSON = URL_PREFIX + "/lessons/report/{lesson_id}";
     public static final String URLMAPPING_GET_LESSON_COURSE = URL_PREFIX + "/courses/{course_id}/lessons";
     public static final String URLMAPPING_GET_LESSON = URL_PREFIX + "/lessons/{lesson_id}";
-    public static final String URLMAPPING_APPROVE_LESSON = URL_PREFIX + "/lessons/{lesson_id}/approve";
-    public static final String URLMAPPING_DECLINE_LESSON = URL_PREFIX + "/lessons/{lesson_id}/decline";
+    public static final String URLMAPPING_GET_ALL_LESSON = URL_PREFIX + "/lessons";
+    public static final String URLMAPPING_DELETE_LESSON = URL_PREFIX + "/lessons/delete/{lesson_id}";
+//    public static final String URLMAPPING_APPROVE_LESSON = URL_PREFIX + "/lessons/{lesson_id}/approve";
+//    public static final String URLMAPPING_DECLINE_LESSON = URL_PREFIX + "/lessons/{lesson_id}/decline";
 
     //course api
     public static final String URLMAPPING_GET_COURSES = URL_PREFIX + "/courses";
@@ -49,8 +51,8 @@ public class Const {
     public static final String URLMAPPING_GET_ALL_TASK = URL_PREFIX + "/task/all";
 
     //dictionary
-    public static final String URLMAPPING_LOOKUP_JAVI = URL_PREFIX + "/dict/javi/{key}";
-    public static final String URLMAPPING_LOOKUP_VIJA = URL_PREFIX + "/dict/vija/{key}";
+    public static final String URLMAPPING_LOOKUP_JAVI = URL_PREFIX + "/dict/javi/";
+    public static final String URLMAPPING_LOOKUP_VIJA = URL_PREFIX + "/dict/vija/";
 
     //question api
     public static final String URLMAPPING_CREATE_QUESTION = URL_PREFIX + "/questions";
@@ -62,6 +64,12 @@ public class Const {
 
     //exam api 
     public static final String URLMAPPING_CREATE_EXAM = URL_PREFIX + "/exams";
+    
+    //report api
+    public static final String URLMAPPING_GET_REPORT = URL_PREFIX + "/report/get/{report_id}";
+    public static final String URLMAPPING_GET_ALL_REPORT = URL_PREFIX + "/report/all";
+    public static final String URLMAPPING_READ_REPORT = URL_PREFIX + "/report/read/{report_id}";
+    public static final String URLMAPPING_DELETE_REPORT = URL_PREFIX + "/report/delete/{report_id}";
 
     /**
      * *********************** Content status **************************
