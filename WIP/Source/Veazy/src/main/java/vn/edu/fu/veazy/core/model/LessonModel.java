@@ -2,17 +2,23 @@ package vn.edu.fu.veazy.core.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
+import org.hibernate.annotations.Generated;
+import org.hibernate.annotations.GenerationTime;
 
 @Entity
 @DynamicInsert
 @DynamicUpdate
 @Table(name = "Lesson")
 public class LessonModel extends BasicModel{
-	@Column(name = "index", columnDefinition="int UNIQUE", nullable = false)
+	@Column(name = "index", columnDefinition="serial", nullable = false)
+	@Generated(GenerationTime.INSERT)
 	private int index;
 	@Column(name = "courseid", nullable = false)
 	private Integer courseId;

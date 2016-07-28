@@ -16,10 +16,10 @@ import vn.edu.fu.veazy.core.model.LessonModel;
 import vn.edu.fu.veazy.core.model.LessonVersionModel;
 import vn.edu.fu.veazy.core.model.ReportModel;
 import vn.edu.fu.veazy.core.model.UserModel;
+import vn.edu.fu.veazy.core.response.BriefLessonResponse;
 import vn.edu.fu.veazy.core.response.CreateLessonResponse;
 import vn.edu.fu.veazy.core.response.GetLessonResponse;
 import vn.edu.fu.veazy.core.response.GetLessonVersionResponse;
-import vn.edu.fu.veazy.core.response.LessonOfCourseResponse;
 @Service
 public class LessonServiceImpl implements LessonService{
     private final static org.slf4j.Logger LOGGER = LoggerFactory.getLogger(LessonServiceImpl.class);
@@ -39,13 +39,6 @@ public class LessonServiceImpl implements LessonService{
 		// get data from form
 		LessonModel lesson = new LessonModel();
 		lesson.setCourseId(form.getCourseId());
-		List<LessonModel> listLesson = getLessonOfCourse(form.getCourseId());
-		if(listLesson == null || listLesson.isEmpty()){
-			lesson.setIndex(Const.START_INDEX);
-		}
-		else{
-			lesson.setIndex(listLesson.size()+1);
-		}
 		LessonVersionModel lessonVersion = new LessonVersionModel();
 		lessonVersion.setCreatorId(creatorId);
 		lessonVersion.setDescription(form.getDescription());
@@ -154,7 +147,7 @@ public class LessonServiceImpl implements LessonService{
 			updatingVersion.setCreatorId(requesterId);
 			updatingVersion.setCreateDate(System.currentTimeMillis());
 			updatingVersion.setVersion(getVersionOfLesson(form.getLessonId()).size()+1);
-			updatingVersion.setLessonId(form.getCourseId());
+			updatingVersion.setLessonId(form.getLessonId());
 			updatingVersion.setState(Const.UPDATING);
 			
 			updatingVersion.setArticle(form.getArticle());
@@ -225,25 +218,53 @@ public class LessonServiceImpl implements LessonService{
 	}
 
 	@Override
+    @SuppressWarnings("unchecked")
 	@Transactional
-	public List<LessonOfCourseResponse> getLessonsOfCourse(Integer courseId) throws Exception {
-		List<LessonModel> listLesson = getLessonOfCourse(courseId);
+	public List<BriefLessonResponse> getLessonsOfCourse(Integer courseId) throws Exception {
+		LessonModel sample = new LessonModel();
+		sample.setCourseId(courseId);
+		String sql = "select * from Lesson les where les.courseId = " + courseId
+		        + " and deleteflag = false";
+        List<LessonModel> listLesson = (List<LessonModel>) lessonDao.executeSql(sql, LessonModel.class);
 		if(listLesson == null || listLesson.isEmpty()){
 		    LOGGER.error(listLesson + ": No lesson for " + courseId);
 			return null;
 		}
-		List<LessonOfCourseResponse> listResult = new Vector<LessonOfCourseResponse>();
+		List<BriefLessonResponse> listResult = new Vector<BriefLessonResponse>();
 		for (LessonModel lessonModel : listLesson) {
-			LessonOfCourseResponse response = new LessonOfCourseResponse();
+		    BriefLessonResponse response = new BriefLessonResponse();
 			response.setLessonId(String.valueOf(lessonModel.getId()));
 			//get title from current version
 			LessonVersionModel version = lessonVersionDao
 			        .findById(lessonModel.getCurrentVersionId());
 			response.setTitle(version.getTitle());
+			response.setDescription(version.getDescription());
 			listResult.add(response);
 		}
 		return listResult;
 	}
+
+    @Override
+    @Transactional
+    public List<BriefLessonResponse> getAllLesson() throws Exception {
+        List<LessonModel> listLesson = (List<LessonModel>) lessonDao.getAll();
+        if(listLesson == null || listLesson.isEmpty()){
+            LOGGER.error(listLesson + ": No lesson");
+            return null;
+        }
+        List<BriefLessonResponse> listResult = new Vector<BriefLessonResponse>();
+        for (LessonModel lessonModel : listLesson) {
+            BriefLessonResponse response = new BriefLessonResponse();
+            response.setLessonId(String.valueOf(lessonModel.getId()));
+            //get title from current version
+            LessonVersionModel version = lessonVersionDao
+                    .findById(Integer.valueOf(lessonModel.getCurrentVersionId()));
+            response.setTitle(version.getTitle());
+            response.setDescription(version.getDescription());
+            listResult.add(response);
+        }
+        return listResult;
+    }
 
 	@Override
 	@Transactional
@@ -279,13 +300,6 @@ public class LessonServiceImpl implements LessonService{
 		lesson.setDeleteDate(System.currentTimeMillis());
 		lesson.setDeleteFlag(true);
 		lessonDao.update(lesson);
-	}
-
-	private List<LessonModel> getLessonOfCourse(Integer courseId) throws Exception {
-		LessonModel sample = new LessonModel();
-		sample.setCourseId(courseId);
-		sample.setDeleteFlag(false);
-		return lessonDao.findByExample(sample);
 	}
 
 	private List<LessonVersionModel> getVersionOfLesson(Integer lessonId) throws Exception{

@@ -3,6 +3,9 @@ package vn.edu.fu.veazy.core.dao;
 import java.util.List;
 
 import org.hibernate.HibernateException;
+import org.hibernate.Query;
+import org.hibernate.SQLQuery;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Example;
 import org.hibernate.criterion.Projections;
@@ -79,6 +82,16 @@ public class HibernateLessonDao implements GenericDao<LessonModel, Integer> {
     			.createCriteria(LessonModel.class)
     			.setProjection(Projections.rowCount())
     			.uniqueResult();
+    }
+
+    @Override
+    public Object executeSql(String sql, Class clazz) throws Exception {
+        Session ss = sessionFactory.getCurrentSession();
+        Query query = ss.createSQLQuery(sql);
+        if (clazz != null) {
+            ((SQLQuery) query).addEntity(clazz);
+        }
+        return query.list();
     }
 
 }

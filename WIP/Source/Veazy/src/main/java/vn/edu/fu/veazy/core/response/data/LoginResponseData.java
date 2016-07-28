@@ -12,7 +12,7 @@ package vn.edu.fu.veazy.core.response.data;
 public class LoginResponseData {
 
     private String token;
-    private Integer roll;
+    private Integer role;
 
     public LoginResponseData() {
     }
@@ -26,11 +26,11 @@ public class LoginResponseData {
     }
 
     public Integer getRoll() {
-        return roll;
+        return role;
     }
 
-    public void setRoll(Integer roll) {
-        this.roll = roll;
+    public void setRole(Integer role) {
+        this.role = role;
     }
 
 }

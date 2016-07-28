@@ -80,20 +80,17 @@
   <bean id="veazyAuthenFilter" class="vn.edu.fu.veazy.core.security.VeazyAuthenFilter">
     <property name="authenticationManager" ref="authenticationManager" />
     <!-- <property name="alwaysUseDefaultTargetUrl" value="false" /> -->
-    <property name="authenticationFailureHandler">
-        <bean class="org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler">
-            <property name="defaultFailureUrl" value="/login?login_error"/>       
-        </bean>
-    </property>
     <property name="authenticationSuccessHandler">
-        <bean class="org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler"></bean>
+        <bean class="vn.edu.fu.veazy.core.security.VeazyAuthenSuccessHandler"/>
+    </property>
+    <property name="authenticationFailureHandler">
+        <bean class="vn.edu.fu.veazy.core.security.VeazyAuthenFailureHandler"/>
     </property>
   </bean>
   <bean id="veazyAuthenProvider" class="vn.edu.fu.veazy.core.security.VeazyAuthenProvider"/>
   
-
-<bean id="loginUrlAuthenticationEntryPoint" class="org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint">
-    <constructor-arg value="/login"/>
-</bean>
+  <bean id="authenticationEntryPoint"
+        class="vn.edu.fu.veazy.core.security.VeazyAuthenEntryPoint">
+  </bean>
 
 </beans>

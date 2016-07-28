@@ -81,5 +81,11 @@ public class HibernateVijaDao implements GenericDao<VijaModel, Integer> {
     			.uniqueResult();
     }
 
+    @Override
+    public Object executeSql(String sql, Class clazz) throws Exception {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
 	
 }

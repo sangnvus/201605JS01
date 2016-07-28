@@ -3,6 +3,7 @@ package vn.edu.fu.veazy.core.service;
 import java.util.List;
 
 import vn.edu.fu.veazy.core.form.RegisterForm;
+import vn.edu.fu.veazy.core.form.UpdateUserForm;
 import vn.edu.fu.veazy.core.model.UserModel;
 
 public interface UserService {
@@ -13,6 +14,7 @@ public interface UserService {
     public UserModel findUserByEmail(String email) throws Exception;
     public List<UserModel> findAllUser() throws Exception;
     public void update(UserModel user) throws Exception;
+    public void update(UserModel user, UpdateUserForm form) throws Exception;
     public void delete(UserModel user) throws Exception;
     public void deleteUsers(List<UserModel> users) throws Exception;
     public int size() throws Exception;

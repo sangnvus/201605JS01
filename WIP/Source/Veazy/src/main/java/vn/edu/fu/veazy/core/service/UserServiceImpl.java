@@ -7,8 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import vn.edu.fu.veazy.core.common.Utils;
 import vn.edu.fu.veazy.core.dao.GenericDao;
 import vn.edu.fu.veazy.core.form.RegisterForm;
+import vn.edu.fu.veazy.core.form.UpdateUserForm;
 import vn.edu.fu.veazy.core.model.UserModel;
 
 @Service
@@ -114,8 +116,44 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public void update(UserModel user) throws Exception {
-        // TODO Auto-generated method stub
+        try {
+            userDao.update(user);
+        } catch (Exception e) {
+            // TODO custom exception
+            throw new Exception(e.getMessage(), e);
+        }
+    }
 
+    @Override
+    @Transactional
+    public void update(UserModel user, UpdateUserForm form) throws Exception {
+        String fName = form.getFirstName();
+        String lName = form.getLastName();
+        Long dob = form.getDob();
+        String addr = form.getAddress();
+        String hobby = form.getHobby();
+        
+        if (!Utils.isNullOrEmpty(fName)) {
+            user.setFirstName(fName);
+        }
+        
+        if (!Utils.isNullOrEmpty(lName)) {
+            user.setLastName(lName);
+        }
+        
+        if (dob != null && dob > 0) {
+            user.setDob(dob);
+        }
+        
+        if (!Utils.isNullOrEmpty(addr)) {
+            user.setAddress(addr);
+        }
+        
+        if (!Utils.isNullOrEmpty(hobby)) {
+            user.setHobby(hobby);
+        }
+        
+        update(user);
     }
 
     @Override

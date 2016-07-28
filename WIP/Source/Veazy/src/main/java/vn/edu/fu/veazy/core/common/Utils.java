@@ -27,4 +27,14 @@ public class Utils {
     public static boolean isValidEmail(String emailAddress) {
         return emailPattern.matcher(emailAddress).find();
     }
+    
+    /**
+     * Check if a string is null or empty
+     * 
+     * @param str string to check
+     * @return string is null or empty
+     */
+    public static boolean isNullOrEmpty(String str) {
+        return (str == null || "".equals(str));
+    }
 }

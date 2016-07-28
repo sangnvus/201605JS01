@@ -11,14 +11,15 @@ import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import vn.edu.fu.veazy.core.form.AnswerForm;
 import vn.edu.fu.veazy.core.form.QuestionForm;
+
+import org.hibernate.annotations.Generated;
+import org.hibernate.annotations.GenerationTime;
 
 /**
  *
@@ -30,8 +31,8 @@ import vn.edu.fu.veazy.core.form.QuestionForm;
 @Table(name = "`Question`")
 public class QuestionModel extends BasicModel implements Comparator<QuestionModel>{
 
-    @Column(name = "questionCode", columnDefinition = "VARCHAR(30) UNIQUE", nullable = false)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Column(name = "questionCode", columnDefinition="serial", nullable = false)
+    @Generated(GenerationTime.INSERT)
     private String questionCode;
     @Column(name = "creatorId", nullable = false)
     private Integer creatorId;

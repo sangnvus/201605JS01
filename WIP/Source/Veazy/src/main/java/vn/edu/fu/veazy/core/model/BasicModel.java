@@ -20,6 +20,10 @@ import javax.persistence.MappedSuperclass;
 @MappedSuperclass
 public abstract class BasicModel implements Serializable {
 
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 222512911691563257L;
     @Id
     @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)

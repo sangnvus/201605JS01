@@ -6,6 +6,7 @@ import java.util.List;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,15 +18,16 @@ import vn.edu.fu.veazy.core.form.CreateLessonForm;
 import vn.edu.fu.veazy.core.form.ReportLessonForm;
 import vn.edu.fu.veazy.core.form.UpdateLessonForm;
 import vn.edu.fu.veazy.core.model.UserModel;
+import vn.edu.fu.veazy.core.response.BriefLessonResponse;
 import vn.edu.fu.veazy.core.response.CreateLessonResponse;
 import vn.edu.fu.veazy.core.response.GetLessonResponse;
 import vn.edu.fu.veazy.core.response.GetLessonVersionResponse;
-import vn.edu.fu.veazy.core.response.LessonOfCourseResponse;
 import vn.edu.fu.veazy.core.response.Response;
 import vn.edu.fu.veazy.core.response.ResponseCode;
 import vn.edu.fu.veazy.core.service.LessonService;
 import vn.edu.fu.veazy.core.service.UserService;
 
+@CrossOrigin(origins="http://localhost:3003")
 @Controller("Lesson Controller")
 public class LessonController {
 
@@ -45,6 +47,7 @@ public class LessonController {
         Response response = new Response(ResponseCode.BAD_REQUEST);
         try {
             String userName = principal.getName();
+            LOGGER.debug(userName);
             UserModel user = userService.findUserByUsername(userName);
 
             CreateLessonResponse data = lessonService.createLesson(user.getId(), form);
@@ -131,7 +134,7 @@ public class LessonController {
     String getLessonOfCourse(@PathVariable("course_id") Integer courseId) {
         Response response = new Response(ResponseCode.BAD_REQUEST);
         try {
-            List<LessonOfCourseResponse> data = lessonService.getLessonsOfCourse(courseId);
+            List<BriefLessonResponse> data = lessonService.getLessonsOfCourse(courseId);
             response.setCode(ResponseCode.SUCCESS);
             response.setData(data);
 
@@ -157,6 +160,27 @@ public class LessonController {
             response.setData(data);
 
             LOGGER.debug("Get lesson successfully!");
+
+            return response.toResponseJson();
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage());
+        }
+
+        LOGGER.error("Unknown error occured!");
+        response.setCode(ResponseCode.INTERNAL_SERVER_ERROR);
+        return response.toResponseJson();
+    }
+
+    @RequestMapping(value = Const.URLMAPPING_GET_ALL_LESSON, method = RequestMethod.GET)
+    public @ResponseBody
+    String getAllLesson() {
+        Response response = new Response(ResponseCode.BAD_REQUEST);
+        try {
+            List<BriefLessonResponse> data = lessonService.getAllLesson();
+            response.setCode(ResponseCode.SUCCESS);
+            response.setData(data);
+
+            LOGGER.debug("Get lesson of course successfully!");
 
             return response.toResponseJson();
         } catch (Exception e) {

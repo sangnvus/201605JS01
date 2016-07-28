@@ -12,5 +12,6 @@ public interface GenericDao<Type, ObjectId> {
     void update(Type entity) throws Exception;
     void delete(Type entity) throws Exception;
     Long getCount() throws Exception;
+    Object executeSql(String sql, Class clazz) throws Exception;
 
 }
