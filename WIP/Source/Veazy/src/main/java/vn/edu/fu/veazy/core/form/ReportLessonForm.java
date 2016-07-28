@@ -1,7 +1,13 @@
 package vn.edu.fu.veazy.core.form;
 
 public class ReportLessonForm {
+	/**
+	 * レッソンのＩＤ
+	 */
 	private Integer lessonId;
+	/**
+	 * 報告の内容
+	 */
 	private String content;
 	
 	public ReportLessonForm() {

@@ -26,6 +26,10 @@ import vn.edu.fu.veazy.core.response.ResponseCode;
 import vn.edu.fu.veazy.core.service.LessonService;
 import vn.edu.fu.veazy.core.service.UserService;
 
+/**
+ * @author CuHo
+ *
+ */
 @Controller("Lesson Controller")
 public class LessonController {
 
@@ -34,11 +38,24 @@ public class LessonController {
      */
     private final static org.slf4j.Logger LOGGER = LoggerFactory.getLogger(LessonController.class);
 
+    /**
+     * lesson service
+     */
     @Autowired
     private LessonService lessonService;
+    
+    /**
+     * user service
+     */
     @Autowired
     private UserService userService;
 
+    /**
+     * 新しいレッソンを作りのコントローラー
+     * @param principal 要求する人
+     * @param form 新しいレッソンを作りの形式
+     * @return　返事のＪＳＯＮ
+     */
     @RequestMapping(value = Const.URLMAPPING_CREATE_LESSON, method = RequestMethod.POST)
     public @ResponseBody
     String createLesson(Principal principal, @ModelAttribute("create-lesson-form") CreateLessonForm form) {
@@ -61,6 +78,13 @@ public class LessonController {
         return response.toResponseJson();
     }
 
+    /**
+     * レッソンをアップデートのコントローラー
+     * @param principal　要求する人
+     * @param form　レッソンをアップデートの形式
+     * @param lessonId　レッソンのＩＤ
+     * @return　返事のＪＳＯＮ
+     */
     @RequestMapping(value = Const.URLMAPPING_UPDATE_LESSON, method = RequestMethod.POST)
     public @ResponseBody
     String updateLesson(Principal principal, @ModelAttribute("update-lesson-form") UpdateLessonForm form, @PathVariable("lesson_id") Integer lessonId) {
@@ -83,6 +107,12 @@ public class LessonController {
         return response.toResponseJson();
     }
 
+    /**
+     * レッソンを出版のコントローラー
+     * @param principal　要求する人
+     * @param lessonId　レッソンのＩＤ
+     * @return　返事のＪＳＯＮ
+     */
     @RequestMapping(value = Const.URLMAPPING_PUBLISH_LESSON, method = RequestMethod.GET)
     public @ResponseBody
     String publishLesson(Principal principal, @PathVariable("lesson_id") Integer lessonId) {
@@ -104,6 +134,13 @@ public class LessonController {
         return response.toResponseJson();
     }
 
+    /**
+     * レッソンを報告のコントローラー
+     * @param principal 要求する人
+     * @param form レッソンを報告の形式
+     * @param lessonId レッソンのＩＤ
+     * @return 返事のＪＳＯＮ
+     */
     @RequestMapping(value = Const.URLMAPPING_REPORT_LESSON, method = RequestMethod.POST)
     public @ResponseBody
     String reportLesson(Principal principal, @ModelAttribute("report-lesson-form") ReportLessonForm form, @PathVariable("lesson_id") Integer lessonId) {
@@ -126,6 +163,11 @@ public class LessonController {
         return response.toResponseJson();
     }
 
+    /**
+     * レベルの全部のレッソンをとる
+     * @param courseId　レベルのＩＤ
+     * @return　返事のＪＳＯＮ
+     */
     @RequestMapping(value = Const.URLMAPPING_GET_LESSON_COURSE, method = RequestMethod.GET)
     public @ResponseBody
     String getLessonOfCourse(@PathVariable("course_id") Integer courseId) {
@@ -147,6 +189,11 @@ public class LessonController {
         return response.toResponseJson();
     }
 
+    /**
+     * レッソンの詳細な内容をとる
+     * @param lessonId　レッソンのＩＤ
+     * @return　返事のＪＳＯＮ
+     */
     @RequestMapping(value = Const.URLMAPPING_GET_LESSON, method = RequestMethod.GET)
     public @ResponseBody
     String getLesson(@PathVariable("lesson_id") Integer lessonId) {
@@ -168,6 +215,12 @@ public class LessonController {
         return response.toResponseJson();
     }
 
+    /**
+     * レッソンのバージョンをとる
+     * @param lessonId　レッソンのＩＤ
+     * @param version　バージョンの名前
+     * @return　返事のＪＳＯＮ
+     */
     @RequestMapping(value = Const.URLMAPPING_GET_LESSON_VERSION, method = RequestMethod.GET)
     public @ResponseBody
     String getLessonVersion(@PathVariable("lesson_id") Integer lessonId, @PathVariable("version") Integer version) {
@@ -188,6 +241,11 @@ public class LessonController {
         return response.toResponseJson();
     }
     
+    /**
+     * レッソンを消す
+     * @param lessonId　レッソンのＩＤ
+     * @return　返事のＪＳＯＮ
+     */
     @RequestMapping(value = Const.URLMAPPING_DELETE_LESSON, method = RequestMethod.GET)
     public @ResponseBody
     String delete(@PathVariable("lesson_id") Integer lessonId) {

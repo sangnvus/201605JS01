@@ -15,6 +15,10 @@ import vn.edu.fu.veazy.core.response.Response;
 import vn.edu.fu.veazy.core.response.ResponseCode;
 import vn.edu.fu.veazy.core.service.CourseService;
 
+/**
+ * @author CuHo
+ *
+ */
 @Controller("Course Controller")
 public class CourseController {
 
@@ -22,8 +26,13 @@ public class CourseController {
     private final static org.slf4j.Logger LOGGER = LoggerFactory.getLogger(LessonController.class);
     
     @Autowired
+    /** Course service*/
     private CourseService courseService;
 
+    /**
+     * 全部のレベルをとる
+     * @return 返事のＪＳＯＮ
+     */
     @RequestMapping(value = Const.URLMAPPING_GET_COURSES, method = RequestMethod.GET)
     public @ResponseBody
     String getCourses() {

@@ -13,7 +13,6 @@ public class GetLessonVersionResponse {
 	private String lessonTitle;
 	private String description;
 	private Integer creatorId;
-	private Integer reviewerId;
 	private Long createDate;
 	private Long updateDate;
 	private String vocabulary;
@@ -30,7 +29,6 @@ public class GetLessonVersionResponse {
 		lessonTitle = version.getTitle();
 		description= version.getDescription();
 		creatorId = version.getCreatorId();
-		reviewerId = version.getReviewerId();
 		createDate = version.getCreateDate();
 		updateDate = version.getUpdateDate();
 		vocabulary=version.getVocabulary();
@@ -76,12 +74,6 @@ public class GetLessonVersionResponse {
 	}
 	public void setCreatorId(Integer creatorId) {
 		this.creatorId = creatorId;
-	}
-	public Integer getReviewerId() {
-		return reviewerId;
-	}
-	public void setReviewerId(Integer reviewerId) {
-		this.reviewerId = reviewerId;
 	}
 	public Long getCreateDate() {
 		return createDate;

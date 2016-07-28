@@ -14,38 +14,93 @@ import org.hibernate.annotations.DynamicUpdate;
 @DynamicUpdate
 @Table(name = "LessonVersion")
 public class LessonVersionModel{
+	/**
+	 * バージョンのＩＤ
+	 */
 	@Id
     @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+	
+	/**
+	 * 日付を作成
+	 */
 	@Column(name = "createDate")
     private Long createDate;
+	
+	/**
+	 * アップデートを作成
+	 */
 	@Column(name = "updateDate")
     private Long updateDate;
+	
+	/**
+	 * レッソンのＩＤ
+	 */
 	@Column(name = "lessonId", nullable = false)
 	private Integer lessonId;
+	
+	/**
+	 * バージョン
+	 */
 	@Column(name = "version",columnDefinition="INT DEFAULT 1", nullable = false)
 	private Integer version;
+	
+	/**
+	 * バージョン状態
+	 */
 	@Column(name = "state",columnDefinition="INT DEFAULT 1", nullable = false)
 	private Integer state;
+	
+	/**
+	 * レッソンの表題
+	 */
 	@Column(name = "title", columnDefinition="VARCHAR(254)", nullable = false)
 	private String title;
+	
+	/**
+	 * 説明
+	 */
 	@Column(name = "description",columnDefinition ="text",  nullable = false)
 	private String description;
+	
+	
 	@Column(name = "creatorId", nullable = false)
 	private Integer creatorId;
-	@Column(name = "reviewerId", nullable = true)
-	private Integer reviewerId;
+
+	/**
+	 * 語彙
+	 */
 	@Column(name = "vocab",columnDefinition ="text" )
 	private String vocabulary;
+	
+	/**
+	 * 文法
+	 */
 	@Column(name = "grammar",columnDefinition ="text")
 	private String grammar;
+	
+	/**
+	 * 読解
+	 */
 	@Column(name = "reading",columnDefinition ="text")
 	private String reading;
+	
+	/**
+	 * 聴解
+	 */
 	@Column(name = "listening",columnDefinition ="text")
 	private String listening;
+	
+	/**
+	 * 練習
+	 */
 	@Column(name = "practice",columnDefinition ="text")
 	private String practice;
+	
+	/**
+	 * 記事
+	 */
 	@Column(name = "article",columnDefinition ="text")
 	private String article;
 	
@@ -54,7 +109,7 @@ public class LessonVersionModel{
 	}
 
 	public LessonVersionModel(Integer id, Long createDate, Long updateDate, Integer lessonId, Integer version,
-			Integer state, String title, String description, Integer creatorId, Integer reviewerId, String vocabulary,
+			Integer state, String title, String description, Integer creatorId, String vocabulary,
 			String grammar, String reading, String listening, String practice, String article) {
 		super();
 		this.id = id;
@@ -66,7 +121,6 @@ public class LessonVersionModel{
 		this.title = title;
 		this.description = description;
 		this.creatorId = creatorId;
-		this.reviewerId = reviewerId;
 		this.vocabulary = vocabulary;
 		this.grammar = grammar;
 		this.reading = reading;
@@ -146,15 +200,7 @@ public class LessonVersionModel{
 	public void setCreatorId(Integer creatorId) {
 		this.creatorId = creatorId;
 	}
-
-	public Integer getReviewerId() {
-		return reviewerId;
-	}
-
-	public void setReviewerId(Integer reviewerId) {
-		this.reviewerId = reviewerId;
-	}
-
+	
 	public String getVocabulary() {
 		return vocabulary;
 	}

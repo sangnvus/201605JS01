@@ -12,10 +12,21 @@ import org.hibernate.annotations.DynamicUpdate;
 @DynamicUpdate
 @Table(name = "Lesson")
 public class LessonModel extends BasicModel{
+	/**
+	 * レベルにレッソンの順序
+	 */
 	@Column(name = "index", columnDefinition="int UNIQUE", nullable = false)
 	private int index;
+	
+	/**
+	 * レッソンのレベルのＩＤ
+	 */
 	@Column(name = "courseid", nullable = false)
 	private Integer courseId;
+	
+	/**
+	 * レッソンの現在なバージョンのＩＤ
+	 */
 	@Column(name = "versionId", nullable = true)
 	private Integer currentVersionId;
 	

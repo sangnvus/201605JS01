@@ -26,11 +26,23 @@ public class ReportController {
      */
     private final static org.slf4j.Logger LOGGER = LoggerFactory.getLogger(LessonController.class);
 
+    /**
+     * report service
+     */
     @Autowired
     private ReportService reportService;
+    
+    /**
+     * user service
+     */
     @Autowired
     private UserService userService;
     
+    /**
+     * レポートの詳細な内容をとる
+     * @param reportId　レポートのＩＤ
+     * @return　返事のＪＳＯＮ
+     */
     @RequestMapping(value = Const.URLMAPPING_GET_REPORT, method = RequestMethod.GET)
     public @ResponseBody
     String getReport(@PathVariable("report_id") Integer reportId) {
@@ -50,7 +62,11 @@ public class ReportController {
         return response.toResponseJson();
     }
     
-        
+    /**
+     * 全部のレポートをとる
+     * @param principal　要求する人
+     * @return　返事のＪＳＯＮ
+     */
     @RequestMapping(value = Const.URLMAPPING_GET_ALL_REPORT, method = RequestMethod.GET)
     public @ResponseBody
     String getAllReport(Principal principal) {
@@ -73,7 +89,11 @@ public class ReportController {
         return response.toResponseJson();
     }
     
-    
+    /**
+     * 報告に読んだ状態をならせる
+     * @param reportId 報告のＩＤ
+     * @return　返事のＪＳＯＮ
+     */
     @RequestMapping(value = Const.URLMAPPING_READ_REPORT, method = RequestMethod.GET)
     public @ResponseBody
     String readReport(@PathVariable("report_id") Integer reportId) {
@@ -92,6 +112,11 @@ public class ReportController {
         return response.toResponseJson();
     }
     
+    /**
+     * 報告を消す
+     * @param reportId　報告のＩＤ
+     * @return　返事のＪＳＯＮ
+     */
     @RequestMapping(value = Const.URLMAPPING_DELETE_REPORT, method = RequestMethod.GET)
     public @ResponseBody
     String deleteReport(@PathVariable("report_id") Integer reportId) {

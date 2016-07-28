@@ -13,6 +13,7 @@ import vn.edu.fu.veazy.core.response.GetCourseResponse;
 
 @Service
 public class CourseServiceImpl implements CourseService{
+	
 	@Autowired
 	private GenericDao<CourseModel, Integer> courseDao;
 
@@ -22,7 +23,7 @@ public class CourseServiceImpl implements CourseService{
 		List<CourseModel> listCourse = courseDao.getAll();
 		List<GetCourseResponse> listResult = new Vector<GetCourseResponse>();
 		for (CourseModel model : listCourse) {
-			GetCourseResponse result = new GetCourseResponse(model.getName(), model.getIndex(), model.getDescription());
+			GetCourseResponse result = new GetCourseResponse(model.getName(), model.getDescription());
 			listResult.add(result);
 		}
 		return listResult;

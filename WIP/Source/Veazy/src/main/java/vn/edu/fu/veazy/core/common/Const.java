@@ -38,8 +38,6 @@ public class Const {
     public static final String URLMAPPING_GET_LESSON = URL_PREFIX + "/lessons/{lesson_id}";
     public static final String URLMAPPING_GET_ALL_LESSON = URL_PREFIX + "/lessons";
     public static final String URLMAPPING_DELETE_LESSON = URL_PREFIX + "/lessons/delete/{lesson_id}";
-//    public static final String URLMAPPING_APPROVE_LESSON = URL_PREFIX + "/lessons/{lesson_id}/approve";
-//    public static final String URLMAPPING_DECLINE_LESSON = URL_PREFIX + "/lessons/{lesson_id}/decline";
 
     //course api
     public static final String URLMAPPING_GET_COURSES = URL_PREFIX + "/courses";
@@ -75,17 +73,15 @@ public class Const {
      * *********************** Content status **************************
      */
     public static final Integer UPDATING = 1;
-    public static final Integer REVIEWING = 2;
-    public static final Integer PUBLISHED = 3;
+    public static final Integer PUBLISHED = 2;
     public static final Integer START_INDEX = 1;
 
     /**
      * *********************** User Role **************************
      */
     public static final Integer ADMIN = 1;
-    public static final Integer CONTENT_MANAGER = 2;
-    public static final Integer EDITOR = 3;
-    public static final Integer LEARNER = 4;
+    public static final Integer EDITOR = 2;
+    public static final Integer LEARNER = 3;
     
      /************************* Question type ***************************/
     
