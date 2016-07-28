@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import vn.edu.fu.veazy.core.common.Utils;
 import vn.edu.fu.veazy.core.dao.GenericDao;
+import vn.edu.fu.veazy.core.exception.PasswordIncorrectException;
 import vn.edu.fu.veazy.core.form.RegisterForm;
 import vn.edu.fu.veazy.core.form.UpdateUserForm;
 import vn.edu.fu.veazy.core.model.UserModel;
@@ -132,6 +133,8 @@ public class UserServiceImpl implements UserService {
         Long dob = form.getDob();
         String addr = form.getAddress();
         String hobby = form.getHobby();
+        String bio = form.getBio();
+        String website = form.getWebsite();
         
         if (!Utils.isNullOrEmpty(fName)) {
             user.setFirstName(fName);
@@ -151,6 +154,14 @@ public class UserServiceImpl implements UserService {
         
         if (!Utils.isNullOrEmpty(hobby)) {
             user.setHobby(hobby);
+        }
+        
+        if (!Utils.isNullOrEmpty(bio)) {
+            user.setHobby(bio);
+        }
+        
+        if (!Utils.isNullOrEmpty(website)) {
+            user.setHobby(website);
         }
         
         update(user);
@@ -178,9 +189,25 @@ public class UserServiceImpl implements UserService {
     }
 
 	@Override
+    @Transactional
 	public void changeUserRoll(Integer userId, int role) throws Exception {
 		UserModel user = findUserById(userId);
 		user.setRole(role);
 		userDao.update(user);
 	}
+
+    @Override
+    @Transactional
+    public void changePassword(Integer id, String oldPassword, String newPassword) throws Exception {
+        UserModel user = new UserModel();
+        user.setId(id);
+        user.setEncryptedPassword(oldPassword);
+        List<UserModel> listMatch = userDao.findByExample(user);
+        if (listMatch == null || listMatch.size() != 1) {
+            throw new PasswordIncorrectException("Wrong old password");
+        }
+        user = listMatch.get(0);
+        user.setEncryptedPassword(newPassword);
+        userDao.update(user);
+    }
 }

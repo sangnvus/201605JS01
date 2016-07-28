@@ -45,6 +45,10 @@ public class UserModel extends BasicModel {
     private Integer role = 1;
     @Column(name = "hobby", nullable = true)
     private String hobby;
+    @Column(name = "bio", nullable = true)
+    private String bio;
+    @Column(name = "website", nullable = true)
+    private String website;
     @Column(name = "isBanned", columnDefinition="BOOLEAN DEFAULT FALSE", nullable = false)
     private Boolean isBanned = false;
 
@@ -161,6 +165,26 @@ public class UserModel extends BasicModel {
 
     public void setIsBanned(Boolean isBanned) {
         this.isBanned = isBanned;
+    }
+
+    public String getBio() {
+        return bio;
+    }
+
+    public void setBio(String bio) {
+        this.bio = bio;
+    }
+
+    public String getWebsite() {
+        return website;
+    }
+
+    public void setWebsite(String website) {
+        this.website = website;
+    }
+
+    public Boolean getIsBanned() {
+        return isBanned;
     }
 
 }

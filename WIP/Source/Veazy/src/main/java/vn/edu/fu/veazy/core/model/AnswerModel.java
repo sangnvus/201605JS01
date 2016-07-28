@@ -5,13 +5,17 @@
  */
 package vn.edu.fu.veazy.core.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
+
+import vn.edu.fu.veazy.core.form.AnswerForm;
 
 /**
  *
@@ -23,7 +27,7 @@ import org.hibernate.annotations.DynamicUpdate;
 @Table(name = "`Answer`")
 public class AnswerModel extends BasicModel {
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name="questionmodel_id")
     private QuestionModel question;
     @Column(name = "answer", nullable = false)
@@ -32,6 +36,12 @@ public class AnswerModel extends BasicModel {
     private Boolean isRight = false;
 
     public AnswerModel() {
+    }
+
+    public AnswerModel(AnswerForm form) {
+        super();
+        this.answer = form.getAnswer();
+        this.isRight = form.getIsRight();
     }
 
     public String getAnswer() {

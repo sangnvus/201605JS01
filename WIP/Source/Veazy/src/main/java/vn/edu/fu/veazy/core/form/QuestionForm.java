@@ -20,8 +20,8 @@ public class QuestionForm {
     private Integer courseId;
     private Integer numberOfQuestion;
     private String question;
-    private List<AnswerForm> listAnswers = new LinkedList();
-    private List<QuestionForm> listQuestions = new LinkedList();
+    private List<AnswerForm> listAnswers;
+    private List<QuestionForm> listQuestions;
     private String attachment;
 
     public QuestionForm() {
@@ -43,12 +43,12 @@ public class QuestionForm {
         this.questionType = questionType;
     }
 
-    public Integer getQuestionSkil() {
+    public Integer getQuestionSkill() {
         return questionSkill;
     }
 
-    public void setQuestionSkil(Integer questionSkil) {
-        this.questionSkill = questionSkil;
+    public void setQuestionSkill(Integer questionSkill) {
+        this.questionSkill = questionSkill;
     }
 
     public Integer getCourseId() {

@@ -6,12 +6,15 @@ public class UpdateUserForm {
     private Long dob;
     private String address;
     private String hobby;
-    
+    private String bio;
+    private String website;
+
     public UpdateUserForm() {
         super();
     }
     
-    public UpdateUserForm(String firstName, String lastName, Long dob, String address, String hobby) {
+    public UpdateUserForm(String firstName, String lastName, Long dob, String address, String hobby,
+            String bio, String website) {
         super();
         this.firstName = firstName;
         this.lastName = lastName;
@@ -60,4 +63,19 @@ public class UpdateUserForm {
         this.hobby = hobby;
     }
     
+    public String getBio() {
+        return bio;
+    }
+
+    public void setBio(String bio) {
+        this.bio = bio;
+    }
+
+    public String getWebsite() {
+        return website;
+    }
+
+    public void setWebsite(String website) {
+        this.website = website;
+    }
 }

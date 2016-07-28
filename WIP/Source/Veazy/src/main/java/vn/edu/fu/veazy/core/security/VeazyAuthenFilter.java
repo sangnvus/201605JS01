@@ -74,16 +74,16 @@ public class VeazyAuthenFilter extends AbstractAuthenticationProcessingFilter {
       final HttpServletRequest request = (HttpServletRequest) req;
       final HttpServletResponse response = (HttpServletResponse) res;
       Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-      LOGGER.debug(request.getMethod());
-      LOGGER.debug(request.getQueryString());
-      LOGGER.debug(request.getParameterMap() + "");
-      LOGGER.debug(request.getReader().readLine() + "");
-      
-      Enumeration<String> headers = request.getHeaderNames();
-      while (headers.hasMoreElements()) {
-          String h = headers.nextElement();
-          LOGGER.debug(h + ": " + request.getHeader(h));
-      }
+//      LOGGER.debug(request.getMethod());
+//      LOGGER.debug(request.getQueryString());
+//      LOGGER.debug(request.getParameterMap() + "");
+//      LOGGER.debug(request.getReader().readLine() + "");
+//      
+//      Enumeration<String> headers = request.getHeaderNames();
+//      while (headers.hasMoreElements()) {
+//          String h = headers.nextElement();
+//          LOGGER.debug(h + ": " + request.getHeader(h));
+//      }
       if("POST".equalsIgnoreCase(request.getMethod())
               && (authentication == null || !authentication.isAuthenticated())
               && (request.getRequestURL().toString().endsWith(URL_LOGIN)

@@ -202,7 +202,7 @@ public class LessonServiceImpl implements LessonService{
 			throw new Exception("lesson doesn't exist");
 		}
 		UserModel sample = new UserModel();
-		sample.setRole(Const.EDITOR);
+		sample.setRole(Const.ROLE_EDITOR);
 		List<UserModel> listReceiver = userDao.findByExample(sample);
 		
 		for (UserModel userModel : listReceiver) {

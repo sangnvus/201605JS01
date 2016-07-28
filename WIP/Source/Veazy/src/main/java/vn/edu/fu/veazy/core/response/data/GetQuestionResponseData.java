@@ -14,7 +14,7 @@ import vn.edu.fu.veazy.core.model.QuestionModel;
 public class GetQuestionResponseData {
 
     private Integer questionId;
-    private String questionCode;
+    private Integer questionCode;
     private Integer questionAnswerType;
     private Integer questionType;
     private Integer questionSkil;
@@ -48,11 +48,11 @@ public class GetQuestionResponseData {
         this.questionId = questionId;
     }
 
-    public String getQuestionCode() {
+    public Integer getQuestionCode() {
         return questionCode;
     }
 
-    public void setQuestionCode(String questionCode) {
+    public void setQuestionCode(Integer questionCode) {
         this.questionCode = questionCode;
     }
 

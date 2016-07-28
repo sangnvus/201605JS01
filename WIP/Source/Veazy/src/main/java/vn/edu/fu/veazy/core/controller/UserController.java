@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import vn.edu.fu.veazy.core.common.Const;
 import vn.edu.fu.veazy.core.common.Utils;
 import vn.edu.fu.veazy.core.form.ChangeRoleForm;
+import vn.edu.fu.veazy.core.form.ChgpwdForm;
 import vn.edu.fu.veazy.core.exception.CorruptedFormException;
 import vn.edu.fu.veazy.core.exception.InvalidEmailException;
 import vn.edu.fu.veazy.core.exception.PasswordExpectedException;
@@ -75,6 +77,7 @@ public class UserController {
      * @param registerForm form submitted
      * @return json string
      */
+    @Secured("!isAuthenticated()")
     @RequestMapping(value = Const.URLMAPPING_REGISTER, method = RequestMethod.POST)
     public @ResponseBody
     String register(@ModelAttribute("register-form") RegisterForm registerForm) {
@@ -88,16 +91,6 @@ public class UserController {
             LOGGER.debug("<" + username + ">");
             LOGGER.debug("<" + pw + ">");
             LOGGER.debug("<" + email + ">");
-            
-            if (Utils.isNullOrEmpty(username)) {
-                throw new UsernameExpectedException("Expected an username");
-            }
-            if (Utils.isNullOrEmpty(pw)) {
-                throw new PasswordExpectedException("Expected a password");
-            }
-            if (Utils.isNullOrEmpty(email)) {
-                throw new PasswordExpectedException("Expected an email");
-            }
 
             if (!Utils.isValidEmail(registerForm.getEmail())) {
                 LOGGER.error("Submit invalid email!");
@@ -148,13 +141,15 @@ public class UserController {
      * @param loginForm form submitted
      * @return json string
      */
+    @Secured("isAuthenticated()")
     @RequestMapping(value = Const.URLMAPPING_LOGIN, method = RequestMethod.POST)
     public @ResponseBody
     String loginProceed(@ModelAttribute("login-form") LoginForm loginForm) {
         Response response = new Response(ResponseCode.SUCCESS);
         return response.toResponseJson();
     }
-    
+
+    @Secured("isAuthenticated()")
     @RequestMapping(value = Const.URLMAPPING_LOGOUT, method = RequestMethod.GET)
     public @ResponseBody
     String logoutProceed (HttpServletRequest request, HttpServletResponse response) {
@@ -172,6 +167,7 @@ public class UserController {
      *
      * @return json string
      */
+    @Secured("isAuthenticated()")
     @RequestMapping(value = Const.URLMAPPING_GET_CURRENT_USER, method = RequestMethod.GET)
     public @ResponseBody
     String getCurrentUser(Principal principal) {
@@ -203,6 +199,7 @@ public class UserController {
      *
      * @return json string
      */
+    @Secured("isAuthenticated()")
     @RequestMapping(value = Const.URLMAPPING_UPDATE_CURRENT_USER, method = RequestMethod.POST)
     public @ResponseBody
     String updateCurrentUser(Principal principal,
@@ -232,11 +229,44 @@ public class UserController {
     }
 
     /**
+     * Process request of change password current user detail.
+     *
+     * @return json string
+     */
+    @Secured("isAuthenticated()")
+    @RequestMapping(value = Const.URLMAPPING_CHGPWD_CURRENT_USER, method = RequestMethod.POST)
+    public @ResponseBody
+    String changePasswordCurrentUser(Principal principal,
+            @ModelAttribute("chgpwd-form") ChgpwdForm form) {
+        Response response = new Response(ResponseCode.BAD_REQUEST);
+        try {
+            String userName = principal.getName();
+            LOGGER.debug(userName);
+            UserModel user = userService.findUserByUsername(userName);
+            if (user == null) {
+                LOGGER.error("Username not exist!");
+                response.setCode(ResponseCode.USER_NOT_FOUND);
+                return response.toResponseJson();
+            }
+            userService.changePassword(user.getId(), form.getOldPassword(), form.getNewPassword());
+            response.setCode(ResponseCode.SUCCESS);
+        } catch (PasswordExpectedException e) {
+            response.setCode(e.getCode());
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage());
+            LOGGER.error("Unknown error occured!");
+            response.setCode(ResponseCode.INTERNAL_SERVER_ERROR);
+        }
+        return response.toResponseJson();
+    }
+
+    /**
      * Process request of get user detail.
      *
      * @param userId url
      * @return json string
      */
+    @Secured("1") // ADMIN
     @RequestMapping(value = Const.URLMAPPING_GET_USER, method = RequestMethod.GET)
     public @ResponseBody
     String getUser(@PathVariable("user_id") Integer userId) {
@@ -269,6 +299,7 @@ public class UserController {
      *
      * @return json string
      */
+    @Secured("1") // ADMIN
     @RequestMapping(value = Const.URLMAPPING_GET_LIST_USERS, method = RequestMethod.GET)
     public @ResponseBody
     String getListUser() {
@@ -302,6 +333,7 @@ public class UserController {
      * @param principal
      * @return json string
      */
+    @Secured("isAuthenticated()")
     @RequestMapping(value = Const.URLMAPPING_GET_LEARNER_EXAMS, method = RequestMethod.GET)
     public @ResponseBody
     String getLearnerExamss(Principal principal) {
@@ -336,6 +368,7 @@ public class UserController {
         return response.toResponseJson();
     }
     
+    @Secured("1") // ADMIN
     @RequestMapping(value = Const.URLMAPPING_CHANGE_ROLE, method = RequestMethod.GET)
     public @ResponseBody
     String changeUserRoll(@PathVariable("user_id") Integer userId,@ModelAttribute("change-role-form") ChangeRoleForm form) {

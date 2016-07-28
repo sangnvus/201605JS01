@@ -15,7 +15,7 @@ import vn.edu.fu.veazy.core.model.QuestionModel;
 public interface QuestionService {
     public QuestionModel saveQuestion(QuestionModel question) throws Exception;
     public QuestionModel findQuestionById(Integer id) throws Exception;
-    public QuestionModel findQuestionByCode(String code) throws Exception;
+    public QuestionModel findQuestionByCode(Integer code) throws Exception;
     public List<QuestionModel> findAllQuestion() throws Exception;
     public void update(QuestionModel question) throws Exception;
     public void delete(QuestionModel question) throws Exception;

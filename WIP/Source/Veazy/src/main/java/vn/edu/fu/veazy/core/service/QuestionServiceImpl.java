@@ -55,7 +55,7 @@ public class QuestionServiceImpl implements QuestionService {
 
     @Override
     @Transactional
-    public QuestionModel findQuestionByCode(String code) throws Exception {
+    public QuestionModel findQuestionByCode(Integer code) throws Exception {
         try {
             QuestionModel question = new QuestionModel();
             question.setQuestionCode(code);

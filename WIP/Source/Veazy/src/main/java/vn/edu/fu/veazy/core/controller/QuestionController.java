@@ -11,10 +11,12 @@ import java.util.List;
 import java.util.Objects;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -69,9 +71,10 @@ public class QuestionController {
      * @param principal
      * @return json string
      */
+    @Secured("2")
     @RequestMapping(value = Const.URLMAPPING_CREATE_QUESTION, method = RequestMethod.POST)
     public @ResponseBody
-    String createQuestion(@ModelAttribute("question-form") QuestionForm form,
+    String createQuestion(@RequestBody QuestionForm form,
             Principal principal) {
         Response response = new Response(ResponseCode.BAD_REQUEST);
         try {
@@ -86,8 +89,6 @@ public class QuestionController {
                 return response.toResponseJson();
             }
             model.setCreatorId(user.getId());
-            //if (model.getQuestionType() == Const.SINGULAR)  
-            model.setNumberOfQuestion(1);
             if (model.getQuestionType() == Const.GROUP) {
                 List<Integer> content = new ArrayList<>();
                 List<QuestionForm> listQuestions = form.getListQuestions();
@@ -128,15 +129,15 @@ public class QuestionController {
      * @param principal authentication
      * @return json string
      */
+    @Secured("2")
     @RequestMapping(value = Const.URLMAPPING_UPDATE_QUESTION, method = RequestMethod.POST)
     public @ResponseBody
-    String updateQuestion(@ModelAttribute("question-form") QuestionForm form,
+    String updateQuestion(@RequestBody QuestionForm form,
             @PathVariable("question_id") Integer questionId, Principal principal) {
         Response response = new Response(ResponseCode.BAD_REQUEST);
         try {
             LOGGER.debug("Get to update question controller successful");
 
-            QuestionModel model = new QuestionModel(form);
             QuestionModel question = questionService.findQuestionById(questionId);
 
             if (question == null) {
@@ -151,33 +152,32 @@ public class QuestionController {
                 response.setCode(ResponseCode.USER_NOT_FOUND);
                 return response.toResponseJson();
             }
-            if (!Objects.equals(user.getRole(), Const.EDITOR)) {
-                LOGGER.debug("user not allowed!");
-                response.setCode(ResponseCode.USER_NOT_ALLOW);
-                return response.toResponseJson();
-            }
+//            if (!Objects.equals(user.getRole(), Const.EDITOR)) {
+//                LOGGER.debug("user not allowed!");
+//                response.setCode(ResponseCode.USER_NOT_ALLOW);
+//                return response.toResponseJson();
+//            }
 
-            model.setId(question.getId());
-            //if (model.getQuestionType() == Const.SINGULAR)  
-            model.setNumberOfQuestion(1);
-            if (Objects.equals(model.getQuestionType(), Const.GROUP)) {
+            question.updateProperty(form);
+            //if (model.getQuestionType() == Const.SINGULAR)
+            if (Objects.equals(question.getQuestionType(), Const.GROUP)) {
                 List<Integer> content = new ArrayList<>();
                 List<QuestionForm> listQuestions = form.getListQuestions();
                 for (QuestionForm form1 : listQuestions) {
                     QuestionModel model1 = new QuestionModel(form1);
-                    model1.setQuestionAnswerType(model.getQuestionAnswerType());
-                    model1.setQuestionSkill(model.getQuestionSkill());
-                    model1.setQuestionType(model.getQuestionType());
+                    model1.setQuestionAnswerType(question.getQuestionAnswerType());
+                    model1.setQuestionSkill(question.getQuestionSkill());
+                    model1.setQuestionType(question.getQuestionType());
                     model1.setCreatorId(user.getId());
                     model1.setNumberOfQuestion(0);
                     QuestionModel saveQuestion = questionService.saveQuestion(model1);
                     content.add(saveQuestion.getId());
                 }
-                model.setContent(content);
-                model.setNumberOfQuestion(listQuestions.size());
+                question.setContent(content);
+                question.setNumberOfQuestion(listQuestions.size());
             }
-            questionService.update(model);
-            AddQuestionResponseData data = new AddQuestionResponseData(model.getId());
+            questionService.update(question);
+            AddQuestionResponseData data = new AddQuestionResponseData(question.getId());
 
             response.setCode(ResponseCode.SUCCESS);
             response.setData(data);
@@ -197,6 +197,7 @@ public class QuestionController {
      *
      * @return json string
      */
+    @Secured("2")
     @RequestMapping(value = Const.URLMAPPING_GET_LIST_QUESTIONS, method = RequestMethod.GET)
     public @ResponseBody
     String getListQuestions() {
@@ -233,6 +234,7 @@ public class QuestionController {
      * @param questionId url path
      * @return json string
      */
+    @Secured("2")
     @RequestMapping(value = Const.URLMAPPING_GET_QUESTION, method = RequestMethod.GET)
     public @ResponseBody
     String getQuestion(@PathVariable("question_id") Integer questionId) {
@@ -274,6 +276,7 @@ public class QuestionController {
      * @param questionId url path
      * @return json string
      */
+    @Secured("2")
     @RequestMapping(value = Const.URLMAPPING_DELETE_QUESTION, method = RequestMethod.DELETE)
     public @ResponseBody
     String deleteQuestion(@PathVariable("question_id") Integer questionId) {
@@ -308,7 +311,8 @@ public class QuestionController {
      * @param reportForm form submitted
      * @return json string
      */
-    @RequestMapping(value = Const.URLMAPPING_REPORT_QUESTION, method = RequestMethod.GET)
+    @Secured("isAuthenticated()")
+    @RequestMapping(value = Const.URLMAPPING_REPORT_QUESTION, method = RequestMethod.POST)
     public @ResponseBody
     String reportQuestion(@PathVariable("question_id") Integer questionId,
             Principal principal, @ModelAttribute("report-form") ReportForm reportForm) {

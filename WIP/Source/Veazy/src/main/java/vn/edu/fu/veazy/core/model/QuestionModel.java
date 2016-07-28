@@ -8,18 +8,29 @@ package vn.edu.fu.veazy.core.model;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+
+import javax.persistence.Access;
+import javax.persistence.AccessType;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
+
+import vn.edu.fu.veazy.core.controller.QuestionController;
 import vn.edu.fu.veazy.core.form.AnswerForm;
 import vn.edu.fu.veazy.core.form.QuestionForm;
 
 import org.hibernate.annotations.Generated;
 import org.hibernate.annotations.GenerationTime;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -30,10 +41,11 @@ import org.hibernate.annotations.GenerationTime;
 @DynamicUpdate
 @Table(name = "`Question`")
 public class QuestionModel extends BasicModel implements Comparator<QuestionModel>{
+    private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(QuestionModel.class);
 
     @Column(name = "questionCode", columnDefinition="serial", nullable = false)
     @Generated(GenerationTime.INSERT)
-    private String questionCode;
+    private Integer questionCode;
     @Column(name = "creatorId", nullable = false)
     private Integer creatorId;
     @Column(name = "questionAnswerType", columnDefinition = "INT DEFAULT 1", nullable = false)
@@ -51,12 +63,16 @@ public class QuestionModel extends BasicModel implements Comparator<QuestionMode
     private Integer courseId;
     @Column(name = "question", nullable = false)
     private String question;
-    @OneToMany(mappedBy = "question")
+    @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "question")
     @Column(name = "listAnswers", nullable = false)
+    @Access(AccessType.PROPERTY)
+    @LazyCollection(LazyCollectionOption.FALSE)
     private List<AnswerModel> listAnswers = new ArrayList<>();
     @ElementCollection
     @Column(name = "content", nullable = true)
-    private List<Integer> content;
+    @Access(AccessType.PROPERTY)
+    @LazyCollection(LazyCollectionOption.FALSE)
+    private List<Integer> content = new ArrayList<>();
     @Column(name = "state", columnDefinition = "INT DEFAULT 1", nullable = false)
     private Integer state = 1;
     @Column(name = "attachment", nullable = true)
@@ -66,8 +82,13 @@ public class QuestionModel extends BasicModel implements Comparator<QuestionMode
     }
 
     public QuestionModel(QuestionForm form) {
+        updateProperty(form);
+    }
+    
+    public void updateProperty(QuestionForm form) {
         this.attachment = form.getAttachment();
         this.courseId = form.getCourseId();
+        this.listAnswers.clear();
         for (AnswerForm form1 : form.getListAnswers()) {
             AnswerModel model = new AnswerModel();
             model.setAnswer(form1.getAnswer());
@@ -77,15 +98,16 @@ public class QuestionModel extends BasicModel implements Comparator<QuestionMode
         }
         this.question = form.getQuestion();
         this.questionAnswerType = form.getQuestionAnswerType();
-        this.questionSkill = form.getQuestionSkil();
+        this.questionSkill = form.getQuestionSkill();
         this.questionType = form.getQuestionType();
+        this.numberOfQuestion = form.getNumberOfQuestion();
     }
 
-    public String getQuestionCode() {
+    public Integer getQuestionCode() {
         return questionCode;
     }
 
-    public void setQuestionCode(String questionCode) {
+    public void setQuestionCode(Integer questionCode) {
         this.questionCode = questionCode;
     }
 
@@ -152,7 +174,6 @@ public class QuestionModel extends BasicModel implements Comparator<QuestionMode
     public void setQuestion(String question) {
         this.question = question;
     }
-
     public List<AnswerModel> getListAnswers() {
         return listAnswers;
     }
