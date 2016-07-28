@@ -17,6 +17,7 @@ public class ReportServiceImpl implements ReportService{
 	private GenericDao<ReportModel, Integer> reportDao;
 
     @Override
+    @Transactional
     public void saveReport(ReportModel report) throws Exception {
         try {
             reportDao.save(report);

@@ -60,12 +60,12 @@ public class Const {
     public static final String URLMAPPING_LOOKUP_VIJA = URL_PREFIX + "/dict/vija/";
 
     //question api
-    public static final String URLMAPPING_CREATE_QUESTION = URL_PREFIX + "/questions";
+    public static final String URLMAPPING_CREATE_QUESTION = URL_PREFIX + "/questions/new";
     public static final String URLMAPPING_UPDATE_QUESTION = URL_PREFIX + "/questions/update/{question_id}";
     public static final String URLMAPPING_GET_QUESTION = URL_PREFIX + "/questions/{question_id}";
     public static final String URLMAPPING_GET_LIST_QUESTIONS = URL_PREFIX + "/questions";
     public static final String URLMAPPING_DELETE_QUESTION = URL_PREFIX + "/questions/delete/{question_id}";
-    public static final String URLMAPPING_REPORT_QUESTION = URL_PREFIX + "/questions/{question_id}/report";
+    public static final String URLMAPPING_REPORT_QUESTION = URL_PREFIX + "/questions/report/{question_id}";
 
     //exam api 
     public static final String URLMAPPING_CREATE_EXAM = URL_PREFIX + "/exams";

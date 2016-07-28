@@ -16,7 +16,7 @@ public class QuestionForm {
 
     private Integer questionAnswerType;
     private Integer questionType;
-    private Integer questionSkil;
+    private Integer questionSkill;
     private Integer courseId;
     private Integer numberOfQuestion;
     private String question;
@@ -44,11 +44,11 @@ public class QuestionForm {
     }
 
     public Integer getQuestionSkil() {
-        return questionSkil;
+        return questionSkill;
     }
 
     public void setQuestionSkil(Integer questionSkil) {
-        this.questionSkil = questionSkil;
+        this.questionSkill = questionSkil;
     }
 
     public Integer getCourseId() {
