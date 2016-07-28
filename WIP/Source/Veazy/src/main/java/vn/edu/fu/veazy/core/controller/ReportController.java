@@ -6,6 +6,7 @@ import java.util.List;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,7 +33,7 @@ public class ReportController {
     @Autowired
     private UserService userService;
 
-    @Secured("1,2")
+    @PreAuthorize("hasAnyAuthority(1,2)")
     @RequestMapping(value = Const.URLMAPPING_GET_REPORT, method = RequestMethod.GET)
     public @ResponseBody
     String getReport(@PathVariable("report_id") Integer reportId) {
@@ -53,7 +54,7 @@ public class ReportController {
     }
     
 
-    @Secured("1,2")
+    @PreAuthorize("hasAnyAuthority(1,2)")
     @RequestMapping(value = Const.URLMAPPING_GET_ALL_REPORT, method = RequestMethod.GET)
     public @ResponseBody
     String getAllReport(Principal principal) {
@@ -75,8 +76,8 @@ public class ReportController {
         }
         return response.toResponseJson();
     }
-    
-    @Secured("1,2")
+
+    @PreAuthorize("hasAnyAuthority(1,2)")
     @RequestMapping(value = Const.URLMAPPING_READ_REPORT, method = RequestMethod.GET)
     public @ResponseBody
     String readReport(@PathVariable("report_id") Integer reportId) {
@@ -95,7 +96,7 @@ public class ReportController {
         return response.toResponseJson();
     }
 
-    @Secured("1,2")
+    @PreAuthorize("hasAnyAuthority(1,2)")
     @RequestMapping(value = Const.URLMAPPING_DELETE_REPORT, method = RequestMethod.GET)
     public @ResponseBody
     String deleteReport(@PathVariable("report_id") Integer reportId) {

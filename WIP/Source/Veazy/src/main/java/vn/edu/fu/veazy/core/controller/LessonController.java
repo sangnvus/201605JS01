@@ -6,6 +6,7 @@ import java.util.List;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -42,7 +43,7 @@ public class LessonController {
     @Autowired
     private UserService userService;
 
-    @Secured("2")
+    @PreAuthorize("hasAuthority(2)")
     @RequestMapping(value = Const.URLMAPPING_CREATE_LESSON, method = RequestMethod.POST)
     public @ResponseBody
     String createLesson(Principal principal, @ModelAttribute("create-lesson-form") CreateLessonForm form) {
@@ -66,7 +67,7 @@ public class LessonController {
         return response.toResponseJson();
     }
 
-    @Secured("2")
+    @PreAuthorize("hasAuthority(2)")
     @RequestMapping(value = Const.URLMAPPING_UPDATE_LESSON, method = RequestMethod.POST)
     public @ResponseBody
     String updateLesson(Principal principal, @ModelAttribute("update-lesson-form") UpdateLessonForm form, @PathVariable("lesson_id") Integer lessonId) {
@@ -89,7 +90,7 @@ public class LessonController {
         return response.toResponseJson();
     }
 
-    @Secured("2")
+    @PreAuthorize("hasAuthority(2)")
     @RequestMapping(value = Const.URLMAPPING_PUBLISH_LESSON, method = RequestMethod.GET)
     public @ResponseBody
     String publishLesson(Principal principal, @PathVariable("lesson_id") Integer lessonId) {
@@ -134,7 +135,7 @@ public class LessonController {
         return response.toResponseJson();
     }
 
-    @Secured("isAuthenticated()")
+//    @Secured("isAuthenticated()")
     @RequestMapping(value = Const.URLMAPPING_GET_LESSON_COURSE, method = RequestMethod.GET)
     public @ResponseBody
     String getLessonOfCourse(@PathVariable("course_id") Integer courseId) {
@@ -156,7 +157,7 @@ public class LessonController {
         return response.toResponseJson();
     }
 
-    @Secured("isAuthenticated()")
+//    @Secured("isAuthenticated()")
     @RequestMapping(value = Const.URLMAPPING_GET_LESSON, method = RequestMethod.GET)
     public @ResponseBody
     String getLesson(@PathVariable("lesson_id") Integer lessonId) {
@@ -178,7 +179,7 @@ public class LessonController {
         return response.toResponseJson();
     }
 
-    @Secured("2")
+    @PreAuthorize("hasAuthority(2)")
     @RequestMapping(value = Const.URLMAPPING_GET_ALL_LESSON, method = RequestMethod.GET)
     public @ResponseBody
     String getAllLesson() {
@@ -200,7 +201,7 @@ public class LessonController {
         return response.toResponseJson();
     }
 
-    @Secured("2")
+    @PreAuthorize("hasAuthority(2)")
     @RequestMapping(value = Const.URLMAPPING_GET_LESSON_VERSION, method = RequestMethod.GET)
     public @ResponseBody
     String getLessonVersion(@PathVariable("lesson_id") Integer lessonId, @PathVariable("version") Integer version) {
@@ -221,7 +222,7 @@ public class LessonController {
         return response.toResponseJson();
     }
 
-    @Secured("2")
+    @PreAuthorize("hasAuthority(2)")
     @RequestMapping(value = Const.URLMAPPING_DELETE_LESSON, method = RequestMethod.GET)
     public @ResponseBody
     String delete(@PathVariable("lesson_id") Integer lessonId) {

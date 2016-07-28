@@ -27,7 +27,6 @@ public class CourseController {
     @Autowired
     private CourseService courseService;
 
-    @Secured("isAuthenticated()")
     @RequestMapping(value = Const.URLMAPPING_GET_COURSES, method = RequestMethod.GET)
     public @ResponseBody
     String getCourses() {

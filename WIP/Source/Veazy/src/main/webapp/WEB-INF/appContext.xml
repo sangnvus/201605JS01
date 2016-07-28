@@ -92,5 +92,9 @@
   <bean id="authenticationEntryPoint"
         class="vn.edu.fu.veazy.core.security.VeazyAuthenEntryPoint">
   </bean>
+  
+  <bean id="veazy403Handler"
+        class="vn.edu.fu.veazy.core.security.Veazy403Handler">
+  </bean>
 
 </beans>

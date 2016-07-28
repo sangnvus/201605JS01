@@ -8,6 +8,7 @@
 
     <http auto-config="false" use-expressions="true" create-session="always"
             entry-point-ref="authenticationEntryPoint" >
+        <access-denied-handler ref="veazy403Handler" />
         <!-- <intercept-url pattern="/register" access="!isAuthenticated()" />
         <intercept-url pattern="/login" access="!isAuthenticated()" />
         <intercept-url pattern="/api/register" access="!isAuthenticated()" />

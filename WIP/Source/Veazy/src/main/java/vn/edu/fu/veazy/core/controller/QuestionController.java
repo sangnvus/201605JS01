@@ -12,6 +12,7 @@ import java.util.Objects;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -71,7 +72,7 @@ public class QuestionController {
      * @param principal
      * @return json string
      */
-    @Secured("2")
+    @PreAuthorize("hasAuthority(2)")
     @RequestMapping(value = Const.URLMAPPING_CREATE_QUESTION, method = RequestMethod.POST)
     public @ResponseBody
     String createQuestion(@RequestBody QuestionForm form,
@@ -129,7 +130,7 @@ public class QuestionController {
      * @param principal authentication
      * @return json string
      */
-    @Secured("2")
+    @PreAuthorize("hasAuthority(2)")
     @RequestMapping(value = Const.URLMAPPING_UPDATE_QUESTION, method = RequestMethod.POST)
     public @ResponseBody
     String updateQuestion(@RequestBody QuestionForm form,
@@ -197,7 +198,7 @@ public class QuestionController {
      *
      * @return json string
      */
-    @Secured("2")
+    @PreAuthorize("hasAuthority(2)")
     @RequestMapping(value = Const.URLMAPPING_GET_LIST_QUESTIONS, method = RequestMethod.GET)
     public @ResponseBody
     String getListQuestions() {
@@ -234,7 +235,7 @@ public class QuestionController {
      * @param questionId url path
      * @return json string
      */
-    @Secured("2")
+    @PreAuthorize("hasAuthority(2)")
     @RequestMapping(value = Const.URLMAPPING_GET_QUESTION, method = RequestMethod.GET)
     public @ResponseBody
     String getQuestion(@PathVariable("question_id") Integer questionId) {
@@ -276,7 +277,7 @@ public class QuestionController {
      * @param questionId url path
      * @return json string
      */
-    @Secured("2")
+    @PreAuthorize("hasAuthority(2)")
     @RequestMapping(value = Const.URLMAPPING_DELETE_QUESTION, method = RequestMethod.DELETE)
     public @ResponseBody
     String deleteQuestion(@PathVariable("question_id") Integer questionId) {

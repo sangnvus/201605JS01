@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
@@ -77,7 +78,7 @@ public class UserController {
      * @param registerForm form submitted
      * @return json string
      */
-    @Secured("!isAuthenticated()")
+    @PreAuthorize("!isAuthenticated()")
     @RequestMapping(value = Const.URLMAPPING_REGISTER, method = RequestMethod.POST)
     public @ResponseBody
     String register(@ModelAttribute("register-form") RegisterForm registerForm) {
@@ -141,7 +142,7 @@ public class UserController {
      * @param loginForm form submitted
      * @return json string
      */
-    @Secured("isAuthenticated()")
+    @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = Const.URLMAPPING_LOGIN, method = RequestMethod.POST)
     public @ResponseBody
     String loginProceed(@ModelAttribute("login-form") LoginForm loginForm) {
@@ -149,7 +150,7 @@ public class UserController {
         return response.toResponseJson();
     }
 
-    @Secured("isAuthenticated()")
+    @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = Const.URLMAPPING_LOGOUT, method = RequestMethod.GET)
     public @ResponseBody
     String logoutProceed (HttpServletRequest request, HttpServletResponse response) {
@@ -167,7 +168,7 @@ public class UserController {
      *
      * @return json string
      */
-    @Secured("isAuthenticated()")
+    @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = Const.URLMAPPING_GET_CURRENT_USER, method = RequestMethod.GET)
     public @ResponseBody
     String getCurrentUser(Principal principal) {
@@ -266,7 +267,7 @@ public class UserController {
      * @param userId url
      * @return json string
      */
-    @Secured("1") // ADMIN
+    @PreAuthorize("hasAuthority(1)")
     @RequestMapping(value = Const.URLMAPPING_GET_USER, method = RequestMethod.GET)
     public @ResponseBody
     String getUser(@PathVariable("user_id") Integer userId) {
@@ -299,7 +300,7 @@ public class UserController {
      *
      * @return json string
      */
-    @Secured("1") // ADMIN
+    @PreAuthorize("hasAuthority(1)")
     @RequestMapping(value = Const.URLMAPPING_GET_LIST_USERS, method = RequestMethod.GET)
     public @ResponseBody
     String getListUser() {
@@ -333,7 +334,7 @@ public class UserController {
      * @param principal
      * @return json string
      */
-    @Secured("isAuthenticated()")
+    @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = Const.URLMAPPING_GET_LEARNER_EXAMS, method = RequestMethod.GET)
     public @ResponseBody
     String getLearnerExamss(Principal principal) {
@@ -367,8 +368,8 @@ public class UserController {
         }
         return response.toResponseJson();
     }
-    
-    @Secured("1") // ADMIN
+
+    @PreAuthorize("hasAuthority(1)") // ADMIN
     @RequestMapping(value = Const.URLMAPPING_CHANGE_ROLE, method = RequestMethod.GET)
     public @ResponseBody
     String changeUserRoll(@PathVariable("user_id") Integer userId,@ModelAttribute("change-role-form") ChangeRoleForm form) {
