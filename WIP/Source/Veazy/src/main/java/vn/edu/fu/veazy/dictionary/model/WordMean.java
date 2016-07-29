@@ -2,9 +2,25 @@ package vn.edu.fu.veazy.dictionary.model;
 
 import java.util.List;
 
+/**
+ * @author CuHo
+ *　言葉の意味のクラス
+ */
 public class WordMean {
+	
+	/**
+	 * 言葉の品詞
+	 */
 	private String kind;
+	
+	/**
+	 * 言葉の意味
+	 */
 	private String mean;
+	
+	/**
+	 * 言葉の例えのリスト
+	 */
 	private List<Integer> examples;
 	
 	public WordMean(String kind, String mean, List<Integer> examples) {

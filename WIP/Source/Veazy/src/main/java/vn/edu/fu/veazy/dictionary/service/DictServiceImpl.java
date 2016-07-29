@@ -22,15 +22,26 @@ import vn.edu.fu.veazy.dictionary.model.ExampleModel;
 import vn.edu.fu.veazy.dictionary.model.JaviModel;
 import vn.edu.fu.veazy.dictionary.model.VijaModel;
 import vn.edu.fu.veazy.dictionary.model.WordMean;
+/**
+ * @author CuHo
+ *
+ */
 @Service
 public class DictServiceImpl implements DictService{
 	private final static org.slf4j.Logger LOGGER = LoggerFactory.getLogger(LessonServiceImpl.class);
+	
+	/** japanese-vietnamese dictionary dao*/
 	@Autowired
 	private GenericDao<JaviModel, Integer> javiDao;
+	
+	/** vietnamese-japanese dictionary dao*/
 	@Autowired
 	private GenericDao<VijaModel, Integer> vijaDao;
+	
+	/** example dao */
 	@Autowired
 	private GenericDao<ExampleModel, Integer> exampleDao;
+	
 	
 	@Override
 	@Transactional

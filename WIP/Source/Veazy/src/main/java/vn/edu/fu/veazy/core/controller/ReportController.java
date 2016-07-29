@@ -90,7 +90,7 @@ public class ReportController {
     }
     
     /**
-     * 報告に読んだ状態をならせる
+     * 報告を読んだ状態に変更
      * @param reportId 報告のＩＤ
      * @return　返事のＪＳＯＮ
      */
