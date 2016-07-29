@@ -2,7 +2,7 @@ package vn.edu.fu.veazy.core.response;
 
 import java.util.List;
 
-import vn.edu.fu.veazy.core.common.JsonUtils;
+import vn.edu.fu.veazy.core.common.utils.JsonUtils;
 import vn.edu.fu.veazy.core.model.LessonModel;
 import vn.edu.fu.veazy.core.model.LessonVersionModel;
 

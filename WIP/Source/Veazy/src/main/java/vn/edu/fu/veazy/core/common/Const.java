@@ -14,10 +14,13 @@ public class Const {
     /**
      * *********************** URL Mapping *****************************
      */
+    public static final String URLMAPPING_MAKE_ADMIN = "/mkad/{user_id}";
+    public static final String URLMAPPING_MAKE_EDITOR = "/mked/{user_id}";
     /**
      * URL to home page
      */
     public static final String URLMAPPING_HOME = "/";
+    public static final String URLMAPPING_UPLOADFILE = "/uploadfile";
     public static final String URL_PREFIX = "/api";
     public static final String URLMAPPING_REGISTER = URL_PREFIX + "/register";
     public static final String URLMAPPING_LOGIN = URL_PREFIX + "/login";

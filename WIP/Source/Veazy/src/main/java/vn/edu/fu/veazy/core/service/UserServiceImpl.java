@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import vn.edu.fu.veazy.core.common.Utils;
+import vn.edu.fu.veazy.core.common.utils.Utils;
 import vn.edu.fu.veazy.core.dao.GenericDao;
 import vn.edu.fu.veazy.core.exception.PasswordIncorrectException;
 import vn.edu.fu.veazy.core.form.RegisterForm;

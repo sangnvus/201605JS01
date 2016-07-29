@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import vn.edu.fu.veazy.core.common.Const;
-import vn.edu.fu.veazy.core.common.Utils;
+import vn.edu.fu.veazy.core.common.utils.Utils;
 import vn.edu.fu.veazy.core.form.ChangeRoleForm;
 import vn.edu.fu.veazy.core.form.ChgpwdForm;
 import vn.edu.fu.veazy.core.exception.CorruptedFormException;

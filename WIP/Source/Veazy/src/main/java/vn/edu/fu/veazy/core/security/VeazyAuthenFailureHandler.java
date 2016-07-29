@@ -12,6 +12,7 @@ import org.springframework.security.web.authentication.SimpleUrlAuthenticationFa
 
 import vn.edu.fu.veazy.core.common.Const;
 import vn.edu.fu.veazy.core.response.Response;
+import vn.edu.fu.veazy.core.response.ResponseCode;
 
 public class VeazyAuthenFailureHandler extends SimpleUrlAuthenticationFailureHandler {
     private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(VeazyAuthenFailureHandler.class);
@@ -19,7 +20,7 @@ public class VeazyAuthenFailureHandler extends SimpleUrlAuthenticationFailureHan
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
                                         AuthenticationException exception) throws IOException, ServletException {
-        Response resp = new Response(HttpServletResponse.SC_UNAUTHORIZED);
+        Response resp = new Response(ResponseCode.USERNAME_PASSWORD_NOT_MATCH);
         response.flushBuffer();
         response.getWriter().flush();
         response.getWriter().print(resp.toResponseJson());

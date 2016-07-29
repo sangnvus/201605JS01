@@ -1,4 +1,4 @@
-package vn.edu.fu.veazy.core.common;
+package vn.edu.fu.veazy.core.common.utils;
 
 import java.util.regex.Pattern;
 

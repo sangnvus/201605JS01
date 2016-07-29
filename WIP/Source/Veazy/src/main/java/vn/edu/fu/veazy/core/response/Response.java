@@ -6,7 +6,8 @@
 package vn.edu.fu.veazy.core.response;
 
 import java.io.Serializable;
-import vn.edu.fu.veazy.core.common.JsonUtils;
+
+import vn.edu.fu.veazy.core.common.utils.JsonUtils;
 
 /**
  *

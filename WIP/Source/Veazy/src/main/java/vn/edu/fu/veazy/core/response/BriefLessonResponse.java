@@ -1,6 +1,6 @@
 package vn.edu.fu.veazy.core.response;
 
-import vn.edu.fu.veazy.core.common.JsonUtils;
+import vn.edu.fu.veazy.core.common.utils.JsonUtils;
 
 public class BriefLessonResponse {
 	private String lessonId;
