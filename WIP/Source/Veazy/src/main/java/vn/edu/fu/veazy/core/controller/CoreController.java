@@ -8,6 +8,8 @@ import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.ServletContext;
+
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -38,6 +40,10 @@ public class CoreController {
 
     /** Logger object . */
     private final static org.slf4j.Logger LOGGER = LoggerFactory.getLogger(CoreController.class);
+    
+    @Autowired
+    private ServletContext context;
+    
     @Autowired
     private UserService userService;
 
@@ -68,7 +74,10 @@ public class CoreController {
             if (null != files && files.size() > 0) {
                 for (MultipartFile multipartFile : files) {
                     String fileName = multipartFile.getOriginalFilename();
-                    File f = new File("src/main/webapp/res/" + fileName);
+                    LOGGER.debug(context.getRealPath("/res"));
+                    File f = new File(context.getRealPath("/res") + "/" + fileName);
+                    LOGGER.debug(f.getCanonicalPath());
+                    if (!f.exists()) f.createNewFile();
                     InputStream is = multipartFile.getInputStream();
                     Files.copy(is, f.toPath(), StandardCopyOption.REPLACE_EXISTING);
                     is.close();
