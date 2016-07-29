@@ -62,6 +62,9 @@ public class Const {
 
     //exam api 
     public static final String URLMAPPING_CREATE_EXAM = URL_PREFIX + "/exams";
+    public static final String URLMAPPING_SUBMIT_EXAM_ANSWER = URL_PREFIX + "/exams/submit";
+    public static final String URLMAPPING_GET_EXAM = URL_PREFIX + "/exams/{exam_id}";
+    public static final String URLMAPPING_REDO_EXAM = URL_PREFIX + "/exams/{exam_id}/redo";
 
     /**
      * *********************** Content status **************************

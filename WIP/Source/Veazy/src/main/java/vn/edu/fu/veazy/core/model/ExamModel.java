@@ -5,6 +5,7 @@
  */
 package vn.edu.fu.veazy.core.model;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,6 +13,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
+import vn.edu.fu.veazy.core.form.SubmitExamAnswerForm;
 
 /**
  *
@@ -21,25 +23,30 @@ import org.hibernate.annotations.DynamicUpdate;
 @DynamicInsert
 @DynamicUpdate
 @Table(name = "`Exam`")
-public class ExamModel extends BasicModel{
+public class ExamModel extends BasicModel {
 
     @Column(name = "userId", nullable = false)
     private Integer userId;
     @Column(name = "courseId", nullable = false)
     private Integer courseId;
+    @Column(name = "questionSkill", nullable = true)
+    private Integer questionSkill;
     @OneToMany(mappedBy = "question")
     @Column(name = "listQuestions", nullable = false)
-    private List<ExamAnswer> listQuestions;
-    @Column(name = "result", columnDefinition="FLOAT4 DEFAULT 0.0",nullable = false)
+    private List<ExamAnswer> listQuestions = new ArrayList<>();
+    @Column(name = "result", columnDefinition = "FLOAT4 DEFAULT 0.0", nullable = false)
     private Double result = 0.0;
+    @Column(name = "time", columnDefinition = "LONG", nullable = false)
+    private Long time;
 
     public ExamModel() {
     }
 
-    public ExamModel(Integer userId, Integer courseId, List<ExamAnswer> listQuestions) {
+    public ExamModel(SubmitExamAnswerForm form, Integer userId) {
         this.userId = userId;
-        this.courseId = courseId;
-        this.listQuestions = listQuestions;
+        this.courseId = form.getCourseId();
+        this.time = form.getTime();
+        this.questionSkill = form.getQuestionSkill();
     }
 
     public Integer getUserId() {
@@ -56,6 +63,22 @@ public class ExamModel extends BasicModel{
 
     public void setCourseId(Integer courseId) {
         this.courseId = courseId;
+    }
+
+    public Integer getQuestionSkill() {
+        return questionSkill;
+    }
+
+    public void setQuestionSkill(Integer questionSkill) {
+        this.questionSkill = questionSkill;
+    }
+
+    public Long getTime() {
+        return time;
+    }
+
+    public void setTime(Long time) {
+        this.time = time;
     }
 
     public List<ExamAnswer> getListQuestions() {
