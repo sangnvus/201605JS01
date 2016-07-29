@@ -1,7 +1,13 @@
 package vn.edu.fu.veazy.core.form;
 
 public class ChangeRoleForm {
+	/**
+	 * ユーザーのＩＤ
+	 */
 	private Integer userId;
+	/**
+	 * ユーザーの役割
+	 */
 	private int role;
 	
 	public ChangeRoleForm(Integer userId, int role) {

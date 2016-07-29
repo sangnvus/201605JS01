@@ -1,15 +1,54 @@
 package vn.edu.fu.veazy.core.form;
 
 public class UpdateLessonForm {
+	/**
+	 * レッソンのＩＤ
+	 */
 	private Integer lessonId;
+	
+	/**
+	 * レベルのＩＤ
+	 */
 	private Integer courseId;
+	
+	/**
+	 * レッソンの表題
+	 */
 	private String lessonTitle;
+	
+	/**
+	 * レッソンの説明
+	 */
 	private String description;
+	
+	/**
+	 * レッソンの語彙
+	 */
 	private String vocabulary;
+	
+	/**
+	 * レッソンの文法
+	 */
 	private String grammar;
+	
+	/**
+	 * レッソンの読解
+	 */
 	private String reading;
+	
+	/**
+	 * レッソンの聴解
+	 */
 	private String listening;
+	
+	/**
+	 * レッソンの練習
+	 */
 	private String practice;
+	
+	/**
+	 * レッソンの記事
+	 */
 	private String article;
 	public Integer getLessonId() {
 		return lessonId;

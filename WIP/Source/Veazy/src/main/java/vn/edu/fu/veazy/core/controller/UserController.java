@@ -28,7 +28,6 @@ import vn.edu.fu.veazy.core.form.ChgpwdForm;
 import vn.edu.fu.veazy.core.exception.CorruptedFormException;
 import vn.edu.fu.veazy.core.exception.InvalidEmailException;
 import vn.edu.fu.veazy.core.exception.PasswordExpectedException;
-import vn.edu.fu.veazy.core.exception.UsernameExpectedException;
 import vn.edu.fu.veazy.core.form.LoginForm;
 import vn.edu.fu.veazy.core.form.RegisterForm;
 import vn.edu.fu.veazy.core.form.UpdateUserForm;

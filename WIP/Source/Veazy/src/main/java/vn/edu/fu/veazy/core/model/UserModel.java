@@ -41,7 +41,7 @@ public class UserModel extends BasicModel {
     private Long joinDate;
     @Column(name = "address", nullable = true)
     private String address;
-    @Column(name = "role", columnDefinition="INT DEFAULT 1", nullable = false)
+    @Column(name = "role", columnDefinition="INT DEFAULT 3", nullable = false)
     private Integer role = 1;
     @Column(name = "hobby", nullable = true)
     private String hobby;

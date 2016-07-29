@@ -1,6 +1,5 @@
 package vn.edu.fu.veazy.core.service;
 
-import java.util.LinkedList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;

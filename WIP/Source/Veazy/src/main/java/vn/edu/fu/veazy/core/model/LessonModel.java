@@ -2,9 +2,6 @@ package vn.edu.fu.veazy.core.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.DynamicInsert;
@@ -17,11 +14,22 @@ import org.hibernate.annotations.GenerationTime;
 @DynamicUpdate
 @Table(name = "Lesson")
 public class LessonModel extends BasicModel{
+    /**
+     * レベルにレッソンの順序
+     */
 	@Column(name = "index", columnDefinition="serial", nullable = false)
 	@Generated(GenerationTime.INSERT)
 	private int index;
+	
+	/**
+	 * レッソンのレベルのＩＤ
+	 */
 	@Column(name = "courseid", nullable = false)
 	private Integer courseId;
+	
+	/**
+	 * レッソンの現在なバージョンのＩＤ
+	 */
 	@Column(name = "versionId", nullable = true)
 	private Integer currentVersionId;
 	

@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -30,6 +29,10 @@ import vn.edu.fu.veazy.core.service.LessonService;
 import vn.edu.fu.veazy.core.service.UserService;
 
 @CrossOrigin(origins="http://localhost:3003")
+/**
+ * @author CuHo
+ *
+ */
 @Controller("Lesson Controller")
 public class LessonController {
 
@@ -38,11 +41,24 @@ public class LessonController {
      */
     private final static org.slf4j.Logger LOGGER = LoggerFactory.getLogger(LessonController.class);
 
+    /**
+     * lesson service
+     */
     @Autowired
     private LessonService lessonService;
+    
+    /**
+     * user service
+     */
     @Autowired
     private UserService userService;
 
+    /**
+     * 新しいレッソンを作りのコントローラー
+     * @param principal 要求する人
+     * @param form 新しいレッソンを作りの形式
+     * @return 返事のＪＳＯＮ
+     */
     @PreAuthorize("hasAuthority(2)")
     @RequestMapping(value = Const.URLMAPPING_CREATE_LESSON, method = RequestMethod.POST)
     public @ResponseBody
@@ -67,6 +83,13 @@ public class LessonController {
         return response.toResponseJson();
     }
 
+    /**
+     * レッソンをアップデートのコントローラー
+     * @param principal 要求する人
+     * @param form レッソンをアップデートの形式
+     * @param lessonId レッソンのＩＤ
+     * @return 返事のＪＳＯＮ
+     */
     @PreAuthorize("hasAuthority(2)")
     @RequestMapping(value = Const.URLMAPPING_UPDATE_LESSON, method = RequestMethod.POST)
     public @ResponseBody
@@ -90,6 +113,12 @@ public class LessonController {
         return response.toResponseJson();
     }
 
+    /**
+     * レッソンを出版のコントローラー
+     * @param principal 要求する人
+     * @param lessonId レッソンのＩＤ
+     * @return 返事のＪＳＯＮ
+     */
     @PreAuthorize("hasAuthority(2)")
     @RequestMapping(value = Const.URLMAPPING_PUBLISH_LESSON, method = RequestMethod.GET)
     public @ResponseBody
@@ -112,7 +141,14 @@ public class LessonController {
         return response.toResponseJson();
     }
 
-    @Secured("isAuthenticated()")
+    /**
+     * レッソンを報告のコントローラー
+     * @param principal 要求する人
+     * @param form レッソンを報告の形式
+     * @param lessonId レッソンのＩＤ
+     * @return 返事のＪＳＯＮ
+     */
+    @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = Const.URLMAPPING_REPORT_LESSON, method = RequestMethod.POST)
     public @ResponseBody
     String reportLesson(Principal principal, @ModelAttribute("report-lesson-form") ReportLessonForm form, @PathVariable("lesson_id") Integer lessonId) {
@@ -135,7 +171,11 @@ public class LessonController {
         return response.toResponseJson();
     }
 
-//    @Secured("isAuthenticated()")
+    /**
+     * レベルの全部のレッソンをとる
+     * @param courseId　レベルのＩＤ
+     * @return　返事のＪＳＯＮ
+     */
     @RequestMapping(value = Const.URLMAPPING_GET_LESSON_COURSE, method = RequestMethod.GET)
     public @ResponseBody
     String getLessonOfCourse(@PathVariable("course_id") Integer courseId) {
@@ -157,7 +197,11 @@ public class LessonController {
         return response.toResponseJson();
     }
 
-//    @Secured("isAuthenticated()")
+    /**
+     * レッソンの詳細な内容をとる
+     * @param lessonId　レッソンのＩＤ
+     * @return　返事のＪＳＯＮ
+     */
     @RequestMapping(value = Const.URLMAPPING_GET_LESSON, method = RequestMethod.GET)
     public @ResponseBody
     String getLesson(@PathVariable("lesson_id") Integer lessonId) {
@@ -201,6 +245,12 @@ public class LessonController {
         return response.toResponseJson();
     }
 
+    /**
+     * レッソンのバージョンをとる
+     * @param lessonId　レッソンのＩＤ
+     * @param version　バージョンの名前
+     * @return　返事のＪＳＯＮ
+     */
     @PreAuthorize("hasAuthority(2)")
     @RequestMapping(value = Const.URLMAPPING_GET_LESSON_VERSION, method = RequestMethod.GET)
     public @ResponseBody
@@ -222,6 +272,12 @@ public class LessonController {
         return response.toResponseJson();
     }
 
+    
+    /**
+     * レッソンを消す
+     * @param lessonId　レッソンのＩＤ
+     * @return　返事のＪＳＯＮ
+     */
     @PreAuthorize("hasAuthority(2)")
     @RequestMapping(value = Const.URLMAPPING_DELETE_LESSON, method = RequestMethod.GET)
     public @ResponseBody

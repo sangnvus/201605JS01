@@ -10,19 +10,39 @@ import javax.persistence.Table;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
+/**
+ * @author CuHo
+ *　和越言葉のクラス
+ */
 @Entity
 @DynamicInsert
 @DynamicUpdate
 @Table(name = "Javi")
 public class JaviModel {
+	
+	/**
+	 * 和越言葉のモデル
+	 */
 	@Id
     @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+	
+	/**
+	 * 和越言葉
+	 */
 	@Column(name = "word", columnDefinition ="text", nullable = false)
 	private String word;
+	
+	/**
+	 * 和越言葉のかな
+	 */
 	@Column(name = "kana", columnDefinition ="text", nullable = true)
 	private String kana;
+	
+	/**
+	 * 和越言葉の意味
+	 */
 	@Column(name = "mean", columnDefinition ="text", nullable = false)
 	private String means;
 	public JaviModel(Integer id, String word, String kana, String means) {

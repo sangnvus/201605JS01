@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +17,10 @@ import vn.edu.fu.veazy.core.response.ResponseCode;
 import vn.edu.fu.veazy.core.service.CourseService;
 
 @CrossOrigin(origins="http://localhost:3003")
+/**
+ * @author CuHo
+ *
+ */
 @Controller("Course Controller")
 public class CourseController {
 
@@ -25,8 +28,13 @@ public class CourseController {
     private final static org.slf4j.Logger LOGGER = LoggerFactory.getLogger(LessonController.class);
     
     @Autowired
+    /** Course service*/
     private CourseService courseService;
 
+    /**
+     * 全部のレベルをとる
+     * @return 返事のＪＳＯＮ
+     */
     @RequestMapping(value = Const.URLMAPPING_GET_COURSES, method = RequestMethod.GET)
     public @ResponseBody
     String getCourses() {

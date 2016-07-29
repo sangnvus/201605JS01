@@ -13,11 +13,22 @@ import org.hibernate.annotations.DynamicUpdate;
 @DynamicUpdate
 @Table(name = "Example")
 public class ExampleModel {
+	/**
+     * 例えのＩＤ
+     */
 	@Id
     @Column(name = "id", nullable = false)
     private Integer id;
+	
+	/**
+     * 例えの日本語の文
+     */
 	@Column(name = "ja", columnDefinition ="text", nullable = false)
 	private String ja;
+	
+	/**
+     * 例えのベトナム語の文
+     */
 	@Column(name = "vi",columnDefinition ="text", nullable = false)
 	private String vi;
 	public ExampleModel(Integer id, String ja, String vi) {

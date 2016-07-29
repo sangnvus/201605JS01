@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,11 +27,24 @@ public class ReportController {
      */
     private final static org.slf4j.Logger LOGGER = LoggerFactory.getLogger(LessonController.class);
 
+    /**
+     * report service
+     */
     @Autowired
     private ReportService reportService;
+    
+    /**
+     * user service
+     */
     @Autowired
     private UserService userService;
 
+    
+    /**
+     * レポートの詳細な内容をとる
+     * @param reportId　レポートのＩＤ
+     * @return　返事のＪＳＯＮ
+     */
     @PreAuthorize("hasAnyAuthority(1,2)")
     @RequestMapping(value = Const.URLMAPPING_GET_REPORT, method = RequestMethod.GET)
     public @ResponseBody
@@ -53,7 +65,11 @@ public class ReportController {
         return response.toResponseJson();
     }
     
-
+    /**
+     * 全部のレポートをとる
+     * @param principal　要求する人
+     * @return　返事のＪＳＯＮ
+     */
     @PreAuthorize("hasAnyAuthority(1,2)")
     @RequestMapping(value = Const.URLMAPPING_GET_ALL_REPORT, method = RequestMethod.GET)
     public @ResponseBody
@@ -76,7 +92,12 @@ public class ReportController {
         }
         return response.toResponseJson();
     }
-
+    
+    /**
+     * 報告を読んだ状態に変更
+     * @param reportId 報告のＩＤ
+     * @return　返事のＪＳＯＮ
+     */
     @PreAuthorize("hasAnyAuthority(1,2)")
     @RequestMapping(value = Const.URLMAPPING_READ_REPORT, method = RequestMethod.GET)
     public @ResponseBody
@@ -95,7 +116,12 @@ public class ReportController {
         }
         return response.toResponseJson();
     }
-
+    
+    /**
+     * 報告を消す
+     * @param reportId　報告のＩＤ
+     * @return　返事のＪＳＯＮ
+     */
     @PreAuthorize("hasAnyAuthority(1,2)")
     @RequestMapping(value = Const.URLMAPPING_DELETE_REPORT, method = RequestMethod.GET)
     public @ResponseBody
