@@ -7,8 +7,10 @@ package vn.edu.fu.veazy.core.common;
  *
  */
 public class Const {
-    
-    /************************* CORS Config ******************************/
+
+    /**
+     * *********************** CORS Config *****************************
+     */
     public static final boolean CORS_HEADER_ENABLED = true;
 
     /**
@@ -39,64 +41,64 @@ public class Const {
 
     //lesson api
     /**
-     * レッソンの作りのＡＰＩ
+     * レッソン�?�作り�?�ＡＰＩ
      */
     public static final String URLMAPPING_CREATE_LESSON = URL_PREFIX + "/lessons/new";
-    
+
     /**
-     * レッソンのバージョンの取得のＡＰＩ
+     * レッソン�?��?ージョン�?��?�得�?�ＡＰＩ
      */
     public static final String URLMAPPING_GET_LESSON_VERSION = URL_PREFIX + "/lessons/{lesson_id}/ver{version}";
-    
+
     /**
-     * レッソンのアップデートのＡＰＩ
+     * レッソン�?�アップデート�?�ＡＰＩ
      */
     public static final String URLMAPPING_UPDATE_LESSON = URL_PREFIX + "/lessons/update/{lesson_id}";
-    
+
     /**
-     * レッソンの出版のＡＰＩ
+     * レッソン�?�出版�?�ＡＰＩ
      */
     public static final String URLMAPPING_PUBLISH_LESSON = URL_PREFIX + "/lessons/publish/{lesson_id}";
-    
+
     /**
-     * レッソンの報告のＡＰＩ
+     * レッソン�?�報告�?�ＡＰＩ
      */
     public static final String URLMAPPING_REPORT_LESSON = URL_PREFIX + "/lessons/report/{lesson_id}";
-    
+
     /**
-     * レベルの全部のレッソンの取得のＡＰＩ
+     * レベル�?�全部�?�レッソン�?��?�得�?�ＡＰＩ
      */
     public static final String URLMAPPING_GET_LESSON_COURSE = URL_PREFIX + "/courses/{course_id}/lessons";
-    
+
     /**
-     * レッソンの取得のＡＰＩ
+     * レッソン�?��?�得�?�ＡＰＩ
      */
     public static final String URLMAPPING_GET_LESSON = URL_PREFIX + "/lessons/{lesson_id}";
-    
+
     /**
-     * 全部のレッソンの取得のＡＰＩ
+     * 全部�?�レッソン�?��?�得�?�ＡＰＩ
      */
     public static final String URLMAPPING_GET_ALL_LESSON = URL_PREFIX + "/lessons";
-    
+
     /**
-     * レッソンの削除のＡＰＩ
+     * レッソン�?�削除�?�ＡＰＩ
      */
     public static final String URLMAPPING_DELETE_LESSON = URL_PREFIX + "/lessons/delete/{lesson_id}";
 
     //course api
     /**
-     * 全部のレベルの取得のＡＰＩ
+     * 全部�?�レベル�?��?�得�?�ＡＰＩ
      */
     public static final String URLMAPPING_GET_COURSES = URL_PREFIX + "/courses";
 
     //dictionary
     /**
-     * 和越辞書の検索のＡＰＩ
+     * 和越辞書�?�検索�?�ＡＰＩ
      */
     public static final String URLMAPPING_LOOKUP_JAVI = URL_PREFIX + "/dict/javi/";
-    
+
     /**
-     * 越和辞書の検索のＡＰＩ
+     * 越和辞書�?�検索�?�ＡＰＩ
      */
     public static final String URLMAPPING_LOOKUP_VIJA = URL_PREFIX + "/dict/vija/";
 
@@ -110,44 +112,46 @@ public class Const {
 
     //exam api 
     public static final String URLMAPPING_CREATE_EXAM = URL_PREFIX + "/exams";
-    
+    public static final String URLMAPPING_SUBMIT_EXAM_ANSWER = URL_PREFIX + "/exams/submit";
+    public static final String URLMAPPING_GET_EXAM = URL_PREFIX + "/exams/{exam_id}";
+    public static final String URLMAPPING_REDO_EXAM = URL_PREFIX + "/exams/{exam_id}/redo";
+
     //report api
     /**
-     * レポートの取得のＡＰＩ
+     * レ�?ート�?��?�得�?�ＡＰＩ
      */
     public static final String URLMAPPING_GET_REPORT = URL_PREFIX + "/report/get/{report_id}";
-    
+
     /**
-     * 全部のレポートの取得のＡＰＩ
+     * 全部�?�レ�?ート�?��?�得�?�ＡＰＩ
      */
     public static final String URLMAPPING_GET_ALL_REPORT = URL_PREFIX + "/report/all";
-    
+
     /**
-     * レポートを読んだ状態に変更のＡＰＩ
+     * レ�?ートを読ん�?�状態�?�変更�?�ＡＰＩ
      */
     public static final String URLMAPPING_READ_REPORT = URL_PREFIX + "/report/read/{report_id}";
-    
+
     /**
-     * レポートの削除のＡＰＩ
+     * レ�?ート�?�削除�?�ＡＰＩ
      */
     public static final String URLMAPPING_DELETE_REPORT = URL_PREFIX + "/report/delete/{report_id}";
 
     /**
      * *********************** Content status **************************
      */
-    
     /**
-     * レッソンの読んだ状態
+     * レッソン�?�読ん�?�状態
      */
     public static final Integer UPDATING = 1;
-    
+
     /**
-     * レッソンの出版状態
+     * レッソン�?�出版状態
      */
     public static final Integer PUBLISHED = 2;
-    
+
     /**
-     * レッソンの最初の指数
+     * レッソン�?�最�?�?�指数
      */
     public static final Integer START_INDEX = 1;
 
@@ -155,32 +159,35 @@ public class Const {
      * *********************** User Role **************************
      */
     /**
-     * 管理
+     * 管�?�
      */
     public static final Integer ROLE_ADMIN = 1;
-    
+
     /**
      * 編集員
      */
     public static final Integer ROLE_EDITOR = 2;
-    
+
     /**
      * 学習者
      */
     public static final Integer ROLE_LEARNER = 3;
-    
-     /************************* Question type ***************************/
-    
+
+    /**
+     * *********************** Question type **************************
+     */
     public static final Integer ALL = 0;
     public static final Integer SINGULAR = 1;
     public static final Integer GROUP = 2;
-    
-    /************************* Question Answer type ***************************/
-    
+
+    /**
+     * *********************** Question Answer type **************************
+     */
     public static final Integer MULTIPLE_CHOICE = 1;
-    
-    /************************* Question Skill type ***************************/
-    
+
+    /**
+     * *********************** Question Skill type **************************
+     */
     public static final Integer VOCABULARY = 1;
     public static final Integer GRAMMAR = 2;
     public static final Integer READING = 3;
