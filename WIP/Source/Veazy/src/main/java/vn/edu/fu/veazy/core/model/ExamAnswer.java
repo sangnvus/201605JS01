@@ -7,7 +7,10 @@ package vn.edu.fu.veazy.core.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.Access;
+import javax.persistence.AccessType;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -30,8 +33,12 @@ public class ExamAnswer extends BasicModel {
     private ExamModel exam;
     @Column(name = "questionId", nullable = false)
     private Integer questionId;
+    @ElementCollection
+    @Access(AccessType.PROPERTY)
     @Column(name = "userAnswer", nullable = false)
     private List<String> userAnswer = new ArrayList<>();
+    @ElementCollection
+    @Access(AccessType.PROPERTY)
     @Column(name = "correctAnswer", nullable = false)
     private List<String> correctAnswer = new ArrayList<>();
 

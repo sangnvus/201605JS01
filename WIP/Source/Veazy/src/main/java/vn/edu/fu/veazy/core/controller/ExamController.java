@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Objects;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -68,6 +69,7 @@ public class ExamController {
      * @param principal
      * @return json string
      */
+    @PreAuthorize("!isAuthenticated()")
     @RequestMapping(value = Const.URLMAPPING_CREATE_EXAM, method = RequestMethod.POST)
     public @ResponseBody
     String createExam(@ModelAttribute("create-exam-form") CreateExamForm form,
@@ -111,6 +113,7 @@ public class ExamController {
      * @param principal
      * @return json string
      */
+    @PreAuthorize("!isAuthenticated()")
     @RequestMapping(value = Const.URLMAPPING_SUBMIT_EXAM_ANSWER, method = RequestMethod.POST)
     public @ResponseBody
     String submitExamAnswer(@ModelAttribute("submit-exam-answer-form") SubmitExamAnswerForm form,
@@ -177,6 +180,7 @@ public class ExamController {
      * @param principal
      * @return json string
      */
+    @PreAuthorize("!isAuthenticated()")
     @RequestMapping(value = Const.URLMAPPING_GET_EXAM, method = RequestMethod.GET)
     public @ResponseBody
     String getExamAnswer(@PathVariable("exam_id") Integer examId,
@@ -218,7 +222,8 @@ public class ExamController {
      * @param principal
      * @return json string
      */
-    @RequestMapping(value = Const.URLMAPPING_GET_EXAM, method = RequestMethod.GET)
+    @PreAuthorize("!isAuthenticated()")
+    @RequestMapping(value = Const.URLMAPPING_REDO_EXAM, method = RequestMethod.GET)
     public @ResponseBody
     String redoExam(@PathVariable("exam_id") Integer examId,
             Principal principal) {

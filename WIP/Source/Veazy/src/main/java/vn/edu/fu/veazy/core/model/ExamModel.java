@@ -7,12 +7,17 @@ package vn.edu.fu.veazy.core.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.Access;
+import javax.persistence.AccessType;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import vn.edu.fu.veazy.core.form.SubmitExamAnswerForm;
 
 /**
@@ -31,8 +36,10 @@ public class ExamModel extends BasicModel {
     private Integer courseId;
     @Column(name = "questionSkill", nullable = true)
     private Integer questionSkill;
-    @OneToMany(mappedBy = "question")
+    @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "question")
     @Column(name = "listQuestions", nullable = false)
+    @Access(AccessType.PROPERTY)
+    @LazyCollection(LazyCollectionOption.FALSE)
     private List<ExamAnswer> listQuestions = new ArrayList<>();
     @Column(name = "result", columnDefinition = "FLOAT4 DEFAULT 0.0", nullable = false)
     private Double result = 0.0;
