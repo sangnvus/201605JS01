@@ -24,6 +24,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import vn.edu.fu.veazy.core.common.Const;
 import vn.edu.fu.veazy.core.form.FileUploadForm;
+import vn.edu.fu.veazy.core.model.UserModel;
 import vn.edu.fu.veazy.core.response.Response;
 import vn.edu.fu.veazy.core.response.ResponseCode;
 import vn.edu.fu.veazy.core.response.UploadFileResponse;
@@ -97,10 +98,16 @@ public class CoreController {
     @PreAuthorize("isAuthenticated()") // ADMIN
     @RequestMapping(value = Const.URLMAPPING_MAKE_ADMIN, method = RequestMethod.GET)
     public @ResponseBody
-    String makeAdmin(@PathVariable("user_id") Integer userId) {
+    String makeAdmin(@PathVariable("user_id") String userId) { // thuc chat la username luoi sua :))
         Response response = new Response(ResponseCode.BAD_REQUEST);
         try {
-            userService.changeUserRoll(userId, 1);
+            UserModel user = userService.findUserByUsername(userId);
+            if (user == null) {
+                LOGGER.error("User not exist!");
+                response.setCode(ResponseCode.USER_NOT_FOUND);
+                return response.toResponseJson();
+            }
+            userService.changeUserRoll(user.getId(), 1);
             response.setCode(ResponseCode.SUCCESS);
             
             LOGGER.debug("change user role successfully!");
@@ -119,10 +126,16 @@ public class CoreController {
     @PreAuthorize("isAuthenticated()") // EDITOR
     @RequestMapping(value = Const.URLMAPPING_MAKE_EDITOR, method = RequestMethod.GET)
     public @ResponseBody
-    String makeEditor(@PathVariable("user_id") Integer userId) {
+    String makeEditor(@PathVariable("user_id") String userId) { // thuc chat la username luoi sua :))
         Response response = new Response(ResponseCode.BAD_REQUEST);
         try {
-            userService.changeUserRoll(userId, 2);
+            UserModel user = userService.findUserByUsername(userId);
+            if (user == null) {
+                LOGGER.error("User not exist!");
+                response.setCode(ResponseCode.USER_NOT_FOUND);
+                return response.toResponseJson();
+            }
+            userService.changeUserRoll(user.getId(), 2);
             response.setCode(ResponseCode.SUCCESS);
             
             LOGGER.debug("change user role successfully!");

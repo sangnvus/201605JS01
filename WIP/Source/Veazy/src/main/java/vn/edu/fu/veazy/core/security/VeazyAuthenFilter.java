@@ -1,7 +1,6 @@
 package vn.edu.fu.veazy.core.security;
 
 import java.io.IOException;
-import java.util.Enumeration;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -10,21 +9,16 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import vn.edu.fu.veazy.core.common.Const;
-import vn.edu.fu.veazy.core.controller.UserController;
 
 public class VeazyAuthenFilter extends AbstractAuthenticationProcessingFilter {
-    private Logger LOGGER = LoggerFactory.getLogger(VeazyAuthenFilter.class);
     
     private static final String URL_LOGIN = "/api/login";
 

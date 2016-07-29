@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -199,7 +198,7 @@ public class UserController {
      *
      * @return json string
      */
-    @Secured("isAuthenticated()")
+    @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = Const.URLMAPPING_UPDATE_CURRENT_USER, method = RequestMethod.POST)
     public @ResponseBody
     String updateCurrentUser(Principal principal,
@@ -233,7 +232,7 @@ public class UserController {
      *
      * @return json string
      */
-    @Secured("isAuthenticated()")
+    @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = Const.URLMAPPING_CHGPWD_CURRENT_USER, method = RequestMethod.POST)
     public @ResponseBody
     String changePasswordCurrentUser(Principal principal,
