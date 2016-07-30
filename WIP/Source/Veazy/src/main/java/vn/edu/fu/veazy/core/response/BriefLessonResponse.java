@@ -5,12 +5,19 @@ import vn.edu.fu.veazy.core.common.utils.JsonUtils;
 public class BriefLessonResponse {
 	private String lessonId;
 	private String title;
-	private String description;
-	public String getDescription() {
-        return description;
+	private Integer courseId;
+    private Integer version;
+    public Integer getCourseId() {
+        return courseId;
     }
-    public void setDescription(String description) {
-        this.description = description;
+    public void setCourseId(Integer courseId) {
+        this.courseId = courseId;
+    }
+    public Integer getVersion() {
+        return version;
+    }
+    public void setVersion(Integer version) {
+        this.version = version;
     }
     public String getLessonId() {
 		return lessonId;

@@ -42,7 +42,7 @@ public class UserModel extends BasicModel {
     @Column(name = "address", nullable = true)
     private String address;
     @Column(name = "role", columnDefinition="INT DEFAULT 3", nullable = false)
-    private Integer role = 1;
+    private Integer role;
     @Column(name = "hobby", nullable = true)
     private String hobby;
     @Column(name = "bio", nullable = true)

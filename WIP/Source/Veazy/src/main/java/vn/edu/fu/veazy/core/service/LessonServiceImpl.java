@@ -238,7 +238,8 @@ public class LessonServiceImpl implements LessonService{
 			LessonVersionModel version = lessonVersionDao
 			        .findById(lessonModel.getCurrentVersionId());
 			response.setTitle(version.getTitle());
-			response.setDescription(version.getDescription());
+            response.setCourseId(lessonModel.getCourseId());
+			response.setVersion(version.getVersion());
 			listResult.add(response);
 		}
 		return listResult;
@@ -260,7 +261,8 @@ public class LessonServiceImpl implements LessonService{
             LessonVersionModel version = lessonVersionDao
                     .findById(Integer.valueOf(lessonModel.getCurrentVersionId()));
             response.setTitle(version.getTitle());
-            response.setDescription(version.getDescription());
+            response.setCourseId(lessonModel.getCourseId());
+            response.setVersion(version.getVersion());
             listResult.add(response);
         }
         return listResult;
