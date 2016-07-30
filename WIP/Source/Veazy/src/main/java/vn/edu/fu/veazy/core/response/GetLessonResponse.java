@@ -11,6 +11,8 @@ public class GetLessonResponse {
 	private String description;
 
 	private Long updateDate;
+	private Integer state;
+    private Integer version;
 
 	private String vocabulary;
 	private String grammar;
@@ -27,6 +29,8 @@ public class GetLessonResponse {
 		 lessonTitle = currentVersion.getTitle();
 		 description = currentVersion.getDescription();
 		 updateDate = currentVersion.getUpdateDate();
+		 state = currentVersion.getState();
+         version = currentVersion.getVersion();
 		 vocabulary = currentVersion.getVocabulary();
 		 grammar = currentVersion.getGrammar();
 		 conversation = currentVersion.getReading();
@@ -36,7 +40,24 @@ public class GetLessonResponse {
 		 previousLessonId = previousId;
 		 nextLessonId = nextId;
 	}
-	public Integer getLessonId() {
+	
+	public Integer getVersion() {
+        return version;
+    }
+
+    public void setVersion(Integer version) {
+        this.version = version;
+    }
+
+    public Integer getState() {
+        return state;
+    }
+
+    public void setState(Integer state) {
+        this.state = state;
+    }
+
+    public Integer getLessonId() {
 		return lessonId;
 	}
 	public void setLessonId(Integer lessonId) {

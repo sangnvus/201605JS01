@@ -5,10 +5,17 @@ import vn.edu.fu.veazy.core.common.utils.JsonUtils;
 public class BriefLessonResponse {
 	private String lessonId;
 	private String title;
-	private Integer courseId;
+    private Integer state;
+    private Integer courseId;
     private Integer version;
     private String description;
-    
+
+    public Integer getState() {
+        return state;
+    }
+    public void setState(Integer state) {
+        this.state = state;
+    }
     public String getDescription() {
         return description;
     }

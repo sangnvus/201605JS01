@@ -221,8 +221,6 @@ public class LessonServiceImpl implements LessonService{
     @SuppressWarnings("unchecked")
 	@Transactional
 	public List<BriefLessonResponse> getLessonsOfCourse(Integer courseId) throws Exception {
-		LessonModel sample = new LessonModel();
-		sample.setCourseId(courseId);
 		String sql = "select * from Lesson les where les.courseId = " + courseId
 		        + " and deleteflag = false";
         List<LessonModel> listLesson = (List<LessonModel>) lessonDao.executeSql(sql, LessonModel.class);
@@ -241,6 +239,7 @@ public class LessonServiceImpl implements LessonService{
             response.setCourseId(lessonModel.getCourseId());
 			response.setVersion(version.getVersion());
             response.setDescription(version.getDescription());
+            response.setState(version.getState());
 			listResult.add(response);
 		}
 		return listResult;
@@ -265,12 +264,14 @@ public class LessonServiceImpl implements LessonService{
             response.setCourseId(lessonModel.getCourseId());
             response.setVersion(version.getVersion());
             response.setDescription(version.getDescription());
+            response.setState(version.getState());
             listResult.add(response);
         }
         return listResult;
     }
 
 	@Override
+    @SuppressWarnings("unchecked")
 	@Transactional
 	public GetLessonResponse getLesson(Integer lessonId) throws Exception {
 		LessonModel lesson =  lessonDao.findById(Integer.valueOf(lessonId));
@@ -279,23 +280,21 @@ public class LessonServiceImpl implements LessonService{
 		}
 		LessonVersionModel currentVersion = lessonVersionDao
 		        .findById(lesson.getCurrentVersionId());
-		//get previous,next lesson id
-		Integer nextId = null,previousId = null;
-		if(lesson.getIndex() != Const.START_INDEX){
-			LessonModel sample = new LessonModel();
-			sample.setCourseId(lesson.getCourseId());
-			sample.setIndex(lesson.getIndex()-1);
-			previousId = lessonDao.findByExample(sample).get(0).getId();
-		}
-		LessonModel sample = new LessonModel();
-		sample.setCourseId(lesson.getCourseId());
-		sample.setIndex(lesson.getIndex()+1);
-		List<LessonModel> listLesson = lessonDao.findByExample(sample);
-		if(listLesson != null && !listLesson.isEmpty()){
-			nextId = listLesson.get(0).getId();
-		}
-		
-		return new GetLessonResponse(lesson,currentVersion,nextId,previousId);
+        String sql = "select * "
+                + "from ( "
+                + "select les.id as id, "
+                + "lag(les.id) over (order by les.id asc) as previousLessonId, "
+                + "lead(les.id) over (order by les.id asc) as nextLessonId "
+                + "from Lesson les "
+                + ") x "
+                + "where x.id = " + lessonId;
+        List<Object[]> listLesson = (List<Object[]>) lessonDao.executeSql(sql, null);
+        if(listLesson == null || listLesson.isEmpty()){
+            LOGGER.error(listLesson + ": No lesson id = " + lessonId);
+            return null;
+        }
+        Object[] onlyOne = listLesson.get(0);
+        return new GetLessonResponse(lesson,currentVersion,(Integer)onlyOne[2],(Integer)onlyOne[1]);
 	}
 
 	@Override
