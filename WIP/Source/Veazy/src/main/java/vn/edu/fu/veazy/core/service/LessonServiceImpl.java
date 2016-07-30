@@ -240,6 +240,7 @@ public class LessonServiceImpl implements LessonService{
 			response.setTitle(version.getTitle());
             response.setCourseId(lessonModel.getCourseId());
 			response.setVersion(version.getVersion());
+            response.setDescription(version.getDescription());
 			listResult.add(response);
 		}
 		return listResult;
@@ -263,6 +264,7 @@ public class LessonServiceImpl implements LessonService{
             response.setTitle(version.getTitle());
             response.setCourseId(lessonModel.getCourseId());
             response.setVersion(version.getVersion());
+            response.setDescription(version.getDescription());
             listResult.add(response);
         }
         return listResult;

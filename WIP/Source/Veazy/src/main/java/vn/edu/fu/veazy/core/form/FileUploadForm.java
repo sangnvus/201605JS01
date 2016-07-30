@@ -6,23 +6,23 @@ import org.springframework.web.multipart.MultipartFile;
 
 public class FileUploadForm {
 
-    private List<MultipartFile> files;
+    private List<MultipartFile> file;
 
     public FileUploadForm() {
         super();
     }
 
-    public FileUploadForm(List<MultipartFile> files) {
+    public FileUploadForm(List<MultipartFile> file) {
         super();
-        this.files = files;
+        this.file = file;
     }
 
-    public List<MultipartFile> getFiles() {
-        return files;
+    public List<MultipartFile> getFile() {
+        return file;
     }
 
-    public void setFiles(List<MultipartFile> files) {
-        this.files = files;
+    public void setFile(List<MultipartFile> file) {
+        this.file = file;
     }
     
 }

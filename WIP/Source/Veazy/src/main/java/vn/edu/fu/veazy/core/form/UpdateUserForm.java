@@ -8,19 +8,23 @@ public class UpdateUserForm {
     private String hobby;
     private String bio;
     private String website;
+    private String quote;
 
     public UpdateUserForm() {
         super();
     }
-    
-    public UpdateUserForm(String firstName, String lastName, Long dob, String address, String hobby,
-            String bio, String website) {
+
+    public UpdateUserForm(String firstName, String lastName, Long dob, String address, String hobby, String bio,
+            String website, String quote) {
         super();
         this.firstName = firstName;
         this.lastName = lastName;
         this.dob = dob;
         this.address = address;
         this.hobby = hobby;
+        this.bio = bio;
+        this.website = website;
+        this.quote = quote;
     }
 
     public String getFirstName() {
@@ -78,4 +82,13 @@ public class UpdateUserForm {
     public void setWebsite(String website) {
         this.website = website;
     }
+
+    public String getQuote() {
+        return quote;
+    }
+
+    public void setQuote(String quote) {
+        this.quote = quote;
+    }
+    
 }

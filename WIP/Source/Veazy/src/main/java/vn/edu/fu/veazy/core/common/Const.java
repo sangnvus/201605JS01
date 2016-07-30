@@ -10,6 +10,9 @@ public class Const {
     
     /************************* CORS Config ******************************/
     public static final boolean CORS_HEADER_ENABLED = true;
+    
+    /************************* System Config ****************************/
+    public static final String RESOURCE_URL = "/res";
 
     /**
      * *********************** URL Mapping *****************************

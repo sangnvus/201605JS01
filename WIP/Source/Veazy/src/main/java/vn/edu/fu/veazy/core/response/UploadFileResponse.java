@@ -4,23 +4,23 @@ import vn.edu.fu.veazy.core.common.utils.JsonUtils;
 
 public class UploadFileResponse {
     
-	private String fileUrl;
+	private String link;
 	
 	public UploadFileResponse() {
         super();
     }
 
-    public UploadFileResponse(String fileUrl) {
+    public UploadFileResponse(String link) {
         super();
-        this.fileUrl = fileUrl;
+        this.link = link;
     }
 
-    public String getFileUrl() {
-        return fileUrl;
+    public String getLink() {
+        return link;
     }
 
-    public void setFileUrl(String fileUrl) {
-        this.fileUrl = fileUrl;
+    public void setLink(String link) {
+        this.link = link;
     }
 
     @Override

@@ -7,6 +7,14 @@ public class BriefLessonResponse {
 	private String title;
 	private Integer courseId;
     private Integer version;
+    private String description;
+    
+    public String getDescription() {
+        return description;
+    }
+    public void setDescription(String description) {
+        this.description = description;
+    }
     public Integer getCourseId() {
         return courseId;
     }

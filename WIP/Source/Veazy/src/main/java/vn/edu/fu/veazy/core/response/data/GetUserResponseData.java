@@ -22,6 +22,9 @@ public class GetUserResponseData {
     private String address;
     private Integer role;
     private String hobby;
+    private String bio;
+    private String website;
+    private String quote;
 
     public GetUserResponseData() {
     }
@@ -36,6 +39,9 @@ public class GetUserResponseData {
         this.address = user.getAddress();
         this.role = user.getRole();
         this.hobby = user.getHobby();
+        this.bio = user.getBio();
+        this.website = user.getWebsite();
+        this.quote = user.getQuote();
     }
 
     public String getEmail() {
@@ -108,6 +114,30 @@ public class GetUserResponseData {
 
     public void setHobby(String hobby) {
         this.hobby = hobby;
+    }
+
+    public String getBio() {
+        return bio;
+    }
+
+    public void setBio(String bio) {
+        this.bio = bio;
+    }
+
+    public String getWebsite() {
+        return website;
+    }
+
+    public void setWebsite(String website) {
+        this.website = website;
+    }
+
+    public String getQuote() {
+        return quote;
+    }
+
+    public void setQuote(String quote) {
+        this.quote = quote;
     }
 
 }

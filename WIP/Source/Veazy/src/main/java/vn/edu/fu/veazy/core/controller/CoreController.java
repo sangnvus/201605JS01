@@ -5,10 +5,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
+import java.security.Principal;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +27,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import vn.edu.fu.veazy.core.common.Const;
+import vn.edu.fu.veazy.core.common.utils.HttpUtils;
 import vn.edu.fu.veazy.core.form.FileUploadForm;
 import vn.edu.fu.veazy.core.model.UserModel;
 import vn.edu.fu.veazy.core.response.Response;
@@ -65,29 +70,55 @@ public class CoreController {
         return "Indexing page";
     }
 
+    /**
+     * アップロードファイル要望を取り扱い
+     * @param req servlet要望
+     * @param principal 
+     * @param uploadForm
+     * @return
+     */
     @PreAuthorize("hasAnyAuthority(1,2)")
     @RequestMapping(value = Const.URLMAPPING_UPLOADFILE, method = RequestMethod.POST)
-    public @ResponseBody String uploadFile(@ModelAttribute("uploadForm") FileUploadForm uploadForm) {
+    public @ResponseBody String uploadFile(HttpServletRequest req, Principal principal,
+            @ModelAttribute("uploadForm") FileUploadForm uploadForm) {
         Response response = new Response(ResponseCode.BAD_REQUEST);
         try {
-            List<MultipartFile> files = uploadForm.getFiles();
+             // アップロードディレクトリパスを作り
+             // アップロードデイレクトリパスは「{resource_dir}/upload/{user_id}/{yyyyMMdd}」として表され
+            String uname = principal.getName();
+            UserModel user = userService.findUserByUsername(uname);
+            String date = new SimpleDateFormat("yyyyMMdd").format(new Date());
+            String realRes = context.getRealPath(Const.RESOURCE_URL);
+            String uploadUrl = "/upload/" + user.getId() + "/" + date;
+            // 存在しないかどうかチェックしてなければ新しいのを作り
+            File uploadDir = new File(realRes + uploadUrl);
+            if (!uploadDir.exists()) {
+                uploadDir.mkdirs();
+            }
+            // ベースURL
+            String base = HttpUtils.getContextUrl(req) + Const.RESOURCE_URL + uploadUrl;
+            // アップロードファイルを取り扱い
+            List<MultipartFile> files = uploadForm.getFile();
             List<UploadFileResponse> fileNames = new ArrayList<UploadFileResponse>();
             if (null != files && files.size() > 0) {
                 for (MultipartFile multipartFile : files) {
                     String fileName = multipartFile.getOriginalFilename();
-                    LOGGER.debug(context.getRealPath("/res"));
-                    File f = new File(context.getRealPath("/res") + "/" + fileName);
-                    LOGGER.debug(f.getCanonicalPath());
+                    File f = new File(uploadDir.getAbsolutePath() + "/" + fileName);
                     if (!f.exists()) f.createNewFile();
                     InputStream is = multipartFile.getInputStream();
                     Files.copy(is, f.toPath(), StandardCopyOption.REPLACE_EXISTING);
                     is.close();
-                    fileNames.add(new UploadFileResponse("/res/" + fileName));
+                    fileNames.add(new UploadFileResponse(base + "/" + fileName));
                 }
-                response.setCode(ResponseCode.SUCCESS);
-                response.setData(fileNames);
+                if (fileNames.size() == 1 ) {
+                    return fileNames.get(0).toString();
+                } else {
+                    response.setCode(ResponseCode.SUCCESS);
+                    response.setData(fileNames);
+                    return response.toResponseJson();
+                }
             }
-        } catch (IOException e) {
+        } catch (Exception e) {
             response.setCode(ResponseCode.INTERNAL_SERVER_ERROR);
             e.printStackTrace();
         }

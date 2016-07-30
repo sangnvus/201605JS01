@@ -49,6 +49,8 @@ public class UserModel extends BasicModel {
     private String bio;
     @Column(name = "website", nullable = true)
     private String website;
+    @Column(name = "quote", nullable = true)
+    private String quote;
     @Column(name = "isBanned", columnDefinition="BOOLEAN DEFAULT FALSE", nullable = false)
     private Boolean isBanned = false;
 
@@ -64,7 +66,8 @@ public class UserModel extends BasicModel {
     }
 
     public UserModel(String email, String userName, String encryptedPassword, String firstName, String lastName,
-            Long dob, Long joinDate, String address, Integer role, String hobby, Boolean isBanned) {
+            Long dob, Long joinDate, String address, Integer role, String hobby, String bio, String website,
+            String quote, Boolean isBanned) {
         super();
         this.email = email;
         this.userName = userName;
@@ -76,6 +79,9 @@ public class UserModel extends BasicModel {
         this.address = address;
         this.role = role;
         this.hobby = hobby;
+        this.bio = bio;
+        this.website = website;
+        this.quote = quote;
         this.isBanned = isBanned;
     }
 
@@ -181,6 +187,14 @@ public class UserModel extends BasicModel {
 
     public void setWebsite(String website) {
         this.website = website;
+    }
+
+    public String getQuote() {
+        return quote;
+    }
+
+    public void setQuote(String quote) {
+        this.quote = quote;
     }
 
     public Boolean getIsBanned() {
