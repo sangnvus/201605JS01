@@ -298,6 +298,7 @@ public class LessonServiceImpl implements LessonService{
 	}
 
 	@Override
+    @Transactional
 	public void deleteLesson(Integer lessonId) throws Exception {
 		LessonModel lesson = lessonDao.findById(lessonId);
 		lesson.setDeleteDate(System.currentTimeMillis());
