@@ -134,6 +134,7 @@ public class UserServiceImpl implements UserService {
         String hobby = form.getHobby();
         String bio = form.getBio();
         String website = form.getWebsite();
+        String quote = form.getQuote();
         
         if (!Utils.isNullOrEmpty(fName)) {
             user.setFirstName(fName);
@@ -156,11 +157,15 @@ public class UserServiceImpl implements UserService {
         }
         
         if (!Utils.isNullOrEmpty(bio)) {
-            user.setHobby(bio);
+            user.setBio(bio);
         }
         
         if (!Utils.isNullOrEmpty(website)) {
-            user.setHobby(website);
+            user.setWebsite(website);
+        }
+        
+        if (!Utils.isNullOrEmpty(quote)) {
+            user.setQuote(quote);
         }
         
         update(user);

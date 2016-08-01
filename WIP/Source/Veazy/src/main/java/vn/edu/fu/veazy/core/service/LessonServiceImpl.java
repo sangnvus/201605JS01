@@ -248,7 +248,9 @@ public class LessonServiceImpl implements LessonService{
     @Override
     @Transactional
     public List<BriefLessonResponse> getAllLesson() throws Exception {
-        List<LessonModel> listLesson = (List<LessonModel>) lessonDao.getAll();
+        LessonModel les = new LessonModel();
+        les.setDeleteFlag(false);
+        List<LessonModel> listLesson = (List<LessonModel>) lessonDao.findByExample(les);
         if(listLesson == null || listLesson.isEmpty()){
             LOGGER.error(listLesson + ": No lesson");
             return null;
