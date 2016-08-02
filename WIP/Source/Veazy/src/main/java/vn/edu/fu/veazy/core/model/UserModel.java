@@ -15,6 +15,8 @@ import javax.persistence.Table;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
+import vn.edu.fu.veazy.core.common.Const;
+
 /**
  *
  * @author Hoang Linh
@@ -63,6 +65,7 @@ public class UserModel extends BasicModel {
         this.userName = userName;
         this.encryptedPassword = encryptedPassword;
         this.joinDate = joinDate;
+        this.role = Const.ROLE_LEARNER;
     }
 
     public UserModel(String email, String userName, String encryptedPassword, String firstName, String lastName,

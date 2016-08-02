@@ -143,8 +143,27 @@ public class UserController {
     @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = Const.URLMAPPING_LOGIN, method = RequestMethod.POST)
     public @ResponseBody
-    String loginProceed(@ModelAttribute("login-form") LoginForm loginForm) {
+    String loginProceed(Principal principal, @ModelAttribute("login-form") LoginForm loginForm) {
         Response response = new Response(ResponseCode.SUCCESS);
+        try {
+            String userName = principal.getName();
+            LOGGER.debug(userName);
+            UserModel user;
+            user = userService.findUserByUsername(userName);
+            if (user == null) {
+                LOGGER.error("Username not exist!");
+                response.setCode(ResponseCode.USER_NOT_FOUND);
+                return response.toResponseJson();
+            }
+            LoginResponseData data = new LoginResponseData();
+            data.setRole(user.getRole());
+            response.setCode(ResponseCode.SUCCESS);
+            response.setData(data);
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage());
+            LOGGER.error("Unknown error occured!");
+            response.setCode(ResponseCode.INTERNAL_SERVER_ERROR);
+        }
         return response.toResponseJson();
     }
 

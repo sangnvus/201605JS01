@@ -54,6 +54,11 @@ public class Const {
     /**
      * レッソンのアップデートのＡＰＩ
      */
+    public static final String URLMAPPING_DRAFT_LESSON = URL_PREFIX + "/lessons/savedraft/{lesson_id}";
+    
+    /**
+     * レッソンのアップデートのＡＰＩ
+     */
     public static final String URLMAPPING_UPDATE_LESSON = URL_PREFIX + "/lessons/update/{lesson_id}";
     
     /**

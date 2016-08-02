@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import vn.edu.fu.veazy.core.common.Const;
@@ -91,15 +92,50 @@ public class LessonController {
      * @return 返事のＪＳＯＮ
      */
     @PreAuthorize("hasAuthority(2)")
-    @RequestMapping(value = Const.URLMAPPING_UPDATE_LESSON, method = RequestMethod.POST)
+    @RequestMapping(value = Const.URLMAPPING_DRAFT_LESSON, method = RequestMethod.POST)
     public @ResponseBody
-    String updateLesson(Principal principal, @ModelAttribute("update-lesson-form") UpdateLessonForm form, @PathVariable("lesson_id") Integer lessonId) {
+    String saveDraftLesson(Principal principal,
+            @ModelAttribute("update-lesson-form") UpdateLessonForm form,
+            @PathVariable("lesson_id") Integer lessonId) {
         Response response = new Response(ResponseCode.BAD_REQUEST);
         try {
             String userName = principal.getName();
             UserModel user = userService.findUserByUsername(userName);
             form.setLessonId(lessonId);
             lessonService.updateLesson(user.getId(), form);
+            response.setCode(ResponseCode.SUCCESS);
+
+            LOGGER.debug("Update lesson successfully!");
+
+            return response.toResponseJson();
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage());
+            LOGGER.error("Unknown error occured!");
+            response.setCode(ResponseCode.INTERNAL_SERVER_ERROR);
+        }
+        return response.toResponseJson();
+    }
+
+    /**
+     * レッソンをアップデートのコントローラー
+     * @param principal 要求する人
+     * @param form レッソンをアップデートの形式
+     * @param lessonId レッソンのＩＤ
+     * @return 返事のＪＳＯＮ
+     */
+    @PreAuthorize("hasAuthority(2)")
+    @RequestMapping(value = Const.URLMAPPING_UPDATE_LESSON, method = RequestMethod.POST)
+    public @ResponseBody
+    String updateLesson(Principal principal,
+            @ModelAttribute("update-lesson-form") UpdateLessonForm form,
+            @PathVariable("lesson_id") Integer lessonId) {
+        Response response = new Response(ResponseCode.BAD_REQUEST);
+        try {
+            String userName = principal.getName();
+            UserModel user = userService.findUserByUsername(userName);
+            form.setLessonId(lessonId);
+            lessonService.updateLesson(user.getId(), form);
+            lessonService.publishLessonVersion(user.getId(), lessonId);
             response.setCode(ResponseCode.SUCCESS);
 
             LOGGER.debug("Update lesson successfully!");
@@ -204,10 +240,11 @@ public class LessonController {
      */
     @RequestMapping(value = Const.URLMAPPING_GET_LESSON, method = RequestMethod.GET)
     public @ResponseBody
-    String getLesson(@PathVariable("lesson_id") Integer lessonId) {
+    String getLesson(@PathVariable("lesson_id") Integer lessonId,
+            @RequestParam(required = false) String action) {
         Response response = new Response(ResponseCode.BAD_REQUEST);
         try {
-            GetLessonResponse data = lessonService.getLesson(lessonId);
+            GetLessonResponse data = lessonService.getLesson(lessonId, "edit".equals(action));
             response.setCode(ResponseCode.SUCCESS);
             response.setData(data);
 

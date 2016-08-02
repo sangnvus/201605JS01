@@ -82,7 +82,7 @@ public class LessonServiceImpl implements LessonService{
 		}
 		//get all version in lesson
 		
-		List<LessonVersionModel> listVersion = getVersionOfLesson(lessonId);
+		List<LessonVersionModel> listVersion = getVersionOfLesson(lessonId, Const.PUBLISHED);
 				
 		//get request version
 		LessonVersionModel lessonVersion = null;
@@ -113,6 +113,8 @@ public class LessonServiceImpl implements LessonService{
 		if(lesson == null || lesson.isDeleteFlag()){
 			throw new Exception("lesson doesn't exist");
 		}
+		lesson.setCourseId(form.getCourseId());
+		lessonDao.update(lesson);
 		
 		//get version in updating state
 		LessonVersionModel sample = new LessonVersionModel();
@@ -146,7 +148,8 @@ public class LessonServiceImpl implements LessonService{
 			updatingVersion = new LessonVersionModel();
 			updatingVersion.setCreatorId(requesterId);
 			updatingVersion.setCreateDate(System.currentTimeMillis());
-			updatingVersion.setVersion(getVersionOfLesson(form.getLessonId()).size()+1);
+			updatingVersion.setVersion(
+			        getVersionOfLesson(form.getLessonId(), Const.PUBLISHED).size()+1);
 			updatingVersion.setLessonId(form.getLessonId());
 			updatingVersion.setState(Const.UPDATING);
 			
@@ -245,29 +248,31 @@ public class LessonServiceImpl implements LessonService{
 		return listResult;
 	}
 
+    @SuppressWarnings("unchecked")
     @Override
     @Transactional
     public List<BriefLessonResponse> getAllLesson() throws Exception {
-        LessonModel les = new LessonModel();
-        les.setDeleteFlag(false);
-        List<LessonModel> listLesson = (List<LessonModel>) lessonDao.findByExample(les);
-        if(listLesson == null || listLesson.isEmpty()){
+        String sql = "select * from Lesson les where deleteflag = false";
+        List<LessonModel> listLesson = (List<LessonModel>) lessonDao.executeSql(sql, LessonModel.class);
+        if(listLesson == null){
             LOGGER.error(listLesson + ": No lesson");
             return null;
         }
         List<BriefLessonResponse> listResult = new Vector<BriefLessonResponse>();
-        for (LessonModel lessonModel : listLesson) {
-            BriefLessonResponse response = new BriefLessonResponse();
-            response.setLessonId(String.valueOf(lessonModel.getId()));
-            //get title from current version
-            LessonVersionModel version = lessonVersionDao
-                    .findById(Integer.valueOf(lessonModel.getCurrentVersionId()));
-            response.setTitle(version.getTitle());
-            response.setCourseId(lessonModel.getCourseId());
-            response.setVersion(version.getVersion());
-            response.setDescription(version.getDescription());
-            response.setState(version.getState());
-            listResult.add(response);
+        if (!listLesson.isEmpty()) {
+            for (LessonModel lessonModel : listLesson) {
+                BriefLessonResponse response = new BriefLessonResponse();
+                response.setLessonId(String.valueOf(lessonModel.getId()));
+                //get title from current version
+                LessonVersionModel version = lessonVersionDao
+                        .findById(Integer.valueOf(lessonModel.getCurrentVersionId()));
+                response.setTitle(version.getTitle());
+                response.setCourseId(lessonModel.getCourseId());
+                response.setVersion(version.getVersion());
+                response.setDescription(version.getDescription());
+                response.setState(version.getState());
+                listResult.add(response);
+            }
         }
         return listResult;
     }
@@ -275,13 +280,19 @@ public class LessonServiceImpl implements LessonService{
 	@Override
     @SuppressWarnings("unchecked")
 	@Transactional
-	public GetLessonResponse getLesson(Integer lessonId) throws Exception {
+	public GetLessonResponse getLesson(Integer lessonId, boolean edit) throws Exception {
 		LessonModel lesson =  lessonDao.findById(Integer.valueOf(lessonId));
 		if(lesson == null || lesson.isDeleteFlag()){
 			throw new Exception("lesson doesn't exist");
 		}
 		LessonVersionModel currentVersion = lessonVersionDao
-		        .findById(lesson.getCurrentVersionId());
+                .findById(lesson.getCurrentVersionId());
+		if (edit) {
+		    List<LessonVersionModel> listUpdate = getVersionOfLesson(lessonId, Const.UPDATING);
+		    if (listUpdate != null && listUpdate.size() > 0) {
+	            currentVersion = listUpdate.get(0);
+		    }
+		}
         String sql = "select * "
                 + "from ( "
                 + "select les.id as id, "
@@ -308,9 +319,10 @@ public class LessonServiceImpl implements LessonService{
 		lessonDao.update(lesson);
 	}
 
-	private List<LessonVersionModel> getVersionOfLesson(Integer lessonId) throws Exception{
+	private List<LessonVersionModel> getVersionOfLesson(Integer lessonId, Integer state) throws Exception{
 		LessonVersionModel versionSample = new LessonVersionModel();
 		versionSample.setLessonId(lessonId);
+		versionSample.setState(state);
 		return lessonVersionDao.findByExample(versionSample);
 	}
 }

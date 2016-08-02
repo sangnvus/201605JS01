@@ -16,7 +16,7 @@ public interface LessonService {
 	void publishLessonVersion(Integer requesterId,Integer lessionId) throws Exception;
 	void reportLesson(Integer reporterId,Integer lessonId,String content) throws Exception;
 	List<BriefLessonResponse> getLessonsOfCourse(Integer courseId) throws Exception;
-	GetLessonResponse getLesson(Integer lessonId)throws Exception;
+	GetLessonResponse getLesson(Integer lessonId, boolean edit)throws Exception;
 	void deleteLesson(Integer lessonId)throws Exception;
 	List<BriefLessonResponse> getAllLesson()throws Exception;
 }
