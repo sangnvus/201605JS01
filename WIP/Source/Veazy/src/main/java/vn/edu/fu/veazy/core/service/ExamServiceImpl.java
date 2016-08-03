@@ -39,8 +39,29 @@ public class ExamServiceImpl implements ExamService {
     }
 
     @Override
-    public ExamModel saveExam(ExamModel exam) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    @Transactional
+    public void saveExam(ExamModel exam) throws Exception {
+        try {
+            examDao.save(exam);
+        } catch (Exception e) {
+            // TODO custom exception
+            throw new Exception(e.getMessage(), e);
+        }
+    }
+
+    @Override
+    @Transactional
+    public ExamModel findExamById(Integer id) throws Exception {
+        try {
+            ExamModel exam = examDao.findById(id);
+            if (exam != null) {
+                return exam;
+            }
+        } catch (Exception e) {
+            // TODO custom exception
+            throw new Exception(e.getMessage(), e);
+        }
+        return null;
     }
 
 }

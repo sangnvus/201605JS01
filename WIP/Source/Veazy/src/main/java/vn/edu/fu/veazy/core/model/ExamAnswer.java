@@ -5,7 +5,12 @@
  */
 package vn.edu.fu.veazy.core.model;
 
+import java.util.ArrayList;
+import java.util.List;
+import javax.persistence.Access;
+import javax.persistence.AccessType;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -24,27 +29,35 @@ import org.hibernate.annotations.DynamicUpdate;
 public class ExamAnswer extends BasicModel {
 
     @ManyToOne
-    @JoinColumn(name="exammodel_id")
-    private ExamModel question;
+    @JoinColumn(name = "exammodel_id")
+    private ExamModel exam;
     @Column(name = "questionId", nullable = false)
     private Integer questionId;
+    @ElementCollection
+    @Access(AccessType.PROPERTY)
     @Column(name = "userAnswer", nullable = false)
-    private String userAnswer;
+    private List<String> userAnswer = new ArrayList<>();
+    @ElementCollection
+    @Access(AccessType.PROPERTY)
+    @Column(name = "correctAnswer", nullable = false)
+    private List<String> correctAnswer = new ArrayList<>();
 
     public ExamAnswer() {
     }
 
-    public ExamAnswer(Integer questionId, String userAnswer) {
+    public ExamAnswer(ExamModel exam, Integer questionId, List<String> userAnswer, List<String> correctAnswer) {
+        this.exam = exam;
         this.questionId = questionId;
         this.userAnswer = userAnswer;
+        this.correctAnswer = correctAnswer;
     }
 
-    public ExamModel getQuestion() {
-        return question;
+    public ExamModel getExam() {
+        return exam;
     }
 
-    public void setQuestion(ExamModel question) {
-        this.question = question;
+    public void setExam(ExamModel exam) {
+        this.exam = exam;
     }
 
     public Integer getQuestionId() {
@@ -55,12 +68,20 @@ public class ExamAnswer extends BasicModel {
         this.questionId = questionId;
     }
 
-    public String getUserAnswer() {
+    public List<String> getUserAnswer() {
         return userAnswer;
     }
 
-    public void setUserAnswer(String UserAnswer) {
-        this.userAnswer = UserAnswer;
+    public void setUserAnswer(List<String> userAnswer) {
+        this.userAnswer = userAnswer;
+    }
+
+    public List<String> getCorrectAnswer() {
+        return correctAnswer;
+    }
+
+    public void setCorrectAnswer(List<String> correctAnswer) {
+        this.correctAnswer = correctAnswer;
     }
 
 }
