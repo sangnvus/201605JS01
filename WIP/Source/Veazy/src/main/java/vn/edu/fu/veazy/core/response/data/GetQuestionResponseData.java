@@ -20,7 +20,7 @@ public class GetQuestionResponseData {
     private Integer questionSkil;
     private Integer courseId;
     private String question;
-    private Integer state;
+//    private Integer state;
     private Long createDate;
     private Long updateDate;
 
@@ -36,7 +36,7 @@ public class GetQuestionResponseData {
         this.questionId = question.getId();
         this.questionSkil = question.getQuestionSkill();
         this.questionType = question.getQuestionType();
-        this.state = question.getState();
+//        this.state = question.getState();
         this.updateDate = question.getUpdateDate();
     }
 
@@ -96,13 +96,13 @@ public class GetQuestionResponseData {
         this.question = question;
     }
 
-    public Integer getState() {
-        return state;
-    }
-
-    public void setState(Integer state) {
-        this.state = state;
-    }
+//    public Integer getState() {
+//        return state;
+//    }
+//
+//    public void setState(Integer state) {
+//        this.state = state;
+//    }
 
     public Long getCreateDate() {
         return createDate;

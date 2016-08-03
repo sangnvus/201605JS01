@@ -56,7 +56,7 @@ public class LessonServiceImpl implements LessonService{
 		lesson.setCreateDate(System.currentTimeMillis());
 		lessonVersion.setCreateDate(System.currentTimeMillis());
 		
-		lessonVersion.setState(Const.UPDATING);
+		lessonVersion.setState(Const.PUBLISHED);
 		
 		//save to db
 		lessonDao.save(lesson);

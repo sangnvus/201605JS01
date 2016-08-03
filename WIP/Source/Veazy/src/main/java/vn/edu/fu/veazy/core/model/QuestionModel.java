@@ -49,16 +49,16 @@ public class QuestionModel extends BasicModel implements Comparator<QuestionMode
     @Column(name = "creatorId", nullable = false)
     private Integer creatorId;
     @Column(name = "questionAnswerType", columnDefinition = "INT DEFAULT 1", nullable = false)
-    private Integer questionAnswerType = 1;
+    private Integer questionAnswerType;
     @Column(name = "questionType", columnDefinition = "INT DEFAULT 1", nullable = false)
-    private Integer questionType = 1;
+    private Integer questionType;
     @Column(name = "questionSkill", columnDefinition = "INT DEFAULT 1", nullable = false)
-    private Integer questionSkill = 1;
+    private Integer questionSkill;
     @Column(name = "numberOfQuestion", columnDefinition = "INT DEFAULT 1", nullable = false)
     // numberOfQuestion = 1 if Singular 
     // >1 if Group(the origin question)
     // =0 if is a question of Group
-    private Integer numberOfQuestion = 1;
+    private Integer numberOfQuestion;
     @Column(name = "courseId", nullable = false)
     private Integer courseId;
     @Column(name = "question", nullable = false)
@@ -73,8 +73,8 @@ public class QuestionModel extends BasicModel implements Comparator<QuestionMode
     @Access(AccessType.PROPERTY)
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<Integer> content = new ArrayList<>();
-    @Column(name = "state", columnDefinition = "INT DEFAULT 1", nullable = false)
-    private Integer state = 1;
+//    @Column(name = "state", columnDefinition = "INT DEFAULT 1", nullable = false)
+//    private Integer state;
     @Column(name = "attachment", nullable = true)
     private String attachment;
 
@@ -182,13 +182,13 @@ public class QuestionModel extends BasicModel implements Comparator<QuestionMode
         this.listAnswers = listAnswers;
     }
 
-    public Integer getState() {
-        return state;
-    }
-
-    public void setState(Integer state) {
-        this.state = state;
-    }
+//    public Integer getState() {
+//        return state;
+//    }
+//
+//    public void setState(Integer state) {
+//        this.state = state;
+//    }
 
     public String getAttachment() {
         return attachment;

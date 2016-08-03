@@ -244,7 +244,7 @@ public class LessonController {
             @RequestParam(required = false) String action) {
         Response response = new Response(ResponseCode.BAD_REQUEST);
         try {
-            GetLessonResponse data = lessonService.getLesson(lessonId, "edit".equals(action));
+            GetLessonResponse data = lessonService.getLesson(lessonId, "edit".equalsIgnoreCase(action));
             response.setCode(ResponseCode.SUCCESS);
             response.setData(data);
 

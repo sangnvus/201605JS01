@@ -27,15 +27,16 @@ public class QuestionServiceImpl implements QuestionService {
     public QuestionModel saveQuestion(QuestionModel question) throws Exception {
         try {
             questionDao.save(question);
-            List<QuestionModel> listSearchResult = questionDao.findByExample(question);
-            if (listSearchResult != null && listSearchResult.size() > 0) {
-                return listSearchResult.get(0);
-            }
+//            List<QuestionModel> listSearchResult = questionDao.findByExample(question);
+//            if (listSearchResult != null && listSearchResult.size() > 0) {
+//                return listSearchResult.get(0);
+//            }
+            return question;
         } catch (Exception e) {
             // TODO custom exception
             throw new Exception(e.getMessage(), e);
         }
-        return null;
+//        return null;
     }
 
     @Override
