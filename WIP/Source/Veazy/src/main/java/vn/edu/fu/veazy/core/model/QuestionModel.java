@@ -22,6 +22,7 @@ import javax.persistence.Table;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
+import vn.edu.fu.veazy.core.common.Const;
 import vn.edu.fu.veazy.core.controller.QuestionController;
 import vn.edu.fu.veazy.core.form.AnswerForm;
 import vn.edu.fu.veazy.core.form.QuestionForm;
@@ -30,6 +31,11 @@ import org.hibernate.annotations.Generated;
 import org.hibernate.annotations.GenerationTime;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
+import org.hibernate.search.annotations.Analyze;
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Index;
+import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.annotations.Store;
 import org.slf4j.LoggerFactory;
 
 /**
@@ -39,6 +45,7 @@ import org.slf4j.LoggerFactory;
 @Entity
 @DynamicInsert
 @DynamicUpdate
+@Indexed
 @Table(name = "`Question`")
 public class QuestionModel extends BasicModel implements Comparator<QuestionModel>{
     private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(QuestionModel.class);
@@ -61,7 +68,8 @@ public class QuestionModel extends BasicModel implements Comparator<QuestionMode
     private Integer numberOfQuestion;
     @Column(name = "courseId", nullable = false)
     private Integer courseId;
-    @Column(name = "question", nullable = false)
+    @Field(store = Store.YES, index = Index.YES, analyze = Analyze.YES)
+    @Column(name = "question", columnDefinition = "TEXT", nullable = false)
     private String question;
     @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "question")
     @Column(name = "listAnswers", nullable = false)
@@ -89,12 +97,14 @@ public class QuestionModel extends BasicModel implements Comparator<QuestionMode
         this.attachment = form.getAttachment();
         this.courseId = form.getCourseId();
         this.listAnswers.clear();
-        for (AnswerForm form1 : form.getListAnswers()) {
-            AnswerModel model = new AnswerModel();
-            model.setAnswer(form1.getAnswer());
-            model.setIsRight(form1.getIsRight());
-            model.setQuestion(this);
-            this.listAnswers.add(model);
+        if (form.getQuestionType() != Const.QUESTIONTYPE_GROUP) {
+            for (AnswerForm form1 : form.getListAnswers()) {
+                AnswerModel model = new AnswerModel();
+                model.setAnswer(form1.getAnswer());
+                model.setIsRight(form1.getIsRight());
+                model.setQuestion(this);
+                this.listAnswers.add(model);
+            }
         }
         this.question = form.getQuestion();
         this.questionAnswerType = form.getQuestionAnswerType();

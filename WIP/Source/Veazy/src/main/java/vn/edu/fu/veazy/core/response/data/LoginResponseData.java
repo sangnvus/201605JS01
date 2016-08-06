@@ -20,7 +20,7 @@ public class LoginResponseData {
         this.role = role;
     }
 
-    public Integer getRoll() {
+    public Integer getRole() {
         return role;
     }
 

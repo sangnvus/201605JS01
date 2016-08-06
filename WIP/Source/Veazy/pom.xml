@@ -136,7 +136,19 @@
             <artifactId>hibernate-core</artifactId>
             <version>${hibernate.version}</version>
         </dependency>
-    
+        <!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-search-orm -->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-search-orm</artifactId>
+            <version>5.5.4.Final</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-search-engine -->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-search-engine</artifactId>
+            <version>5.5.4.Final</version>
+        </dependency>
+
         <!-- Postgresql database -->
         <!-- http://mvnrepository.com/artifact/org.postgresql/postgresql -->
         <dependency>
@@ -152,6 +164,13 @@
           <version>${junit.version}</version>
           <scope>test</scope>
           <type>jar</type>
+        </dependency>
+        
+        <!-- https://mvnrepository.com/artifact/org.jsoup/jsoup -->
+        <dependency>
+            <groupId>org.jsoup</groupId>
+            <artifactId>jsoup</artifactId>
+            <version>1.9.2</version>
         </dependency>
         
         <!-- https://mvnrepository.com/artifact/org.springframework/spring-test -->

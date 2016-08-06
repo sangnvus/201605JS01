@@ -5,6 +5,8 @@
  */
 package vn.edu.fu.veazy.core.form;
 
+import java.util.List;
+
 /**
  *
  * @author Hoang Linh
@@ -12,8 +14,7 @@ package vn.edu.fu.veazy.core.form;
 public class CreateExamForm {
 
     private Integer courseId;
-    private Integer examSkill;
-    private Integer questionNumber;
+    private List<ExamPartForm> parts;
 
     public CreateExamForm() {
     }
@@ -26,20 +27,13 @@ public class CreateExamForm {
         this.courseId = courseId;
     }
 
-    public Integer getExamSkill() {
-        return examSkill;
+    public List<ExamPartForm> getParts() {
+        return parts;
     }
 
-    public void setExamSkill(Integer examSkill) {
-        this.examSkill = examSkill;
+    public void setParts(List<ExamPartForm> parts) {
+        this.parts = parts;
     }
-
-    public Integer getQuestionNumber() {
-        return questionNumber;
-    }
-
-    public void setQuestionNumber(Integer questionNumber) {
-        this.questionNumber = questionNumber;
-    }
+    
 
 }

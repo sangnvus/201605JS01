@@ -44,17 +44,17 @@ public class Const {
 
     //lesson api
     /**
-     * レッソン�?�作り�?�ＡＰＩ
+     * レッソン�?�作り�?�ＡＰＩ
      */
     public static final String URLMAPPING_CREATE_LESSON = URL_PREFIX + "/lessons/new";
 
     /**
-     * レッソン�?��?ージョン�?��?�得�?�ＡＰＩ
+     * レッソン�?��?ージョン�?��?�得�?�ＡＰＩ
      */
     public static final String URLMAPPING_GET_LESSON_VERSION = URL_PREFIX + "/lessons/{lesson_id}/ver{version}";
 
     /**
-     * レッソン�?�アップデート�?�ＡＰＩ
+     * レッソン�?�アップデート�?�ＡＰＩ
      */
     public static final String URLMAPPING_DRAFT_LESSON = URL_PREFIX + "/lessons/savedraft/{lesson_id}";
     
@@ -64,49 +64,49 @@ public class Const {
     public static final String URLMAPPING_UPDATE_LESSON = URL_PREFIX + "/lessons/update/{lesson_id}";
 
     /**
-     * レッソン�?�出版�?�ＡＰＩ
+     * レッソン�?�出版�?�ＡＰＩ
      */
     public static final String URLMAPPING_PUBLISH_LESSON = URL_PREFIX + "/lessons/publish/{lesson_id}";
 
     /**
-     * レッソン�?�報告�?�ＡＰＩ
+     * レッソン�?�報告�?�ＡＰＩ
      */
     public static final String URLMAPPING_REPORT_LESSON = URL_PREFIX + "/lessons/report/{lesson_id}";
 
     /**
-     * レベル�?�全部�?�レッソン�?��?�得�?�ＡＰＩ
+     * レベル�?�全部�?�レッソン�?��?�得�?�ＡＰＩ
      */
     public static final String URLMAPPING_GET_LESSON_COURSE = URL_PREFIX + "/courses/{course_id}/lessons";
 
     /**
-     * レッソン�?��?�得�?�ＡＰＩ
+     * レッソン�?��?�得�?�ＡＰＩ
      */
     public static final String URLMAPPING_GET_LESSON = URL_PREFIX + "/lessons/{lesson_id}";
 
     /**
-     * 全部�?�レッソン�?��?�得�?�ＡＰＩ
+     * 全部�?�レッソン�?��?�得�?�ＡＰＩ
      */
     public static final String URLMAPPING_GET_ALL_LESSON = URL_PREFIX + "/lessons";
 
     /**
-     * レッソン�?�削除�?�ＡＰＩ
+     * レッソン�?�削除�?�ＡＰＩ
      */
     public static final String URLMAPPING_DELETE_LESSON = URL_PREFIX + "/lessons/delete/{lesson_id}";
 
     //course api
     /**
-     * 全部�?�レベル�?��?�得�?�ＡＰＩ
+     * 全部�?�レベル�?��?�得�?�ＡＰＩ
      */
     public static final String URLMAPPING_GET_COURSES = URL_PREFIX + "/courses";
 
     //dictionary
     /**
-     * 和越辞書�?�検索�?�ＡＰＩ
+     * 和越辞書�?�検索�?�ＡＰＩ
      */
     public static final String URLMAPPING_LOOKUP_JAVI = URL_PREFIX + "/dict/javi/";
 
     /**
-     * 越和辞書�?�検索�?�ＡＰＩ
+     * 越和辞書�?�検索�?�ＡＰＩ
      */
     public static final String URLMAPPING_LOOKUP_VIJA = URL_PREFIX + "/dict/vija/";
 
@@ -126,40 +126,50 @@ public class Const {
 
     //report api
     /**
-     * レ�?ート�?��?�得�?�ＡＰＩ
+     * レ�?ート�?��?�得�?�ＡＰＩ
      */
     public static final String URLMAPPING_GET_REPORT = URL_PREFIX + "/report/get/{report_id}";
 
     /**
-     * 全部�?�レ�?ート�?��?�得�?�ＡＰＩ
+     * 全部�?�レ�?ート�?��?�得�?�ＡＰＩ
      */
     public static final String URLMAPPING_GET_ALL_REPORT = URL_PREFIX + "/report/all";
 
     /**
-     * レ�?ートを読ん�?�状態�?�変更�?�ＡＰＩ
+     * レ�?ートを読ん�?�状態�?�変更�?�ＡＰＩ
      */
     public static final String URLMAPPING_READ_REPORT = URL_PREFIX + "/report/read/{report_id}";
 
     /**
-     * レ�?ート�?�削除�?�ＡＰＩ
+     * レ�?ート�?�削除�?�ＡＰＩ
      */
     public static final String URLMAPPING_DELETE_REPORT = URL_PREFIX + "/report/delete/{report_id}";
+    
+    // search
+    /**
+     * レ�?ート�?�削除�?�ＡＰＩ
+     */
+    public static final String URLMAPPING_SEARCH_QUESTION = URL_PREFIX + "/search/question";
+    /**
+     * レ�?ート�?�削除�?�ＡＰＩ
+     */
+    public static final String URLMAPPING_SEARCH_LESSON = URL_PREFIX + "/search/lesson";
 
     /**
      * *********************** Content status **************************
      */
     /**
-     * レッソン�?�読ん�?�状態
+     * レッソン�?�読ん�?�状態
      */
     public static final Integer UPDATING = 1;
 
     /**
-     * レッソン�?�出版状態
+     * レッソン�?�出版状態
      */
     public static final Integer PUBLISHED = 2;
 
     /**
-     * レッソン�?�最�?�?�指数
+     * レッソン�?�最�?�?�指数
      */
     public static final Integer START_INDEX = 1;
 
@@ -167,7 +177,7 @@ public class Const {
      * *********************** User Role **************************
      */
     /**
-     * 管�?�
+     * 管�?�
      */
     public static final Integer ROLE_ADMIN = 1;
 
@@ -184,9 +194,9 @@ public class Const {
     /**
      * *********************** Question type **************************
      */
-    public static final Integer ALL = 0;
-    public static final Integer SINGULAR = 1;
-    public static final Integer GROUP = 2;
+    public static final Integer QUESTIONTYPE_ALL = 0;
+    public static final Integer QUESTIONTYPE_SINGULAR = 1;
+    public static final Integer QUESTIONTYPE_GROUP = 2;
 
     /**
      * *********************** Question Answer type **************************

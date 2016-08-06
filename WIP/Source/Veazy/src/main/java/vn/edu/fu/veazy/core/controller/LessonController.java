@@ -16,6 +16,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import vn.edu.fu.veazy.core.common.Const;
+import vn.edu.fu.veazy.core.common.utils.HtmlUtils;
+import vn.edu.fu.veazy.core.common.utils.Utils;
+import vn.edu.fu.veazy.core.exception.CorruptedFormException;
+import vn.edu.fu.veazy.core.exception.NullOrEmptyContentException;
 import vn.edu.fu.veazy.core.form.CreateLessonForm;
 import vn.edu.fu.veazy.core.form.ReportLessonForm;
 import vn.edu.fu.veazy.core.form.UpdateLessonForm;
@@ -70,12 +74,26 @@ public class LessonController {
             LOGGER.debug(userName);
             UserModel user = userService.findUserByUsername(userName);
 
+            if (HtmlUtils.isEmptyDocument(form.getReading())
+                    || Utils.isNullOrEmpty(form.getDescription())
+                    || HtmlUtils.isEmptyDocument(form.getGrammar())
+                    || Utils.isNullOrEmpty(form.getTitle())
+                    || HtmlUtils.isEmptyDocument(form.getListening())
+                    || HtmlUtils.isEmptyDocument(form.getPractice())
+                    || HtmlUtils.isEmptyDocument(form.getConversation())
+                    || HtmlUtils.isEmptyDocument(form.getVocabulary())) {
+                throw new NullOrEmptyContentException("Null or empty content");
+            }
+            
             CreateLessonResponse data = lessonService.createLesson(user.getId(), form);
             response.setCode(ResponseCode.SUCCESS);
             response.setData(data);
             LOGGER.debug("Create new lesson successfully!");
 
             return response.toResponseJson();
+        } catch (CorruptedFormException e) {
+            LOGGER.error(e.getMessage());
+            response.setCode(e.getCode());
         } catch (Exception e) {
             LOGGER.error(e.getMessage());
             LOGGER.error("Unknown error occured!");
@@ -102,6 +120,18 @@ public class LessonController {
             String userName = principal.getName();
             UserModel user = userService.findUserByUsername(userName);
             form.setLessonId(lessonId);
+
+            if (HtmlUtils.isEmptyDocument(form.getArticle())
+                    || Utils.isNullOrEmpty(form.getDescription())
+                    || HtmlUtils.isEmptyDocument(form.getGrammar())
+                    || Utils.isNullOrEmpty(form.getTitle())
+                    || HtmlUtils.isEmptyDocument(form.getListening())
+                    || HtmlUtils.isEmptyDocument(form.getPractice())
+                    || HtmlUtils.isEmptyDocument(form.getReading())
+                    || HtmlUtils.isEmptyDocument(form.getVocabulary())) {
+                throw new NullOrEmptyContentException("Null or empty content");
+            }
+            
             lessonService.updateLesson(user.getId(), form);
             response.setCode(ResponseCode.SUCCESS);
 
@@ -134,6 +164,18 @@ public class LessonController {
             String userName = principal.getName();
             UserModel user = userService.findUserByUsername(userName);
             form.setLessonId(lessonId);
+
+            if (HtmlUtils.isEmptyDocument(form.getArticle())
+                    || Utils.isNullOrEmpty(form.getDescription())
+                    || HtmlUtils.isEmptyDocument(form.getGrammar())
+                    || Utils.isNullOrEmpty(form.getTitle())
+                    || HtmlUtils.isEmptyDocument(form.getListening())
+                    || HtmlUtils.isEmptyDocument(form.getPractice())
+                    || HtmlUtils.isEmptyDocument(form.getReading())
+                    || HtmlUtils.isEmptyDocument(form.getVocabulary())) {
+                throw new NullOrEmptyContentException("Null or empty content");
+            }
+            
             lessonService.updateLesson(user.getId(), form);
             lessonService.publishLessonVersion(user.getId(), lessonId);
             response.setCode(ResponseCode.SUCCESS);

@@ -17,7 +17,7 @@ public class GetQuestionResponseData {
     private Integer questionCode;
     private Integer questionAnswerType;
     private Integer questionType;
-    private Integer questionSkil;
+    private Integer questionSkill;
     private Integer courseId;
     private String question;
 //    private Integer state;
@@ -34,7 +34,7 @@ public class GetQuestionResponseData {
         this.questionAnswerType = question.getQuestionAnswerType();
         this.questionCode = question.getQuestionCode();
         this.questionId = question.getId();
-        this.questionSkil = question.getQuestionSkill();
+        this.questionSkill = question.getQuestionSkill();
         this.questionType = question.getQuestionType();
 //        this.state = question.getState();
         this.updateDate = question.getUpdateDate();
@@ -72,12 +72,12 @@ public class GetQuestionResponseData {
         this.questionType = questionType;
     }
 
-    public Integer getQuestionSkil() {
-        return questionSkil;
+    public Integer getQuestionSkill() {
+        return questionSkill;
     }
 
-    public void setQuestionSkil(Integer questionSkil) {
-        this.questionSkil = questionSkil;
+    public void setQuestionSkill(Integer questionSkill) {
+        this.questionSkill = questionSkill;
     }
 
     public Integer getCourseId() {

@@ -90,21 +90,28 @@ public class QuestionController {
                 return response.toResponseJson();
             }
             model.setCreatorId(user.getId());
-            if (model.getQuestionType() == Const.GROUP) {
+            if (model.getQuestionType() == Const.QUESTIONTYPE_GROUP) {
+                LOGGER.debug("We're in");
                 List<Integer> content = new ArrayList<>();
                 List<QuestionForm> listQuestions = form.getListQuestions();
+                LOGGER.debug("list: " + listQuestions);
                 for (QuestionForm form1 : listQuestions) {
                     QuestionModel model1 = new QuestionModel(form1);
                     model1.setQuestionAnswerType(model.getQuestionAnswerType());
                     model1.setQuestionSkill(model.getQuestionSkill());
-                    model1.setQuestionType(model.getQuestionType());
+                    model1.setQuestionType(Const.QUESTIONTYPE_SINGULAR);
+                    model1.setCourseId(model.getCourseId());
                     model1.setCreatorId(user.getId());
                     model1.setNumberOfQuestion(0);
-                    QuestionModel saveQuestion = questionService.saveQuestion(model1);
-                    content.add(saveQuestion.getId());
+                    model1 = questionService.saveQuestion(model1);
+                    content.add(model1.getId());
+                    LOGGER.debug("loop: " + model1);
                 }
                 model.setContent(content);
                 model.setNumberOfQuestion(listQuestions.size());
+                LOGGER.debug("Out: " + listQuestions);
+            } else {
+                model.setNumberOfQuestion(1);
             }
             model = questionService.saveQuestion(model);
             AddQuestionResponseData data = new AddQuestionResponseData(model.getId());
@@ -161,7 +168,7 @@ public class QuestionController {
 
             question.updateProperty(form);
             //if (model.getQuestionType() == Const.SINGULAR)
-            if (Objects.equals(question.getQuestionType(), Const.GROUP)) {
+            if (Objects.equals(question.getQuestionType(), Const.QUESTIONTYPE_GROUP)) {
                 List<Integer> content = new ArrayList<>();
                 List<QuestionForm> listQuestions = form.getListQuestions();
                 for (QuestionForm form1 : listQuestions) {

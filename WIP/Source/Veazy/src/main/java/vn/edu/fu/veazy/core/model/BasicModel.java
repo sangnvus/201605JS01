@@ -13,6 +13,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
+import org.hibernate.search.annotations.DocumentId;
+import org.hibernate.search.annotations.Indexed;
+
 /**
  *
  * @author Hoang Linh
@@ -25,6 +28,7 @@ public abstract class BasicModel implements Serializable {
      */
     private static final long serialVersionUID = 222512911691563257L;
     @Id
+    @DocumentId
     @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;

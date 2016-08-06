@@ -9,9 +9,13 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
+import org.hibernate.search.annotations.DocumentId;
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Indexed;
 @Entity
 @DynamicInsert
 @DynamicUpdate
+@Indexed
 @Table(name = "LessonVersion")
 public class LessonVersionModel{
 	/**
@@ -19,6 +23,7 @@ public class LessonVersionModel{
 	 */
 	@Id
     @Column(name = "id", nullable = false)
+	@DocumentId
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 	
@@ -61,6 +66,7 @@ public class LessonVersionModel{
 	/**
 	 * 説明
 	 */
+    @Field
 	@Column(name = "description",columnDefinition ="text",  nullable = false)
 	private String description;
 	
@@ -71,36 +77,42 @@ public class LessonVersionModel{
 	/**
 	 * 語彙
 	 */
+    @Field
 	@Column(name = "vocab",columnDefinition ="text" )
 	private String vocabulary;
 	
 	/**
 	 * 文法
 	 */
+    @Field
 	@Column(name = "grammar",columnDefinition ="text")
 	private String grammar;
 	
 	/**
 	 * 読解
 	 */
+    @Field
 	@Column(name = "reading",columnDefinition ="text")
 	private String reading;
 	
 	/**
 	 * 聴解
 	 */
+    @Field
 	@Column(name = "listening",columnDefinition ="text")
 	private String listening;
 	
 	/**
 	 * 練習
 	 */
+    @Field
 	@Column(name = "practice",columnDefinition ="text")
 	private String practice;
 	
 	/**
 	 * 記事
 	 */
+    @Field
 	@Column(name = "article",columnDefinition ="text")
 	private String article;
 	

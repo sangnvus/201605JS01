@@ -14,6 +14,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
+import org.hibernate.search.annotations.Analyze;
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Index;
+import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.annotations.Store;
 
 import vn.edu.fu.veazy.core.form.AnswerForm;
 
@@ -24,12 +29,14 @@ import vn.edu.fu.veazy.core.form.AnswerForm;
 @Entity
 @DynamicInsert
 @DynamicUpdate
+@Indexed
 @Table(name = "`Answer`")
 public class AnswerModel extends BasicModel {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name="questionmodel_id")
     private QuestionModel question;
+    @Field(store = Store.YES, index = Index.YES, analyze = Analyze.YES)
     @Column(name = "answer", nullable = false)
     private String answer;
     @Column(name = "isRight", columnDefinition="BOOLEAN DEFAULT FALSE", nullable = true)
