@@ -5,39 +5,86 @@
  */
 package vn.edu.fu.veazy.core.response.data;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import vn.edu.fu.veazy.core.common.Const;
+import vn.edu.fu.veazy.core.model.AnswerModel;
 import vn.edu.fu.veazy.core.model.QuestionModel;
 
 /**
  *
  * @author Hoang Linh
  */
-public class GetQuestionResponseData {
+public class QuestionResponseData {
 
     private Integer questionId;
     private Integer questionCode;
     private Integer questionAnswerType;
     private Integer questionType;
-    private Integer questionSkil;
+    private Integer questionSkill;
     private Integer courseId;
     private String question;
-//    private Integer state;
+    private Integer numberOfQuestion;
+    //    private Integer state;
     private Long createDate;
     private Long updateDate;
+    private List<AnswerResponseData> listAnswers = new ArrayList<>();
+    private List<QuestionResponseData> listQuestions = new ArrayList<>();
 
-    public GetQuestionResponseData() {
+    public QuestionResponseData() {
     }
 
-    public GetQuestionResponseData(QuestionModel question) {
+    public QuestionResponseData(QuestionModel question) {
         this.courseId = question.getCourseId();
         this.createDate = question.getCreateDate();
         this.question = question.getQuestion();
         this.questionAnswerType = question.getQuestionAnswerType();
         this.questionCode = question.getQuestionCode();
         this.questionId = question.getId();
-        this.questionSkil = question.getQuestionSkill();
+        this.questionSkill = question.getQuestionSkill();
         this.questionType = question.getQuestionType();
 //        this.state = question.getState();
         this.updateDate = question.getUpdateDate();
+        if (this.questionType == Const.QUESTIONTYPE_GROUP) {
+            List<QuestionModel> subQuestions = question.getListQuestions();
+            if (subQuestions != null && !subQuestions.isEmpty()) {
+                for (QuestionModel q : subQuestions) {
+                    listQuestions.add(new QuestionResponseData(q));
+                }
+            }
+        } else {
+            List<AnswerModel> listAns = question.getListAnswers();
+            if (listAns != null && !listAns.isEmpty()) {
+                for (AnswerModel ans : listAns) {
+                    listAnswers.add(new AnswerResponseData(ans));
+                }
+            }
+        }
+    }
+
+    public List<QuestionResponseData> getListQuestions() {
+        return listQuestions;
+    }
+
+    public void setListQuestions(List<QuestionResponseData> listQuestions) {
+        this.listQuestions = listQuestions;
+    }
+
+    public List<AnswerResponseData> getListAnswers() {
+        return listAnswers;
+    }
+
+    public void setListAnswers(List<AnswerResponseData> listAnswers) {
+        this.listAnswers = listAnswers;
+    }
+
+    public Integer getNumberOfQuestion() {
+        return numberOfQuestion;
+    }
+
+    public void setNumberOfQuestion(Integer numberOfQuestion) {
+        this.numberOfQuestion = numberOfQuestion;
     }
 
     public Integer getQuestionId() {
@@ -72,12 +119,12 @@ public class GetQuestionResponseData {
         this.questionType = questionType;
     }
 
-    public Integer getQuestionSkil() {
-        return questionSkil;
+    public Integer getQuestionSkill() {
+        return questionSkill;
     }
 
-    public void setQuestionSkil(Integer questionSkil) {
-        this.questionSkil = questionSkil;
+    public void setQuestionSkill(Integer questionSkill) {
+        this.questionSkill = questionSkill;
     }
 
     public Integer getCourseId() {

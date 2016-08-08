@@ -14,7 +14,7 @@ public class UpdateLessonForm {
 	/**
 	 * レッソンの表題
 	 */
-	private String lessonTitle;
+	private String title;
 	
 	/**
 	 * レッソンの説明
@@ -62,11 +62,11 @@ public class UpdateLessonForm {
 	public void setCourseId(Integer courseId) {
 		this.courseId = courseId;
 	}
-	public String getLessonTitle() {
-		return lessonTitle;
+	public String getTitle() {
+		return title;
 	}
-	public void setLessonTitle(String lessonTitle) {
-		this.lessonTitle = lessonTitle;
+	public void setTitle(String title) {
+		this.title = title;
 	}
 	public String getDescription() {
 		return description;

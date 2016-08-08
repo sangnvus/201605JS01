@@ -17,10 +17,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import vn.edu.fu.veazy.core.common.Const;
+import vn.edu.fu.veazy.core.common.utils.Utils;
 import vn.edu.fu.veazy.core.form.CreateExamForm;
 import vn.edu.fu.veazy.core.form.SubmitAnswerForm;
 import vn.edu.fu.veazy.core.form.SubmitExamAnswerForm;
@@ -29,10 +31,11 @@ import vn.edu.fu.veazy.core.model.ExamAnswer;
 import vn.edu.fu.veazy.core.model.ExamModel;
 import vn.edu.fu.veazy.core.model.QuestionModel;
 import vn.edu.fu.veazy.core.model.UserModel;
+import vn.edu.fu.veazy.core.response.ExamResponse;
 import vn.edu.fu.veazy.core.response.Response;
 import vn.edu.fu.veazy.core.response.ResponseCode;
 import vn.edu.fu.veazy.core.response.data.GetExamResponseData;
-import vn.edu.fu.veazy.core.response.data.GetQuestionDetailsResponseData;
+import vn.edu.fu.veazy.core.response.data.QuestionResponseData;
 import vn.edu.fu.veazy.core.service.ExamService;
 import vn.edu.fu.veazy.core.service.QuestionBankService;
 import vn.edu.fu.veazy.core.service.QuestionService;
@@ -49,7 +52,7 @@ public class ExamController {
     /**
      * Logger object
      */
-    private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(QuestionController.class);
+    private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(ExamController.class);
 
     /**
      * Question service instance
@@ -69,33 +72,31 @@ public class ExamController {
      * @param principal
      * @return json string
      */
-    @PreAuthorize("!isAuthenticated()")
+    @PreAuthorize("permitAll()")
     @RequestMapping(value = Const.URLMAPPING_CREATE_EXAM, method = RequestMethod.POST)
     public @ResponseBody
-    String createExam(@ModelAttribute("create-exam-form") CreateExamForm form,
+    String createExam(@RequestBody CreateExamForm form,
             Principal principal) {
         Response response = new Response(ResponseCode.BAD_REQUEST);
         try {
             LOGGER.debug("Get to create exam controller successful");
 
-            String userName = principal.getName();
-            UserModel user = userService.findUserByUsername(userName);
-            if (user == null) {
-                LOGGER.debug("user not found!");
-                response.setCode(ResponseCode.USER_NOT_FOUND);
-                return response.toResponseJson();
+            if (principal != null) {
+                String userName = principal.getName();
+                UserModel user = userService.findUserByUsername(userName);
+                if (user == null) {
+                    LOGGER.debug("user not found!");
+                    response.setCode(ResponseCode.USER_NOT_FOUND);
+                    return response.toResponseJson();
+                }
             }
             Integer courseId = form.getCourseId();
             //generate Question Bank
-            List<QuestionModel> questionModels = questionBankService.generateTest(form.getQuestionNumber(), courseId, form.getExamSkill());
-            List<GetQuestionDetailsResponseData> datas = new ArrayList<>();
-            for (QuestionModel questionModel : questionModels) {
-                GetQuestionDetailsResponseData data = new GetQuestionDetailsResponseData(questionModel);
-                datas.add(data);
-            }
+            ExamResponse resp = new ExamResponse(courseId,
+                    questionBankService.generateTest(courseId, form.getParts()));
 
             response.setCode(ResponseCode.SUCCESS);
-            response.setData(datas);
+            response.setData(resp);
             LOGGER.debug("Create exam successfully!");
 
             return response.toResponseJson();
@@ -113,7 +114,8 @@ public class ExamController {
      * @param principal
      * @return json string
      */
-    @PreAuthorize("!isAuthenticated()")
+    @SuppressWarnings({ "unchecked", "rawtypes" })
+    @PreAuthorize("permitAll()")
     @RequestMapping(value = Const.URLMAPPING_SUBMIT_EXAM_ANSWER, method = RequestMethod.POST)
     public @ResponseBody
     String submitExamAnswer(@ModelAttribute("submit-exam-answer-form") SubmitExamAnswerForm form,
@@ -121,15 +123,19 @@ public class ExamController {
         Response response = new Response(ResponseCode.BAD_REQUEST);
         try {
             LOGGER.debug("Get to submit exam answer controller successful");
+            
+            UserModel user = null;
 
-            String userName = principal.getName();
-            UserModel user = userService.findUserByUsername(userName);
-            if (user == null) {
-                LOGGER.debug("user not found!");
-                response.setCode(ResponseCode.USER_NOT_FOUND);
-                return response.toResponseJson();
+            if (principal != null) {
+                String userName = principal.getName();
+                user = userService.findUserByUsername(userName);
+                if (user == null) {
+                    LOGGER.debug("user not found!");
+                    response.setCode(ResponseCode.USER_NOT_FOUND);
+                    return response.toResponseJson();
+                }
             }
-            ExamModel exam = new ExamModel(form, user.getId());
+            ExamModel exam = new ExamModel(form);
             List<ExamAnswer> listQuestions = new ArrayList<>();
 
             //calculate result
@@ -154,10 +160,11 @@ public class ExamController {
                 ExamAnswer answer = new ExamAnswer(exam, questionId, userAnswers, correctAnswers);
                 listQuestions.add(answer);
             }
-            exam.setResult(rightAnswer / numberOfQuestion);
+            exam.setResult(Utils.round(rightAnswer / numberOfQuestion, 2));
             exam.setListQuestions(listQuestions);
             //save in case is new exam
-            if (!form.getIsRedo()) {
+            if (!form.getIsRedo() && user != null) {
+                exam.setUserId(user.getId());
                 examService.saveExam(exam);
             }
             GetExamResponseData data = new GetExamResponseData(exam);
@@ -180,7 +187,7 @@ public class ExamController {
      * @param principal
      * @return json string
      */
-    @PreAuthorize("!isAuthenticated()")
+    @PreAuthorize("hasRole(3)")
     @RequestMapping(value = Const.URLMAPPING_GET_EXAM, method = RequestMethod.GET)
     public @ResponseBody
     String getExamAnswer(@PathVariable("exam_id") Integer examId,
@@ -222,7 +229,7 @@ public class ExamController {
      * @param principal
      * @return json string
      */
-    @PreAuthorize("!isAuthenticated()")
+    @PreAuthorize("hasRole(3)")
     @RequestMapping(value = Const.URLMAPPING_REDO_EXAM, method = RequestMethod.GET)
     public @ResponseBody
     String redoExam(@PathVariable("exam_id") Integer examId,
@@ -245,12 +252,12 @@ public class ExamController {
                 response.setCode(ResponseCode.USER_NOT_ALLOW);
                 return response.toResponseJson();
             }
-            List<GetQuestionDetailsResponseData> datas = new ArrayList<>();
+            List<QuestionResponseData> datas = new ArrayList<>();
             List<ExamAnswer> listQuestions = exam.getListQuestions();
             for (ExamAnswer answer : listQuestions) {
                 Integer questionId = answer.getQuestionId();
                 QuestionModel question = questionService.findQuestionById(questionId);
-                GetQuestionDetailsResponseData data = new GetQuestionDetailsResponseData(question);
+                QuestionResponseData data = new QuestionResponseData(question);
                 datas.add(data);
             }
             response.setCode(ResponseCode.SUCCESS);

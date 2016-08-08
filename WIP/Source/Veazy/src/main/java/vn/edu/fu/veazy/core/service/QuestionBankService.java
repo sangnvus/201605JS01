@@ -1,7 +1,11 @@
 package vn.edu.fu.veazy.core.service;
 
 import java.util.List;
+
+import vn.edu.fu.veazy.core.form.ExamPartForm;
 import vn.edu.fu.veazy.core.model.QuestionModel;
+import vn.edu.fu.veazy.core.response.BriefQuestionResponse;
+import vn.edu.fu.veazy.core.response.ExamPartResponse;
 
 /**
  *
@@ -9,5 +13,6 @@ import vn.edu.fu.veazy.core.model.QuestionModel;
  */
 public interface QuestionBankService {
 
-    public List<QuestionModel> generateTest(Integer numberOfQuestion, Integer courseId, Integer questionType) throws Exception;
+    public List<ExamPartResponse> generateTest(Integer courseId, List<ExamPartForm> examPart)
+            throws Exception;
 }

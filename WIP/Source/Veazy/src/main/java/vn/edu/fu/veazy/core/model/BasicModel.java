@@ -13,6 +13,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
+import org.hibernate.search.annotations.DocumentId;
+import org.hibernate.search.annotations.Indexed;
+
 /**
  *
  * @author Hoang Linh
@@ -25,14 +28,15 @@ public abstract class BasicModel implements Serializable {
      */
     private static final long serialVersionUID = 222512911691563257L;
     @Id
+    @DocumentId
     @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-    private Long createDate;
-    private Long updateDate;
-    private Long deleteDate;
+    protected Integer id;
+    protected Long createDate;
+    protected Long updateDate;
+    protected Long deleteDate;
     @Column(columnDefinition="boolean default false", nullable = false)
-    private boolean deleteFlag;
+    protected boolean deleteFlag;
 
     public BasicModel() {
     }

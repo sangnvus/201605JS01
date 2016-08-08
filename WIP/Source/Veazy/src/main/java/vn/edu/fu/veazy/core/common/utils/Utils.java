@@ -1,5 +1,7 @@
 package vn.edu.fu.veazy.core.common.utils;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.regex.Pattern;
 
 /**
@@ -35,6 +37,20 @@ public class Utils {
      * @return string is null or empty
      */
     public static boolean isNullOrEmpty(String str) {
-        return (str == null || "".equals(str));
+        return (str == null || "".equals(str.trim()));
+    }
+    
+    /**
+     * 
+     * @param value
+     * @param places
+     * @return
+     */
+    public static double round(double value, int places) {
+        if (places < 0) throw new IllegalArgumentException();
+
+        BigDecimal bd = new BigDecimal(value);
+        bd = bd.setScale(places, RoundingMode.HALF_UP);
+        return bd.doubleValue();
     }
 }

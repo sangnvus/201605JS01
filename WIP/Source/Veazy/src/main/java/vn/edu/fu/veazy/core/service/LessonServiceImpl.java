@@ -42,14 +42,14 @@ public class LessonServiceImpl implements LessonService{
 		LessonVersionModel lessonVersion = new LessonVersionModel();
 		lessonVersion.setCreatorId(creatorId);
 		lessonVersion.setDescription(form.getDescription());
-		lessonVersion.setTitle(form.getLessonTitle());
+		lessonVersion.setTitle(form.getTitle());
 		lessonVersion.setVersion(Const.START_INDEX);
 		
-		lessonVersion.setArticle(form.getArticle());
+		lessonVersion.setArticle(form.getReading());
 		lessonVersion.setGrammar(form.getGrammar());
 		lessonVersion.setListening(form.getListening());
 		lessonVersion.setPractice(form.getPractice());
-		lessonVersion.setReading(form.getReading());
+		lessonVersion.setReading(form.getConversation());
 		lessonVersion.setVocabulary(form.getVocabulary());
 		
 		//set date time
@@ -140,7 +140,7 @@ public class LessonServiceImpl implements LessonService{
 			updatingVersion.setVocabulary(form.getVocabulary());
 			
 			updatingVersion.setDescription(form.getDescription());
-			updatingVersion.setTitle(form.getLessonTitle());
+			updatingVersion.setTitle(form.getTitle());
 			
 			//save to db
 			lessonVersionDao.update(updatingVersion);
@@ -161,7 +161,7 @@ public class LessonServiceImpl implements LessonService{
 			updatingVersion.setVocabulary(form.getVocabulary());
 			
 			updatingVersion.setDescription(form.getDescription());
-			updatingVersion.setTitle(form.getLessonTitle());
+			updatingVersion.setTitle(form.getTitle());
 			
 			//save to db
 			lessonVersionDao.save(updatingVersion);

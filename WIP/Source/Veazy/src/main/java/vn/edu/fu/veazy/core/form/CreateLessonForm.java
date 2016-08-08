@@ -9,7 +9,7 @@ public class CreateLessonForm {
 	/**
 	 * レッソンの表題
 	 */
-	private String lessonTitle;
+	private String title;
 	
 	/**
 	 * レッソンの説明
@@ -29,7 +29,7 @@ public class CreateLessonForm {
 	/**
 	 * レッソンの読解
 	 */
-	private String reading;
+	private String conversation;
 	
 	/**
 	 * レッソンの聴解
@@ -44,7 +44,7 @@ public class CreateLessonForm {
 	/**
 	 * レッソンの記事
 	 */
-	private String article;
+	private String reading;
 	
 	public Integer getCourseId() {
 		return courseId;
@@ -52,11 +52,11 @@ public class CreateLessonForm {
 	public void setCourseId(Integer courseId) {
 		this.courseId = courseId;
 	}
-	public String getLessonTitle() {
-		return lessonTitle;
+	public String getTitle() {
+		return title;
 	}
-	public void setLessonTitle(String lessonTitle) {
-		this.lessonTitle = lessonTitle;
+	public void setTitle(String title) {
+		this.title = title;
 	}
 	public String getDescription() {
 		return description;
@@ -76,11 +76,11 @@ public class CreateLessonForm {
 	public void setGrammar(String grammar) {
 		this.grammar = grammar;
 	}
-	public String getReading() {
-		return reading;
+	public String getConversation() {
+		return conversation;
 	}
-	public void setReading(String reading) {
-		this.reading = reading;
+	public void setConversation(String conversation) {
+		this.conversation = conversation;
 	}
 	public String getListening() {
 		return listening;
@@ -94,11 +94,11 @@ public class CreateLessonForm {
 	public void setPractice(String practice) {
 		this.practice = practice;
 	}
-	public String getArticle() {
-		return article;
+	public String getReading() {
+		return reading;
 	}
-	public void setArticle(String article) {
-		this.article = article;
+	public void setReading(String reading) {
+		this.reading = reading;
 	}
 	
 }
