@@ -96,6 +96,7 @@
   </bean>
   
   <bean id="userDao" class="vn.edu.fu.veazy.core.dao.HibernateUserDao"/>
+  <bean id="answerDao" class="vn.edu.fu.veazy.core.dao.HibernateAnswerDao"/>
   <bean id="courseDao" class="vn.edu.fu.veazy.core.dao.HibernateCourseDao"/>
   <bean id="examDao" class="vn.edu.fu.veazy.core.dao.HibernateExamDao"/>
   <bean id="lessonDao" class="vn.edu.fu.veazy.core.dao.HibernateLessonDao"/>

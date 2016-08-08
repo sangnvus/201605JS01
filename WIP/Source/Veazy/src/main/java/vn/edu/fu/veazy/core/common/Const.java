@@ -114,6 +114,8 @@ public class Const {
     public static final String URLMAPPING_CREATE_QUESTION = URL_PREFIX + "/questions/new";
     public static final String URLMAPPING_UPDATE_QUESTION = URL_PREFIX + "/questions/update/{question_id}";
     public static final String URLMAPPING_GET_QUESTION = URL_PREFIX + "/questions/{question_id}";
+    public static final String URLMAPPING_GET_QUESTION_OF_SKILL = URL_PREFIX + "/skill/{skill_id}/questions";
+    public static final String URLMAPPING_GET_QUESTION_OF_COURSE = URL_PREFIX + "/courses/{course_id}/questions";
     public static final String URLMAPPING_GET_LIST_QUESTIONS = URL_PREFIX + "/questions";
     public static final String URLMAPPING_DELETE_QUESTION = URL_PREFIX + "/questions/delete/{question_id}";
     public static final String URLMAPPING_REPORT_QUESTION = URL_PREFIX + "/questions/report/{question_id}";

@@ -16,8 +16,11 @@ import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
@@ -31,6 +34,8 @@ import org.hibernate.annotations.Generated;
 import org.hibernate.annotations.GenerationTime;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 import org.hibernate.search.annotations.Analyze;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Index;
@@ -71,20 +76,34 @@ public class QuestionModel extends BasicModel implements Comparator<QuestionMode
     @Field(store = Store.YES, index = Index.YES, analyze = Analyze.YES)
     @Column(name = "question", columnDefinition = "TEXT", nullable = false)
     private String question;
-    @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "question")
+    @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "question", orphanRemoval = true)
     @Column(name = "listAnswers", nullable = false)
     @Access(AccessType.PROPERTY)
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<AnswerModel> listAnswers = new ArrayList<>();
-    @ElementCollection
-    @Column(name = "content", nullable = true)
+    @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "parentQuestion", orphanRemoval = true)
+    @Column(name = "listQuestions", nullable = false)
     @Access(AccessType.PROPERTY)
     @LazyCollection(LazyCollectionOption.FALSE)
-    private List<Integer> content = new ArrayList<>();
+    private List<QuestionModel> listQuestions = new ArrayList<>();
+    @NotFound(action = NotFoundAction.IGNORE)
+    @ManyToOne(fetch = FetchType.LAZY, optional = true)
+    @JoinColumn(name="questionmodel_id")
+    private QuestionModel parentQuestion;
 //    @Column(name = "state", columnDefinition = "INT DEFAULT 1", nullable = false)
 //    private Integer state;
     @Column(name = "attachment", nullable = true)
     private String attachment;
+    @Transient
+    private boolean updateAns = false;
+
+    public boolean isUpdateAns() {
+        return updateAns;
+    }
+
+    public void setUpdateAns(boolean updateAns) {
+        this.updateAns = updateAns;
+    }
 
     public QuestionModel() {
     }
@@ -94,23 +113,61 @@ public class QuestionModel extends BasicModel implements Comparator<QuestionMode
     }
     
     public void updateProperty(QuestionForm form) {
+        this.id = form.getQuestionId();
         this.attachment = form.getAttachment();
         this.courseId = form.getCourseId();
-        this.listAnswers.clear();
-        if (form.getQuestionType() != Const.QUESTIONTYPE_GROUP) {
-            for (AnswerForm form1 : form.getListAnswers()) {
-                AnswerModel model = new AnswerModel();
-                model.setAnswer(form1.getAnswer());
-                model.setIsRight(form1.getIsRight());
-                model.setQuestion(this);
-                this.listAnswers.add(model);
-            }
-        }
+        this.creatorId = form.getCreatorId();
         this.question = form.getQuestion();
         this.questionAnswerType = form.getQuestionAnswerType();
         this.questionSkill = form.getQuestionSkill();
         this.questionType = form.getQuestionType();
-        this.numberOfQuestion = form.getNumberOfQuestion();
+        this.listAnswers.clear();
+        if (form.getQuestionType() != Const.QUESTIONTYPE_GROUP) {
+            List<AnswerForm> listAns = form.getListAnswers();
+            if (listAns != null && listAns.size() > 1) {
+                updateAns = true;
+                for (AnswerForm form1 : listAns) {
+                    AnswerModel model = new AnswerModel();
+                    model.setAnswer(form1.getAnswer());
+                    model.setIsRight(form1.getIsRight());
+                    model.setQuestion(this);
+                    this.listAnswers.add(model);
+                }
+            }
+            this.numberOfQuestion = 1;
+        } else {
+            List<QuestionForm> listQuestions = form.getListQuestions();
+            boolean checkmates = false;
+            for (QuestionForm form1 : listQuestions) {
+                checkmates = false;
+                for (QuestionModel q : this.listQuestions) {
+                    if (q.getId() != null && q.getId() == form1.getQuestionId()) {
+                        form1.setCreatorId(q.getCreatorId());
+                        q.updateProperty(form1);
+                        q.setQuestionAnswerType(form.getQuestionAnswerType());
+                        q.setQuestionSkill(form.getQuestionSkill());
+                        q.setCourseId(form.getCourseId());
+                        q.setQuestionType(Const.QUESTIONTYPE_SINGULAR);
+                        q.setNumberOfQuestion(0);
+                        checkmates = true;
+                        break;
+                    }
+                }
+                if (!checkmates) {
+                    QuestionModel model1 = new QuestionModel(form1);
+                    model1.setQuestionAnswerType(form.getQuestionAnswerType());
+                    model1.setQuestionSkill(form.getQuestionSkill());
+                    model1.setQuestionType(Const.QUESTIONTYPE_SINGULAR);
+                    model1.setCourseId(form.getCourseId());
+                    model1.setNumberOfQuestion(0);
+                    model1.setCreatorId(form.getCreatorId());
+                    model1.setParentQuestion(this);
+                    this.listQuestions.add(model1);
+                }
+            }
+            this.numberOfQuestion = listQuestions.size();
+        }
+//        this.numberOfQuestion = form.getNumberOfQuestion();
     }
 
     public Integer getQuestionCode() {
@@ -129,12 +186,12 @@ public class QuestionModel extends BasicModel implements Comparator<QuestionMode
         this.numberOfQuestion = numberOfQuestion;
     }
 
-    public List<Integer> getContent() {
-        return content;
+    public QuestionModel getParentQuestion() {
+        return parentQuestion;
     }
 
-    public void setContent(List<Integer> content) {
-        this.content = content;
+    public void setParentQuestion(QuestionModel parentQuestion) {
+        this.parentQuestion = parentQuestion;
     }
 
     public Integer getCreatorId() {
@@ -190,6 +247,13 @@ public class QuestionModel extends BasicModel implements Comparator<QuestionMode
 
     public void setListAnswers(List<AnswerModel> listAnswers) {
         this.listAnswers = listAnswers;
+    }
+    public List<QuestionModel> getListQuestions() {
+        return listQuestions;
+    }
+
+    public void setListQuestions(List<QuestionModel> listQuestions) {
+        this.listQuestions = listQuestions;
     }
 
 //    public Integer getState() {

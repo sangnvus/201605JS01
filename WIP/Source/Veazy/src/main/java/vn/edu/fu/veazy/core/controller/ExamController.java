@@ -35,7 +35,7 @@ import vn.edu.fu.veazy.core.response.ExamResponse;
 import vn.edu.fu.veazy.core.response.Response;
 import vn.edu.fu.veazy.core.response.ResponseCode;
 import vn.edu.fu.veazy.core.response.data.GetExamResponseData;
-import vn.edu.fu.veazy.core.response.data.GetQuestionDetailsResponseData;
+import vn.edu.fu.veazy.core.response.data.QuestionResponseData;
 import vn.edu.fu.veazy.core.service.ExamService;
 import vn.edu.fu.veazy.core.service.QuestionBankService;
 import vn.edu.fu.veazy.core.service.QuestionService;
@@ -252,12 +252,12 @@ public class ExamController {
                 response.setCode(ResponseCode.USER_NOT_ALLOW);
                 return response.toResponseJson();
             }
-            List<GetQuestionDetailsResponseData> datas = new ArrayList<>();
+            List<QuestionResponseData> datas = new ArrayList<>();
             List<ExamAnswer> listQuestions = exam.getListQuestions();
             for (ExamAnswer answer : listQuestions) {
                 Integer questionId = answer.getQuestionId();
                 QuestionModel question = questionService.findQuestionById(questionId);
-                GetQuestionDetailsResponseData data = new GetQuestionDetailsResponseData(question);
+                QuestionResponseData data = new QuestionResponseData(question);
                 datas.add(data);
             }
             response.setCode(ResponseCode.SUCCESS);

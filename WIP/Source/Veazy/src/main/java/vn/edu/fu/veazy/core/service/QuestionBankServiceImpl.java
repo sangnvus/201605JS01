@@ -8,7 +8,6 @@ package vn.edu.fu.veazy.core.service;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 import java.util.Random;
 
 import org.slf4j.LoggerFactory;
@@ -16,12 +15,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import vn.edu.fu.veazy.core.common.Const;
-import vn.edu.fu.veazy.core.controller.ExamController;
 import vn.edu.fu.veazy.core.dao.GenericDao;
 import vn.edu.fu.veazy.core.form.ExamPartForm;
 import vn.edu.fu.veazy.core.model.AnswerModel;
 import vn.edu.fu.veazy.core.model.QuestionModel;
-import vn.edu.fu.veazy.core.response.BriefLessonResponse;
 import vn.edu.fu.veazy.core.response.BriefQuestionResponse;
 import vn.edu.fu.veazy.core.response.ExamPartResponse;
 
@@ -31,7 +28,7 @@ import vn.edu.fu.veazy.core.response.ExamPartResponse;
  */
 @Service
 public class QuestionBankServiceImpl implements QuestionBankService {
-    private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(ExamController.class);
+    private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(QuestionBankServiceImpl.class);
 
     @Autowired
     private GenericDao<QuestionModel, Integer> questionDao;
@@ -55,6 +52,7 @@ public class QuestionBankServiceImpl implements QuestionBankService {
 
             question.setCourseId(courseId);
             question.setQuestionSkill(examSkill);
+            question.setDeleteFlag(false);
             List<QuestionModel> questions = questionDao.findByExample(question);
 
             if (questions != null && questions.size() > 0) {
@@ -67,7 +65,8 @@ public class QuestionBankServiceImpl implements QuestionBankService {
                     int takedQuestionNumber = 0;
                     while (takedQuestionNumber < questionNumber && questions.size() > 0) {
                         randomQuestion = questions.remove(randomizer.nextInt(questions.size()));
-                        if (randomQuestion.getNumberOfQuestion() <= (questionNumber - takedQuestionNumber)) {
+                        if (randomQuestion.getNumberOfQuestion() <= (questionNumber - takedQuestionNumber)
+                                && randomQuestion.getNumberOfQuestion() > 0) {
                             takedQuestionNumber += randomQuestion.getNumberOfQuestion();
                             letMeIn(result, randomQuestion);
                         }
@@ -79,9 +78,11 @@ public class QuestionBankServiceImpl implements QuestionBankService {
                 //default generate
                 Collections.sort(questions, question);
                 int takedQuestionNumber = 0;
-                while (takedQuestionNumber <= questionNumber && questions.size() > 0) {
-                    randomQuestion = questions.remove(0);
-                    if (randomQuestion.getNumberOfQuestion() < (questionNumber - takedQuestionNumber)) {
+                for (int i = takedQuestionNumber;
+                        (i < questionNumber && i < questions.size() && questions.size() > 0); i++) {
+                    randomQuestion = questions.get(i);
+                    if (randomQuestion.getNumberOfQuestion() <= (questionNumber - takedQuestionNumber)
+                            && randomQuestion.getNumberOfQuestion() > 0) {
                         takedQuestionNumber += randomQuestion.getNumberOfQuestion();
                         letMeIn(result, randomQuestion);
                     }
@@ -103,15 +104,16 @@ public class QuestionBankServiceImpl implements QuestionBankService {
      */
     private void letMeIn(List<BriefQuestionResponse> result, QuestionModel question) throws Exception {
         if (question.getQuestionType() == Const.QUESTIONTYPE_GROUP) {
-            List<Integer> questionIds = question.getContent();
-            for (Integer id : questionIds) {
-                QuestionModel findById = questionDao.findById(id);
-                List<AnswerModel> answer = findById.getListAnswers();
+            List<BriefQuestionResponse> myQues = new ArrayList<>();
+            List<QuestionModel> questions = question.getListQuestions();
+            for (QuestionModel q : questions) {
+                List<AnswerModel> answer = q.getListAnswers();
                 List<String> ans = new ArrayList<>();
                 for (AnswerModel m : answer)
                     ans.add(m.getAnswer());
-                result.add(new BriefQuestionResponse(findById.getQuestion(), ans, findById.getAttachment()));
+                myQues.add(new BriefQuestionResponse(q.getQuestion(), ans, q.getAttachment()));
             }
+            result.add(new BriefQuestionResponse(question.getQuestion(), question.getAttachment(), myQues));
         } else if (question.getQuestionType() == Const.QUESTIONTYPE_SINGULAR) {
             List<AnswerModel> answer = question.getListAnswers();
             List<String> ans = new ArrayList<>();

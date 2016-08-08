@@ -5,7 +5,6 @@
  */
 package vn.edu.fu.veazy.core.form;
 
-import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -14,10 +13,12 @@ import java.util.List;
  */
 public class QuestionForm {
 
+    private Integer questionId;
     private Integer questionAnswerType;
     private Integer questionType;
     private Integer questionSkill;
     private Integer courseId;
+    private Integer creatorId;
     private Integer numberOfQuestion;
     private String question;
     private List<AnswerForm> listAnswers;
@@ -25,6 +26,22 @@ public class QuestionForm {
     private String attachment;
 
     public QuestionForm() {
+    }
+
+    public Integer getQuestionId() {
+        return questionId;
+    }
+
+    public void setQuestionId(Integer questionId) {
+        this.questionId = questionId;
+    }
+
+    public Integer getCreatorId() {
+        return creatorId;
+    }
+
+    public void setCreatorId(Integer creatorId) {
+        this.creatorId = creatorId;
     }
 
     public Integer getQuestionAnswerType() {
