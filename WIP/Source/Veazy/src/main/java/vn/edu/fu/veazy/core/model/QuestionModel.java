@@ -71,6 +71,9 @@ public class QuestionModel extends BasicModel implements Comparator<QuestionMode
     // >1 if Group(the origin question)
     // =0 if is a question of Group
     private Integer numberOfQuestion;
+    // in seconds
+    @Column(name = "questionEtaTime", columnDefinition = "INT DEFAULT 60", nullable = false)
+    private Integer questionEtaTime;
     @Column(name = "courseId", nullable = false)
     private Integer courseId;
     @Field(store = Store.YES, index = Index.YES, analyze = Analyze.YES)
@@ -121,6 +124,7 @@ public class QuestionModel extends BasicModel implements Comparator<QuestionMode
         this.questionAnswerType = form.getQuestionAnswerType();
         this.questionSkill = form.getQuestionSkill();
         this.questionType = form.getQuestionType();
+        this.questionEtaTime = form.getEtaTime();
         this.listAnswers.clear();
         if (form.getQuestionType() != Const.QUESTIONTYPE_GROUP) {
             List<AnswerForm> listAns = form.getListAnswers();
@@ -232,6 +236,14 @@ public class QuestionModel extends BasicModel implements Comparator<QuestionMode
 
     public void setCourseId(Integer courseId) {
         this.courseId = courseId;
+    }
+
+    public Integer getQuestionEtaTime() {
+        return questionEtaTime;
+    }
+
+    public void setQuestionEtaTime(Integer questionEtaTime) {
+        this.questionEtaTime = questionEtaTime;
     }
 
     public String getQuestion() {

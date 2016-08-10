@@ -132,11 +132,11 @@ public class LessonServiceImpl implements LessonService{
 			}
 			updatingVersion.setUpdateDate(System.currentTimeMillis());
 			
-			updatingVersion.setArticle(form.getArticle());
+			updatingVersion.setArticle(form.getReading());
 			updatingVersion.setGrammar(form.getGrammar());
 			updatingVersion.setListening(form.getListening());
 			updatingVersion.setPractice(form.getPractice());
-			updatingVersion.setReading(form.getReading());
+			updatingVersion.setReading(form.getConversation());
 			updatingVersion.setVocabulary(form.getVocabulary());
 			
 			updatingVersion.setDescription(form.getDescription());
@@ -153,11 +153,11 @@ public class LessonServiceImpl implements LessonService{
 			updatingVersion.setLessonId(form.getLessonId());
 			updatingVersion.setState(Const.UPDATING);
 			
-			updatingVersion.setArticle(form.getArticle());
+			updatingVersion.setArticle(form.getReading());
 			updatingVersion.setGrammar(form.getGrammar());
 			updatingVersion.setListening(form.getListening());
 			updatingVersion.setPractice(form.getPractice());
-			updatingVersion.setReading(form.getReading());
+			updatingVersion.setReading(form.getConversation());
 			updatingVersion.setVocabulary(form.getVocabulary());
 			
 			updatingVersion.setDescription(form.getDescription());

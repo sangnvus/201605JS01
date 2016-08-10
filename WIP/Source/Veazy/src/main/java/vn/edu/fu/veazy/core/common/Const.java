@@ -15,6 +15,7 @@ public class Const {
     
     /************************* System Config ****************************/
     public static final String RESOURCE_URL = "/res";
+    public static final Integer EXAM_INSURANCE_TIME = 30;
 
     /**
      * *********************** URL Mapping *****************************

@@ -46,7 +46,10 @@ public class CreateLessonForm {
 	 */
 	private String reading;
 	
-	public Integer getCourseId() {
+	public CreateLessonForm() {
+        super();
+    }
+    public Integer getCourseId() {
 		return courseId;
 	}
 	public void setCourseId(Integer courseId) {

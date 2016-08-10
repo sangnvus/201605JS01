@@ -26,6 +26,7 @@ public class QuestionResponseData {
     private Integer courseId;
     private String question;
     private Integer numberOfQuestion;
+    private Integer etaTime;
     //    private Integer state;
     private Long createDate;
     private Long updateDate;
@@ -43,6 +44,7 @@ public class QuestionResponseData {
         this.questionCode = question.getQuestionCode();
         this.questionId = question.getId();
         this.questionSkill = question.getQuestionSkill();
+        this.etaTime = question.getQuestionEtaTime();
         this.questionType = question.getQuestionType();
 //        this.state = question.getState();
         this.updateDate = question.getUpdateDate();
@@ -133,6 +135,14 @@ public class QuestionResponseData {
 
     public void setCourseId(Integer courseId) {
         this.courseId = courseId;
+    }
+
+    public Integer getEtaTime() {
+        return etaTime;
+    }
+
+    public void setEtaTime(Integer etaTime) {
+        this.etaTime = etaTime;
     }
 
     public String getQuestion() {

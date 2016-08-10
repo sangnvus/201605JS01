@@ -15,7 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -73,7 +72,8 @@ public class ExamController {
      * @return json string
      */
     @PreAuthorize("permitAll()")
-    @RequestMapping(value = Const.URLMAPPING_CREATE_EXAM, method = RequestMethod.POST)
+    @RequestMapping(value = Const.URLMAPPING_CREATE_EXAM, method = RequestMethod.POST,
+            produces={"application/json; charset=UTF-8"})
     public @ResponseBody
     String createExam(@RequestBody CreateExamForm form,
             Principal principal) {
@@ -116,9 +116,10 @@ public class ExamController {
      */
     @SuppressWarnings({ "unchecked", "rawtypes" })
     @PreAuthorize("permitAll()")
-    @RequestMapping(value = Const.URLMAPPING_SUBMIT_EXAM_ANSWER, method = RequestMethod.POST)
+    @RequestMapping(value = Const.URLMAPPING_SUBMIT_EXAM_ANSWER, method = RequestMethod.POST,
+            produces={"application/json; charset=UTF-8"})
     public @ResponseBody
-    String submitExamAnswer(@ModelAttribute("submit-exam-answer-form") SubmitExamAnswerForm form,
+    String submitExamAnswer(@RequestBody SubmitExamAnswerForm form,
             Principal principal) {
         Response response = new Response(ResponseCode.BAD_REQUEST);
         try {
@@ -140,7 +141,7 @@ public class ExamController {
 
             //calculate result
             double rightAnswer = 0;
-            List<SubmitAnswerForm> listQuestion = form.getListQuestion();
+            List<SubmitAnswerForm> listQuestion = form.getListQuestions();
             Integer numberOfQuestion = listQuestion.size();
             for (SubmitAnswerForm answerForm : listQuestion) {
                 Integer questionId = answerForm.getQuestionId();
@@ -152,7 +153,7 @@ public class ExamController {
                         correctAnswers.add(answerModel.getAnswer());
                     }
                 }
-                List<String> userAnswers = answerForm.getUserAnswers();
+                List<String> userAnswers = answerForm.getListAnswers();
                 boolean isEquals = new HashSet(correctAnswers).equals(new HashSet(userAnswers));
                 if (isEquals) {
                     rightAnswer++;
@@ -188,7 +189,8 @@ public class ExamController {
      * @return json string
      */
     @PreAuthorize("hasRole(3)")
-    @RequestMapping(value = Const.URLMAPPING_GET_EXAM, method = RequestMethod.GET)
+    @RequestMapping(value = Const.URLMAPPING_GET_EXAM, method = RequestMethod.GET,
+            produces={"application/json; charset=UTF-8"})
     public @ResponseBody
     String getExamAnswer(@PathVariable("exam_id") Integer examId,
             Principal principal) {
@@ -230,7 +232,8 @@ public class ExamController {
      * @return json string
      */
     @PreAuthorize("hasRole(3)")
-    @RequestMapping(value = Const.URLMAPPING_REDO_EXAM, method = RequestMethod.GET)
+    @RequestMapping(value = Const.URLMAPPING_REDO_EXAM, method = RequestMethod.GET,
+            produces={"application/json; charset=UTF-8"})
     public @ResponseBody
     String redoExam(@PathVariable("exam_id") Integer examId,
             Principal principal) {

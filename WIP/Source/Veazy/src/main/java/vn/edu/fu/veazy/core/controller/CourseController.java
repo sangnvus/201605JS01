@@ -35,7 +35,8 @@ public class CourseController {
      * 全部のレベルをとる
      * @return 返事のＪＳＯＮ
      */
-    @RequestMapping(value = Const.URLMAPPING_GET_COURSES, method = RequestMethod.GET)
+    @RequestMapping(value = Const.URLMAPPING_GET_COURSES, method = RequestMethod.GET,
+            produces={"application/json; charset=UTF-8"})
     public @ResponseBody
     String getCourses() {
         Response response = new Response(ResponseCode.BAD_REQUEST);

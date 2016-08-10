@@ -4,11 +4,13 @@ import java.util.List;
 
 public class ExamPartResponse {
     private int skill;
+    private int etaTime;
     private List<BriefQuestionResponse> questions;
     
-    public ExamPartResponse(int skill, List<BriefQuestionResponse> questions) {
+    public ExamPartResponse(int skill, int etaTime, List<BriefQuestionResponse> questions) {
         super();
         this.skill = skill;
+        this.etaTime = etaTime;
         this.questions = questions;
     }
     
@@ -17,6 +19,13 @@ public class ExamPartResponse {
     }
     public void setSkill(int skill) {
         this.skill = skill;
+    }
+    public int getEtaTime() {
+        return etaTime;
+    }
+
+    public void setEtaTime(int etaTime) {
+        this.etaTime = etaTime;
     }
     public List<BriefQuestionResponse> getQuestions() {
         return questions;

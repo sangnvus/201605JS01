@@ -1,7 +1,6 @@
 package vn.edu.fu.veazy.core.controller;
 
 import java.io.File;
-import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
@@ -58,7 +57,8 @@ public class CoreController {
      * 
      * @return path to view
      */
-    @RequestMapping(value = Const.URLMAPPING_HOME, method = RequestMethod.GET)
+    @RequestMapping(value = Const.URLMAPPING_HOME, method = RequestMethod.GET,
+            produces={"application/json; charset=UTF-8"})
     public @ResponseBody String entryPoint() {
         try {
             LOGGER.debug("Get to entry successfully");
@@ -78,7 +78,8 @@ public class CoreController {
      * @return
      */
     @PreAuthorize("hasAnyAuthority(1,2)")
-    @RequestMapping(value = Const.URLMAPPING_UPLOADFILE, method = RequestMethod.POST)
+    @RequestMapping(value = Const.URLMAPPING_UPLOADFILE, method = RequestMethod.POST,
+            produces={"multipart/form-data; charset=UTF-8"})
     public @ResponseBody String uploadFile(HttpServletRequest req, Principal principal,
             @ModelAttribute("uploadForm") FileUploadForm uploadForm) {
         Response response = new Response(ResponseCode.BAD_REQUEST);
@@ -127,7 +128,8 @@ public class CoreController {
 
     // FIXME remove me
     @PreAuthorize("isAuthenticated()") // ADMIN
-    @RequestMapping(value = Const.URLMAPPING_MAKE_ADMIN, method = RequestMethod.GET)
+    @RequestMapping(value = Const.URLMAPPING_MAKE_ADMIN, method = RequestMethod.GET,
+            produces={"application/json; charset=UTF-8"})
     public @ResponseBody
     String makeAdmin(@PathVariable("user_id") String userId) { // thuc chat la username luoi sua :))
         Response response = new Response(ResponseCode.BAD_REQUEST);
@@ -155,7 +157,8 @@ public class CoreController {
 
     // FIXME remove me
     @PreAuthorize("isAuthenticated()") // EDITOR
-    @RequestMapping(value = Const.URLMAPPING_MAKE_EDITOR, method = RequestMethod.GET)
+    @RequestMapping(value = Const.URLMAPPING_MAKE_EDITOR, method = RequestMethod.GET,
+            produces={"application/json; charset=UTF-8"})
     public @ResponseBody
     String makeEditor(@PathVariable("user_id") String userId) { // thuc chat la username luoi sua :))
         Response response = new Response(ResponseCode.BAD_REQUEST);

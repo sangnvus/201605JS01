@@ -20,6 +20,7 @@ public class QuestionForm {
     private Integer courseId;
     private Integer creatorId;
     private Integer numberOfQuestion;
+    private Integer etaTime;
     private String question;
     private List<AnswerForm> listAnswers;
     private List<QuestionForm> listQuestions;
@@ -82,6 +83,14 @@ public class QuestionForm {
 
     public void setNumberOfQuestion(Integer numberOfQuestion) {
         this.numberOfQuestion = numberOfQuestion;
+    }
+
+    public Integer getEtaTime() {
+        return etaTime;
+    }
+
+    public void setEtaTime(Integer etaTime) {
+        this.etaTime = etaTime;
     }
 
     public String getQuestion() {

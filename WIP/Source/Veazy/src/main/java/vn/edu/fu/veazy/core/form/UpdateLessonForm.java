@@ -34,7 +34,7 @@ public class UpdateLessonForm {
 	/**
 	 * レッソンの読解
 	 */
-	private String reading;
+	private String conversation;
 	
 	/**
 	 * レッソンの聴解
@@ -49,7 +49,7 @@ public class UpdateLessonForm {
 	/**
 	 * レッソンの記事
 	 */
-	private String article;
+	private String reading;
 	public Integer getLessonId() {
 		return lessonId;
 	}
@@ -86,11 +86,11 @@ public class UpdateLessonForm {
 	public void setGrammar(String grammar) {
 		this.grammar = grammar;
 	}
-	public String getReading() {
-		return reading;
+	public String getConversation() {
+		return conversation;
 	}
-	public void setReading(String reading) {
-		this.reading = reading;
+	public void setConversation(String conversation) {
+		this.conversation = conversation;
 	}
 	public String getListening() {
 		return listening;
@@ -104,11 +104,11 @@ public class UpdateLessonForm {
 	public void setPractice(String practice) {
 		this.practice = practice;
 	}
-	public String getArticle() {
-		return article;
+	public String getReading() {
+		return reading;
 	}
-	public void setArticle(String article) {
-		this.article = article;
+	public void setReading(String reading) {
+		this.reading = reading;
 	}
 
 }

@@ -38,15 +38,17 @@ public class QuestionBankServiceImpl implements QuestionBankService {
     public List<ExamPartResponse> generateTest(Integer courseId, List<ExamPartForm> examPart) throws Exception {
         List<ExamPartResponse> result = new ArrayList<>();
         for (ExamPartForm part : examPart) {
-            List<BriefQuestionResponse> partQues
-                    = genTest(part.getNumberOfQuestion(), courseId, part.getSkill());
-            result.add(new ExamPartResponse(part.getSkill(), partQues));
+            List<BriefQuestionResponse> partQues = new ArrayList<>();
+            int time = genTest(partQues, part.getNumberOfQuestion(), courseId, part.getSkill());
+            result.add(new ExamPartResponse(part.getSkill(), time, partQues));
         }
         return result;
     }
     
-    private List<BriefQuestionResponse> genTest(Integer questionNumber, Integer courseId, Integer examSkill) throws Exception {
-        List<BriefQuestionResponse> result = new ArrayList<>();
+    private Integer genTest(
+            List<BriefQuestionResponse> result,
+            Integer questionNumber, Integer courseId, Integer examSkill) throws Exception {
+        int eta = Const.EXAM_INSURANCE_TIME;
         try {
             QuestionModel question = new QuestionModel();
 
@@ -69,10 +71,11 @@ public class QuestionBankServiceImpl implements QuestionBankService {
                                 && randomQuestion.getNumberOfQuestion() > 0) {
                             takedQuestionNumber += randomQuestion.getNumberOfQuestion();
                             letMeIn(result, randomQuestion);
+                            eta += randomQuestion.getQuestionEtaTime();
                         }
                     }
                     if (takedQuestionNumber == questionNumber) {
-                        return result;
+                        return eta;
                     }
                 }
                 //default generate
@@ -85,15 +88,16 @@ public class QuestionBankServiceImpl implements QuestionBankService {
                             && randomQuestion.getNumberOfQuestion() > 0) {
                         takedQuestionNumber += randomQuestion.getNumberOfQuestion();
                         letMeIn(result, randomQuestion);
+                        eta += randomQuestion.getQuestionEtaTime();
                     }
                 }
-                return result;
+                return eta;
             }
         } catch (Exception e) {
             // TODO custom exception
             throw new Exception(e.getMessage(), e);
         }
-        return result;
+        return eta;
     }
 
     /**

@@ -17,7 +17,7 @@ public class SubmitExamAnswerForm {
     private Integer courseId;
     private Integer questionSkill;
     private Boolean isRedo;
-    private List<SubmitAnswerForm> listQuestion;
+    private List<SubmitAnswerForm> listQuestions;
 
     public SubmitExamAnswerForm() {
     }
@@ -54,12 +54,12 @@ public class SubmitExamAnswerForm {
         this.isRedo = isRedo;
     }
 
-    public List<SubmitAnswerForm> getListQuestion() {
-        return listQuestion;
+    public List<SubmitAnswerForm> getListQuestions() {
+        return listQuestions;
     }
 
-    public void setListQuestion(List<SubmitAnswerForm> listQuestion) {
-        this.listQuestion = listQuestion;
+    public void setListQuestions(List<SubmitAnswerForm> listQuestions) {
+        this.listQuestions = listQuestions;
     }
 
 }

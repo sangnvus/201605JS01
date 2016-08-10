@@ -14,7 +14,7 @@ import java.util.List;
  */
 public class SubmitAnswerForm {
     private Integer questionId;
-    private List<String> userAnswers = new ArrayList<>();
+    private List<String> listAnswers = new ArrayList<>();
 
     public SubmitAnswerForm() {
     }
@@ -27,12 +27,12 @@ public class SubmitAnswerForm {
         this.questionId = questionId;
     }
 
-    public List<String> getUserAnswers() {
-        return userAnswers;
+    public List<String> getListAnswers() {
+        return listAnswers;
     }
 
-    public void setUserAnswers(List<String> userAnswers) {
-        this.userAnswers = userAnswers;
+    public void setListAnswers(List<String> listAnswers) {
+        this.listAnswers = listAnswers;
     }
     
 }

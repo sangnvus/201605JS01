@@ -14,8 +14,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -77,9 +77,10 @@ public class UserController {
      * @return json string
      */
     @PreAuthorize("!isAuthenticated()")
-    @RequestMapping(value = Const.URLMAPPING_REGISTER, method = RequestMethod.POST)
+    @RequestMapping(value = Const.URLMAPPING_REGISTER, method = RequestMethod.POST,
+            produces={"application/json; charset=UTF-8"})
     public @ResponseBody
-    String register(@ModelAttribute("register-form") RegisterForm registerForm) {
+    String register(@RequestBody RegisterForm registerForm) {
         Response response = new Response(ResponseCode.BAD_REQUEST);
         try {
             LOGGER.debug("Get to register proceed controller successful");
@@ -141,9 +142,10 @@ public class UserController {
      * @return json string
      */
     @PreAuthorize("isAuthenticated()")
-    @RequestMapping(value = Const.URLMAPPING_LOGIN, method = RequestMethod.POST)
+    @RequestMapping(value = Const.URLMAPPING_LOGIN, method = RequestMethod.POST,
+            produces={"application/json; charset=UTF-8"})
     public @ResponseBody
-    String loginProceed(Principal principal, @ModelAttribute("login-form") LoginForm loginForm) {
+    String loginProceed(Principal principal, @RequestBody LoginForm loginForm) {
         Response response = new Response(ResponseCode.SUCCESS);
         try {
             String userName = principal.getName();
@@ -168,7 +170,8 @@ public class UserController {
     }
 
     @PreAuthorize("isAuthenticated()")
-    @RequestMapping(value = Const.URLMAPPING_LOGOUT, method = RequestMethod.GET)
+    @RequestMapping(value = Const.URLMAPPING_LOGOUT, method = RequestMethod.GET,
+            produces={"application/json; charset=UTF-8"})
     public @ResponseBody
     String logoutProceed (HttpServletRequest request, HttpServletResponse response) {
         Response responseObj = new Response(ResponseCode.BAD_REQUEST);
@@ -186,7 +189,8 @@ public class UserController {
      * @return json string
      */
     @PreAuthorize("isAuthenticated()")
-    @RequestMapping(value = Const.URLMAPPING_GET_CURRENT_USER, method = RequestMethod.GET)
+    @RequestMapping(value = Const.URLMAPPING_GET_CURRENT_USER, method = RequestMethod.GET,
+            produces={"application/json; charset=UTF-8"})
     public @ResponseBody
     String getCurrentUser(Principal principal) {
         Response response = new Response(ResponseCode.BAD_REQUEST);
@@ -218,10 +222,11 @@ public class UserController {
      * @return json string
      */
     @PreAuthorize("isAuthenticated()")
-    @RequestMapping(value = Const.URLMAPPING_UPDATE_CURRENT_USER, method = RequestMethod.POST)
+    @RequestMapping(value = Const.URLMAPPING_UPDATE_CURRENT_USER, method = RequestMethod.POST,
+            produces={"application/json; charset=UTF-8"})
     public @ResponseBody
     String updateCurrentUser(Principal principal,
-            @ModelAttribute("update-user-form") UpdateUserForm form) {
+            @RequestBody UpdateUserForm form) {
         Response response = new Response(ResponseCode.BAD_REQUEST);
         try {
             String userName = principal.getName();
@@ -252,10 +257,11 @@ public class UserController {
      * @return json string
      */
     @PreAuthorize("isAuthenticated()")
-    @RequestMapping(value = Const.URLMAPPING_CHGPWD_CURRENT_USER, method = RequestMethod.POST)
+    @RequestMapping(value = Const.URLMAPPING_CHGPWD_CURRENT_USER, method = RequestMethod.POST,
+            produces={"application/json; charset=UTF-8"})
     public @ResponseBody
     String changePasswordCurrentUser(Principal principal,
-            @ModelAttribute("chgpwd-form") ChgpwdForm form) {
+            @RequestBody ChgpwdForm form) {
         Response response = new Response(ResponseCode.BAD_REQUEST);
         try {
             String userName = principal.getName();
@@ -285,7 +291,8 @@ public class UserController {
      * @return json string
      */
     @PreAuthorize("hasAuthority(1)")
-    @RequestMapping(value = Const.URLMAPPING_GET_USER, method = RequestMethod.GET)
+    @RequestMapping(value = Const.URLMAPPING_GET_USER, method = RequestMethod.GET,
+            produces={"application/json; charset=UTF-8"})
     public @ResponseBody
     String getUser(@PathVariable("user_id") Integer userId) {
         Response response = new Response(ResponseCode.BAD_REQUEST);
@@ -318,7 +325,8 @@ public class UserController {
      * @return json string
      */
     @PreAuthorize("hasAuthority(1)")
-    @RequestMapping(value = Const.URLMAPPING_GET_LIST_USERS, method = RequestMethod.GET)
+    @RequestMapping(value = Const.URLMAPPING_GET_LIST_USERS, method = RequestMethod.GET,
+            produces={"application/json; charset=UTF-8"})
     public @ResponseBody
     String getListUser() {
         Response response = new Response(ResponseCode.BAD_REQUEST);
@@ -352,7 +360,8 @@ public class UserController {
      * @return json string
      */
     @PreAuthorize("isAuthenticated()")
-    @RequestMapping(value = Const.URLMAPPING_GET_LEARNER_EXAMS, method = RequestMethod.GET)
+    @RequestMapping(value = Const.URLMAPPING_GET_LEARNER_EXAMS, method = RequestMethod.GET,
+            produces={"application/json; charset=UTF-8"})
     public @ResponseBody
     String getLearnerExamss(Principal principal) {
         Response response = new Response(ResponseCode.BAD_REQUEST);
@@ -387,9 +396,11 @@ public class UserController {
     }
 
     @PreAuthorize("hasAuthority(1)") // ADMIN
-    @RequestMapping(value = Const.URLMAPPING_CHANGE_ROLE, method = RequestMethod.GET)
+    @RequestMapping(value = Const.URLMAPPING_CHANGE_ROLE, method = RequestMethod.GET,
+            produces={"application/json; charset=UTF-8"})
     public @ResponseBody
-    String changeUserRoll(@PathVariable("user_id") Integer userId,@ModelAttribute("change-role-form") ChangeRoleForm form) {
+    String changeUserRoll(@PathVariable("user_id") Integer userId,
+            @RequestBody ChangeRoleForm form) {
         Response response = new Response(ResponseCode.BAD_REQUEST);
         try {
         	userService.changeUserRoll(userId, form.getRole());

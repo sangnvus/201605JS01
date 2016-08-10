@@ -8,14 +8,12 @@ package vn.edu.fu.veazy.core.controller;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -72,7 +70,8 @@ public class QuestionController {
      * @return json string
      */
     @PreAuthorize("hasAuthority(2)")
-    @RequestMapping(value = Const.URLMAPPING_CREATE_QUESTION, method = RequestMethod.POST)
+    @RequestMapping(value = Const.URLMAPPING_CREATE_QUESTION, method = RequestMethod.POST,
+            produces={"application/json; charset=UTF-8"})
     public @ResponseBody
     String createQuestion(@RequestBody QuestionForm form,
             Principal principal) {
@@ -140,7 +139,8 @@ public class QuestionController {
      * @return json string
      */
     @PreAuthorize("hasAuthority(2)")
-    @RequestMapping(value = Const.URLMAPPING_UPDATE_QUESTION, method = RequestMethod.POST)
+    @RequestMapping(value = Const.URLMAPPING_UPDATE_QUESTION, method = RequestMethod.POST,
+            produces={"application/json; charset=UTF-8"})
     public @ResponseBody
     String updateQuestion(@RequestBody QuestionForm form,
             @PathVariable("question_id") Integer questionId, Principal principal) {
@@ -213,7 +213,8 @@ public class QuestionController {
      * @return json string
      */
     @PreAuthorize("hasAuthority(2)")
-    @RequestMapping(value = Const.URLMAPPING_GET_LIST_QUESTIONS, method = RequestMethod.GET)
+    @RequestMapping(value = Const.URLMAPPING_GET_LIST_QUESTIONS, method = RequestMethod.GET,
+            produces={"application/json; charset=UTF-8"})
     public @ResponseBody
     String getListQuestions() {
         Response response = new Response(ResponseCode.BAD_REQUEST);
@@ -254,7 +255,8 @@ public class QuestionController {
      * @return json string
      */
     @PreAuthorize("hasAuthority(2)")
-    @RequestMapping(value = Const.URLMAPPING_GET_QUESTION, method = RequestMethod.GET)
+    @RequestMapping(value = Const.URLMAPPING_GET_QUESTION, method = RequestMethod.GET,
+            produces={"application/json; charset=UTF-8"})
     public @ResponseBody
     String getQuestion(@PathVariable("question_id") Integer questionId) {
         Response response = new Response(ResponseCode.BAD_REQUEST);
@@ -288,7 +290,8 @@ public class QuestionController {
      * @return json string
      */
     @PreAuthorize("hasAuthority(2)")
-    @RequestMapping(value = Const.URLMAPPING_GET_QUESTION_OF_SKILL, method = RequestMethod.GET)
+    @RequestMapping(value = Const.URLMAPPING_GET_QUESTION_OF_SKILL, method = RequestMethod.GET,
+            produces={"application/json; charset=UTF-8"})
     public @ResponseBody
     String getQuestionOfSkill(@PathVariable("skill_id") Integer skillId) {
         Response response = new Response(ResponseCode.BAD_REQUEST);
@@ -330,7 +333,8 @@ public class QuestionController {
      * @return json string
      */
     @PreAuthorize("hasAuthority(2)")
-    @RequestMapping(value = Const.URLMAPPING_GET_QUESTION_OF_COURSE, method = RequestMethod.GET)
+    @RequestMapping(value = Const.URLMAPPING_GET_QUESTION_OF_COURSE, method = RequestMethod.GET,
+            produces={"application/json; charset=UTF-8"})
     public @ResponseBody
     String getQuestionOfCourse(@PathVariable("course_id") Integer courseId) {
         Response response = new Response(ResponseCode.BAD_REQUEST);
@@ -372,7 +376,8 @@ public class QuestionController {
      * @return json string
      */
     @PreAuthorize("hasAuthority(2)")
-    @RequestMapping(value = Const.URLMAPPING_DELETE_QUESTION, method = RequestMethod.GET)
+    @RequestMapping(value = Const.URLMAPPING_DELETE_QUESTION, method = RequestMethod.GET,
+            produces={"application/json; charset=UTF-8"})
     public @ResponseBody
     String deleteQuestion(@PathVariable("question_id") Integer questionId) {
         Response response = new Response(ResponseCode.BAD_REQUEST);
@@ -406,10 +411,11 @@ public class QuestionController {
      * @return json string
      */
     @Secured("isAuthenticated()")
-    @RequestMapping(value = Const.URLMAPPING_REPORT_QUESTION, method = RequestMethod.POST)
+    @RequestMapping(value = Const.URLMAPPING_REPORT_QUESTION, method = RequestMethod.POST,
+            produces={"application/json; charset=UTF-8"})
     public @ResponseBody
     String reportQuestion(@PathVariable("question_id") Integer questionId,
-            Principal principal, @ModelAttribute("report-form") ReportForm reportForm) {
+            Principal principal, @RequestBody ReportForm reportForm) {
         Response response = new Response(ResponseCode.BAD_REQUEST);
         try {
             LOGGER.debug("Get to report question controller successful");

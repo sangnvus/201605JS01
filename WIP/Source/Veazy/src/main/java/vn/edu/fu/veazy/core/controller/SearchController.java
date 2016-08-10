@@ -32,7 +32,8 @@ public class SearchController {
     /** Search service*/
     private LuceneService luceneService;
 
-    @RequestMapping(value = Const.URLMAPPING_SEARCH_QUESTION, method = RequestMethod.GET)
+    @RequestMapping(value = Const.URLMAPPING_SEARCH_QUESTION, method = RequestMethod.GET,
+            produces={"application/json; charset=UTF-8"})
     public @ResponseBody
     String searchQuestion(@RequestParam(required = true) String text) {
         Response response = new Response(ResponseCode.BAD_REQUEST);
