@@ -188,8 +188,7 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public int size() throws Exception {
-        // TODO Auto-generated method stub
-        return 0;
+        return findAllUser().size();
     }
 
 	@Override
@@ -213,5 +212,13 @@ public class UserServiceImpl implements UserService {
         user = listMatch.get(0);
         user.setEncryptedPassword(newPassword);
         userDao.update(user);
+    }
+
+    @Override
+    @Transactional
+    public int countActive() throws Exception {
+        UserModel model = new UserModel();
+        model.setIsBanned(false);
+        return userDao.findByExample(model).size();
     }
 }

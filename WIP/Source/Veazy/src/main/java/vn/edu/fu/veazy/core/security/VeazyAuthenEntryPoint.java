@@ -18,7 +18,7 @@ public class VeazyAuthenEntryPoint implements AuthenticationEntryPoint {
     public void commence(HttpServletRequest request, HttpServletResponse response,
             AuthenticationException authException) throws IOException, ServletException {
         Response resp = new Response(HttpServletResponse.SC_UNAUTHORIZED);
-        HttpUtils.addCorsHeader(response);
+        HttpUtils.addCorsHeader(request, response);
         response.flushBuffer();
         response.getWriter().flush();
         response.getWriter().print(resp.toResponseJson());

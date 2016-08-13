@@ -20,7 +20,7 @@ public class GetExamResponseData {
     private Integer questionSkill;
     private List<ExamAnswerResponseData> listQuestions;
     private Double result;
-    private Long time;
+    private Integer time;
 
     public GetExamResponseData() {
     }
@@ -70,11 +70,11 @@ public class GetExamResponseData {
         this.result = result;
     }
 
-    public Long getTime() {
+    public Integer getTime() {
         return time;
     }
 
-    public void setTime(Long time) {
+    public void setTime(Integer time) {
         this.time = time;
     }
 

@@ -22,7 +22,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import vn.edu.fu.veazy.core.common.Const;
 import vn.edu.fu.veazy.core.common.utils.Utils;
-import vn.edu.fu.veazy.core.form.CreateExamForm;
+import vn.edu.fu.veazy.core.form.CreateExamSinglePartForm;
+import vn.edu.fu.veazy.core.form.ExamPartForm;
 import vn.edu.fu.veazy.core.form.SubmitAnswerForm;
 import vn.edu.fu.veazy.core.form.SubmitExamAnswerForm;
 import vn.edu.fu.veazy.core.model.AnswerModel;
@@ -30,7 +31,7 @@ import vn.edu.fu.veazy.core.model.ExamAnswer;
 import vn.edu.fu.veazy.core.model.ExamModel;
 import vn.edu.fu.veazy.core.model.QuestionModel;
 import vn.edu.fu.veazy.core.model.UserModel;
-import vn.edu.fu.veazy.core.response.ExamResponse;
+import vn.edu.fu.veazy.core.response.ExamSinglePartResponse;
 import vn.edu.fu.veazy.core.response.Response;
 import vn.edu.fu.veazy.core.response.ResponseCode;
 import vn.edu.fu.veazy.core.response.data.GetExamResponseData;
@@ -75,7 +76,7 @@ public class ExamController {
     @RequestMapping(value = Const.URLMAPPING_CREATE_EXAM, method = RequestMethod.POST,
             produces={"application/json; charset=UTF-8"})
     public @ResponseBody
-    String createExam(@RequestBody CreateExamForm form,
+    String createExamSinglePart(@RequestBody CreateExamSinglePartForm form,
             Principal principal) {
         Response response = new Response(ResponseCode.BAD_REQUEST);
         try {
@@ -92,8 +93,13 @@ public class ExamController {
             }
             Integer courseId = form.getCourseId();
             //generate Question Bank
-            ExamResponse resp = new ExamResponse(courseId,
-                    questionBankService.generateTest(courseId, form.getParts()));
+            List<ExamPartForm> listParts = new ArrayList<>();
+            ExamPartForm part = new ExamPartForm();
+            part.setSkill(form.getSkill());
+            part.setNumberOfQuestion(form.getNumberOfQuestion());
+            listParts.add(part);
+            ExamSinglePartResponse resp = new ExamSinglePartResponse(courseId,
+                    questionBankService.generateTest(courseId, listParts));
 
             response.setCode(ResponseCode.SUCCESS);
             response.setData(resp);
@@ -161,7 +167,7 @@ public class ExamController {
                 ExamAnswer answer = new ExamAnswer(exam, questionId, userAnswers, correctAnswers);
                 listQuestions.add(answer);
             }
-            exam.setResult(Utils.round(rightAnswer / numberOfQuestion, 2));
+            exam.setResult(Utils.round(rightAnswer / numberOfQuestion, 2) * 100);
             exam.setListQuestions(listQuestions);
             //save in case is new exam
             if (!form.getIsRedo() && user != null) {

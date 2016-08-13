@@ -40,7 +40,9 @@ public class QuestionBankServiceImpl implements QuestionBankService {
         for (ExamPartForm part : examPart) {
             List<BriefQuestionResponse> partQues = new ArrayList<>();
             int time = genTest(partQues, part.getNumberOfQuestion(), courseId, part.getSkill());
-            result.add(new ExamPartResponse(part.getSkill(), time, partQues));
+            if (partQues.size() > 0) {
+                result.add(new ExamPartResponse(part.getSkill(), time, partQues));
+            }
         }
         return result;
     }
@@ -115,15 +117,15 @@ public class QuestionBankServiceImpl implements QuestionBankService {
                 List<String> ans = new ArrayList<>();
                 for (AnswerModel m : answer)
                     ans.add(m.getAnswer());
-                myQues.add(new BriefQuestionResponse(q.getQuestion(), ans, q.getAttachment()));
+                myQues.add(new BriefQuestionResponse(q.getId(), q.getQuestion(), ans, q.getAttachment()));
             }
-            result.add(new BriefQuestionResponse(question.getQuestion(), question.getAttachment(), myQues));
+            result.add(new BriefQuestionResponse(question.getId(), question.getQuestion(), question.getAttachment(), myQues));
         } else if (question.getQuestionType() == Const.QUESTIONTYPE_SINGULAR) {
             List<AnswerModel> answer = question.getListAnswers();
             List<String> ans = new ArrayList<>();
             for (AnswerModel m : answer)
                 ans.add(m.getAnswer());
-            result.add(new BriefQuestionResponse(question.getQuestion(), ans, question.getAttachment()));
+            result.add(new BriefQuestionResponse(question.getId(), question.getQuestion(), ans, question.getAttachment()));
         }
     }
 }
