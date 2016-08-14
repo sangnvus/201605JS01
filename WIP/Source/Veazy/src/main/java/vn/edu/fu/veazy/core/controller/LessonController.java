@@ -28,6 +28,7 @@ import vn.edu.fu.veazy.core.response.BriefLessonResponse;
 import vn.edu.fu.veazy.core.response.CreateLessonResponse;
 import vn.edu.fu.veazy.core.response.GetLessonResponse;
 import vn.edu.fu.veazy.core.response.GetLessonVersionResponse;
+import vn.edu.fu.veazy.core.response.LessonsStatsResponse;
 import vn.edu.fu.veazy.core.response.Response;
 import vn.edu.fu.veazy.core.response.ResponseCode;
 import vn.edu.fu.veazy.core.service.LessonService;
@@ -315,6 +316,38 @@ public class LessonController {
 
         LOGGER.error("Unknown error occured!");
         response.setCode(ResponseCode.INTERNAL_SERVER_ERROR);
+        return response.toResponseJson();
+    }
+
+    /**
+     *
+     * @param questionId url path
+     * @return json string
+     */
+    @PreAuthorize("hasAuthority(2)")
+    @RequestMapping(value = Const.URLMAPPING_GET_SIZE_LESSON, method = RequestMethod.GET,
+            produces={"application/json; charset=UTF-8"})
+    public @ResponseBody
+    String getNumberLesson() {
+        Response response = new Response(ResponseCode.BAD_REQUEST);
+        try {
+            LOGGER.debug("Get to get number of lesson controller successful");
+            
+            int numberOfLessons = lessonService.size();
+            
+            LessonsStatsResponse data = new LessonsStatsResponse(numberOfLessons);
+
+            response.setCode(ResponseCode.SUCCESS);
+            response.setData(data);
+
+            LOGGER.debug("Get number of lesson successfully!");
+
+            return response.toResponseJson();
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage());
+            LOGGER.error("Unknown error occured!");
+            response.setCode(ResponseCode.INTERNAL_SERVER_ERROR);
+        }
         return response.toResponseJson();
     }
 

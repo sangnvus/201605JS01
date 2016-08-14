@@ -325,4 +325,10 @@ public class LessonServiceImpl implements LessonService{
 		versionSample.setState(state);
 		return lessonVersionDao.findByExample(versionSample);
 	}
+
+    @Override
+    @Transactional
+    public int size() throws Exception {
+        return getAllLesson().size();
+    }
 }

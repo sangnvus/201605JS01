@@ -11,6 +11,7 @@ public class Const {
     /**
      * *********************** CORS Config *****************************
      */
+    public static final String CORS_HEADER_ORIGIN = "Origin";
     public static final boolean CORS_HEADER_ENABLED = true;
     
     /************************* System Config ****************************/
@@ -33,15 +34,21 @@ public class Const {
     public static final String URLMAPPING_LOGOUT = URL_PREFIX + "/logout";
     public static final String URLMAPPING_RESET_PASSWORD = URL_PREFIX + "/users/reset_password";
 
+    public static final String URLMAPPING_BAN_USER = URL_PREFIX + "/users/ban/{user_id}";
+    public static final String URLMAPPING_UNBAN_USER = URL_PREFIX + "/users/unban/{user_id}";
     public static final String URLMAPPING_GET_USER = URL_PREFIX + "/users/{user_id}";
     public static final String URLMAPPING_GET_CURRENT_USER = URL_PREFIX + "/user";
     public static final String URLMAPPING_UPDATE_CURRENT_USER = URL_PREFIX + "/user/update";
     public static final String URLMAPPING_CHGPWD_CURRENT_USER = URL_PREFIX + "/user/chgpwd";
     public static final String URLMAPPING_GET_LIST_USERS = URL_PREFIX + "/users";
+    public static final String URLMAPPING_GET_SIZE_USERS = URL_PREFIX + "/users/count";
     public static final String URLMAPPING_GET_LEARNER_EXAMS = URL_PREFIX + "/users/{user_id}/exams";
     public static final String URLMAPPING_GET_LEARNER_EXAM_STATISTIC = URL_PREFIX + "/users/{user_id}/exams/statistics";
 
     public static final String URLMAPPING_CHANGE_ROLE = URL_PREFIX + "/users/change_roll/{user_id}";
+    public static final String URLMAPPING_STATS_SKILL_AVG = URL_PREFIX + "/stats/skill/avg";
+    public static final String URLMAPPING_STATS_LAST_EXAM = URL_PREFIX + "/stats/exam/last/{number}";
+    public static final String URLMAPPING_STATS_COURSE_AVG = URL_PREFIX + "/stats/course/avg";
 
     //lesson api
     /**
@@ -83,6 +90,7 @@ public class Const {
      * レッソン�?��?�得�?�ＡＰＩ
      */
     public static final String URLMAPPING_GET_LESSON = URL_PREFIX + "/lessons/{lesson_id}";
+    public static final String URLMAPPING_GET_SIZE_LESSON = URL_PREFIX + "/lessons/count";
 
     /**
      * 全部�?�レッソン�?��?�得�?�ＡＰＩ
@@ -113,6 +121,7 @@ public class Const {
 
     //question api
     public static final String URLMAPPING_CREATE_QUESTION = URL_PREFIX + "/questions/new";
+    public static final String URLMAPPING_GET_SIZE_QUESTION = URL_PREFIX + "/questions/count";
     public static final String URLMAPPING_UPDATE_QUESTION = URL_PREFIX + "/questions/update/{question_id}";
     public static final String URLMAPPING_GET_QUESTION = URL_PREFIX + "/questions/{question_id}";
     public static final String URLMAPPING_GET_QUESTION_OF_SKILL = URL_PREFIX + "/skill/{skill_id}/questions";
@@ -209,9 +218,9 @@ public class Const {
     /**
      * *********************** Question Skill type **************************
      */
-    public static final Integer VOCABULARY = 1;
-    public static final Integer GRAMMAR = 2;
-    public static final Integer READING = 3;
-    public static final Integer LISTENING = 4;
+    public static final Integer QUESTIONSKILL_VOCABULARY = 1;
+    public static final Integer QUESTIONSKILL_GRAMMAR = 2;
+    public static final Integer QUESTIONSKILL_READING = 3;
+    public static final Integer QUESTIONSKILL_LISTENING = 4;
 
 }

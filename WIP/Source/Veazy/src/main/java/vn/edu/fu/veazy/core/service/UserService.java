@@ -20,4 +20,5 @@ public interface UserService {
     public int size() throws Exception;
     public void changeUserRoll(Integer userId, int role) throws Exception;
     public void changePassword(Integer id, String oldPassword, String newPassword) throws Exception;
+    public int countActive() throws Exception;
 }

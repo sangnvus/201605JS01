@@ -13,7 +13,7 @@ import java.util.List;
  */
 public class SubmitExamAnswerForm {
 
-    private Long time;
+    private Integer time;
     private Integer courseId;
     private Integer questionSkill;
     private Boolean isRedo;
@@ -22,11 +22,11 @@ public class SubmitExamAnswerForm {
     public SubmitExamAnswerForm() {
     }
 
-    public Long getTime() {
+    public Integer getTime() {
         return time;
     }
 
-    public void setTime(Long time) {
+    public void setTime(Integer time) {
         this.time = time;
     }
 

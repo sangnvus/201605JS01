@@ -15,15 +15,17 @@ import vn.edu.fu.veazy.core.model.ExamAnswer;
 public class ExamAnswerResponseData {
 
     private Integer questionId;
+    private Integer questionType;
     private List<String> userAnswer;
-    private List<String> correctAnswer;
+    private List<String> listAnswers;
+    private List<ExamAnswerResponseData> listQuestions;
 
     public ExamAnswerResponseData() {
     }
 
     public ExamAnswerResponseData(ExamAnswer answer) {
         this.questionId = answer.getQuestionId();
-        this.correctAnswer = answer.getCorrectAnswer();
+        this.listAnswers = answer.getListAnswers();
         this.userAnswer = answer.getUserAnswer();
     }
 
@@ -43,12 +45,28 @@ public class ExamAnswerResponseData {
         this.userAnswer = userAnswer;
     }
 
-    public List<String> getCorrectAnswer() {
-        return correctAnswer;
+    public List<String> getListAnswers() {
+        return listAnswers;
     }
 
-    public void setCorrectAnswer(List<String> correctAnswer) {
-        this.correctAnswer = correctAnswer;
+    public void setListAnswers(List<String> listAnswers) {
+        this.listAnswers = listAnswers;
+    }
+
+    public Integer getQuestionType() {
+        return questionType;
+    }
+
+    public void setQuestionType(Integer questionType) {
+        this.questionType = questionType;
+    }
+
+    public List<ExamAnswerResponseData> getListQuestions() {
+        return listQuestions;
+    }
+
+    public void setListQuestions(List<ExamAnswerResponseData> listQuestions) {
+        this.listQuestions = listQuestions;
     }
 
 }

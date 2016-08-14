@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -34,9 +35,10 @@ public class DictController {
     private DictService dictService;
     
 
-    @RequestMapping(value = Const.URLMAPPING_LOOKUP_JAVI, method = RequestMethod.POST)
+    @RequestMapping(value = Const.URLMAPPING_LOOKUP_JAVI, method = RequestMethod.POST,
+            produces={"application/json; charset=UTF-8"})
     public @ResponseBody
-    String lookupJavi(@ModelAttribute("lookup-form") LookupForm form) {
+    String lookupJavi(@RequestBody LookupForm form) {
     	Response response = new Response(ResponseCode.BAD_REQUEST);
         try {
         	LOGGER.debug("look up javi key = " + form.getKey());
@@ -59,9 +61,10 @@ public class DictController {
 
 
     
-    @RequestMapping(value = Const.URLMAPPING_LOOKUP_VIJA, method = RequestMethod.POST)
+    @RequestMapping(value = Const.URLMAPPING_LOOKUP_VIJA, method = RequestMethod.POST,
+            produces={"application/json; charset=UTF-8"})
     public @ResponseBody
-    String lookupVija(@ModelAttribute("lookup-form") LookupForm form) {
+    String lookupVija(@RequestBody LookupForm form) {
     	Response response = new Response(ResponseCode.BAD_REQUEST);
         try {
         	LOGGER.debug("look up vija key = " + form.getKey());

@@ -19,4 +19,5 @@ public interface LessonService {
 	GetLessonResponse getLesson(Integer lessonId, boolean edit)throws Exception;
 	void deleteLesson(Integer lessonId)throws Exception;
 	List<BriefLessonResponse> getAllLesson()throws Exception;
+	int size() throws Exception;
 }

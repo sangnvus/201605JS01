@@ -36,15 +36,15 @@ public class ExamModel extends BasicModel {
     private Integer courseId;
     @Column(name = "questionSkill", nullable = true)
     private Integer questionSkill;
-    @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "exam")
+    @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "exam", orphanRemoval = true)
     @Column(name = "listQuestions", nullable = false)
     @Access(AccessType.PROPERTY)
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<ExamAnswer> listQuestions = new ArrayList<>();
     @Column(name = "result", columnDefinition = "FLOAT4 DEFAULT 0.0", nullable = false)
     private Double result;
-    @Column(name = "time", columnDefinition = "LONG", nullable = false)
-    private Long time;
+    @Column(name = "time", columnDefinition = "INT", nullable = false)
+    private Integer time;
 
     public ExamModel() {
     }
@@ -86,11 +86,11 @@ public class ExamModel extends BasicModel {
         this.questionSkill = questionSkill;
     }
 
-    public Long getTime() {
+    public Integer getTime() {
         return time;
     }
 
-    public void setTime(Long time) {
+    public void setTime(Integer time) {
         this.time = time;
     }
 

@@ -18,8 +18,9 @@ public class HttpUtils {
         return url.substring(0, url.length() - uri.length() + ctx.length());
     }
 
-    public static void addCorsHeader(HttpServletResponse response){
-        if (Const.CORS_HEADER_ENABLED) {
+    public static void addCorsHeader(HttpServletRequest request, HttpServletResponse response){
+        if (Const.CORS_HEADER_ENABLED
+                && !Utils.isNullOrEmpty(request.getHeader(Const.CORS_HEADER_ORIGIN))) {
             if (!response.containsHeader("Access-Control-Allow-Origin")) {
                 response.addHeader("Access-Control-Allow-Origin", "http://localhost:3003");
             }

@@ -25,6 +25,7 @@ import vn.edu.fu.veazy.core.form.ReportForm;
 import vn.edu.fu.veazy.core.model.QuestionModel;
 import vn.edu.fu.veazy.core.model.ReportModel;
 import vn.edu.fu.veazy.core.model.UserModel;
+import vn.edu.fu.veazy.core.response.QuestionsStatsResponse;
 import vn.edu.fu.veazy.core.response.Response;
 import vn.edu.fu.veazy.core.response.ResponseCode;
 import vn.edu.fu.veazy.core.response.data.QuestionResponseData;
@@ -274,6 +275,38 @@ public class QuestionController {
             response.setData(data);
 
             LOGGER.debug("Get question successfully!");
+
+            return response.toResponseJson();
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage());
+            LOGGER.error("Unknown error occured!");
+            response.setCode(ResponseCode.INTERNAL_SERVER_ERROR);
+        }
+        return response.toResponseJson();
+    }
+
+    /**
+     *
+     * @param questionId url path
+     * @return json string
+     */
+    @PreAuthorize("hasAuthority(2)")
+    @RequestMapping(value = Const.URLMAPPING_GET_SIZE_QUESTION, method = RequestMethod.GET,
+            produces={"application/json; charset=UTF-8"})
+    public @ResponseBody
+    String getNumberQuestion() {
+        Response response = new Response(ResponseCode.BAD_REQUEST);
+        try {
+            LOGGER.debug("Get to get number of question controller successful");
+            
+            int numberOfQuestions = questionService.size();
+            
+            QuestionsStatsResponse data = new QuestionsStatsResponse(numberOfQuestions);
+
+            response.setCode(ResponseCode.SUCCESS);
+            response.setData(data);
+
+            LOGGER.debug("Get number of question successfully!");
 
             return response.toResponseJson();
         } catch (Exception e) {
