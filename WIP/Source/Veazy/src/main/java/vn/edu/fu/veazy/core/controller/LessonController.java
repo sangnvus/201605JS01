@@ -284,6 +284,7 @@ public class LessonController {
             return response.toResponseJson();
         } catch (Exception e) {
             LOGGER.error(e.getMessage());
+            e.printStackTrace();
         }
 
         LOGGER.error("Unknown error occured!");
@@ -367,6 +368,7 @@ public class LessonController {
             return response.toResponseJson();
         } catch (Exception e) {
             LOGGER.error(e.getMessage());
+            e.printStackTrace();
         }
 
         LOGGER.error("Unknown error occured!");

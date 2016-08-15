@@ -11,7 +11,7 @@ import org.hibernate.annotations.DynamicUpdate;
 @Entity
 @DynamicInsert
 @DynamicUpdate
-@Table(name = "Course")
+@Table(name = "`Course`")
 public class CourseModel{
 	/**
 	 * レベルのＩＤ

@@ -43,7 +43,8 @@
         <value>vn.edu.fu.veazy.core.model.UserModel</value>
         <value>vn.edu.fu.veazy.core.model.CourseModel</value>
         <value>vn.edu.fu.veazy.core.model.ExamModel</value>
-        <value>vn.edu.fu.veazy.core.model.ExamAnswer</value>
+        <value>vn.edu.fu.veazy.core.model.ExamQuestionModel</value>
+        <value>vn.edu.fu.veazy.core.model.ExamAnswerModel</value>
         <value>vn.edu.fu.veazy.core.model.LessonModel</value>
         <value>vn.edu.fu.veazy.core.model.LessonVersionModel</value>
         <value>vn.edu.fu.veazy.core.model.MessageModel</value>

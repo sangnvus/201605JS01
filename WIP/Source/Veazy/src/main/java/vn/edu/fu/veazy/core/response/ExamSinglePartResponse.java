@@ -4,21 +4,42 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ExamSinglePartResponse {
+    private int examId;
     private int course;
     private int skill;
+    private boolean offlineCheck;
     private int etaTime = 0;
     private List<BriefQuestionResponse> listQuestions = new ArrayList<>();
     
     public ExamSinglePartResponse(int course, List<ExamPartResponse> parts) {
         super();
         this.course = course;
-        for (ExamPartResponse part : parts) {
+        if (parts != null && parts.size() > 0) {
+            ExamPartResponse part = parts.get(0);
             this.listQuestions.addAll(part.getQuestions());
             this.etaTime += part.getEtaTime();
             this.skill = part.getSkill();
+            this.examId = part.getExamId();
+            this.offlineCheck = part.isOfflineCheck();
         }
     }
     
+    public int getExamId() {
+        return examId;
+    }
+
+    public void setExamId(int examId) {
+        this.examId = examId;
+    }
+
+    public boolean isOfflineCheck() {
+        return offlineCheck;
+    }
+
+    public void setOfflineCheck(boolean offlineCheck) {
+        this.offlineCheck = offlineCheck;
+    }
+
     public int getSkill() {
         return skill;
     }

@@ -16,9 +16,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import vn.edu.fu.veazy.core.common.Const;
 import vn.edu.fu.veazy.core.dao.GenericDao;
+import vn.edu.fu.veazy.core.form.AnswerForm;
 import vn.edu.fu.veazy.core.form.ExamPartForm;
+import vn.edu.fu.veazy.core.form.QuestionForm;
 import vn.edu.fu.veazy.core.model.AnswerModel;
+import vn.edu.fu.veazy.core.model.ExamAnswerModel;
+import vn.edu.fu.veazy.core.model.ExamModel;
+import vn.edu.fu.veazy.core.model.ExamQuestionModel;
 import vn.edu.fu.veazy.core.model.QuestionModel;
+import vn.edu.fu.veazy.core.response.BriefAnswerResponse;
 import vn.edu.fu.veazy.core.response.BriefQuestionResponse;
 import vn.edu.fu.veazy.core.response.ExamPartResponse;
 
@@ -33,15 +39,39 @@ public class QuestionBankServiceImpl implements QuestionBankService {
     @Autowired
     private GenericDao<QuestionModel, Integer> questionDao;
 
+    @Autowired
+    private GenericDao<ExamModel, Integer> examDao;
+
     @Override
     @Transactional
-    public List<ExamPartResponse> generateTest(Integer courseId, List<ExamPartForm> examPart) throws Exception {
+    public List<ExamPartResponse> generateTest(Integer userId, Integer courseId,
+            List<ExamPartForm> examPart) throws Exception {
         List<ExamPartResponse> result = new ArrayList<>();
+        boolean offlineCheck = (userId == -1);
         for (ExamPartForm part : examPart) {
             List<BriefQuestionResponse> partQues = new ArrayList<>();
-            int time = genTest(partQues, part.getNumberOfQuestion(), courseId, part.getSkill());
+            List<ExamQuestionModel> partExamQues = new ArrayList<>();
+            ExamModel exam = new ExamModel();
+            exam.setCourseId(courseId);
+            int time = genTest(partQues, part.getNumberOfQuestion(), courseId, part.getSkill(),
+                    offlineCheck, exam, partExamQues);
             if (partQues.size() > 0) {
-                result.add(new ExamPartResponse(part.getSkill(), time, partQues));
+                ExamPartResponse examPartResp = new ExamPartResponse(part.getSkill(), time, partQues);
+                if (partExamQues.size() > 0 && !offlineCheck) {
+                    exam.setQuestionSkill(part.getSkill());
+                    exam.setResult(0d);
+                    exam.setTakenTime(0);
+                    exam.setEtaTime(time);
+                    exam.setFinishState(false);
+                    exam.setListQuestions(partExamQues);
+                    exam.setUserId(userId);
+                    examDao.save(exam);
+                    examPartResp.setExamId(exam.getId());
+                }
+                if (offlineCheck) {
+                    examPartResp.setOfflineCheck(true);
+                }
+                result.add(examPartResp);
             }
         }
         return result;
@@ -49,7 +79,8 @@ public class QuestionBankServiceImpl implements QuestionBankService {
     
     private Integer genTest(
             List<BriefQuestionResponse> result,
-            Integer questionNumber, Integer courseId, Integer examSkill) throws Exception {
+            Integer questionNumber, Integer courseId, Integer examSkill, boolean offlineCheck,
+            ExamModel ex, List<ExamQuestionModel> exam) throws Exception {
         int eta = Const.EXAM_INSURANCE_TIME;
         try {
             QuestionModel question = new QuestionModel();
@@ -72,7 +103,7 @@ public class QuestionBankServiceImpl implements QuestionBankService {
                         if (randomQuestion.getNumberOfQuestion() <= (questionNumber - takedQuestionNumber)
                                 && randomQuestion.getNumberOfQuestion() > 0) {
                             takedQuestionNumber += randomQuestion.getNumberOfQuestion();
-                            letMeIn(result, randomQuestion);
+                            letMeIn(result, randomQuestion, offlineCheck, ex, exam);
                             eta += randomQuestion.getQuestionEtaTime();
                         }
                     }
@@ -89,7 +120,7 @@ public class QuestionBankServiceImpl implements QuestionBankService {
                     if (randomQuestion.getNumberOfQuestion() <= (questionNumber - takedQuestionNumber)
                             && randomQuestion.getNumberOfQuestion() > 0) {
                         takedQuestionNumber += randomQuestion.getNumberOfQuestion();
-                        letMeIn(result, randomQuestion);
+                        letMeIn(result, randomQuestion, offlineCheck, ex, exam);
                         eta += randomQuestion.getQuestionEtaTime();
                     }
                 }
@@ -108,24 +139,57 @@ public class QuestionBankServiceImpl implements QuestionBankService {
      * @param question
      * @throws Exception
      */
-    private void letMeIn(List<BriefQuestionResponse> result, QuestionModel question) throws Exception {
+    private void letMeIn(List<BriefQuestionResponse> result, QuestionModel question, boolean offlineCheck,
+            ExamModel ex, List<ExamQuestionModel> exam) throws Exception {
         if (question.getQuestionType() == Const.QUESTIONTYPE_GROUP) {
             List<BriefQuestionResponse> myQues = new ArrayList<>();
+            List<QuestionForm> myExamQues = new ArrayList<>();
             List<QuestionModel> questions = question.getListQuestions();
             for (QuestionModel q : questions) {
                 List<AnswerModel> answer = q.getListAnswers();
-                List<String> ans = new ArrayList<>();
-                for (AnswerModel m : answer)
-                    ans.add(m.getAnswer());
-                myQues.add(new BriefQuestionResponse(q.getId(), q.getQuestion(), ans, q.getAttachment()));
+                List<AnswerForm> ansForm = new ArrayList<>();
+                List<BriefAnswerResponse> ans = new ArrayList<>();
+                for (AnswerModel m : answer) {
+                    BriefAnswerResponse ansResp = new BriefAnswerResponse();
+                    ansResp.setAnswer(m.getAnswer());
+                    ansForm.add(new AnswerForm(m.getAnswer(), m.getIsRight()));
+                    if (offlineCheck) {
+                        ansResp.setIsRight(m.getIsRight());
+                    }
+                    ans.add(ansResp);
+                }
+                myQues.add(new BriefQuestionResponse(q.getId(), q.getQuestion(),
+                        ans, q.getAttachment()));
+                QuestionForm form1 = new QuestionForm(q);
+                form1.setListAnswers(ansForm);
+                myExamQues.add(form1);
             }
             result.add(new BriefQuestionResponse(question.getId(), question.getQuestion(), question.getAttachment(), myQues));
+            QuestionForm form1 = new QuestionForm(question);
+            form1.setListQuestions(myExamQues);
+            ExamQuestionModel m1 = new ExamQuestionModel(form1);
+            m1.setExam(ex);
+            exam.add(m1);
         } else if (question.getQuestionType() == Const.QUESTIONTYPE_SINGULAR) {
             List<AnswerModel> answer = question.getListAnswers();
-            List<String> ans = new ArrayList<>();
-            for (AnswerModel m : answer)
-                ans.add(m.getAnswer());
-            result.add(new BriefQuestionResponse(question.getId(), question.getQuestion(), ans, question.getAttachment()));
+            List<AnswerForm> ansForm = new ArrayList<>();
+            List<BriefAnswerResponse> ans = new ArrayList<>();
+            for (AnswerModel m : answer) {
+                BriefAnswerResponse ansResp = new BriefAnswerResponse();
+                ansResp.setAnswer(m.getAnswer());
+                ansForm.add(new AnswerForm(m.getAnswer(), m.getIsRight()));
+                if (offlineCheck) {
+                    ansResp.setIsRight(m.getIsRight());
+                }
+                ans.add(ansResp);
+            }
+            result.add(new BriefQuestionResponse(question.getId(), question.getQuestion(),
+                    ans, question.getAttachment()));
+            QuestionForm form1 = new QuestionForm(question);
+            form1.setListAnswers(ansForm);
+            ExamQuestionModel m1 = new ExamQuestionModel(form1);
+            m1.setExam(ex);
+            exam.add(m1);
         }
     }
 }

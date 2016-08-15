@@ -77,7 +77,7 @@ public class CoreController {
      * @param uploadForm
      * @return
      */
-    @PreAuthorize("hasAuthority(2)")
+    @PreAuthorize("hasAnyAuthority(1,2)")
     @RequestMapping(value = Const.URLMAPPING_UPLOADFILE, method = RequestMethod.POST)
     public @ResponseBody String uploadFile(HttpServletRequest req, Principal principal,
             @ModelAttribute("uploadForm") FileUploadForm uploadForm) {

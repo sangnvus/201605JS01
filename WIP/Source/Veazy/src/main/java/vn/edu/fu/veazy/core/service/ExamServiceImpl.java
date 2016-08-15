@@ -64,4 +64,16 @@ public class ExamServiceImpl implements ExamService {
         return null;
     }
 
+    @Override
+    @Transactional
+    public void updateExam(ExamModel exam) throws Exception {
+        try {
+            examDao.update(exam);
+        } catch (Exception e) {
+            // TODO custom exception
+            throw new Exception(e.getMessage(), e);
+        }
+        
+    }
+
 }

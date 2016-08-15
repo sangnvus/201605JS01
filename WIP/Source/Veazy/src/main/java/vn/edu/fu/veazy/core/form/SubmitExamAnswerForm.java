@@ -5,6 +5,7 @@
  */
 package vn.edu.fu.veazy.core.form;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -13,52 +14,37 @@ import java.util.List;
  */
 public class SubmitExamAnswerForm {
 
-    private Integer time;
-    private Integer courseId;
-    private Integer questionSkill;
-    private Boolean isRedo;
-    private List<SubmitAnswerForm> listQuestions;
+    private Integer examId;
+    private Integer takenTime;
+//    private Integer courseId;
+//    private Integer questionSkill;
+//    private Boolean isRedo;
+    private List<SubmitQuestionForm> listQuestions = new ArrayList<>();
 
     public SubmitExamAnswerForm() {
     }
 
-    public Integer getTime() {
-        return time;
+    public Integer getExamId() {
+        return examId;
     }
 
-    public void setTime(Integer time) {
-        this.time = time;
+    public void setExamId(Integer examId) {
+        this.examId = examId;
     }
 
-    public Integer getCourseId() {
-        return courseId;
+    public Integer getTakenTime() {
+        return takenTime;
     }
 
-    public void setCourseId(Integer courseId) {
-        this.courseId = courseId;
+    public void setTakenTime(Integer takenTime) {
+        this.takenTime = takenTime;
     }
 
-    public Integer getQuestionSkill() {
-        return questionSkill;
-    }
-
-    public void setQuestionSkill(Integer questionSkill) {
-        this.questionSkill = questionSkill;
-    }
-
-    public Boolean getIsRedo() {
-        return isRedo;
-    }
-
-    public void setIsRedo(Boolean isRedo) {
-        this.isRedo = isRedo;
-    }
-
-    public List<SubmitAnswerForm> getListQuestions() {
+    public List<SubmitQuestionForm> getListQuestions() {
         return listQuestions;
     }
 
-    public void setListQuestions(List<SubmitAnswerForm> listQuestions) {
+    public void setListQuestions(List<SubmitQuestionForm> listQuestions) {
         this.listQuestions = listQuestions;
     }
 

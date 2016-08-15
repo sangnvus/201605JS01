@@ -13,20 +13,17 @@ import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
 import vn.edu.fu.veazy.core.common.Const;
-import vn.edu.fu.veazy.core.controller.QuestionController;
 import vn.edu.fu.veazy.core.form.AnswerForm;
 import vn.edu.fu.veazy.core.form.QuestionForm;
 
@@ -93,20 +90,8 @@ public class QuestionModel extends BasicModel implements Comparator<QuestionMode
     @ManyToOne(fetch = FetchType.LAZY, optional = true)
     @JoinColumn(name="questionmodel_id")
     private QuestionModel parentQuestion;
-//    @Column(name = "state", columnDefinition = "INT DEFAULT 1", nullable = false)
-//    private Integer state;
     @Column(name = "attachment", nullable = true)
     private String attachment;
-    @Transient
-    private boolean updateAns = false;
-
-    public boolean isUpdateAns() {
-        return updateAns;
-    }
-
-    public void setUpdateAns(boolean updateAns) {
-        this.updateAns = updateAns;
-    }
 
     public QuestionModel() {
     }
@@ -129,7 +114,6 @@ public class QuestionModel extends BasicModel implements Comparator<QuestionMode
         if (form.getQuestionType() != Const.QUESTIONTYPE_GROUP) {
             List<AnswerForm> listAns = form.getListAnswers();
             if (listAns != null && listAns.size() > 1) {
-                updateAns = true;
                 for (AnswerForm form1 : listAns) {
                     AnswerModel model = new AnswerModel();
                     model.setAnswer(form1.getAnswer());
@@ -148,6 +132,7 @@ public class QuestionModel extends BasicModel implements Comparator<QuestionMode
                     if (q.getId() != null && q.getId() == form1.getQuestionId()) {
                         form1.setCreatorId(q.getCreatorId());
                         q.updateProperty(form1);
+                        q.setQuestionEtaTime(0);
                         q.setQuestionAnswerType(form.getQuestionAnswerType());
                         q.setQuestionSkill(form.getQuestionSkill());
                         q.setCourseId(form.getCourseId());
@@ -159,6 +144,7 @@ public class QuestionModel extends BasicModel implements Comparator<QuestionMode
                 }
                 if (!checkmates) {
                     QuestionModel model1 = new QuestionModel(form1);
+                    model1.setQuestionEtaTime(0);
                     model1.setQuestionAnswerType(form.getQuestionAnswerType());
                     model1.setQuestionSkill(form.getQuestionSkill());
                     model1.setQuestionType(Const.QUESTIONTYPE_SINGULAR);
@@ -287,6 +273,12 @@ public class QuestionModel extends BasicModel implements Comparator<QuestionMode
     @Override
     public int compare(QuestionModel question1, QuestionModel question2) {
         return question1.getNumberOfQuestion().compareTo(question2.getNumberOfQuestion());
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        // TODO Auto-generated method stub
+        return super.equals(obj);
     }
 
 }

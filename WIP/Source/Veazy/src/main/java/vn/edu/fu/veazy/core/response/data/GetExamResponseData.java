@@ -7,7 +7,7 @@ package vn.edu.fu.veazy.core.response.data;
 
 import java.util.ArrayList;
 import java.util.List;
-import vn.edu.fu.veazy.core.model.ExamAnswer;
+import vn.edu.fu.veazy.core.model.ExamQuestionModel;
 import vn.edu.fu.veazy.core.model.ExamModel;
 
 /**
@@ -16,26 +16,38 @@ import vn.edu.fu.veazy.core.model.ExamModel;
  */
 public class GetExamResponseData {
 
+    private Integer examId;
     private Integer courseId;
     private Integer questionSkill;
-    private List<ExamAnswerResponseData> listQuestions;
+    private List<ExamQuestionResponseData> listQuestions;
     private Double result;
-    private Integer time;
+    private Integer takenTime;
+    private Integer etaTime;
 
     public GetExamResponseData() {
     }
 
     public GetExamResponseData(ExamModel exam) {
+        this.examId = exam.getId();
         this.courseId = exam.getCourseId();
         this.questionSkill = exam.getQuestionSkill();
         this.result = exam.getResult();
-        this.time = exam.getTime();
-        List<ExamAnswer> examAnswers = exam.getListQuestions();
+        this.takenTime = exam.getTakenTime();
+        this.etaTime = exam.getEtaTime();
+        List<ExamQuestionModel> examQuestions = exam.getListQuestions();
         this.listQuestions = new ArrayList<>();
-        for(ExamAnswer answer: examAnswers){
-            ExamAnswerResponseData data = new ExamAnswerResponseData(answer);
+        for(ExamQuestionModel question: examQuestions){
+            ExamQuestionResponseData data = new ExamQuestionResponseData(question);
             listQuestions.add(data);
         }
+    }
+
+    public Integer getExamId() {
+        return examId;
+    }
+
+    public void setExamId(Integer examId) {
+        this.examId = examId;
     }
 
     public Integer getCourseId() {
@@ -54,11 +66,11 @@ public class GetExamResponseData {
         this.questionSkill = questionSkill;
     }
 
-    public List<ExamAnswerResponseData> getListQuestions() {
+    public List<ExamQuestionResponseData> getListQuestions() {
         return listQuestions;
     }
 
-    public void setListQuestions(List<ExamAnswerResponseData> listQuestions) {
+    public void setListQuestions(List<ExamQuestionResponseData> listQuestions) {
         this.listQuestions = listQuestions;
     }
 
@@ -70,12 +82,20 @@ public class GetExamResponseData {
         this.result = result;
     }
 
-    public Integer getTime() {
-        return time;
+    public Integer getTakenTime() {
+        return takenTime;
     }
 
-    public void setTime(Integer time) {
-        this.time = time;
+    public void setTakenTime(Integer takenTime) {
+        this.takenTime = takenTime;
+    }
+
+    public Integer getEtaTime() {
+        return etaTime;
+    }
+
+    public void setEtaTime(Integer etaTime) {
+        this.etaTime = etaTime;
     }
 
 }

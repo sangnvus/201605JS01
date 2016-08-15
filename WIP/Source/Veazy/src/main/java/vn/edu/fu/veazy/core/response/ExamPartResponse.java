@@ -3,8 +3,10 @@ package vn.edu.fu.veazy.core.response;
 import java.util.List;
 
 public class ExamPartResponse {
+    private int examId;
     private int skill;
     private int etaTime;
+    private boolean offlineCheck;
     private List<BriefQuestionResponse> questions;
     
     public ExamPartResponse(int skill, int etaTime, List<BriefQuestionResponse> questions) {
@@ -14,6 +16,22 @@ public class ExamPartResponse {
         this.questions = questions;
     }
     
+    public int getExamId() {
+        return examId;
+    }
+
+    public void setExamId(int examId) {
+        this.examId = examId;
+    }
+
+    public boolean isOfflineCheck() {
+        return offlineCheck;
+    }
+
+    public void setOfflineCheck(boolean offlineCheck) {
+        this.offlineCheck = offlineCheck;
+    }
+
     public int getSkill() {
         return skill;
     }

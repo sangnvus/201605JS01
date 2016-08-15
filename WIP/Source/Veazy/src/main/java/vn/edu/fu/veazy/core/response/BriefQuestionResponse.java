@@ -7,11 +7,12 @@ public class BriefQuestionResponse {
     
     private Integer questionId;
     private String question;
-    private List<String> answer = new ArrayList<>();
+    private List<BriefAnswerResponse> answer = new ArrayList<>();
     private List<BriefQuestionResponse> listQuestions = new ArrayList<>();
     private String attachment;
     
-    public BriefQuestionResponse(Integer questionId, String question, List<String> answer) {
+    public BriefQuestionResponse(Integer questionId, String question,
+            List<BriefAnswerResponse> answer) {
         super();
         this.questionId = questionId;
         this.question = question;
@@ -27,7 +28,8 @@ public class BriefQuestionResponse {
         this.attachment = attachment;
     }
 
-    public BriefQuestionResponse(Integer questionId, String question, List<String> answer, String attachment) {
+    public BriefQuestionResponse(Integer questionId, String question,
+            List<BriefAnswerResponse> answer, String attachment) {
         super();
         this.questionId = questionId;
         this.question = question;
@@ -59,11 +61,11 @@ public class BriefQuestionResponse {
         this.question = question;
     }
     
-    public List<String> getAnswer() {
+    public List<BriefAnswerResponse> getAnswer() {
         return answer;
     }
     
-    public void setAnswer(List<String> answer) {
+    public void setAnswer(List<BriefAnswerResponse> answer) {
         this.answer = answer;
     }
 

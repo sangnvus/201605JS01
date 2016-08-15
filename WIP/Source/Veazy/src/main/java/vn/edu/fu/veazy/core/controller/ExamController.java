@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Objects;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -22,12 +23,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import vn.edu.fu.veazy.core.common.Const;
 import vn.edu.fu.veazy.core.common.utils.Utils;
+import vn.edu.fu.veazy.core.exception.CorruptedFormException;
 import vn.edu.fu.veazy.core.form.CreateExamSinglePartForm;
 import vn.edu.fu.veazy.core.form.ExamPartForm;
 import vn.edu.fu.veazy.core.form.SubmitAnswerForm;
+import vn.edu.fu.veazy.core.form.SubmitQuestionForm;
 import vn.edu.fu.veazy.core.form.SubmitExamAnswerForm;
-import vn.edu.fu.veazy.core.model.AnswerModel;
-import vn.edu.fu.veazy.core.model.ExamAnswer;
+import vn.edu.fu.veazy.core.model.ExamAnswerModel;
+import vn.edu.fu.veazy.core.model.ExamQuestionModel;
 import vn.edu.fu.veazy.core.model.ExamModel;
 import vn.edu.fu.veazy.core.model.QuestionModel;
 import vn.edu.fu.veazy.core.model.UserModel;
@@ -81,6 +84,8 @@ public class ExamController {
         Response response = new Response(ResponseCode.BAD_REQUEST);
         try {
             LOGGER.debug("Get to create exam controller successful");
+            
+            int userId = -1;
 
             if (principal != null) {
                 String userName = principal.getName();
@@ -90,6 +95,7 @@ public class ExamController {
                     response.setCode(ResponseCode.USER_NOT_FOUND);
                     return response.toResponseJson();
                 }
+                userId = user.getId();
             }
             Integer courseId = form.getCourseId();
             //generate Question Bank
@@ -99,7 +105,7 @@ public class ExamController {
             part.setNumberOfQuestion(form.getNumberOfQuestion());
             listParts.add(part);
             ExamSinglePartResponse resp = new ExamSinglePartResponse(courseId,
-                    questionBankService.generateTest(courseId, listParts));
+                    questionBankService.generateTest(userId, courseId, listParts));
 
             response.setCode(ResponseCode.SUCCESS);
             response.setData(resp);
@@ -120,8 +126,7 @@ public class ExamController {
      * @param principal
      * @return json string
      */
-    @SuppressWarnings({ "unchecked", "rawtypes" })
-    @PreAuthorize("permitAll()")
+    @PreAuthorize("hasAuthority(3)")
     @RequestMapping(value = Const.URLMAPPING_SUBMIT_EXAM_ANSWER, method = RequestMethod.POST,
             produces={"application/json; charset=UTF-8"})
     public @ResponseBody
@@ -131,48 +136,61 @@ public class ExamController {
         try {
             LOGGER.debug("Get to submit exam answer controller successful");
             
-            UserModel user = null;
-
-            if (principal != null) {
-                String userName = principal.getName();
-                user = userService.findUserByUsername(userName);
-                if (user == null) {
-                    LOGGER.debug("user not found!");
-                    response.setCode(ResponseCode.USER_NOT_FOUND);
-                    return response.toResponseJson();
-                }
+            String userName = principal.getName();
+            UserModel user = userService.findUserByUsername(userName);
+            if (user == null) {
+                LOGGER.debug("user not found!");
+                response.setCode(ResponseCode.USER_NOT_FOUND);
+                return response.toResponseJson();
             }
-            ExamModel exam = new ExamModel(form);
-            List<ExamAnswer> listQuestions = new ArrayList<>();
+            
+            ExamModel exam = examService.findExamById(form.getExamId());
+            if (exam == null) {
+                LOGGER.debug("exam not found!");
+                response.setCode(HttpStatus.NOT_FOUND.value());
+                return response.toResponseJson();
+            }
 
             //calculate result
             double rightAnswer = 0;
-            List<SubmitAnswerForm> listQuestion = form.getListQuestions();
-            Integer numberOfQuestion = listQuestion.size();
-            for (SubmitAnswerForm answerForm : listQuestion) {
+            List<SubmitQuestionForm> listQuestion = form.getListQuestions();
+            List<ExamQuestionModel> listOriginQuestion = exam.getListQuestions();
+            Integer totalRight = 0;
+            for (SubmitQuestionForm answerForm : listQuestion) {
                 Integer questionId = answerForm.getQuestionId();
-                QuestionModel question = questionService.findQuestionById(questionId);
-                List<AnswerModel> listAnswers = question.getListAnswers();
-                List<String> correctAnswers = new ArrayList<>();
-                for (AnswerModel answerModel : listAnswers) {
-                    if (answerModel.getIsRight() == true) {
-                        correctAnswers.add(answerModel.getAnswer());
+                for (ExamQuestionModel m : listOriginQuestion) {
+                    if (questionId == m.getQuestionId()) {
+                        List<ExamAnswerModel> listAnswers = m.getListAnswers();
+                        List<SubmitAnswerForm> listUserAnswers = answerForm.getUserAnswers();
+                        if (listAnswers.size() != listUserAnswers.size()) {
+                            throw new CorruptedFormException("Wrong answer size");
+                        }
+                        int i = 0;
+                        for (SubmitAnswerForm ansForm : listUserAnswers) {
+                            if (ansForm.getIsSelected()) {
+                                ExamAnswerModel origin = listAnswers.get(i);
+                                origin.setIsSelected(true);
+                                if (origin.getIsRight()) {
+                                    rightAnswer++;
+                                }
+                            }
+                            i++;
+                        }
+                        for (ExamAnswerModel ansModel : listAnswers) {
+                            if (ansModel.getIsRight()) {
+                                totalRight++;
+                            }
+                        }
+                        exam.setResult(Utils.round(rightAnswer / totalRight, 2) * 100);
+                        exam.setTakenTime(form.getTakenTime());
+                        //save in case is new exam
+                        if (!exam.getFinishState()) {
+                            exam.setFinishState(true);
+                            examService.updateExam(exam);
+                        }
+                        break;
                     }
                 }
-                List<String> userAnswers = answerForm.getListAnswers();
-                boolean isEquals = new HashSet(correctAnswers).equals(new HashSet(userAnswers));
-                if (isEquals) {
-                    rightAnswer++;
-                }
-                ExamAnswer answer = new ExamAnswer(exam, questionId, userAnswers, correctAnswers);
-                listQuestions.add(answer);
-            }
-            exam.setResult(Utils.round(rightAnswer / numberOfQuestion, 2) * 100);
-            exam.setListQuestions(listQuestions);
-            //save in case is new exam
-            if (!form.getIsRedo() && user != null) {
-                exam.setUserId(user.getId());
-                examService.saveExam(exam);
             }
             GetExamResponseData data = new GetExamResponseData(exam);
             response.setCode(ResponseCode.SUCCESS);
@@ -194,14 +212,14 @@ public class ExamController {
      * @param principal
      * @return json string
      */
-    @PreAuthorize("hasRole(3)")
+    @PreAuthorize("hasAuthority(3)")
     @RequestMapping(value = Const.URLMAPPING_GET_EXAM, method = RequestMethod.GET,
             produces={"application/json; charset=UTF-8"})
     public @ResponseBody
     String getExamAnswer(@PathVariable("exam_id") Integer examId,
-            Principal principal) {
+            Principal principal) throws Exception {
         Response response = new Response(ResponseCode.BAD_REQUEST);
-        try {
+//        try {
             LOGGER.debug("Get to get exam answer controller successful");
 
             String userName = principal.getName();
@@ -223,12 +241,12 @@ public class ExamController {
             LOGGER.debug("Get exam successfully!");
 
             return response.toResponseJson();
-        } catch (Exception e) {
-            LOGGER.error(e.getMessage());
-            LOGGER.error("Unknown error occured!");
-            response.setCode(ResponseCode.INTERNAL_SERVER_ERROR);
-        }
-        return response.toResponseJson();
+//        } catch (Exception e) {
+//            LOGGER.error(e.getMessage());
+//            LOGGER.error("Unknown error occured!");
+//            response.setCode(ResponseCode.INTERNAL_SERVER_ERROR);
+//        }
+//        return response.toResponseJson();
     }
 
     /**
@@ -237,7 +255,7 @@ public class ExamController {
      * @param principal
      * @return json string
      */
-    @PreAuthorize("hasRole(3)")
+    @PreAuthorize("hasAuthority(3)")
     @RequestMapping(value = Const.URLMAPPING_REDO_EXAM, method = RequestMethod.GET,
             produces={"application/json; charset=UTF-8"})
     public @ResponseBody
@@ -262,8 +280,8 @@ public class ExamController {
                 return response.toResponseJson();
             }
             List<QuestionResponseData> datas = new ArrayList<>();
-            List<ExamAnswer> listQuestions = exam.getListQuestions();
-            for (ExamAnswer answer : listQuestions) {
+            List<ExamQuestionModel> listQuestions = exam.getListQuestions();
+            for (ExamQuestionModel answer : listQuestions) {
                 Integer questionId = answer.getQuestionId();
                 QuestionModel question = questionService.findQuestionById(questionId);
                 QuestionResponseData data = new QuestionResponseData(question);
