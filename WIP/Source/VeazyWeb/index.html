@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="vi" ng-app="veazyApp">
+<head>
+	<meta charset="utf-8">
+	<title>Veazy</title>
+	<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
+	<link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css">
+	<link rel="stylesheet" href="bower_components/ng-dialog/css/ngDialog.min.css">
+	<link rel="stylesheet" href="bower_components/ng-dialog/css/ngDialog-theme-default.min.css">
+	<link rel="stylesheet" href="bower_components/ng-dialog/css/ngDialog-theme-plain.min.css">
+	<link rel="stylesheet" href="bower_components/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css">
+	<link rel="stylesheet" href="bower_components/angular-bootstrap/ui-bootstrap-csp.css">
+	<link rel="stylesheet" href="bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css">
+	<link rel="stylesheet" href="bower_components/flexslider/flexslider.css">
+
+	<!-- Include Froala Editor styles -->
+	<link rel="stylesheet" href="bower_components/froala-wysiwyg-editor/css/froala_editor.min.css"/>
+	<link rel="stylesheet" href="bower_components/froala-wysiwyg-editor/css/froala_style.min.css"/>
+	<!-- Include Froala Editor Plugins styles -->
+	<link rel="stylesheet" href="bower_components/froala-wysiwyg-editor/css/plugins/char_counter.css">
+	<link rel="stylesheet" href="bower_components/froala-wysiwyg-editor/css/plugins/code_view.css">
+	<link rel="stylesheet" href="bower_components/froala-wysiwyg-editor/css/plugins/colors.css">
+	<link rel="stylesheet" href="bower_components/froala-wysiwyg-editor/css/plugins/emoticons.css">
+	<link rel="stylesheet" href="bower_components/froala-wysiwyg-editor/css/plugins/file.css">
+	<link rel="stylesheet" href="bower_components/froala-wysiwyg-editor/css/plugins/fullscreen.css">
+	<link rel="stylesheet" href="bower_components/froala-wysiwyg-editor/css/plugins/image_manager.css">
+	<link rel="stylesheet" href="bower_components/froala-wysiwyg-editor/css/plugins/image.css">
+	<link rel="stylesheet" href="bower_components/froala-wysiwyg-editor/css/plugins/line_breaker.css">
+	<link rel="stylesheet" href="bower_components/froala-wysiwyg-editor/css/plugins/table.css">
+	<link rel="stylesheet" href="bower_components/froala-wysiwyg-editor/css/plugins/video.css">
+
+	<link rel="stylesheet" href="vendors/img-stack/style.css">
+
+	<!-- custom styles -->
+	<link rel="stylesheet" href="css/common.css">
+	<link rel="stylesheet" href="css/user-page-style.css">
+	<link rel="stylesheet" href="css/more-bootstrap-btn-style.css">
+	<link rel="stylesheet" href="css/polaroids.css">
+	<link rel="stylesheet" href="css/header-style.css">
+	<link rel="stylesheet" href="css/home-style.css">
+	<link rel="stylesheet" href="css/dialog-style.css">
+	<link rel="stylesheet" href="css/login-style.css">
+	<link rel="stylesheet" href="css/course-list-style.css">
+	<link rel="stylesheet" href="css/lesson-detail-style.css">
+	<link rel="stylesheet" href="css/test-style.css">
+	<link rel="stylesheet" href="css/test-result-style.css">
+	<link rel="stylesheet" href="css/user-profile-style.css">
+
+	<link rel="stylesheet" href="css/side-bar-style.css">
+	<link rel="stylesheet" href="css/add-lesson-style.css">
+	<link rel="stylesheet" href="css/add-question-style.css">
+	<link rel="stylesheet" href="css/question-list-style.css">
+	<link rel="stylesheet" href="css/question-detail-style.css">
+	<link rel="stylesheet" href="css/lesson-list-style.css">
+</head>
+<body>
+	<div ui-view autoscroll=""></div>
+
+	<!-- AngularJS -->
+	<script src="bower_components/jquery/dist/jquery.js"></script>
+	<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+	<script src="bower_components/angular/angular.js"></script>
+	<script src="bower_components/angular-animate/angular-animate.js"></script>
+	<script src="bower_components/angular-route/angular-route.js"></script>
+	<script src="bower_components/angular-resource/angular-resource.js"></script>
+    <script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+	<script src="bower_components/angular-sanitize/angular-sanitize.min.js"></script>
+	<script src="bower_components/angular-local-storage/dist/angular-local-storage.min.js"></script>
+	<script src="bower_components/ng-dialog/js/ngDialog.min.js"></script>
+	<script src="bower_components/scrollreveal/dist/scrollreveal.min.js"></script>
+	<script src="bower_components/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
+	<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+	<script src="bower_components/angular-translate/angular-translate.min.js"></script>
+	<script src="bower_components/angular-cookies/angular-cookies.min.js"></script>
+	<script src="bower_components/angular-translate-storage-cookie/angular-translate-storage-cookie.min.js"></script>
+	<script src="bower_components/angular-translate-storage-local/angular-translate-storage-local.min.js"></script>
+	<script src="bower_components/angular-translate-loader-url/angular-translate-loader-url.min.js"></script>
+	<script src="bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.min.js"></script>
+	<script src="bower_components/Chart.js/Chart.js"></script>
+	<script src="bower_components/angular-chart.js/dist/angular-chart.min.js"></script>
+	<script src="bower_components/angular-md5/angular-md5.js"></script>
+	<script src="bower_components/angular-ui-validate/dist/validate.min.js"></script>
+	<script src="bower_components/angular-validation-match/dist/angular-validation-match.min.js"></script>
+	<script src="bower_components/moment/min/moment.min.js"></script>
+	<script src="bower_components/moment/min/moment-with-locales.js"></script>
+	<script src="bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+	<script src="bower_components/angular-eonasdan-datetimepicker/dist/angular-eonasdan-datetimepicker.js"></script>
+	<script src="bower_components/angular-file-upload/dist/angular-file-upload.js"></script>
+	<script src="bower_components/angular-bootstrap-checkbox/angular-bootstrap-checkbox.js"></script>
+	<script src="bower_components/flexslider/jquery.flexslider-min.js"></script>
+	<script src="bower_components/moment-duration-format/lib/moment-duration-format.js"></script>
+	<script src="bower_components/angular-breadcrumb/dist/angular-breadcrumb.min.js"></script>
+	
+
+	<!-- Include Froala Editor -->
+	<script src="bower_components/froala-wysiwyg-editor/js/froala_editor.min.js"></script>
+	<!-- Include Froala Editor Language -->
+	<script src="bower_components/froala-wysiwyg-editor/js/languages/ja.js"></script>
+	<!-- Include Froala Editor Plugins -->
+	<script src="bower_components/froala-wysiwyg-editor/js/plugins/align.min.js"></script>
+	<script src="bower_components/froala-wysiwyg-editor/js/plugins/char_counter.min.js"></script>
+	<script src="bower_components/froala-wysiwyg-editor/js/plugins/code_beautifier.min.js"></script>
+	<script src="bower_components/froala-wysiwyg-editor/js/plugins/code_view.min.js"></script>
+	<script src="bower_components/froala-wysiwyg-editor/js/plugins/colors.min.js"></script>
+	<script src="bower_components/froala-wysiwyg-editor/js/plugins/emoticons.min.js"></script>
+	<script src="bower_components/froala-wysiwyg-editor/js/plugins/entities.min.js"></script>
+	<script src="bower_components/froala-wysiwyg-editor/js/plugins/file.min.js"></script>
+	<script src="bower_components/froala-wysiwyg-editor/js/plugins/font_family.min.js"></script>
+	<script src="bower_components/froala-wysiwyg-editor/js/plugins/font_size.min.js"></script>
+	<script src="bower_components/froala-wysiwyg-editor/js/plugins/fullscreen.min.js"></script>
+	<script src="bower_components/froala-wysiwyg-editor/js/plugins/image.min.js"></script>
+	<script src="bower_components/froala-wysiwyg-editor/js/plugins/image_manager.min.js"></script>
+	<script src="bower_components/froala-wysiwyg-editor/js/plugins/inline_style.min.js"></script>
+	<script src="bower_components/froala-wysiwyg-editor/js/plugins/line_breaker.min.js"></script>
+	<script src="bower_components/froala-wysiwyg-editor/js/plugins/link.min.js"></script>
+	<script src="bower_components/froala-wysiwyg-editor/js/plugins/lists.min.js"></script>
+	<script src="bower_components/froala-wysiwyg-editor/js/plugins/paragraph_format.min.js"></script>
+	<script src="bower_components/froala-wysiwyg-editor/js/plugins/paragraph_style.min.js"></script>
+	<script src="bower_components/froala-wysiwyg-editor/js/plugins/quote.min.js"></script>
+	<script src="bower_components/froala-wysiwyg-editor/js/plugins/save.min.js"></script>
+	<script src="bower_components/froala-wysiwyg-editor/js/plugins/table.min.js"></script>
+	<script src="bower_components/froala-wysiwyg-editor/js/plugins/video.min.js"></script>
+	<!-- Angular Froala -->
+	<script src="bower_components/angular-froala/src/angular-froala.js"></script>
+
+
+	<!-- App -->
+	<script src="js/app.js"></script>
+	<script src="js/constants.js"></script>
+	<script src="js/multi-languages.js"></script>
+	<script src="js/states.js"></script>
+
+	<!-- Controller -->
+	<script src="js/controllers/controllers.js"></script>
+	<script src="js/controllers/header-controller.js"></script>
+	<script src="js/controllers/home-controller.js"></script>
+	<script src="js/controllers/login-controller.js"></script>
+	<script src="js/controllers/register-controller.js"></script>
+	<script src="js/controllers/course-list-controller.js"></script>
+	<script src="js/controllers/lesson-detail-controller.js"></script>
+	<script src="js/controllers/search-lesson-dialog-controller.js"></script>
+	<script src="js/controllers/test-controller.js"></script>
+	<script src="js/controllers/take-test-controller.js"></script>
+	<script src="js/controllers/test-result-controller.js"></script>
+
+	<script src="js/controllers/logged-user-restricted/register-success-controller.js"></script>
+	<script src="js/controllers/logged-user-restricted/user-controller.js"></script>
+	<script src="js/controllers/logged-user-restricted/user-profile-controller.js"></script>
+	<script src="js/controllers/logged-user-restricted/user-statistics-controller.js"></script>
+	<script src="js/controllers/logged-user-restricted/update-profile-controller.js"></script>
+	<script src="js/controllers/logged-user-restricted/change-password-dialog-controller.js"></script>
+	<script src="js/controllers/logged-user-restricted/report-question-dialog-controller.js"></script>
+	<script src="js/controllers/logged-user-restricted/report-lesson-controller.js"></script>
+	
+	<script src="js/controllers/content-editor-restricted/editor-side-bar-controller.js"></script>
+	<script src="js/controllers/content-editor-restricted/report-list-controller.js"></script>
+	<script src="js/controllers/content-editor-restricted/add-lesson-controller.js"></script>
+	<script src="js/controllers/content-editor-restricted/lesson-list-controller.js"></script>
+	<script src="js/controllers/content-editor-restricted/editor-lesson-detail-controller.js"></script>
+	<script src="js/controllers/content-editor-restricted/edit-lesson-controller.js"></script>
+	<script src="js/controllers/content-editor-restricted/delete-lesson-dialog-controller.js"></script>
+	<script src="js/controllers/content-editor-restricted/add-question-controller.js"></script>
+	<script src="js/controllers/content-editor-restricted/question-list-controller.js"></script>
+	<script src="js/controllers/content-editor-restricted/question-detail-controller.js"></script>
+	<script src="js/controllers/content-editor-restricted/edit-question-controller.js"></script>
+	<script src="js/controllers/content-editor-restricted/delete-question-dialog-controller.js"></script>
+	<script src="js/controllers/content-editor-restricted/error-dialog-controller.js"></script>
+
+	<script src="js/controllers/admin-restricted/admin-side-bar-controller.js"></script>
+
+	<!-- Directives -->
+	<script src="js/directives/directives.js"></script>
+	<script src="js/directives/header-directive.js"></script>
+	<script src="js/directives/footer-directive.js"></script>
+	<script src="js/directives/scroll-reveal-directive.js"></script>
+	<script src="js/directives/stacked-list-directive.js"></script>
+	<script src="js/directives/enter-to-search-directive.js"></script>
+	<script src="js/directives/tab-pane-directive.js"></script>
+	<script src="js/directives/tooltip-directive.js"></script>
+	<script src="js/directives/editor-side-bar-directive.js"></script>
+	<script src="js/directives/admin-side-bar-directive.js"></script>
+	<script src="js/directives/malihu-scroll-directive.js"></script>
+	<script src="js/directives/count-down-timer-directive.js"></script>
+
+	<!--Filter-->
+	<script src="js/filters/filters.js"></script>
+	<script src="js/filters/question-type-filter.js"></script>
+	<script src="js/filters/level-filter.js"></script>
+	<script src="js/filters/test-skill-filter.js"></script>
+	<script src="js/filters/lesson-state-filter.js"></script>
+	<script src="js/filters/date-format-filter.js"></script>
+	<script src="js/filters/time-duration-filter.js"></script>
+	
+	<!--Factories-->
+	<script src="js/factories/factories.js"></script>
+	<script src="js/factories/user.js"></script>
+	<script src="js/factories/lesson.js"></script>
+	<script src="js/factories/question.js"></script>
+	<script src="js/factories/exam.js"></script>
+
+	<!-- Services -->
+	<script src="js/services/services.js"></script>
+	<script src="js/services/user-service.js"></script>
+	<script src="js/services/lesson-service.js"></script>
+	<script src="js/services/question-service.js"></script>
+	<script src="js/services/exam-service.js"></script>
+	<script src="js/services/helper-service.js"></script>
+	<script src="js/services/validate-helper-service.js"></script>
+</body>
+</html>

@@ -1,0 +1,167 @@
+<div class="container-fluid add-question">
+	<div class="row">
+		<div class="col-md-10 col-md-offset-1">
+			<h1 class="text-center" translate="EDIT_QUESTION_HEADING" translate-values="{id: question.questionId}"></h1>
+			<form class="form-horizontal" ng-submit="updateQuestion()">
+				<!--question type select box-->
+				<div class="form-group">
+					<label class="control-label col-sm-2">{{'QUESTION_TYPE_LABEL' | translate}}</label>
+					<div class="col-sm-10">
+						<select class="form-control" ng-model="selectedQuestionType" ng-options="type as type.name | translate for type in questionTypes track by type.id" ng-disabled="true"></select>
+					</div>
+				</div>
+				<!--level select box-->
+				<div class="form-group">
+					<label class="control-label col-sm-2">{{'LEVEL_LABEL' | translate}}</label>
+					<div class="col-sm-10">
+						<select class="form-control" ng-model="selectedLevel" ng-options="level as level.name | translate for level in levels track by level.id"></select>
+					</div>
+				</div>
+				<!--test skill select box-->
+				<div class="form-group">
+					<label class="control-label col-sm-2">{{'TEST_SKILL_LABEL' | translate}}</label>
+					<div class="col-sm-10">
+						<select class="form-control" ng-model="selectedTestSkill" ng-options="skill as skill.name | translate for skill in testSkills track by skill.id" ng-disabled="selectedQuestionType.id === CODE.GROUP_QUESTION_TYPE && selectedTestSkill.id === CODE.READING_SKILL"></select>
+					</div>
+				</div>
+
+				<!--single question-->
+				<div ng-show="selectedQuestionType.id === CODE.SINGLE_QUESTION_TYPE">
+					<!--question content-->
+					<div class="form-group">
+						<label class="control-label col-sm-2">{{'QUESTION_LABEL' | translate}}</label>
+						<div class="col-sm-10">
+							<textarea class="form-control" ng-model="question.question" placeholder="{{'QUESTION_PLACEHOLDER' | translate}}"></textarea>
+						</div>
+					</div>
+					<!--answer content-->
+					<div class="form-group">
+						<label class="control-label col-sm-2">{{'ANSWERS_LABEL' | translate}}</label>
+						<div class="col-sm-10">
+							<div class="row-fluid" ng-repeat="answer in question.listAnswers track by $index">
+								<div class="form-group">
+									<!--check if the answer is correct-->
+									<div class="col-sm-1 clearfix">
+										<checkbox ng-model="answer.isRight" ng-click="toggleCorrectAnswer(answer)" ng-class="{'btn-success': answer.isRight}"></checkbox>
+									</div>
+									<!--answer content-->
+									<div class="col-sm-11">
+										<div class="input-group">
+											<input type="text" class="form-control" ng-model="answer.answer" translate translate-attr-placeholder="ANSWER_PLACEHOLDER" translate-value-index="{{$index + 1}}"></input>
+											<span class="input-group-btn">
+												<button class="btn btn-secondary btn-danger" type="button" ng-disabled="question.listAnswers.length === MIN_ANSWER_NUMBER" ng-click="removeAnswer(question.listAnswers, $index)" uib-tooltip="{{'REMOVE_ANSWER_TOOLTIP' | translate}}" tooltip-append-to-body="true" tooltip-placement="right" ><span class="glyphicon glyphicon-remove"></span></button>
+											</span>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!--button for adding answer into question-->
+					<div class="form-group">
+						<div class="col-sm-10 col-sm-offset-2">
+							<button class="btn btn-primary" type="button" ng-click="addAnswer(question.listAnswers)" uib-tooltip="{{'ADD_ANSWER_TOOLTIP' | translate}}" tooltip-append-to-body="true" tooltip-placement="right"><span class="glyphicon glyphicon-plus"></span></button>
+						</div>
+					</div>
+				</div>
+				<!--group question-->
+				<div ng-show="selectedQuestionType.id === CODE.GROUP_QUESTION_TYPE">
+					<!--shared content-->
+					<div class="form-group">
+						<label class="col-sm-2 control-label" translate="SHARED_CONTENT_LABEL"></label>
+						<div class="col-sm-10">
+							<textarea froala="sharedContentEditorOptions" ng-model="sharedContent"></textarea>
+						</div>
+					</div>
+
+					<!--questions in group-->
+					<div class="form-group" ng-repeat="singleQuestion in question.listQuestions track by $index">
+						<label class="col-sm-2 control-label">
+							<div>
+								<label translate="QUESTION_IN_GROUP_LABEL" translate-values="{index: $index + 1}"></label>
+							</div>
+							<!--button for removing question-->
+							<div>
+								<button class="btn btn-danger remove-question" type="button" ng-disabled="question.listQuestions.length === MIN_QUESTION_NUMBER_IN_GROUP" ng-click="removeQuestion(question, $index)" uib-tooltip="{{'REMOVE_QUESTION_TOOLTIP' | translate}}" tooltip-append-to-body="true" tooltip-placement="right"><span class="glyphicon glyphicon-remove"></span></button>
+							</div>
+						</label>
+						<div class="col-sm-10">
+							<div class="form-group">
+								<!--question content-->
+								<div class="col-sm-12">
+									<textarea class="form-control" ng-model="singleQuestion.question" translate translate-attr-placeholder="QUESTION_IN_GROUP_PLACEHOLDER" translate-value-index="{{$index + 1}}"></textarea>
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="col-sm-12">
+									<div class="row-fluid clearfix" ng-repeat="answer in singleQuestion.listAnswers track by $index">
+										<div class="form-group">
+											<!--check if the answer is correct-->
+											<div class="col-sm-1 clearfix">
+												<checkbox ng-model="answer.isRight" ng-class="{'btn-success': answer.isRight}"></checkbox>
+											</div>
+											<!--answer content-->
+											<div class="col-sm-11">
+												<div class="input-group">
+													<input type="text" class="form-control" ng-model="answer.answer" translate translate-attr-placeholder="ANSWER_PLACEHOLDER" translate-value-index="{{$index + 1}}"></input>
+													<span class="input-group-btn">
+														<button class="btn btn-secondary btn-danger" type="button" ng-disabled="singleQuestion.listAnswers.length === MIN_ANSWER_NUMBER" ng-click="removeAnswer(singleQuestion.listAnswers, $index)" uib-tooltip="{{'REMOVE_ANSWER_TOOLTIP' | translate}}" tooltip-append-to-body="true" tooltip-placement="right"><span class="glyphicon glyphicon-remove"></span></button>
+													</span>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!--button for adding answer into question in group-->
+							<div class="form-group">
+								<div class="col-sm-9">
+									<button class="btn btn-primary" type="button" ng-click="addAnswer(singleQuestion.listAnswers)" uib-tooltip="{{'ADD_ANSWER_TOOLTIP' | translate}}" tooltip-append-to-body="true" tooltip-placement="right"><span class="glyphicon glyphicon-plus"></span></button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!--button for adding question into group-->
+					<div class="form-group">
+						<div class="col-sm-9">
+							<button class="btn btn-primary" type="button" ng-click="addQuestion(question.listQuestions)" uib-tooltip="{{'ADD_QUESTION_TOOLTIP' | translate}}" tooltip-append-to-body="true" tooltip-placement="right"><span class="glyphicon glyphicon-plus"></span></button>
+						</div>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="control-label col-sm-2" translate="TIME_ALLOWED_LABEL"></label>
+					<div class="col-sm-10">
+						<div class="input-group date" datetimepicker ng-model="vm.date" options="vm.options">
+							<input type="text" class="form-control" onkeydown="return false"/>
+							<span class="input-group-addon">
+								<span class="glyphicon glyphicon-time"></span>
+							</span>
+						</div>
+					</div>
+				</div>
+
+				<!--file attachment-->
+				<!-- <div class="form-group">
+					<label class="col-sm-2 control-label">{{'FILE_ATTACHMENT_LABEL' | translate}}</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control"></input>
+					</div>
+				</div> -->
+
+				<!--submit button-->
+				<div class="form-group text-center">
+					<div class="col-sm-2 col-sm-offset-3">
+						<button type="submit" class="btn btn-block btn-grass" translate="UPDATE_BUTTON_LABEL"></button>
+					</div>
+					<div class="col-sm-2">
+						<button type="button" class="btn btn-block btn-info" translate="BACK_TO_DETAIL_BUTTON_LABEL"ui-sref="editordashboard.question.detail({questionId: question.questionId})"></button>
+					</div>
+					<div class="col-sm-2">
+						<button type="button" class="btn btn-block btn-sunflower" translate="BACK_TO_LIST_BUTTON_LABEL"ui-sref="editordashboard.question.list"></button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>

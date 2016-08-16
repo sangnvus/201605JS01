@@ -1,0 +1,13 @@
+.lesson-list h1 {
+	margin: 40px 0;
+}
+
+.lesson-list .table {
+	/*background-color: #efefef;*/
+	background-color: #fff;
+	border: 1px solid #ccc;
+}
+
+.lesson-list .table td {
+	vertical-align: middle;
+}

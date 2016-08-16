@@ -1,0 +1,68 @@
+<style type="text/css">
+	.red-text {
+		color: red;
+		font-weight: 700;
+	}
+
+	.text-green {
+		color: green;
+		font-weight: 700 !important;
+	}
+
+	.test-content div.checkbox label {
+		cursor: default;
+	}
+</style>
+
+<div class="test-content clearfix">
+	<h1 class="title text-center" translate="TEST_HEADER"></h1>
+	<h2 class="text-right" style="margin-right: 15px; color: red;">Mark: {{exam.totalPts + '/' + exam.totalNumberOfQuestions}}</h2>
+	<ul class="question-list" ng-if="exam.skill !== CODE.READING_SKILL">
+		<li class="clearfix" ng-repeat="question in exam.listQuestions track by $index">
+			<div class="col-sm-10">
+				<p>{{$index + 1}}. {{question.question}}</p>
+				<ul class="answer-list">
+					<li ng-repeat="answer in question.answer track by $index">
+						<div class="checkbox">
+							<checkbox ng-model="answer.isSelected" ng-class="{'btn-success': (answer.isSelected && answer.isRight), 'btn-danger': answer.isSelected === true && answer.isRight === false}" ng-disabled="true"></checkbox>
+							<label ng-class="{'text-green': answer.isRight}">{{answer.answer}}</label>
+						</div>
+					</li>
+				</ul>
+				<p>Points: {{question.questionPts}}</p>
+			</div>
+			<div class="col-sm-2 text-right">
+				<button class="btn btn-sm btn-danger" ng-click="showReportDialog(question)" translate="REPORT_QUESTION_BUTTON_LABEL"></button>
+			</div>
+		</li>
+	</ul>
+
+	<ul class="question-list" ng-if="exam.skill === CODE.READING_SKILL">
+			<li ng-repeat="question in exam.listQuestions track by $index">
+				<p>{{$index + 1}}. ARTICLE_GUIDE</p>
+				<div class="reading-content" ng-bind-html="trustAsHtml(question.question)"></div>
+				<!-- <div class="col-sm-10"> -->
+					<ul class="answer-list">
+						<li ng-repeat="question in question.listQuestions track by $index">
+							<div class="col-sm-10">
+								<p>{{$parent.$index + 1}}.{{$index + 1}}. {{question.question}}</p>
+								<ul class="answer-list">
+									<li ng-repeat="ans in question.answer">
+										<div class="checkbox">
+											<checkbox ng-model="ans.isSelected"></checkbox>
+											<label ng-class="{'green-text': ans.isRight}">{{ans.answer}}</label>
+										</div>
+									</li>
+								</ul>
+								<p>Points: {{question.questionPts}}</p>
+							</div>
+
+							<div class="col-sm-2 text-right">
+								<button class="btn btn-sm btn-danger" ng-click="showReportDialog(question)" translate="REPORT_QUESTION_BUTTON_LABEL"></button>
+							</div>
+						</li>
+					</ul>
+				<!-- </div> -->
+			</li>
+		</ul>
+</div>

@@ -1,0 +1,27 @@
+<veazy-header></veazy-header>
+<div class="background-white">
+	<div class="course-list container" scroll-reveal>
+		<div class="row-fluid clearfix">
+			<div class="col-md-10 col-md-offset-1">
+				<h2 translate="COURSE_HEADER" translate-values="{course: courseName}"></h2>
+			<p ng-show="errorMsg">{{errorMsg}}</p>
+			<ul class="lesson-list">
+				<li class="lesson clearfix" ng-repeat="lesson in lessonList">
+					<div class="img-wrapper stack twisted">
+						<img src="./img/course-wallpaper-4.jpg" class="img-responsive sr-lesson-icon">
+					</div>
+					<div class="text">
+						<article>
+							<h4>{{lesson.title}}</h4>
+							<p>{{lesson.description}}</p>
+						</article>
+						<button class="btn btn-success btn-sm pull-right" type="button" ui-sref="lessondetail({lessonId: lesson.lessonId})" translate="STUDY_BUTTON_LABEL"></button>
+					</div>
+				</li>
+			</ul>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+<veazy-footer></veazy-footer>

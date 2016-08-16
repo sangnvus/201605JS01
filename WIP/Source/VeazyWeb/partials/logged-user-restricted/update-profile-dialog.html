@@ -1,0 +1,65 @@
+<div class="row-fluid clearfix">
+<h4 class="title" translate="UPDATE_PROFILE_HEADER"></h4>
+<form class="form-horizontal" name="changePasswordForm" novalidate>
+	<div class="form-box">
+		<div class="form-group">
+			<label class="control-label col-sm-3" translate="FIRSTNAME_LABEL"></label>
+			<div class="col-sm-9">
+				<input class="form-control" type="text" ng-model="firstName" ng-value="ngDialogData.user.firstName"></input>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="control-label col-sm-3" translate="LASTNAME_LABEL"></label>
+			<div class="col-sm-9">
+				<input class="form-control" type="text" ng-model="lastName" ng-value="ngDialogData.user.lastName"></input>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-sm-3" translate="BIRTHDAY_LABEL"></label>
+			<div class="col-sm-9">
+				<div class="input-group date" datetimepicker ng-model="vm.date" options="vm.options">
+					<input type="text" class="form-control" onkeydown="return false"/>
+					<span class="input-group-addon">
+						<span class="glyphicon glyphicon-calendar"></span>
+					</span>
+				</div>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-sm-3" translate="ADDRESS_LABEL"></label>
+			<div class="col-sm-9">
+				<input class="form-control" type="text" ng-model="address" ng-value="ngDialogData.user.address"></input>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-sm-3" translate="HOBBY_LABEL"></label>
+			<div class="col-sm-9">
+				<textarea class="form-control" ng-model="hobby" ng-value="ngDialogData.user.hobby"></textarea>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-sm-3" translate="ABOUT_ME_LABEL"></label>
+			<div class="col-sm-9">
+				<textarea class="form-control" ng-model="bio" ng-value="ngDialogData.user.bio"></textarea>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-sm-3" translate="FAVORITE_QUOTE"></label>
+			<div class="col-sm-9">
+				<textarea class="form-control" ng-model="quote"></textarea>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-sm-3" translate="WEBSITE_LABEL"></label>
+			<div class="col-sm-9">
+				<input type="text" class="form-control" ng-model="website" ng-value="ngDialog.user.website"></input>
+			</div>
+		</div>
+	</div>
+	<div class="button-box text-right">
+		<button class="btn btn-primary btn-sm" ng-click="updateProfile()" translate="SAVE_BUTTON_LABEL"></button>
+		<button class="btn btn-default btn-sm" ng-click="closeDialog()" translate="CANCEL_BUTTON_LABEL"></button>
+	</div>
+</form>
+</div>

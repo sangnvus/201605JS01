@@ -1,0 +1,83 @@
+<div class="profile-content">
+	<div class="row">
+		<!-- user profile avatar -->
+		<div class="col-md-3">
+			<img src="img/emma.png" class="img-profile img-lg img-responsive">
+			<div class="text-center" style="padding: 15px 0;">
+				<button class="btn btn-primary" translate="CHANGE_PROFILE_PICTURE_BUTTON_LABEL"></button>
+			</div>
+		</div>
+
+		<div class="col-md-9">
+			<!-- profile options -->
+			<div class="dropdown pull-right">
+				<a href="" class="dropdown-toggle" type="button" data-toggle="dropdown" translate="ACTIONS_HYPERLINK">
+				<span class="caret"></span></a>
+				<ul class="dropdown-menu">
+					<li><a href="" ng-click="openUpdateProfileDialog()" translate="UPDATE_PROFILE_HYPERLINK"></a></li>
+					<li><a href="" ng-click="openChangePasswordDialog()" translate="CHANGE_PASSWORD_HYPERLINK"></a></li>
+					<li><a href="" ng-click="makeMeEditor()" translate="MAKE_ME_EDITOR"></a></li>
+				</ul>
+			</div>
+
+			<!-- profile information -->
+			<div class="form-horizontal">
+				<div class="item">
+					<h4 class="item-heading" translate="CONTACT_INFORMATION_HEADING"></h4>
+					<div class="form-group">
+						<label class="col-md-3" translate="EMAIL_LABEL"></label>
+						<p class="col-md-9">{{user.email}}</p>
+					</div>
+				</div>
+
+				<div class="item">
+					<h4 class="item-heading" translate="BASIC_INFORMATION_HEADING"></h4>
+					<div class="form-group">
+						<label class="col-md-3" translate="FIRSTNAME_LABEL"></label>
+						<p class="col-md-9" ng-show="user.firstName">{{user.firstName}}</p>
+						<p class="col-md-9 not-added-yet" ng-hide="user.firstName" translate="NOT_ADDED_LABEL"></p>
+					</div>
+					<div class="form-group">
+						<label class="col-md-3" translate="LASTNAME_LABEL"></label>
+						<p class="col-md-9" ng-show="user.lastName">{{user.lastName}}</p>
+						<p class="col-md-9 not-added-yet" ng-hide="user.lastName" translate="NOT_ADDED_LABEL"></p>
+					</div>
+					<div class="form-group">
+						<label class="col-md-3" translate="BIRTHDAY_LABEL"></label>
+						<p class="col-md-9" ng-show="user.dob">{{user.dob | dateFormat}}</p>
+						<p class="col-md-9 not-added-yet" ng-hide="user.dob" translate="NOT_ADDED_LABEL"></p>
+					</div>
+					<div class="form-group">
+						<label class="col-md-3" translate="ADDRESS_LABEL"></label>
+						<p class="col-md-9" ng-show="user.address">{{user.address}}</p>
+						<p class="col-md-9 not-added-yet" ng-hide="user.address" translate="NOT_ADDED_LABEL"></p>
+					</div>
+					<div class="form-group">
+						<label class="col-md-3" translate="HOBBY_LABEL"></label>
+						<p class="col-md-9" ng-show="user.hobby">{{user.hobby}}</p>
+						<p class="col-md-9 not-added-yet" ng-hide="user.hobby" translate="NOT_ADDED_LABEL"></p>
+					</div>
+					<div class="form-group">
+						<label class="col-md-3" translate="ABOUT_ME_LABEL"></label>
+						<p class="col-md-9" ng-show="user.bio">{{user.bio}}</p>
+						<p class="col-md-9 not-added-yet" ng-hide="user.bio" translate="NOT_ADDED_LABEL"></p>
+					</div>
+					<div class="form-group">
+						<label class="col-md-3" translate="FAVORITE_QUOTE"></label>
+						<p class="col-md-9" ng-show="user.quote">{{user.quote}}</p>
+						<p class="col-md-9 not-added-yet" ng-hide="user.quote" translate="NOT_ADDED_LABEL"></p>
+					</div>
+				</div>
+
+				<div class="item">
+					<h4 class="item-heading" translate="ADDITIONAL_INFORMATION_HEADING"></h4>
+					<div class="form-group">
+						<label class="col-md-3" translate="WEBSITE_LABEL"></label>
+						<p class="col-md-9" ng-show="user.website"><a href="" class="website">{{user.website}}</a></p>
+						<p class="col-md-9 not-added-yet" ng-hide="user.website" translate="NOT_ADDED_LABEL"></p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>	
+</div>

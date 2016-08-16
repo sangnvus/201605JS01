@@ -1,0 +1,19 @@
+.add-lesson .control-label {
+	text-align: left;
+}
+
+.add-lesson .tab-content {
+	padding: 20px;
+	border: 1px solid #DFDCD6;
+	border-radius: 4px;
+	border-top-left-radius: 0;
+	background: #fcfcfc;;
+}
+
+.add-lesson .fr-placeholder {
+	height: 30px !important;
+}
+
+.add-lesson h1 {
+	margin: 40px 0;
+}

@@ -1,0 +1,57 @@
+<nav class="veazy-header navbar navbar-default navbar-fixed-top" role="navigation" ng-class="{'shrinked-header':scrollDown}">
+	<div class="navbar-header">
+		<button type="button" class="navbar-toggle hamburger-btn" data-toggle="collapse" data-target="#example-navbar-collapse">
+			<span class="glyphicon glyphicon-menu-hamburger"></span>
+		</button>
+		<a class="navbar-brand" href="" ng-show="showEnglishBrand" ng-click="changeLanguage('en')">Veazy<sup class="jp-sup">En</sup></a>
+		<a class="navbar-brand" href="" ng-show="showJapaneseBrand" ng-click="changeLanguage('ja')">Veazy<sup class="en-sup">Ja</sup></a>
+	</div>
+
+	<div class="collapse navbar-collapse" id="example-navbar-collapse">
+		<ul class="nav navbar-nav menu">
+			<li>
+				<a href="" ui-sref="home">
+					<span class="glyphicon glyphicon-home"></span>
+					<span class="menu-label">{{'HOME_MENU' | translate}}</span>
+				</a>
+			</li>
+			<li class="dropdown">
+				<a href="" class="dropdown-toggle" data-toggle="dropdown">
+					<span class="glyphicon glyphicon-education"></span>
+					<span class="menu-label">{{'COURSES_MENU' | translate}}</span>
+					<!-- <b class="caret"></b> -->
+				</a>
+				<ul class="dropdown-menu">
+					<li><a ui-sref="courselist({courseId: 1})" translate="BEGINNER_LEVEL"></a></li>
+					<li><a ui-sref="courselist({courseId: 2})" translate="UPPER_BEGINNER_LEVEL"></a></li>
+					<li><a ui-sref="courselist({courseId: 3})" translate="INTERMEDIATE_LEVEL"></a></li>
+					<li><a ui-sref="courselist({courseId: 4})" translate="UPPER_INTERMEDIATE_LEVEL"></a></li>
+					<li><a ui-sref="courselist({courseId: 5})" translate="ADVANCED_LEVEL"></a></li>
+					<li><a ui-sref="courselist({courseId: 6})" translate="MASTER_LEVEL"></a></li>
+				</ul>
+			</li>
+			<li>
+				<a href="" ui-sref="test">
+					<span class="glyphicon glyphicon-edit"></span>
+					<span class="menu-label">{{'TEST_MENU' | translate}}</span>
+					</a>
+			</li>
+			<li>
+				<a href="">
+					<span class="glyphicon glyphicon-search"></span>
+					<span class="menu-label">{{'DICTIONARY_MENU' | translate}}</span>
+				</a>
+			</li>
+		</ul>
+		<ul class="nav navbar-nav navbar-right username">
+			<li ng-show="username" class="dropdown">
+				<a href="" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span>&nbsp;{{username}}</a>
+				<ul class="dropdown-menu">
+					<li><a href="" ui-sref="user.profile" translate="SHOW_PROFILE_MENU"></a></li>
+					<li><a href="" ng-click="logout()" translate="LOG_OUT_MENU"></a></li>
+				</ul>
+			</li>
+			<li ng-hide="username"><a ui-sref="login"><span class="glyphicon glyphicon-user"></span>&nbsp;{{'LOGIN_MENU' | translate}}</a></li>
+		</ul>
+	</div> 
+</nav>

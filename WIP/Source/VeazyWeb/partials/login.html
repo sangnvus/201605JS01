@@ -1,0 +1,47 @@
+<div class="container-fluid login">
+	<div class="col-md-4 col-md-offset-4">
+		<!--login box-->
+		<div class="content">
+			<div class="row-fluid header">
+				<a class="heading"><i class="fa fa-paw"></i>&nbsp;Veazy</a>
+			</div>
+			<div class="row-fluid section">
+				<div class="row-fluid avatar-wrapper text-center">
+					<img src="./img/user-3.png" width="100" height="100">
+				</div>
+				<!--form box-->
+				<div class="row-fluid form-wrapper">
+					<form name="loginForm" ng-submit="loginForm.$valid && login()" novalidate="">
+						<!-- username -->
+						<div class="form-group">
+							<input class="form-control" type="text" placeholder="{{'USERNAME_PLACEHOLDER' | translate}}" name="username" ng-model="username" required></input>
+						</div>
+						<!-- validation -->
+						<div class="form-group">
+							<h5 class="error" translate="USERNAME_REQUIRED" ng-show="loginForm.username.$dirty && loginForm.username.$error.required"></h5>
+						</div>
+
+						<!-- password -->
+						<div class="form-group">
+							<input class="form-control" type="password" placeholder="{{'PASSWORD_PLACEHOLDER' | translate}}" name="password" ng-model="password" required></input>
+						</div>
+						<!-- validation -->
+						<div class="form-group">
+							<h5 class="error" translate="PASSWORD_REQUIRED" ng-show="loginForm.password.$dirty && loginForm.password.$error.required"></h5>
+						</div>
+
+						<div class="form-group clearfix">
+							<button class="btn btn-success pull-right" type="submit" translate="LOGIN_BUTTON_LABEL" ng-disabled="loginForm.$invalid"></button>
+							<h5 class="error" translate="{{errorMsg}}" ng-show="errorMsg"></h5>
+							<a href="" translate="FORGOT_PASSWORD_HYPERLINK"></a>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<!--outer section-->
+		<div class="outer">
+		<h5>{{'HAVE_NO_ACCOUNT_HYPERLINK' | translate}} <a ui-sref="register.form">{{'REGISTER_HYPERLINK' | translate}}</a></h5>
+		<h5><a href="" ui-sref="home" translate="BACK_TO_HOMEPAGE_HYPERLINK"></a></h5>
+	</div>
+</div>
