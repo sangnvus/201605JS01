@@ -18,7 +18,7 @@ import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
-import vn.edu.fu.veazy.core.form.SubmitExamAnswerForm;
+import vn.edu.fu.veazy.core.form.SubmitExamForm;
 
 /**
  *

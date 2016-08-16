@@ -28,7 +28,7 @@ import vn.edu.fu.veazy.core.form.CreateExamSinglePartForm;
 import vn.edu.fu.veazy.core.form.ExamPartForm;
 import vn.edu.fu.veazy.core.form.SubmitAnswerForm;
 import vn.edu.fu.veazy.core.form.SubmitQuestionForm;
-import vn.edu.fu.veazy.core.form.SubmitExamAnswerForm;
+import vn.edu.fu.veazy.core.form.SubmitExamForm;
 import vn.edu.fu.veazy.core.model.ExamAnswerModel;
 import vn.edu.fu.veazy.core.model.ExamQuestionModel;
 import vn.edu.fu.veazy.core.model.ExamModel;
@@ -48,7 +48,7 @@ import vn.edu.fu.veazy.core.service.UserService;
  *
  * @author Hoang Linh
  */
-//@CrossOrigin
+@CrossOrigin
 @Controller("Exam Controller")
 public class ExamController {
 
@@ -130,7 +130,7 @@ public class ExamController {
     @RequestMapping(value = Const.URLMAPPING_SUBMIT_EXAM_ANSWER, method = RequestMethod.POST,
             produces={"application/json; charset=UTF-8"})
     public @ResponseBody
-    String submitExamAnswer(@RequestBody SubmitExamAnswerForm form,
+    String submitExamAnswer(@RequestBody SubmitExamForm form,
             Principal principal) {
         Response response = new Response(ResponseCode.BAD_REQUEST);
         try {

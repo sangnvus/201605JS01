@@ -39,7 +39,7 @@ import vn.edu.fu.veazy.core.service.UserService;
  * 
  * @author MinhNN
  */
-//@CrossOrigin(origins="http://localhost:3003")
+@CrossOrigin(origins="http://localhost:3003")
 @Controller("Core Controller")
 public class CoreController {
 

@@ -45,7 +45,7 @@ import vn.edu.fu.veazy.core.service.UserService;
  * @author LinhNH
  *
  */
-//@CrossOrigin
+@CrossOrigin
 @Controller("Core Question Controller")
 public class QuestionController {
 

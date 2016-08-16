@@ -12,7 +12,7 @@ import java.util.List;
  *
  * @author Hoang Linh
  */
-public class SubmitExamAnswerForm {
+public class SubmitExamForm {
 
     private Integer examId;
     private Integer takenTime;
@@ -21,7 +21,7 @@ public class SubmitExamAnswerForm {
 //    private Boolean isRedo;
     private List<SubmitQuestionForm> listQuestions = new ArrayList<>();
 
-    public SubmitExamAnswerForm() {
+    public SubmitExamForm() {
     }
 
     public Integer getExamId() {

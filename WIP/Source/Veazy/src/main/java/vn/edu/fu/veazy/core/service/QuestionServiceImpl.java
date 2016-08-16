@@ -14,7 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import vn.edu.fu.veazy.core.dao.GenericDao;
 import vn.edu.fu.veazy.core.model.AnswerModel;
-import vn.edu.fu.veazy.core.model.LessonModel;
 import vn.edu.fu.veazy.core.model.QuestionModel;
 
 /**

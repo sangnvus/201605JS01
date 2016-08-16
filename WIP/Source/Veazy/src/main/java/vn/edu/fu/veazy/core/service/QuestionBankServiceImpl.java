@@ -53,16 +53,16 @@ public class QuestionBankServiceImpl implements QuestionBankService {
             List<ExamQuestionModel> partExamQues = new ArrayList<>();
             ExamModel exam = new ExamModel();
             exam.setCourseId(courseId);
+            exam.setQuestionSkill(part.getSkill());
+            exam.setResult(0d);
+            exam.setTakenTime(0);
+            exam.setFinishState(false);
             int time = genTest(partQues, part.getNumberOfQuestion(), courseId, part.getSkill(),
                     offlineCheck, exam, partExamQues);
             if (partQues.size() > 0) {
                 ExamPartResponse examPartResp = new ExamPartResponse(part.getSkill(), time, partQues);
                 if (partExamQues.size() > 0 && !offlineCheck) {
-                    exam.setQuestionSkill(part.getSkill());
-                    exam.setResult(0d);
-                    exam.setTakenTime(0);
                     exam.setEtaTime(time);
-                    exam.setFinishState(false);
                     exam.setListQuestions(partExamQues);
                     exam.setUserId(userId);
                     examDao.save(exam);
