@@ -48,7 +48,7 @@ import vn.edu.fu.veazy.core.service.UserService;
  *
  * @author Hoang Linh
  */
-@CrossOrigin
+//@CrossOrigin
 @Controller("Exam Controller")
 public class ExamController {
 
@@ -155,7 +155,7 @@ public class ExamController {
             double rightAnswer = 0;
             List<SubmitQuestionForm> listQuestion = form.getListQuestions();
             List<ExamQuestionModel> listOriginQuestion = exam.getListQuestions();
-            Integer totalRight = 0;
+            Integer totalRight = listQuestion.size();
             for (SubmitQuestionForm answerForm : listQuestion) {
                 Integer questionId = answerForm.getQuestionId();
                 for (ExamQuestionModel m : listOriginQuestion) {
@@ -165,32 +165,54 @@ public class ExamController {
                         if (listAnswers.size() != listUserAnswers.size()) {
                             throw new CorruptedFormException("Wrong answer size");
                         }
-                        int i = 0;
+                        String userAns = "";
+                        String origAns = "";
                         for (SubmitAnswerForm ansForm : listUserAnswers) {
                             if (ansForm.getIsSelected()) {
-                                ExamAnswerModel origin = listAnswers.get(i);
-                                origin.setIsSelected(true);
-                                if (origin.getIsRight()) {
-                                    rightAnswer++;
-                                }
+                                userAns += "1";
+                            } else {
+                                userAns += "0";
                             }
-                            i++;
                         }
                         for (ExamAnswerModel ansModel : listAnswers) {
                             if (ansModel.getIsRight()) {
-                                totalRight++;
+                                origAns += "1";
+                            } else {
+                                origAns += "0";
                             }
                         }
-                        exam.setResult(Utils.round(rightAnswer / totalRight, 2) * 100);
-                        exam.setTakenTime(form.getTakenTime());
-                        //save in case is new exam
-                        if (!exam.getFinishState()) {
-                            exam.setFinishState(true);
-                            examService.updateExam(exam);
+                        if (origAns.equals(userAns)) {
+                            rightAnswer++;
                         }
-                        break;
+//                        int i = 0;
+//                        boolean correctChoice = false;
+//                        for (SubmitAnswerForm ansForm : listUserAnswers) {
+//                            if (ansForm.getIsSelected()) {
+//                                ExamAnswerModel origin = listAnswers.get(i);
+//                                origin.setIsSelected(true);
+//                                if (origin.getIsRight()) {
+//                                    correctChoice = true;
+//                                } else {
+//                                    correctChoice = false;
+//                                    break;
+//                                }
+//                            }
+//                            i++;
+//                        }
+//                        for (ExamAnswerModel ansModel : listAnswers) {
+//                            if (ansModel.getIsRight()) {
+//                                totalRight++;
+//                            }
+//                        }
                     }
                 }
+            }
+            exam.setResult(Utils.round(rightAnswer / totalRight, 2) * 100);
+            exam.setTakenTime(form.getTakenTime());
+            //save in case is new exam
+            if (!exam.getFinishState()) {
+                exam.setFinishState(true);
+                examService.updateExam(exam);
             }
             GetExamResponseData data = new GetExamResponseData(exam);
             response.setCode(ResponseCode.SUCCESS);

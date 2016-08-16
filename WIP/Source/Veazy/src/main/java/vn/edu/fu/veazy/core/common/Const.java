@@ -220,7 +220,7 @@ public class Const {
      */
     public static final Integer QUESTIONSKILL_VOCABULARY = 1;
     public static final Integer QUESTIONSKILL_GRAMMAR = 2;
-    public static final Integer QUESTIONSKILL_READING = 3;
-    public static final Integer QUESTIONSKILL_LISTENING = 4;
+    public static final Integer QUESTIONSKILL_LISTENING = 3;
+    public static final Integer QUESTIONSKILL_READING = 4;
 
 }
