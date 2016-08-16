@@ -34,7 +34,7 @@ import vn.edu.fu.veazy.core.response.ResponseCode;
 import vn.edu.fu.veazy.core.service.LessonService;
 import vn.edu.fu.veazy.core.service.UserService;
 
-@CrossOrigin(origins="http://localhost:3003")
+//@CrossOrigin(origins="http://localhost:3003")
 /**
  * @author CuHo
  *

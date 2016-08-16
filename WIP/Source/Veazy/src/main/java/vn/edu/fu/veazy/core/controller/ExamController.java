@@ -48,7 +48,7 @@ import vn.edu.fu.veazy.core.service.UserService;
  *
  * @author Hoang Linh
  */
-@CrossOrigin
+//@CrossOrigin
 @Controller("Exam Controller")
 public class ExamController {
 
