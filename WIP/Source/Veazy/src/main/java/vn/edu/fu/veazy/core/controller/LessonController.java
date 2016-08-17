@@ -28,7 +28,7 @@ import vn.edu.fu.veazy.core.response.BriefLessonResponse;
 import vn.edu.fu.veazy.core.response.CreateLessonResponse;
 import vn.edu.fu.veazy.core.response.GetLessonResponse;
 import vn.edu.fu.veazy.core.response.GetLessonVersionResponse;
-import vn.edu.fu.veazy.core.response.LessonsStatsResponse;
+import vn.edu.fu.veazy.core.response.StatsLessonsResponse;
 import vn.edu.fu.veazy.core.response.Response;
 import vn.edu.fu.veazy.core.response.ResponseCode;
 import vn.edu.fu.veazy.core.service.LessonService;
@@ -336,7 +336,7 @@ public class LessonController {
             
             int numberOfLessons = lessonService.size();
             
-            LessonsStatsResponse data = new LessonsStatsResponse(numberOfLessons);
+            StatsLessonsResponse data = new StatsLessonsResponse(numberOfLessons);
 
             response.setCode(ResponseCode.SUCCESS);
             response.setData(data);

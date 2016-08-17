@@ -12,8 +12,7 @@
         http://www.springframework.org/schema/security
         http://www.springframework.org/schema/security/spring-security-4.1.xsd">
 
-  <context:component-scan base-package="vn.edu.fu.veazy.core.controller,
-                                        vn.edu.fu.veazy.dictionary.controller" />
+  <context:component-scan base-package="vn.edu.fu.veazy.core.controller" />
 
   <mvc:resources mapping="/res/**" location="/res/" />
 

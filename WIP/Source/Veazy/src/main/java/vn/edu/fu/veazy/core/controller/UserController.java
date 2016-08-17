@@ -33,14 +33,14 @@ import vn.edu.fu.veazy.core.form.RegisterForm;
 import vn.edu.fu.veazy.core.form.UpdateUserForm;
 import vn.edu.fu.veazy.core.model.ExamModel;
 import vn.edu.fu.veazy.core.model.UserModel;
+import vn.edu.fu.veazy.core.response.ExamResultResponse;
+import vn.edu.fu.veazy.core.response.GetLearnerExamsResponse;
+import vn.edu.fu.veazy.core.response.GetListUsersResponse;
+import vn.edu.fu.veazy.core.response.GetUserResponse;
+import vn.edu.fu.veazy.core.response.LoginResponse;
 import vn.edu.fu.veazy.core.response.Response;
 import vn.edu.fu.veazy.core.response.ResponseCode;
-import vn.edu.fu.veazy.core.response.UsersStatsResponse;
-import vn.edu.fu.veazy.core.response.data.ExamResponseData;
-import vn.edu.fu.veazy.core.response.data.GetLearnerExamsResponseData;
-import vn.edu.fu.veazy.core.response.data.GetListUsersResponseData;
-import vn.edu.fu.veazy.core.response.data.GetUserResponseData;
-import vn.edu.fu.veazy.core.response.data.LoginResponseData;
+import vn.edu.fu.veazy.core.response.StatsUsersResponse;
 import vn.edu.fu.veazy.core.service.ExamService;
 import vn.edu.fu.veazy.core.service.UserService;
 
@@ -114,7 +114,7 @@ public class UserController {
             }
 
             userService.saveUser(registerForm);
-            LoginResponseData data = new LoginResponseData();
+            LoginResponse data = new LoginResponse();
 
             user = userService.findUserByUsername(registerForm.getUsername());
             data.setRole(user.getRole());
@@ -159,7 +159,7 @@ public class UserController {
                 response.setCode(ResponseCode.USER_NOT_FOUND);
                 return response.toResponseJson();
             }
-            LoginResponseData data = new LoginResponseData();
+            LoginResponse data = new LoginResponse();
             data.setRole(user.getRole());
             response.setCode(ResponseCode.SUCCESS);
             response.setData(data);
@@ -206,7 +206,7 @@ public class UserController {
             }
 
             LOGGER.debug("Get user details successfully!");
-            GetUserResponseData data = new GetUserResponseData(user);
+            GetUserResponse data = new GetUserResponse(user);
             response.setCode(ResponseCode.SUCCESS);
             response.setData(data);
         } catch (Exception e) {
@@ -241,7 +241,7 @@ public class UserController {
 
             LOGGER.debug("Get user details successfully!");
             userService.update(user, form);
-            GetUserResponseData data = new GetUserResponseData(user);
+            GetUserResponse data = new GetUserResponse(user);
             response.setCode(ResponseCode.SUCCESS);
             response.setData(data);
         } catch (Exception e) {
@@ -309,7 +309,7 @@ public class UserController {
             }
 
             LOGGER.debug("Get user details successfully!");
-            GetUserResponseData data = new GetUserResponseData(user);
+            GetUserResponse data = new GetUserResponse(user);
             response.setCode(ResponseCode.SUCCESS);
             response.setData(data);
         } catch (Exception e) {
@@ -407,9 +407,9 @@ public class UserController {
 
             List<UserModel> users = userService.findAllUser();
             if (users != null && users.size() > 0) {
-                GetListUsersResponseData listUsers = new GetListUsersResponseData();
+                GetListUsersResponse listUsers = new GetListUsersResponse();
                 for (UserModel user : users) {
-                    GetUserResponseData data = new GetUserResponseData(user);
+                    GetUserResponse data = new GetUserResponse(user);
                     listUsers.addUser(data);
                 }
                 LOGGER.debug("Get user details successfully!");
@@ -441,7 +441,7 @@ public class UserController {
 
             int active = userService.countActive();
             int total = userService.size();
-            UsersStatsResponse resp = new UsersStatsResponse(active, total);
+            StatsUsersResponse resp = new StatsUsersResponse(active, total);
             LOGGER.debug("Get number user successfully!");
             response.setCode(ResponseCode.SUCCESS);
             response.setData(resp);
@@ -479,9 +479,9 @@ public class UserController {
                 LOGGER.debug("Cannot find Learner Exams!");
                 response.setCode(ResponseCode.USER_EXAMS_NOT_FOUND);
             }
-            GetLearnerExamsResponseData data = new GetLearnerExamsResponseData();
+            GetLearnerExamsResponse data = new GetLearnerExamsResponse();
             for (ExamModel exam : exams) {
-                ExamResponseData erd = new ExamResponseData(exam);
+                ExamResultResponse erd = new ExamResultResponse(exam);
                 data.addExam(erd);
             }
             LOGGER.debug("Get learner exams successfully!");

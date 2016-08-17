@@ -35,10 +35,10 @@ import vn.edu.fu.veazy.core.model.ExamModel;
 import vn.edu.fu.veazy.core.model.QuestionModel;
 import vn.edu.fu.veazy.core.model.UserModel;
 import vn.edu.fu.veazy.core.response.ExamSinglePartResponse;
+import vn.edu.fu.veazy.core.response.GetExamResponse;
+import vn.edu.fu.veazy.core.response.QuestionResponse;
 import vn.edu.fu.veazy.core.response.Response;
 import vn.edu.fu.veazy.core.response.ResponseCode;
-import vn.edu.fu.veazy.core.response.data.GetExamResponseData;
-import vn.edu.fu.veazy.core.response.data.QuestionResponseData;
 import vn.edu.fu.veazy.core.service.ExamService;
 import vn.edu.fu.veazy.core.service.QuestionBankService;
 import vn.edu.fu.veazy.core.service.QuestionService;
@@ -214,7 +214,7 @@ public class ExamController {
                 exam.setFinishState(true);
                 examService.updateExam(exam);
             }
-            GetExamResponseData data = new GetExamResponseData(exam);
+            GetExamResponse data = new GetExamResponse(exam);
             response.setCode(ResponseCode.SUCCESS);
             response.setData(data);
             LOGGER.debug("submit exam successfully!");
@@ -257,7 +257,7 @@ public class ExamController {
                 response.setCode(ResponseCode.USER_NOT_ALLOW);
                 return response.toResponseJson();
             }
-            GetExamResponseData data = new GetExamResponseData(exam);
+            GetExamResponse data = new GetExamResponse(exam);
             response.setCode(ResponseCode.SUCCESS);
             response.setData(data);
             LOGGER.debug("Get exam successfully!");
@@ -301,12 +301,12 @@ public class ExamController {
                 response.setCode(ResponseCode.USER_NOT_ALLOW);
                 return response.toResponseJson();
             }
-            List<QuestionResponseData> datas = new ArrayList<>();
+            List<QuestionResponse> datas = new ArrayList<>();
             List<ExamQuestionModel> listQuestions = exam.getListQuestions();
             for (ExamQuestionModel answer : listQuestions) {
                 Integer questionId = answer.getQuestionId();
                 QuestionModel question = questionService.findQuestionById(questionId);
-                QuestionResponseData data = new QuestionResponseData(question);
+                QuestionResponse data = new QuestionResponse(question);
                 datas.add(data);
             }
             response.setCode(ResponseCode.SUCCESS);

@@ -60,14 +60,8 @@ public class CoreController {
     @RequestMapping(value = Const.URLMAPPING_HOME, method = RequestMethod.GET,
             produces={"application/json; charset=UTF-8"})
     public @ResponseBody String entryPoint() {
-        try {
-            LOGGER.debug("Get to entry successfully");
-        } catch (Exception e) {
-            LOGGER.error(e.getMessage());
-        }
-
-        LOGGER.debug("Retrieving view");
-        return "Indexing page";
+        LOGGER.debug("Retrieving name");
+        return Const.FINAL_NAME;
     }
 
     /**

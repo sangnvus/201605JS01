@@ -25,11 +25,11 @@ import vn.edu.fu.veazy.core.form.ReportForm;
 import vn.edu.fu.veazy.core.model.QuestionModel;
 import vn.edu.fu.veazy.core.model.ReportModel;
 import vn.edu.fu.veazy.core.model.UserModel;
-import vn.edu.fu.veazy.core.response.QuestionsStatsResponse;
+import vn.edu.fu.veazy.core.response.StatsQuestionsResponse;
+import vn.edu.fu.veazy.core.response.AddQuestionResponse;
+import vn.edu.fu.veazy.core.response.QuestionResponse;
 import vn.edu.fu.veazy.core.response.Response;
 import vn.edu.fu.veazy.core.response.ResponseCode;
-import vn.edu.fu.veazy.core.response.data.QuestionResponseData;
-import vn.edu.fu.veazy.core.response.data.AddQuestionResponseData;
 import vn.edu.fu.veazy.core.service.QuestionService;
 import vn.edu.fu.veazy.core.service.ReportService;
 import vn.edu.fu.veazy.core.service.UserService;
@@ -116,7 +116,7 @@ public class QuestionController {
 //            }
 //            model.setContent(content);
             model = questionService.saveQuestion(model);
-            AddQuestionResponseData data = new AddQuestionResponseData(model.getId());
+            AddQuestionResponse data = new AddQuestionResponse(model.getId());
 
             response.setCode(ResponseCode.SUCCESS);
             response.setData(data);
@@ -193,7 +193,7 @@ public class QuestionController {
 //                question.setNumberOfQuestion(1);
 //            }
             questionService.update(question);
-            AddQuestionResponseData data = new AddQuestionResponseData(question.getId());
+            AddQuestionResponse data = new AddQuestionResponse(question.getId());
 
             response.setCode(ResponseCode.SUCCESS);
             response.setData(data);
@@ -228,11 +228,11 @@ public class QuestionController {
 //                response.setCode(ResponseCode.QUESTION_NOT_FOUND);
 //                return response.toResponseJson();
 //            }
-            List<QuestionResponseData> datas = new ArrayList<>();
+            List<QuestionResponse> datas = new ArrayList<>();
             if (questions != null && !questions.isEmpty()) {
                 for (QuestionModel question : questions) {
                     if (question.getNumberOfQuestion() > 0) {
-                        QuestionResponseData data = new QuestionResponseData(question);
+                        QuestionResponse data = new QuestionResponse(question);
                         datas.add(data);
                     }
                 }
@@ -269,7 +269,7 @@ public class QuestionController {
                 response.setCode(ResponseCode.QUESTION_NOT_FOUND);
                 return response.toResponseJson();
             }
-            QuestionResponseData data = new QuestionResponseData(question);
+            QuestionResponse data = new QuestionResponse(question);
 
             response.setCode(ResponseCode.SUCCESS);
             response.setData(data);
@@ -301,7 +301,7 @@ public class QuestionController {
             
             int numberOfQuestions = questionService.size();
             
-            QuestionsStatsResponse data = new QuestionsStatsResponse(numberOfQuestions);
+            StatsQuestionsResponse data = new StatsQuestionsResponse(numberOfQuestions);
 
             response.setCode(ResponseCode.SUCCESS);
             response.setData(data);
@@ -337,11 +337,11 @@ public class QuestionController {
 //              response.setCode(ResponseCode.QUESTION_NOT_FOUND);
 //              return response.toResponseJson();
 //          }
-          List<QuestionResponseData> datas = new ArrayList<>();
+          List<QuestionResponse> datas = new ArrayList<>();
           if (questions != null && !questions.isEmpty()) {
               for (QuestionModel question : questions) {
                   if (question.getNumberOfQuestion() > 0) {
-                      QuestionResponseData data = new QuestionResponseData(question);
+                      QuestionResponse data = new QuestionResponse(question);
                       datas.add(data);
                   }
               }
@@ -380,11 +380,11 @@ public class QuestionController {
 //              response.setCode(ResponseCode.QUESTION_NOT_FOUND);
 //              return response.toResponseJson();
 //          }
-          List<QuestionResponseData> datas = new ArrayList<>();
+          List<QuestionResponse> datas = new ArrayList<>();
           if (questions != null && !questions.isEmpty()) {
               for (QuestionModel question : questions) {
                   if (question.getNumberOfQuestion() > 0) {
-                      QuestionResponseData data = new QuestionResponseData(question);
+                      QuestionResponse data = new QuestionResponse(question);
                       datas.add(data);
                   }
               }

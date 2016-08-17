@@ -59,8 +59,9 @@ public class QuestionBankServiceImpl implements QuestionBankService {
             exam.setFinishState(false);
             int time = genTest(partQues, part.getNumberOfQuestion(), courseId, part.getSkill(),
                     offlineCheck, exam, partExamQues);
+            ExamPartResponse examPartResp = new ExamPartResponse(part.getSkill(), time);
             if (partQues.size() > 0) {
-                ExamPartResponse examPartResp = new ExamPartResponse(part.getSkill(), time, partQues);
+                examPartResp.setQuestions(partQues);
                 if (partExamQues.size() > 0 && !offlineCheck) {
                     exam.setEtaTime(time);
                     exam.setListQuestions(partExamQues);
@@ -71,8 +72,8 @@ public class QuestionBankServiceImpl implements QuestionBankService {
                 if (offlineCheck) {
                     examPartResp.setOfflineCheck(true);
                 }
-                result.add(examPartResp);
             }
+            result.add(examPartResp);
         }
         return result;
     }

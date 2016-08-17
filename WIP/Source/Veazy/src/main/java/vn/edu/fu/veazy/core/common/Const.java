@@ -7,6 +7,8 @@ package vn.edu.fu.veazy.core.common;
  *
  */
 public class Const {
+    
+    public static final String FINAL_NAME = "Veazy";
 
     /**
      * *********************** CORS Config *****************************

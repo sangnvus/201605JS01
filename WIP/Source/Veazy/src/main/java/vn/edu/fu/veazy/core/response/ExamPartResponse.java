@@ -1,5 +1,6 @@
 package vn.edu.fu.veazy.core.response;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ExamPartResponse {
@@ -7,7 +8,13 @@ public class ExamPartResponse {
     private int skill;
     private int etaTime;
     private boolean offlineCheck;
-    private List<BriefQuestionResponse> questions;
+    private List<BriefQuestionResponse> questions = new ArrayList<>();
+    
+    public ExamPartResponse(int skill, int etaTime) {
+        super();
+        this.skill = skill;
+        this.etaTime = etaTime;
+    }
     
     public ExamPartResponse(int skill, int etaTime, List<BriefQuestionResponse> questions) {
         super();
