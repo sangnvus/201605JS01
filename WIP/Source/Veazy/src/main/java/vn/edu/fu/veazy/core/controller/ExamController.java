@@ -210,8 +210,8 @@ public class ExamController {
                 }
             }
             if (totalRight > 0) exam.setResult(Utils.round(userRight/totalRight, 2) * 100);
-            exam.setTakenTime(0);
-//            exam.setTakenTime(form.getTakenTime());
+//            exam.setTakenTime(0);
+            exam.setTakenTime(form.getTakenTime());
             //save in case is new exam
             if (!exam.getFinishState()) {
                 exam.setFinishState(true);
