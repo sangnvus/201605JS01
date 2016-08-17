@@ -163,7 +163,7 @@ public class ExamController {
                 for (ExamQuestionModel m : listOriginQuestion) {
                     if (questionId == m.getQuestionId()) {
                         List<ExamAnswerModel> listAnswers = m.getListAnswers();
-                        List<SubmitAnswerForm> listUserAnswers = answerForm.getAnswer();
+                        List<SubmitAnswerForm> listUserAnswers = answerForm.getListAnswers();
                         if (listAnswers.size() != listUserAnswers.size()) {
                             throw new CorruptedFormException("Wrong answer size");
                         }
