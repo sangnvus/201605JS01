@@ -152,42 +152,40 @@ public class ExamController {
             }
 
             //calculate result
-            double rightAnswer = 0;
             List<SubmitQuestionForm> listQuestion = form.getListQuestions();
             List<ExamQuestionModel> listOriginQuestion = exam.getListQuestions();
-            Integer userRight = 0;
+            Double userRight = 0d;
             Integer totalRight = listOriginQuestion.size();
             Integer singleQuesChoice = 0;
             Integer singleQuesRight = 0;
-            Boolean failedQues = false;
             for (SubmitQuestionForm answerForm : listQuestion) {
                 Integer questionId = answerForm.getQuestionId();
                 for (ExamQuestionModel m : listOriginQuestion) {
                     if (questionId == m.getQuestionId()) {
-                        failedQues = false;
                         List<ExamAnswerModel> listAnswers = m.getListAnswers();
                         List<SubmitAnswerForm> listUserAnswers = answerForm.getAnswer();
                         if (listAnswers.size() != listUserAnswers.size()) {
                             throw new CorruptedFormException("Wrong answer size");
                         }
+                        int index = 0;
+                        singleQuesChoice = 0;
+                        singleQuesRight = 0;
                         for (ExamAnswerModel ansModel : listAnswers) {
-                            for (SubmitAnswerForm ansForm : listUserAnswers) {
-                                if (ansModel.getIsRight()) {
-                                    if (ansForm.getIsSelected()) {
-                                        singleQuesChoice++;
-                                    }
-                                    singleQuesRight++;
-                                } else {
-                                    if (ansForm.getIsSelected()) {
-                                        singleQuesChoice = 0;
-                                        failedQues = true;
-                                        break;
-                                    }
+                            if (ansModel.getIsRight()) {
+                                if (listUserAnswers.get(index).getIsSelected()) {
+                                    singleQuesChoice++;
+                                }
+                                singleQuesRight++;
+                            } else {
+                                if (listUserAnswers.get(index).getIsSelected()) {
+                                    singleQuesChoice = 0;
+                                    break;
                                 }
                             }
-                            if (failedQues) break;
+                            index++;
                         }
-                        if (singleQuesRight > 0) userRight += (singleQuesChoice/singleQuesRight);
+                        if (singleQuesRight > 0)
+                            userRight += Utils.round(singleQuesChoice/singleQuesRight, 2);
 //                        int i = 0;
 //                        boolean correctChoice = false;
 //                        for (SubmitAnswerForm ansForm : listUserAnswers) {
@@ -212,7 +210,8 @@ public class ExamController {
                 }
             }
             if (totalRight > 0) exam.setResult(Utils.round(userRight/totalRight, 2) * 100);
-            exam.setTakenTime(form.getTakenTime());
+            exam.setTakenTime(0);
+//            exam.setTakenTime(form.getTakenTime());
             //save in case is new exam
             if (!exam.getFinishState()) {
                 exam.setFinishState(true);
