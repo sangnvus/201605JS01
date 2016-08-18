@@ -26,7 +26,7 @@ public class CourseServiceTest {
     
     @Before
     public void setUp() {
-        listCoursesStd = new ArrayList<GetCourseResponse>();
+        listCoursesStd = new ArrayList<>();
         // listCoursesStd.add(new GetCourseResponse("name", "desc"));
         // Dang le fix cung data se setup data o day
         // Nhung data gio dang ko quan tam (name, description) nen khoi setup

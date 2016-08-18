@@ -174,12 +174,8 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public void delete(UserModel user) throws Exception {
-        try {
-            userDao.delete(user);
-        } catch (Exception e) {
-            // TODO custom exception
-            throw new Exception(e.getMessage(), e);
-        }
+        // TODO Auto-generated method stub
+
     }
 
     @Override
