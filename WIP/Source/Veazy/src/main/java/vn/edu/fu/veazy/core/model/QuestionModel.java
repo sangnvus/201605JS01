@@ -88,7 +88,7 @@ public class QuestionModel extends BasicModel implements Comparator<QuestionMode
     private List<QuestionModel> listQuestions = new ArrayList<>();
     @NotFound(action = NotFoundAction.IGNORE)
     @ManyToOne(fetch = FetchType.LAZY, optional = true)
-    @JoinColumn(name="questionmodel_id")
+    @JoinColumn(name="parentquestion_id")
     private QuestionModel parentQuestion;
     @Column(name = "attachment", nullable = true)
     private String attachment;

@@ -57,7 +57,7 @@ public class ExamQuestionModel extends BasicModel {
     private List<ExamQuestionModel> listQuestions = new ArrayList<>();
     @NotFound(action = NotFoundAction.IGNORE)
     @ManyToOne(fetch = FetchType.LAZY, optional = true)
-    @JoinColumn(name="examquestionmodel_id")
+    @JoinColumn(name="parentquestion_id")
     private ExamQuestionModel parentQuestion;
     @Column(name = "questionType", columnDefinition = "INT DEFAULT 1", nullable = false)
     private Integer questionType;
