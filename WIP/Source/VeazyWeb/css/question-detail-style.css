@@ -1,0 +1,28 @@
+@-moz-document url-prefix() {
+    .single-question-detail .checkbox-inline {
+		display: block;;
+	}
+}
+
+.question-detail h1 {
+	margin: 40px 0;
+}
+
+.question-detail .control-label {
+	text-align: left;
+}
+
+.question-detail .checkbox button {
+	margin-left: -20px;
+	margin-right: 10px;
+	z-index: -1;
+}
+
+.question-detail .checkbox button,
+.question-detail .checkbox label {
+	cursor: default;
+}
+
+.question-detail .btn-box {
+	padding: 20px 0;
+}

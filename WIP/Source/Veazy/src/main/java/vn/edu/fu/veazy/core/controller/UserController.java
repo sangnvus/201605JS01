@@ -16,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -32,13 +33,14 @@ import vn.edu.fu.veazy.core.form.RegisterForm;
 import vn.edu.fu.veazy.core.form.UpdateUserForm;
 import vn.edu.fu.veazy.core.model.ExamModel;
 import vn.edu.fu.veazy.core.model.UserModel;
+import vn.edu.fu.veazy.core.response.ExamResultResponse;
+import vn.edu.fu.veazy.core.response.GetLearnerExamsResponse;
+import vn.edu.fu.veazy.core.response.GetListUsersResponse;
+import vn.edu.fu.veazy.core.response.GetUserResponse;
+import vn.edu.fu.veazy.core.response.LoginResponse;
 import vn.edu.fu.veazy.core.response.Response;
 import vn.edu.fu.veazy.core.response.ResponseCode;
-import vn.edu.fu.veazy.core.response.data.ExamResponseData;
-import vn.edu.fu.veazy.core.response.data.GetLearnerExamsResponseData;
-import vn.edu.fu.veazy.core.response.data.GetListUsersResponseData;
-import vn.edu.fu.veazy.core.response.data.GetUserResponseData;
-import vn.edu.fu.veazy.core.response.data.LoginResponseData;
+import vn.edu.fu.veazy.core.response.StatsUsersResponse;
 import vn.edu.fu.veazy.core.service.ExamService;
 import vn.edu.fu.veazy.core.service.UserService;
 
@@ -53,7 +55,7 @@ import vn.edu.fu.veazy.core.service.UserService;
  * @author minhnn
  *
  */
-@CrossOrigin(origins="http://localhost:3003")
+//@CrossOrigin(origins="http://localhost:3003")
 @Controller("Core User Controller")
 public class UserController {
 
@@ -77,9 +79,10 @@ public class UserController {
      * @return json string
      */
     @PreAuthorize("!isAuthenticated()")
-    @RequestMapping(value = Const.URLMAPPING_REGISTER, method = RequestMethod.POST)
+    @RequestMapping(value = Const.URLMAPPING_REGISTER, method = RequestMethod.POST,
+            produces={"application/json; charset=UTF-8"})
     public @ResponseBody
-    String register(@ModelAttribute("register-form") RegisterForm registerForm) {
+    String register(@RequestBody RegisterForm registerForm) {
         Response response = new Response(ResponseCode.BAD_REQUEST);
         try {
             LOGGER.debug("Get to register proceed controller successful");
@@ -111,7 +114,7 @@ public class UserController {
             }
 
             userService.saveUser(registerForm);
-            LoginResponseData data = new LoginResponseData();
+            LoginResponse data = new LoginResponse();
 
             user = userService.findUserByUsername(registerForm.getUsername());
             data.setRole(user.getRole());
@@ -141,9 +144,10 @@ public class UserController {
      * @return json string
      */
     @PreAuthorize("isAuthenticated()")
-    @RequestMapping(value = Const.URLMAPPING_LOGIN, method = RequestMethod.POST)
+    @RequestMapping(value = Const.URLMAPPING_LOGIN, method = RequestMethod.POST,
+            produces={"application/x-www-form-urlencoded; charset=UTF-8"})
     public @ResponseBody
-    String loginProceed(Principal principal, @ModelAttribute("login-form") LoginForm loginForm) {
+    String loginProceed(Principal principal, @ModelAttribute LoginForm loginForm) {
         Response response = new Response(ResponseCode.SUCCESS);
         try {
             String userName = principal.getName();
@@ -155,7 +159,7 @@ public class UserController {
                 response.setCode(ResponseCode.USER_NOT_FOUND);
                 return response.toResponseJson();
             }
-            LoginResponseData data = new LoginResponseData();
+            LoginResponse data = new LoginResponse();
             data.setRole(user.getRole());
             response.setCode(ResponseCode.SUCCESS);
             response.setData(data);
@@ -186,7 +190,8 @@ public class UserController {
      * @return json string
      */
     @PreAuthorize("isAuthenticated()")
-    @RequestMapping(value = Const.URLMAPPING_GET_CURRENT_USER, method = RequestMethod.GET)
+    @RequestMapping(value = Const.URLMAPPING_GET_CURRENT_USER, method = RequestMethod.GET,
+            produces={"application/json; charset=UTF-8"})
     public @ResponseBody
     String getCurrentUser(Principal principal) {
         Response response = new Response(ResponseCode.BAD_REQUEST);
@@ -201,7 +206,7 @@ public class UserController {
             }
 
             LOGGER.debug("Get user details successfully!");
-            GetUserResponseData data = new GetUserResponseData(user);
+            GetUserResponse data = new GetUserResponse(user);
             response.setCode(ResponseCode.SUCCESS);
             response.setData(data);
         } catch (Exception e) {
@@ -218,10 +223,11 @@ public class UserController {
      * @return json string
      */
     @PreAuthorize("isAuthenticated()")
-    @RequestMapping(value = Const.URLMAPPING_UPDATE_CURRENT_USER, method = RequestMethod.POST)
+    @RequestMapping(value = Const.URLMAPPING_UPDATE_CURRENT_USER, method = RequestMethod.POST,
+            produces={"application/json; charset=UTF-8"})
     public @ResponseBody
     String updateCurrentUser(Principal principal,
-            @ModelAttribute("update-user-form") UpdateUserForm form) {
+            @RequestBody UpdateUserForm form) {
         Response response = new Response(ResponseCode.BAD_REQUEST);
         try {
             String userName = principal.getName();
@@ -235,7 +241,7 @@ public class UserController {
 
             LOGGER.debug("Get user details successfully!");
             userService.update(user, form);
-            GetUserResponseData data = new GetUserResponseData(user);
+            GetUserResponse data = new GetUserResponse(user);
             response.setCode(ResponseCode.SUCCESS);
             response.setData(data);
         } catch (Exception e) {
@@ -252,10 +258,11 @@ public class UserController {
      * @return json string
      */
     @PreAuthorize("isAuthenticated()")
-    @RequestMapping(value = Const.URLMAPPING_CHGPWD_CURRENT_USER, method = RequestMethod.POST)
+    @RequestMapping(value = Const.URLMAPPING_CHGPWD_CURRENT_USER, method = RequestMethod.POST,
+            produces={"application/json; charset=UTF-8"})
     public @ResponseBody
     String changePasswordCurrentUser(Principal principal,
-            @ModelAttribute("chgpwd-form") ChgpwdForm form) {
+            @RequestBody ChgpwdForm form) {
         Response response = new Response(ResponseCode.BAD_REQUEST);
         try {
             String userName = principal.getName();
@@ -285,7 +292,8 @@ public class UserController {
      * @return json string
      */
     @PreAuthorize("hasAuthority(1)")
-    @RequestMapping(value = Const.URLMAPPING_GET_USER, method = RequestMethod.GET)
+    @RequestMapping(value = Const.URLMAPPING_GET_USER, method = RequestMethod.GET,
+            produces={"application/json; charset=UTF-8"})
     public @ResponseBody
     String getUser(@PathVariable("user_id") Integer userId) {
         Response response = new Response(ResponseCode.BAD_REQUEST);
@@ -301,9 +309,79 @@ public class UserController {
             }
 
             LOGGER.debug("Get user details successfully!");
-            GetUserResponseData data = new GetUserResponseData(user);
+            GetUserResponse data = new GetUserResponse(user);
             response.setCode(ResponseCode.SUCCESS);
             response.setData(data);
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage());
+            LOGGER.error("Unknown error occured!");
+            response.setCode(ResponseCode.INTERNAL_SERVER_ERROR);
+        }
+        return response.toResponseJson();
+    }
+
+    /**
+     * Process request of banning an user.
+     *
+     * @param userId url
+     * @return json string
+     */
+    @PreAuthorize("hasAuthority(1)")
+    @RequestMapping(value = Const.URLMAPPING_BAN_USER, method = RequestMethod.GET)
+    public @ResponseBody
+    String banUser(@PathVariable("user_id") Integer userId) {
+        Response response = new Response(ResponseCode.BAD_REQUEST);
+        try {
+            // FIXME json object
+            LOGGER.debug("Get to login proceed controller successful");
+
+            UserModel user = userService.findUserById(userId);
+            if (user == null) {
+                LOGGER.error("User not exist!");
+                response.setCode(ResponseCode.USER_NOT_FOUND);
+                return response.toResponseJson();
+            }
+            
+            user.setIsBanned(true);
+            userService.update(user);
+
+            LOGGER.debug("Ban user successfully!");
+            response.setCode(ResponseCode.SUCCESS);
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage());
+            LOGGER.error("Unknown error occured!");
+            response.setCode(ResponseCode.INTERNAL_SERVER_ERROR);
+        }
+        return response.toResponseJson();
+    }
+
+    /**
+     * Process request of unbanning an user.
+     *
+     * @param userId url
+     * @return json string
+     */
+    @PreAuthorize("hasAuthority(1)")
+    @RequestMapping(value = Const.URLMAPPING_UNBAN_USER, method = RequestMethod.GET)
+    public @ResponseBody
+    String unbanUser(@PathVariable("user_id") Integer userId) {
+        Response response = new Response(ResponseCode.BAD_REQUEST);
+        try {
+            // FIXME json object
+            LOGGER.debug("Get to login proceed controller successful");
+
+            UserModel user = userService.findUserById(userId);
+            if (user == null) {
+                LOGGER.error("User not exist!");
+                response.setCode(ResponseCode.USER_NOT_FOUND);
+                return response.toResponseJson();
+            }
+            
+            user.setIsBanned(false);
+            userService.update(user);
+
+            LOGGER.debug("Ban user successfully!");
+            response.setCode(ResponseCode.SUCCESS);
         } catch (Exception e) {
             LOGGER.error(e.getMessage());
             LOGGER.error("Unknown error occured!");
@@ -318,7 +396,8 @@ public class UserController {
      * @return json string
      */
     @PreAuthorize("hasAuthority(1)")
-    @RequestMapping(value = Const.URLMAPPING_GET_LIST_USERS, method = RequestMethod.GET)
+    @RequestMapping(value = Const.URLMAPPING_GET_LIST_USERS, method = RequestMethod.GET,
+            produces={"application/json; charset=UTF-8"})
     public @ResponseBody
     String getListUser() {
         Response response = new Response(ResponseCode.BAD_REQUEST);
@@ -328,9 +407,9 @@ public class UserController {
 
             List<UserModel> users = userService.findAllUser();
             if (users != null && users.size() > 0) {
-                GetListUsersResponseData listUsers = new GetListUsersResponseData();
+                GetListUsersResponse listUsers = new GetListUsersResponse();
                 for (UserModel user : users) {
-                    GetUserResponseData data = new GetUserResponseData(user);
+                    GetUserResponse data = new GetUserResponse(user);
                     listUsers.addUser(data);
                 }
                 LOGGER.debug("Get user details successfully!");
@@ -346,13 +425,43 @@ public class UserController {
     }
 
     /**
+     * Process request of get number of user.
+     *
+     * @return json string
+     */
+    @PreAuthorize("hasAuthority(1)")
+    @RequestMapping(value = Const.URLMAPPING_GET_SIZE_USERS, method = RequestMethod.GET,
+            produces={"application/json; charset=UTF-8"})
+    public @ResponseBody
+    String getNumberUser() {
+        Response response = new Response(ResponseCode.BAD_REQUEST);
+        try {
+            // FIXME json object
+            LOGGER.debug("Get to get number of user controller successful");
+
+            int active = userService.countActive();
+            int total = userService.size();
+            StatsUsersResponse resp = new StatsUsersResponse(active, total);
+            LOGGER.debug("Get number user successfully!");
+            response.setCode(ResponseCode.SUCCESS);
+            response.setData(resp);
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage());
+            LOGGER.error("Unknown error occured!");
+            response.setCode(ResponseCode.INTERNAL_SERVER_ERROR);
+        }
+        return response.toResponseJson();
+    }
+
+    /**
      * Process request of get learner exams.
      *
      * @param principal
      * @return json string
      */
     @PreAuthorize("isAuthenticated()")
-    @RequestMapping(value = Const.URLMAPPING_GET_LEARNER_EXAMS, method = RequestMethod.GET)
+    @RequestMapping(value = Const.URLMAPPING_GET_LEARNER_EXAMS, method = RequestMethod.GET,
+            produces={"application/json; charset=UTF-8"})
     public @ResponseBody
     String getLearnerExamss(Principal principal) {
         Response response = new Response(ResponseCode.BAD_REQUEST);
@@ -370,9 +479,9 @@ public class UserController {
                 LOGGER.debug("Cannot find Learner Exams!");
                 response.setCode(ResponseCode.USER_EXAMS_NOT_FOUND);
             }
-            GetLearnerExamsResponseData data = new GetLearnerExamsResponseData();
+            GetLearnerExamsResponse data = new GetLearnerExamsResponse();
             for (ExamModel exam : exams) {
-                ExamResponseData erd = new ExamResponseData(exam);
+                ExamResultResponse erd = new ExamResultResponse(exam);
                 data.addExam(erd);
             }
             LOGGER.debug("Get learner exams successfully!");
@@ -389,7 +498,8 @@ public class UserController {
     @PreAuthorize("hasAuthority(1)") // ADMIN
     @RequestMapping(value = Const.URLMAPPING_CHANGE_ROLE, method = RequestMethod.GET)
     public @ResponseBody
-    String changeUserRoll(@PathVariable("user_id") Integer userId,@ModelAttribute("change-role-form") ChangeRoleForm form) {
+    String changeUserRoll(@PathVariable("user_id") Integer userId,
+            @RequestBody ChangeRoleForm form) {
         Response response = new Response(ResponseCode.BAD_REQUEST);
         try {
         	userService.changeUserRoll(userId, form.getRole());

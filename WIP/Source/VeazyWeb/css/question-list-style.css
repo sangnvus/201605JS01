@@ -1,0 +1,13 @@
+.question-list h1 {
+	margin: 40px 0;
+}
+
+.question-list .table {
+	/*background-color: #efefef;*/
+	background-color: #fff;
+	border: 1px solid #ccc;
+}
+
+.question-list .table td {
+	/*vertical-align: middle;*/
+}

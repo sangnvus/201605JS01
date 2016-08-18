@@ -18,7 +18,7 @@ import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
-import vn.edu.fu.veazy.core.form.SubmitExamAnswerForm;
+import vn.edu.fu.veazy.core.form.SubmitExamForm;
 
 /**
  *
@@ -36,30 +36,35 @@ public class ExamModel extends BasicModel {
     private Integer courseId;
     @Column(name = "questionSkill", nullable = true)
     private Integer questionSkill;
-    @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "exam")
+    @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "exam", orphanRemoval = true)
     @Column(name = "listQuestions", nullable = false)
     @Access(AccessType.PROPERTY)
     @LazyCollection(LazyCollectionOption.FALSE)
-    private List<ExamAnswer> listQuestions = new ArrayList<>();
+    private List<ExamQuestionModel> listQuestions = new ArrayList<>();
     @Column(name = "result", columnDefinition = "FLOAT4 DEFAULT 0.0", nullable = false)
     private Double result;
-    @Column(name = "time", columnDefinition = "LONG", nullable = false)
-    private Long time;
+    @Column(name = "takenTime", columnDefinition = "INT DEFAULT 0", nullable = false)
+    private Integer takenTime;
+    @Column(name = "etaTime", columnDefinition = "INT DEFAULT 0", nullable = false)
+    private Integer etaTime;
+    @Column(name = "finishState", columnDefinition = "BOOLEAN DEFAULT FALSE", nullable = false)
+    private Boolean finishState;
 
     public ExamModel() {
     }
 
-    public ExamModel(SubmitExamAnswerForm form) {
-        this.courseId = form.getCourseId();
-        this.time = form.getTime();
-        this.questionSkill = form.getQuestionSkill();
-    }
-
-    public ExamModel(SubmitExamAnswerForm form, Integer userId) {
+    public ExamModel(Integer userId, Integer courseId, Integer questionSkill, List<ExamQuestionModel> listQuestions,
+            Double result, Integer takenTime, Integer etaTime, Boolean finishState) {
+        super();
         this.userId = userId;
-        this.courseId = form.getCourseId();
-        this.time = form.getTime();
-        this.questionSkill = form.getQuestionSkill();
+        this.courseId = courseId;
+        this.questionSkill = questionSkill;
+        this.listQuestions.clear();
+        this.listQuestions.addAll(listQuestions);
+        this.result = result;
+        this.takenTime = takenTime;
+        this.etaTime = etaTime;
+        this.finishState = finishState;
     }
 
     public Integer getUserId() {
@@ -86,19 +91,11 @@ public class ExamModel extends BasicModel {
         this.questionSkill = questionSkill;
     }
 
-    public Long getTime() {
-        return time;
-    }
-
-    public void setTime(Long time) {
-        this.time = time;
-    }
-
-    public List<ExamAnswer> getListQuestions() {
+    public List<ExamQuestionModel> getListQuestions() {
         return listQuestions;
     }
 
-    public void setListQuestions(List<ExamAnswer> listQuestions) {
+    public void setListQuestions(List<ExamQuestionModel> listQuestions) {
         this.listQuestions = listQuestions;
     }
 
@@ -108,6 +105,30 @@ public class ExamModel extends BasicModel {
 
     public void setResult(Double result) {
         this.result = result;
+    }
+
+    public Integer getTakenTime() {
+        return takenTime;
+    }
+
+    public void setTakenTime(Integer takenTime) {
+        this.takenTime = takenTime;
+    }
+
+    public Integer getEtaTime() {
+        return etaTime;
+    }
+
+    public void setEtaTime(Integer etaTime) {
+        this.etaTime = etaTime;
+    }
+
+    public Boolean getFinishState() {
+        return finishState;
+    }
+
+    public void setFinishState(Boolean finishState) {
+        this.finishState = finishState;
     }
 
 }

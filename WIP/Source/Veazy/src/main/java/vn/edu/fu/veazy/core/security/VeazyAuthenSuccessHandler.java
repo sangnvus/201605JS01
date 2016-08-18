@@ -11,8 +11,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 
+import vn.edu.fu.veazy.core.response.LoginResponse;
 import vn.edu.fu.veazy.core.response.Response;
-import vn.edu.fu.veazy.core.response.data.LoginResponseData;
 
 public class VeazyAuthenSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 
@@ -24,7 +24,7 @@ public class VeazyAuthenSuccessHandler extends SimpleUrlAuthenticationSuccessHan
         List<GrantedAuthority> roles = (List<GrantedAuthority>) authentication.getAuthorities();
         if (roles != null && roles.size() > 0) {
             GrantedAuthority aRole = roles.get(0);
-            resp.setData(new LoginResponseData(Integer.valueOf(aRole.getAuthority())));
+            resp.setData(new LoginResponse(Integer.valueOf(aRole.getAuthority())));
         }
         response.flushBuffer();
         response.getWriter().flush();

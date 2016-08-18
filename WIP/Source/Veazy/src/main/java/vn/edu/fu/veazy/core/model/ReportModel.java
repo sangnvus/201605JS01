@@ -14,7 +14,7 @@ import vn.edu.fu.veazy.core.form.ReportForm;
 @Entity
 @DynamicInsert
 @DynamicUpdate
-@Table(name = "Report")
+@Table(name = "`Report`")
 public class ReportModel {
 	/**
 	 * 報告のＩＤ

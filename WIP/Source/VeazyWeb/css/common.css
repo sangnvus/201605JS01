@@ -1,0 +1,99 @@
+[ng\:cloak], [ng-cloak], .ng-cloak {
+	display: none !important;
+}
+
+@font-face {
+	font-family: Maru Gothic;
+	src: url('../font/hc0802/hc-poo5.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: Mickey;  
+  src: url('../font/hc0802/Mickey.ttf') format('truetype');
+}
+
+/*-----------------------------------*/
+/* Global Reset */
+/*-----------------------------------*/
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+	/*margin: 0;*/
+	/*padding: 0;*/
+	/*border: 0;*/
+	/*font-size: 100%;*/
+	/*font: inherit;*/
+	/*vertical-align: baseline;*/
+}
+ol, ul {
+    list-style: none;
+}
+
+body {
+	font-family: Maru Gothic !important;
+	font-size: 14px !important;
+	/*background: #ddd url(../img/fabric_plaid.png) repeat top left;*/
+  /*background: #fff;*/
+  /*background: #eff0f3;*/
+  background: #fafafa;
+	-webkit-font-smoothing: antialiased;
+	-moz-font-smoothing: antialiased;
+	font-smoothing: antialiased;
+}
+
+.background-white {
+  /*background: #ddd url(../img/fabric_plaid.png) repeat top left;*/
+  background: #fff;
+}
+
+*:focus {
+	outline: 0 !important;
+}
+
+textarea {
+	resize: none;
+}
+
+/* Have to set height explicity on ui-view 
+to prevent collapsing during animation*/
+/*.ui-view-container {
+  position: relative;
+  height: 65px;
+}
+
+[ui-view].ng-enter, [ui-view].ng-leave {
+  position: absolute;
+  left: 0;
+  right: 0;
+  -webkit-transition:all .5s ease-in-out;
+    -moz-transition:all .5s ease-in-out;
+    -o-transition:all .5s ease-in-out;
+    transition:all .5s ease-in-out;
+}
+
+[ui-view].ng-enter {
+  opacity: 0;
+  -webkit-transform:scale3d(0.5, 0.5, 0.5);
+  -moz-transform:scale3d(0.5, 0.5, 0.5);
+  transform:scale3d(0.5, 0.5, 0.5);
+}
+
+[ui-view].ng-enter-active {
+  opacity: 1;
+  -webkit-transform:scale3d(1, 1, 1);
+  -moz-transform:scale3d(1, 1, 1);
+  transform:scale3d(1, 1, 1);
+}
+
+[ui-view].ng-leave {
+  opacity: 1; 
+  -webkit-transform:translate3d(0, 0, 0);
+  -moz-transform:translate3d(0, 0, 0);
+  transform:translate3d(0, 0, 0);
+}
+
+[ui-view].ng-leave-active {
+  opacity: 0;
+  -webkit-transform:translate3d(100px, 0, 0);
+  -moz-transform:translate3d(100px, 0, 0);
+  transform:translate3d(100px, 0, 0);
+}
+*/

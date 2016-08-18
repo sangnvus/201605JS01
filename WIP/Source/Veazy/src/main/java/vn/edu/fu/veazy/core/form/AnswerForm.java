@@ -17,6 +17,12 @@ public class AnswerForm {
     public AnswerForm() {
     }
 
+    public AnswerForm(String answer, Boolean isRight) {
+        super();
+        this.answer = answer;
+        this.isRight = isRight;
+    }
+
     public String getAnswer() {
         return answer;
     }

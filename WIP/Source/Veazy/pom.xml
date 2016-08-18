@@ -23,6 +23,7 @@
         <commons-logging.version>1.2</commons-logging.version>
         <logback.version>1.0.13</logback.version>
         <jcl-over-slf4j.version>1.7.21</jcl-over-slf4j.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
     <dependencies>
@@ -213,6 +214,7 @@
                 <configuration>
                     <port>${tomcat.port}</port>
                     <path>/${project.build.finalName}</path>
+                    <uriEncoding>utf-8</uriEncoding>
                 </configuration>
             </plugin>
         </plugins>

@@ -9,19 +9,6 @@
     <http auto-config="false" use-expressions="true" create-session="always"
             entry-point-ref="authenticationEntryPoint" >
         <access-denied-handler ref="veazy403Handler" />
-        <!-- <intercept-url pattern="/register" access="!isAuthenticated()" />
-        <intercept-url pattern="/login" access="!isAuthenticated()" />
-        <intercept-url pattern="/api/register" access="!isAuthenticated()" />
-        <intercept-url pattern="/api/login" access="isAuthenticated()" />
-        <intercept-url pattern="/api/editor**" access="hasRole('2')" />
-        <intercept-url pattern="/api/cm**" access="hasRole('3')" />
-        <intercept-url pattern="/api/admin**" access="hasRole('4')" />
-        <intercept-url pattern="/api/users/**" access="isAuthenticated()" />
-        <intercept-url pattern="/api/user" access="isAuthenticated()" />
-        <intercept-url pattern="/api/user/**" access="isAuthenticated()" />
-        <intercept-url pattern="/api/lessons/**" access="isAuthenticated()" />
-        <intercept-url pattern="/api/questions/**" access="isAuthenticated()" /> -->
-        <!-- <intercept-url pattern="/**" access="permitAll()" /> -->
         <custom-filter ref="veazyAuthenFilter" position="FORM_LOGIN_FILTER" />
         <session-management session-fixation-protection="migrateSession"/>
         <!-- <remember-me data-source-ref="dataSource" token-validity-seconds="86400"/> 1 day -->

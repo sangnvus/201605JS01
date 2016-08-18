@@ -1,0 +1,37 @@
+.course-list {
+	padding-top: 115px;
+}
+
+.course-list .content {
+	background: #fff;
+	padding: 20px;
+/*	border-radius: 4px;
+	border: 1px solid #cecfcb;*/
+	/*box-shadow: 0 2px 6px rgba(0, 0, 0, .2);*/
+	margin-bottom: 10px;
+}
+
+.course-list .form-group {
+	margin-top: 15px;
+}
+
+.course-list .lesson-list {
+	padding: 0;
+	border-top: 1px dashed #cecfcb;
+}
+
+.course-list .lesson {
+	vertical-align: middle;
+	padding: 15px 10px;
+	border-bottom: 1px dashed #cecfcb;
+}
+
+.course-list .lesson h4 {
+	color: #f87600;
+	margin-top: 0;
+}
+
+.course-list .lesson p {
+	color: #3a343a;
+	margin-bottom: 10px;
+}

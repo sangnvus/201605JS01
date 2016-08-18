@@ -24,7 +24,7 @@
                            http://www.springframework.org/schema/util
                            http://www.springframework.org/schema/util/spring-util-3.0.xsd">
 
-  <context:component-scan base-package="vn.edu.fu.veazy.core, vn.edu.fu.veazy.dictionary" />
+  <context:component-scan base-package="vn.edu.fu.veazy.core" />
 
   <tx:annotation-driven />
 
@@ -43,16 +43,14 @@
         <value>vn.edu.fu.veazy.core.model.UserModel</value>
         <value>vn.edu.fu.veazy.core.model.CourseModel</value>
         <value>vn.edu.fu.veazy.core.model.ExamModel</value>
-        <value>vn.edu.fu.veazy.core.model.ExamAnswer</value>
+        <value>vn.edu.fu.veazy.core.model.ExamQuestionModel</value>
+        <value>vn.edu.fu.veazy.core.model.ExamAnswerModel</value>
         <value>vn.edu.fu.veazy.core.model.LessonModel</value>
         <value>vn.edu.fu.veazy.core.model.LessonVersionModel</value>
         <value>vn.edu.fu.veazy.core.model.MessageModel</value>
         <value>vn.edu.fu.veazy.core.model.QuestionModel</value>
         <value>vn.edu.fu.veazy.core.model.AnswerModel</value>
         <value>vn.edu.fu.veazy.core.model.ReportModel</value>
-        <value>vn.edu.fu.veazy.dictionary.model.ExampleModel</value>
-        <value>vn.edu.fu.veazy.dictionary.model.VijaModel</value>
-        <value>vn.edu.fu.veazy.dictionary.model.JaviModel</value>
       </list>
     </property>
     <property name="hibernateProperties">
@@ -63,10 +61,10 @@
         <prop key="hibernate.connection.characterEncoding">utf8</prop>
         <prop key="hibernate.connection.charSet">utf8</prop>
         <prop key="hibernate.connection.useUnicode">true</prop>
-        <prop key="hibernate.search.default.directory_provider">
+        <!-- <prop key="hibernate.search.default.directory_provider">
             org.hibernate.search.store.impl.FSDirectoryProvider
         </prop>
-        <prop key="hibernate.search.default.indexBase">index</prop>
+        <prop key="hibernate.search.default.indexBase">index</prop> -->
       </props>
     </property>
   
@@ -89,7 +87,7 @@
     <entry key="hibernate.search.default.indexBase" value="index" />
   </util:map> -->
   
-  <bean id="searchListener" class="org.hibernate.search.event.impl.FullTextIndexEventListener" />
+  <!-- <bean id="searchListener" class="org.hibernate.search.event.impl.FullTextIndexEventListener" /> -->
 
   <bean id="transactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager"
         p:sessionFactory-ref="sessionFactory">
@@ -103,11 +101,8 @@
   <bean id="lessonVersionDao" class="vn.edu.fu.veazy.core.dao.HibernateLessonVersionDao"/>
   <bean id="questionDao" class="vn.edu.fu.veazy.core.dao.HibernateQuestionDao"/>
   <bean id="reportDao" class="vn.edu.fu.veazy.core.dao.HibernateReportDao"/>
-  <bean id="exampleDao" class="vn.edu.fu.veazy.dictionary.dao.HibernateExampleDao"/>
-  <bean id="vijaDao" class="vn.edu.fu.veazy.dictionary.dao.HibernateVijaDao"/>
-  <bean id="javiDao" class="vn.edu.fu.veazy.dictionary.dao.HibernateJaviDao"/>
   
-  <bean id="luceneQuestion" class="vn.edu.fu.veazy.core.dao.HibernateLuceneDao">
+  <!-- <bean id="luceneQuestion" class="vn.edu.fu.veazy.core.dao.HibernateLuceneDao">
     <constructor-arg>
         <value>vn.edu.fu.veazy.core.model.QuestionModel</value>
     </constructor-arg>
@@ -121,11 +116,10 @@
     <constructor-arg>
         <value>vn.edu.fu.veazy.core.model.LessonVersionModel</value>
     </constructor-arg>
-  </bean>
+  </bean> -->
   
   <bean id="veazyAuthenFilter" class="vn.edu.fu.veazy.core.security.VeazyAuthenFilter">
     <property name="authenticationManager" ref="authenticationManager" />
-    <!-- <property name="alwaysUseDefaultTargetUrl" value="false" /> -->
     <property name="authenticationSuccessHandler">
         <bean class="vn.edu.fu.veazy.core.security.VeazyAuthenSuccessHandler"/>
     </property>

@@ -16,7 +16,7 @@ import org.hibernate.search.annotations.Indexed;
 @DynamicInsert
 @DynamicUpdate
 @Indexed
-@Table(name = "LessonVersion")
+@Table(name = "`LessonVersion`")
 public class LessonVersionModel{
 	/**
 	 * バージョンのＩＤ

@@ -132,11 +132,11 @@ public class LessonServiceImpl implements LessonService{
 			}
 			updatingVersion.setUpdateDate(System.currentTimeMillis());
 			
-			updatingVersion.setArticle(form.getArticle());
+			updatingVersion.setArticle(form.getReading());
 			updatingVersion.setGrammar(form.getGrammar());
 			updatingVersion.setListening(form.getListening());
 			updatingVersion.setPractice(form.getPractice());
-			updatingVersion.setReading(form.getReading());
+			updatingVersion.setReading(form.getConversation());
 			updatingVersion.setVocabulary(form.getVocabulary());
 			
 			updatingVersion.setDescription(form.getDescription());
@@ -153,11 +153,11 @@ public class LessonServiceImpl implements LessonService{
 			updatingVersion.setLessonId(form.getLessonId());
 			updatingVersion.setState(Const.UPDATING);
 			
-			updatingVersion.setArticle(form.getArticle());
+			updatingVersion.setArticle(form.getReading());
 			updatingVersion.setGrammar(form.getGrammar());
 			updatingVersion.setListening(form.getListening());
 			updatingVersion.setPractice(form.getPractice());
-			updatingVersion.setReading(form.getReading());
+			updatingVersion.setReading(form.getConversation());
 			updatingVersion.setVocabulary(form.getVocabulary());
 			
 			updatingVersion.setDescription(form.getDescription());
@@ -224,7 +224,7 @@ public class LessonServiceImpl implements LessonService{
     @SuppressWarnings("unchecked")
 	@Transactional
 	public List<BriefLessonResponse> getLessonsOfCourse(Integer courseId) throws Exception {
-		String sql = "select * from Lesson les where les.courseId = " + courseId
+		String sql = "select * from \"Lesson\" les where les.courseId = " + courseId
 		        + " and deleteflag = false";
         List<LessonModel> listLesson = (List<LessonModel>) lessonDao.executeSql(sql, LessonModel.class);
 		if(listLesson == null || listLesson.isEmpty()){
@@ -252,7 +252,7 @@ public class LessonServiceImpl implements LessonService{
     @Override
     @Transactional
     public List<BriefLessonResponse> getAllLesson() throws Exception {
-        String sql = "select * from Lesson les where deleteflag = false";
+        String sql = "select * from \"Lesson\" les where deleteflag = false";
         List<LessonModel> listLesson = (List<LessonModel>) lessonDao.executeSql(sql, LessonModel.class);
         if(listLesson == null){
             LOGGER.error(listLesson + ": No lesson");
@@ -298,7 +298,7 @@ public class LessonServiceImpl implements LessonService{
                 + "select les.id as id, "
                 + "lag(les.id) over (order by les.id asc) as previousLessonId, "
                 + "lead(les.id) over (order by les.id asc) as nextLessonId "
-                + "from Lesson les "
+                + "from \"Lesson\" les "
                 + ") x "
                 + "where x.id = " + lessonId;
         List<Object[]> listLesson = (List<Object[]>) lessonDao.executeSql(sql, null);
@@ -325,4 +325,10 @@ public class LessonServiceImpl implements LessonService{
 		versionSample.setState(state);
 		return lessonVersionDao.findByExample(versionSample);
 	}
+
+    @Override
+    @Transactional
+    public int size() throws Exception {
+        return getAllLesson().size();
+    }
 }

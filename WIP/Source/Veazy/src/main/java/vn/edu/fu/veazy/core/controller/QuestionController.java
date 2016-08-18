@@ -8,14 +8,12 @@ package vn.edu.fu.veazy.core.controller;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,10 +25,11 @@ import vn.edu.fu.veazy.core.form.ReportForm;
 import vn.edu.fu.veazy.core.model.QuestionModel;
 import vn.edu.fu.veazy.core.model.ReportModel;
 import vn.edu.fu.veazy.core.model.UserModel;
+import vn.edu.fu.veazy.core.response.StatsQuestionsResponse;
+import vn.edu.fu.veazy.core.response.AddQuestionResponse;
+import vn.edu.fu.veazy.core.response.QuestionResponse;
 import vn.edu.fu.veazy.core.response.Response;
 import vn.edu.fu.veazy.core.response.ResponseCode;
-import vn.edu.fu.veazy.core.response.data.QuestionResponseData;
-import vn.edu.fu.veazy.core.response.data.AddQuestionResponseData;
 import vn.edu.fu.veazy.core.service.QuestionService;
 import vn.edu.fu.veazy.core.service.ReportService;
 import vn.edu.fu.veazy.core.service.UserService;
@@ -46,7 +45,7 @@ import vn.edu.fu.veazy.core.service.UserService;
  * @author LinhNH
  *
  */
-@CrossOrigin
+//@CrossOrigin
 @Controller("Core Question Controller")
 public class QuestionController {
 
@@ -72,7 +71,8 @@ public class QuestionController {
      * @return json string
      */
     @PreAuthorize("hasAuthority(2)")
-    @RequestMapping(value = Const.URLMAPPING_CREATE_QUESTION, method = RequestMethod.POST)
+    @RequestMapping(value = Const.URLMAPPING_CREATE_QUESTION, method = RequestMethod.POST,
+            produces={"application/json; charset=UTF-8"})
     public @ResponseBody
     String createQuestion(@RequestBody QuestionForm form,
             Principal principal) {
@@ -116,7 +116,7 @@ public class QuestionController {
 //            }
 //            model.setContent(content);
             model = questionService.saveQuestion(model);
-            AddQuestionResponseData data = new AddQuestionResponseData(model.getId());
+            AddQuestionResponse data = new AddQuestionResponse(model.getId());
 
             response.setCode(ResponseCode.SUCCESS);
             response.setData(data);
@@ -140,7 +140,8 @@ public class QuestionController {
      * @return json string
      */
     @PreAuthorize("hasAuthority(2)")
-    @RequestMapping(value = Const.URLMAPPING_UPDATE_QUESTION, method = RequestMethod.POST)
+    @RequestMapping(value = Const.URLMAPPING_UPDATE_QUESTION, method = RequestMethod.POST,
+            produces={"application/json; charset=UTF-8"})
     public @ResponseBody
     String updateQuestion(@RequestBody QuestionForm form,
             @PathVariable("question_id") Integer questionId, Principal principal) {
@@ -192,7 +193,7 @@ public class QuestionController {
 //                question.setNumberOfQuestion(1);
 //            }
             questionService.update(question);
-            AddQuestionResponseData data = new AddQuestionResponseData(question.getId());
+            AddQuestionResponse data = new AddQuestionResponse(question.getId());
 
             response.setCode(ResponseCode.SUCCESS);
             response.setData(data);
@@ -213,7 +214,8 @@ public class QuestionController {
      * @return json string
      */
     @PreAuthorize("hasAuthority(2)")
-    @RequestMapping(value = Const.URLMAPPING_GET_LIST_QUESTIONS, method = RequestMethod.GET)
+    @RequestMapping(value = Const.URLMAPPING_GET_LIST_QUESTIONS, method = RequestMethod.GET,
+            produces={"application/json; charset=UTF-8"})
     public @ResponseBody
     String getListQuestions() {
         Response response = new Response(ResponseCode.BAD_REQUEST);
@@ -226,11 +228,11 @@ public class QuestionController {
 //                response.setCode(ResponseCode.QUESTION_NOT_FOUND);
 //                return response.toResponseJson();
 //            }
-            List<QuestionResponseData> datas = new ArrayList<>();
+            List<QuestionResponse> datas = new ArrayList<>();
             if (questions != null && !questions.isEmpty()) {
                 for (QuestionModel question : questions) {
                     if (question.getNumberOfQuestion() > 0) {
-                        QuestionResponseData data = new QuestionResponseData(question);
+                        QuestionResponse data = new QuestionResponse(question);
                         datas.add(data);
                     }
                 }
@@ -254,7 +256,8 @@ public class QuestionController {
      * @return json string
      */
     @PreAuthorize("hasAuthority(2)")
-    @RequestMapping(value = Const.URLMAPPING_GET_QUESTION, method = RequestMethod.GET)
+    @RequestMapping(value = Const.URLMAPPING_GET_QUESTION, method = RequestMethod.GET,
+            produces={"application/json; charset=UTF-8"})
     public @ResponseBody
     String getQuestion(@PathVariable("question_id") Integer questionId) {
         Response response = new Response(ResponseCode.BAD_REQUEST);
@@ -266,7 +269,7 @@ public class QuestionController {
                 response.setCode(ResponseCode.QUESTION_NOT_FOUND);
                 return response.toResponseJson();
             }
-            QuestionResponseData data = new QuestionResponseData(question);
+            QuestionResponse data = new QuestionResponse(question);
 
             response.setCode(ResponseCode.SUCCESS);
             response.setData(data);
@@ -284,11 +287,44 @@ public class QuestionController {
 
     /**
      *
+     * @param questionId url path
+     * @return json string
+     */
+    @PreAuthorize("hasAuthority(2)")
+    @RequestMapping(value = Const.URLMAPPING_GET_SIZE_QUESTION, method = RequestMethod.GET,
+            produces={"application/json; charset=UTF-8"})
+    public @ResponseBody
+    String getNumberQuestion() {
+        Response response = new Response(ResponseCode.BAD_REQUEST);
+        try {
+            LOGGER.debug("Get to get number of question controller successful");
+            
+            int numberOfQuestions = questionService.size();
+            
+            StatsQuestionsResponse data = new StatsQuestionsResponse(numberOfQuestions);
+
+            response.setCode(ResponseCode.SUCCESS);
+            response.setData(data);
+
+            LOGGER.debug("Get number of question successfully!");
+
+            return response.toResponseJson();
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage());
+            LOGGER.error("Unknown error occured!");
+            response.setCode(ResponseCode.INTERNAL_SERVER_ERROR);
+        }
+        return response.toResponseJson();
+    }
+
+    /**
+     *
      * @param skillId url path
      * @return json string
      */
     @PreAuthorize("hasAuthority(2)")
-    @RequestMapping(value = Const.URLMAPPING_GET_QUESTION_OF_SKILL, method = RequestMethod.GET)
+    @RequestMapping(value = Const.URLMAPPING_GET_QUESTION_OF_SKILL, method = RequestMethod.GET,
+            produces={"application/json; charset=UTF-8"})
     public @ResponseBody
     String getQuestionOfSkill(@PathVariable("skill_id") Integer skillId) {
         Response response = new Response(ResponseCode.BAD_REQUEST);
@@ -301,11 +337,11 @@ public class QuestionController {
 //              response.setCode(ResponseCode.QUESTION_NOT_FOUND);
 //              return response.toResponseJson();
 //          }
-          List<QuestionResponseData> datas = new ArrayList<>();
+          List<QuestionResponse> datas = new ArrayList<>();
           if (questions != null && !questions.isEmpty()) {
               for (QuestionModel question : questions) {
                   if (question.getNumberOfQuestion() > 0) {
-                      QuestionResponseData data = new QuestionResponseData(question);
+                      QuestionResponse data = new QuestionResponse(question);
                       datas.add(data);
                   }
               }
@@ -330,7 +366,8 @@ public class QuestionController {
      * @return json string
      */
     @PreAuthorize("hasAuthority(2)")
-    @RequestMapping(value = Const.URLMAPPING_GET_QUESTION_OF_COURSE, method = RequestMethod.GET)
+    @RequestMapping(value = Const.URLMAPPING_GET_QUESTION_OF_COURSE, method = RequestMethod.GET,
+            produces={"application/json; charset=UTF-8"})
     public @ResponseBody
     String getQuestionOfCourse(@PathVariable("course_id") Integer courseId) {
         Response response = new Response(ResponseCode.BAD_REQUEST);
@@ -343,11 +380,11 @@ public class QuestionController {
 //              response.setCode(ResponseCode.QUESTION_NOT_FOUND);
 //              return response.toResponseJson();
 //          }
-          List<QuestionResponseData> datas = new ArrayList<>();
+          List<QuestionResponse> datas = new ArrayList<>();
           if (questions != null && !questions.isEmpty()) {
               for (QuestionModel question : questions) {
                   if (question.getNumberOfQuestion() > 0) {
-                      QuestionResponseData data = new QuestionResponseData(question);
+                      QuestionResponse data = new QuestionResponse(question);
                       datas.add(data);
                   }
               }
@@ -372,7 +409,8 @@ public class QuestionController {
      * @return json string
      */
     @PreAuthorize("hasAuthority(2)")
-    @RequestMapping(value = Const.URLMAPPING_DELETE_QUESTION, method = RequestMethod.GET)
+    @RequestMapping(value = Const.URLMAPPING_DELETE_QUESTION, method = RequestMethod.GET,
+            produces={"application/json; charset=UTF-8"})
     public @ResponseBody
     String deleteQuestion(@PathVariable("question_id") Integer questionId) {
         Response response = new Response(ResponseCode.BAD_REQUEST);
@@ -406,10 +444,11 @@ public class QuestionController {
      * @return json string
      */
     @Secured("isAuthenticated()")
-    @RequestMapping(value = Const.URLMAPPING_REPORT_QUESTION, method = RequestMethod.POST)
+    @RequestMapping(value = Const.URLMAPPING_REPORT_QUESTION, method = RequestMethod.POST,
+            produces={"application/json; charset=UTF-8"})
     public @ResponseBody
     String reportQuestion(@PathVariable("question_id") Integer questionId,
-            Principal principal, @ModelAttribute("report-form") ReportForm reportForm) {
+            Principal principal, @RequestBody ReportForm reportForm) {
         Response response = new Response(ResponseCode.BAD_REQUEST);
         try {
             LOGGER.debug("Get to report question controller successful");

@@ -18,7 +18,7 @@ public class Veazy403Handler implements AccessDeniedHandler {
     public void handle(HttpServletRequest request, HttpServletResponse response,
             AccessDeniedException accessDeniedException) throws IOException, ServletException {
         Response resp = new Response(HttpServletResponse.SC_FORBIDDEN);
-        HttpUtils.addCorsHeader(response);
+        HttpUtils.addCorsHeader(request, response);
         response.flushBuffer();
         response.getWriter().flush();
         response.getWriter().print(resp.toResponseJson());

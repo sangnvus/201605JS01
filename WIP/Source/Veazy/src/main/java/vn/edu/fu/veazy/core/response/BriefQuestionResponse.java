@@ -1,33 +1,48 @@
 package vn.edu.fu.veazy.core.response;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class BriefQuestionResponse {
     
+    private Integer questionId;
     private String question;
-    private List<String> answer;
-    private List<BriefQuestionResponse> listQuestions;
+    private List<BriefAnswerResponse> listAnswers = new ArrayList<>();
+    private List<BriefQuestionResponse> listQuestions = new ArrayList<>();
     private String attachment;
     
-    public BriefQuestionResponse(String question, List<String> answer) {
+    public BriefQuestionResponse(Integer questionId, String question,
+            List<BriefAnswerResponse> listAnswers) {
         super();
+        this.questionId = questionId;
         this.question = question;
-        this.answer = answer;
+        this.listAnswers = listAnswers;
     }
     
-    public BriefQuestionResponse(String question, String attachment,
+    public BriefQuestionResponse(Integer questionId, String question, String attachment,
             List<BriefQuestionResponse> listQuestions) {
         super();
+        this.questionId = questionId;
         this.question = question;
         this.listQuestions = listQuestions;
         this.attachment = attachment;
     }
 
-    public BriefQuestionResponse(String question, List<String> answer, String attachment) {
+    public BriefQuestionResponse(Integer questionId, String question,
+            List<BriefAnswerResponse> listAnswers, String attachment) {
         super();
+        this.questionId = questionId;
         this.question = question;
-        this.answer = answer;
+        this.listAnswers = listAnswers;
         this.attachment = attachment;
+    }
+
+    public Integer getQuestionId() {
+        return questionId;
+    }
+
+    public void setQuestionId(Integer questionId) {
+        this.questionId = questionId;
     }
 
     public List<BriefQuestionResponse> getListQuestions() {
@@ -46,12 +61,12 @@ public class BriefQuestionResponse {
         this.question = question;
     }
     
-    public List<String> getAnswer() {
-        return answer;
+    public List<BriefAnswerResponse> getListAnswers() {
+        return listAnswers;
     }
     
-    public void setAnswer(List<String> answer) {
-        this.answer = answer;
+    public void setListAnswers(List<BriefAnswerResponse> listAnswers) {
+        this.listAnswers = listAnswers;
     }
 
     public String getAttachment() {

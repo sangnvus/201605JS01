@@ -14,7 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import vn.edu.fu.veazy.core.dao.GenericDao;
 import vn.edu.fu.veazy.core.model.AnswerModel;
-import vn.edu.fu.veazy.core.model.LessonModel;
 import vn.edu.fu.veazy.core.model.QuestionModel;
 
 /**
@@ -152,7 +151,7 @@ public class QuestionServiceImpl implements QuestionService {
     @Override
     @Transactional
     public int size() throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return findAllQuestion().size();
     }
 
     @Override

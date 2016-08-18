@@ -1,0 +1,182 @@
+/*=== Global===*/
+.ngdialog-content {
+	background: #fff !important;
+	font-family: Maru Gothic !important;
+	font-size: 14px !important;
+	padding: 0 !important;
+	/*overflow: auto;*/
+}
+
+.ngdialog-content .title {
+	margin: 0;
+	padding: 12px;
+	/*color: #1d2129;*/
+	background-color: #f6f7f9;
+	border-bottom: 1px solid #e5e5e5;
+	border-top-left-radius: 4px;
+	border-top-right-radius: 4px;
+	font-size: 15px;
+	font-weight: 700;
+}
+
+.ngdialog .button-box {
+	padding: 10px 12px;
+	background-color: #f6f7f9;
+	border-top: 1px solid #e5e5e5;
+	border-bottom-left-radius: 4px;
+	border-bottom-right-radius: 4px;
+}
+
+/*=== Search lesson Dialog in lesson detail page ===*/
+.search-lesson-dialog a {
+	outline: none;
+}
+
+.search-lesson-dialog ul {
+	list-style: none;
+}
+
+.search-lesson-dialog ul > li {
+	margin: 30px 0;
+}
+
+/*=== Report question/lesson Dialog in test result page ===*/
+.report-dialog .form-box {
+	padding: 20px 15px;
+}
+
+.report-dialog .form-box label {
+	margin-bottom: 10px;
+}
+
+.report-dialog .button-box {
+	padding: 10px 12px;
+	background-color: #f6f7f9;
+	border-top: 1px solid #e5e5e5;
+}
+
+/*=== Report lesson Dialog ===*/
+/*.report-lesson-dialog .form-box {
+	padding: 20px 12px;
+}
+
+.report-lesson-dialog .form-box label {
+	margin-bottom: 10px;
+}
+
+.report-lesson-dialog .button-box {
+	padding: 10px 12px;
+	background-color: #f6f7f9;
+	border-top: 1px solid #e5e5e5;
+}
+
+.report-lesson-dialog .btn {
+	padding: 4px 8px;*/
+}
+
+/*=== Change password dialog in user profile page ===*/
+.change-password-dialog .form-box {
+	padding: 20px;
+}
+
+.change-password-dialog h5.error {
+	margin: 10px 0 0;
+	color: red;
+}
+
+/*=== update-profile dialog in user profile page ===*/
+.ngdialog-theme-default.update-profile-dialog {
+	padding: 50px 0 90px;
+}
+
+.update-profile-dialog .form-box {
+	padding: 20px;
+}
+
+/*=== delete lesson ===*/
+.ngdialog-theme-default.delete-lesson-dialog {
+	/*padding: 100px 0;*/
+}
+
+.delete-lesson-dialog .form-box {
+	padding: 20px;
+	min-height: 120px;
+}
+
+/*=== error alertdialog ===*/
+.ngdialog-theme-default.error-dialog {
+	/*padding: 100px 0;*/
+}
+
+.error-dialog .ngdialog-content {
+	border: 1px solid #ccc;
+    box-shadow: inset 0 1px 1px #ccc, 0 0 8px #d8d8d8;
+}
+
+.error-dialog .ngdialog-content .title {
+	background-color: #d9534f;
+	color: #fff;
+}
+
+.error-dialog .form-box {
+	padding: 20px;
+	min-height: 120px;
+	color: #000000;
+}
+
+.error-dialog .btn-default {
+	padding: 5px 20px;
+}
+
+
+
+/*.update-profile-dialog h5.error {
+	margin: 10px 0 0;
+	color: red;
+}*/
+
+
+/*=== Question detail dialog in content editor & manager question list page ===*/
+/*.question-detail-dialog .control-label {
+	text-align: left;
+}
+
+.question-detail-dialog .item-title {
+	color: #f87600;
+	margin: 30px 0 10px 0;
+	padding-bottom: 5px;
+	border-bottom: 1px solid #f87600;
+}
+
+
+.question-detail-dialog .checkbox-inline {
+	cursor: default;
+}
+
+.question-detail-dialog input[type="checkbox"][disabled] {
+	cursor: default;
+}*/
+
+/* single question dialog */
+/*.ngdialog-theme-default.question-detail-dialog.single {
+	padding-top: 80px;
+	padding-bottom: 80px;
+}
+
+.question-detail-dialog.single .checkbox-inline p {
+	margin: 0;
+}*/
+
+/*group question dialog */
+/*.ngdialog-theme-default.question-detail-dialog.group {
+	padding-top: 100px;
+	padding-bottom: 100px;
+}
+
+.question-detail-dialog.group .input-group p {
+	margin: 0;
+}
+
+.question-detail-dialog.group div[malihu-scroll] {
+	height: 400px;
+}*/

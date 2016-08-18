@@ -1,0 +1,73 @@
+<div class="container-fluid add-lesson">
+	<div class="row">
+		<div class="col-md-10 col-md-offset-1">
+			<h1 class="text-center" translate="ADD_LESSON_HEADING"></h1>
+			<!-- <div ncy-breadcrumb></div> -->
+			<form class="form-horizontal" ng-submit="addLesson()">
+				<div class="form-group">
+					<label class="control-label col-sm-2" translate="LESSON_TITLE_LABEL"></label>
+					<div class="col-sm-10">
+						<input class="form-control" type="text" ng-model="title"></input>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-sm-2" translate="LEVEL_LABEL"></label>
+					<div class="col-sm-10">
+						<select class="form-control" ng-model="selectedLevel" ng-options="level as level.name | translate for level in levels track by level.id"></select>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-sm-2" translate="DESCRIPTION_LABEL"></label>
+					<div class="col-sm-10">
+						<textarea class="form-control" ng-model="description"></textarea>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-sm-2" translate="SECTIONS_LABEL"></label>
+					<div class="col-sm-10">
+						<div class="tab-framed">
+							<div class="inner">
+								<!--nav tab-->
+							<ul class="tabs clearfix">
+								<li class="active"><a href="#vocabulary" data-toggle="tab" tab-pane translate="VOCABULARY_SECTION"></a></li>
+								<li><a href="#grammar" data-toggle="tab" tab-pane translate="GRAMMAR_SECTION"></a></li>
+								<li><a href="#conversation" data-toggle="tab" tab-pane translate="CONVERSATION_SECTION"></a></li>
+								<li><a href="#listening" data-toggle="tab" tab-pane translate="LISTENING_SECTION"></a></li>
+								<li><a href="#practice" data-toggle="tab" tab-pane translate="PRACTICE_SECTION"></a></li>
+								<li><a href="#reading" data-toggle="tab" tab-pane translate="READING_SECTION"></a></li>
+								</div>
+							</ul>
+
+							<!--content panel-->
+							<div class="tab-content">
+								<div class="tab-pane fade in active clearfix" id="vocabulary">
+									<textarea froala="editorOptions.vocabulary" ng-model="vocabulary"></textarea>
+								</div>
+								<div class="tab-pane fade clearfix" id="grammar">
+									<textarea froala="editorOptions.grammar" ng-model="grammar"></textarea>
+								</div>
+								<div class="tab-pane fade clearfix" id="conversation">
+									<textarea froala="editorOptions.conversation" ng-model="conversation"></textarea>
+								</div>
+								<div class="tab-pane fade clearfix" id="listening">
+									<textarea froala="editorOptions.listening" ng-model="listening"></textarea>
+								</div>
+								<div class="tab-pane fade clearfix" id="practice">
+									<textarea froala="editorOptions.practice" ng-model="practice"></textarea>
+								</div>
+								<div class="tab-pane fade clearfix" id="reading">
+									<textarea froala="editorOptions.reading" ng-model="reading"></textarea>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="form-group text-center" style="padding: 20px 0;">
+					<div class="col-sm-2 col-sm-offset-6">
+						<button type="submit" class="btn btn-block btn-grass" translate="CREATE_BUTTON_LABEL"></button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,29 @@
+<veazy-header></veazy-header>
+<div class="background-white">
+	<div class="container user-profile">
+		<div class="row profile-heading">
+			<div class="col-md-12">
+				<h1 translate="PROFILE_HEADER" translate-values="{username: username}"></h1>
+			</div>
+		</div>
+
+		<div class="row profile-body">
+			<div class="profile-menu">
+				<div class="row">
+					<div class="col-sm-1">
+						<img src="img/emma.png" class="img-profile img-sm img-responsive">
+					</div>
+					<div class="col-sm-11">
+						<div class="row">
+							<h4 class="username">{{username}}</h4>
+							<a href="" class="btn btn-default btn-sm tab-menu" ui-sref="user.profile" translate="INFORMATION_BUTTON_LABEL"></a>
+							<a href="" class="btn btn-default btn-sm tab-menu" ui-sref="user.statistics" translate="STATISTICS_BUTTON_LABEL"></a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div ui-view></div>
+		</div>
+	</div>
+</div>
+<veazy-footer></veazy-footer>

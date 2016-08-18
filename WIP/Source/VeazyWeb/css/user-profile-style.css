@@ -1,0 +1,66 @@
+
+.user-profile {
+	padding-top: 115px;
+	padding-bottom: 15px;
+}
+
+.user-profile .profile-body{
+	background-color: #fcfcfc;
+	border: 1px solid #eee;
+	/*background-color: #fff;*/
+    /*box-shadow: 0 2px 6px rgba(0, 0, 0, .2);*/
+    padding: 20px;
+}
+
+.user-profile .profile-menu {
+	padding: 10px;
+	border: 1px solid #d8d8d8;
+	margin-bottom: 25px;
+	background: #ECE9E6; /* fallback for old browsers */
+	background: -webkit-linear-gradient(#FFFFFF, #ECE9E6); /* Chrome 10-25, Safari 5.1-6 */
+	background: linear-gradient(#FFFFFF, #ECE9E6); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+.user-profile .img-profile {
+	box-shadow: 0 0 5px rgba(0,0,0,0.4);
+}
+
+.user-profile .img-profile.img-sm {
+	border: 3px solid #fff;
+}
+
+.user-profile .img-profile.img-lg {
+	border: 5px solid #fff;
+}
+
+.user-profile a {
+	text-decoration: none;
+}
+
+.user-profile .item {
+	margin-bottom: 30px;
+}
+
+.user-profile .item-heading {
+	color: #f87600;
+	margin-top: 0;
+}
+
+.user-profile .profile-menu .username {
+	margin-top: 5px;
+	margin-left: 15px;
+	color: #428bca;
+}
+.user-profile .profile-menu .tab-menu {
+	border-radius: 24px;
+}
+
+.user-profile .not-added-yet {
+	color: #a9a5a5;
+}
+
+.user-profile .website {
+	color: #428bca;
+}
+
+/*.user-profile .*/

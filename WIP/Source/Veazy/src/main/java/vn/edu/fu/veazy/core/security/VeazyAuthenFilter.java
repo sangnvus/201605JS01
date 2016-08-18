@@ -17,6 +17,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
 
 import vn.edu.fu.veazy.core.common.Const;
+import vn.edu.fu.veazy.core.common.utils.Utils;
 
 public class VeazyAuthenFilter extends AbstractAuthenticationProcessingFilter {
     
@@ -37,8 +38,13 @@ public class VeazyAuthenFilter extends AbstractAuthenticationProcessingFilter {
                     "Authentication method not supported: " + request.getMethod());
         }
         
-        if (Const.CORS_HEADER_ENABLED) {
+        if (Const.CORS_HEADER_ENABLED
+                && !Utils.isNullOrEmpty(request.getHeader(Const.CORS_HEADER_ORIGIN))) {
             addCorsHeader(response);
+        }
+        
+        if ("OPTIONS".equalsIgnoreCase(request.getMethod())) {
+            return null;
         }
 
         String username = request.getParameter(usernameParameter);

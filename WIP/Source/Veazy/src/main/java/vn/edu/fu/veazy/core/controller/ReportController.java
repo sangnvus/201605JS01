@@ -46,7 +46,8 @@ public class ReportController {
      * @return　返事のＪＳＯＮ
      */
     @PreAuthorize("hasAnyAuthority(1,2)")
-    @RequestMapping(value = Const.URLMAPPING_GET_REPORT, method = RequestMethod.GET)
+    @RequestMapping(value = Const.URLMAPPING_GET_REPORT, method = RequestMethod.GET,
+            produces={"application/json; charset=UTF-8"})
     public @ResponseBody
     String getReport(@PathVariable("report_id") Integer reportId) {
         Response response = new Response(ResponseCode.BAD_REQUEST);
@@ -71,7 +72,8 @@ public class ReportController {
      * @return　返事のＪＳＯＮ
      */
     @PreAuthorize("hasAnyAuthority(1,2)")
-    @RequestMapping(value = Const.URLMAPPING_GET_ALL_REPORT, method = RequestMethod.GET)
+    @RequestMapping(value = Const.URLMAPPING_GET_ALL_REPORT, method = RequestMethod.GET,
+            produces={"application/json; charset=UTF-8"})
     public @ResponseBody
     String getAllReport(Principal principal) {
         Response response = new Response(ResponseCode.BAD_REQUEST);
@@ -99,7 +101,8 @@ public class ReportController {
      * @return　返事のＪＳＯＮ
      */
     @PreAuthorize("hasAnyAuthority(1,2)")
-    @RequestMapping(value = Const.URLMAPPING_READ_REPORT, method = RequestMethod.GET)
+    @RequestMapping(value = Const.URLMAPPING_READ_REPORT, method = RequestMethod.GET,
+            produces={"application/json; charset=UTF-8"})
     public @ResponseBody
     String readReport(@PathVariable("report_id") Integer reportId) {
         Response response = new Response(ResponseCode.BAD_REQUEST);
@@ -123,7 +126,8 @@ public class ReportController {
      * @return　返事のＪＳＯＮ
      */
     @PreAuthorize("hasAnyAuthority(1,2)")
-    @RequestMapping(value = Const.URLMAPPING_DELETE_REPORT, method = RequestMethod.GET)
+    @RequestMapping(value = Const.URLMAPPING_DELETE_REPORT, method = RequestMethod.GET,
+            produces={"application/json; charset=UTF-8"})
     public @ResponseBody
     String deleteReport(@PathVariable("report_id") Integer reportId) {
         Response response = new Response(ResponseCode.BAD_REQUEST);

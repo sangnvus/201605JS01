@@ -1,0 +1,58 @@
+<veazy-header></veazy-header>
+<div class="background-white">
+	<!-- <div class="test"> -->
+	<div class="container test">
+		<div class="row">
+
+			<!-- test content panel -->
+			<div class="col-md-8 left">
+				<div ui-view></div>
+			</div>
+
+			<!-- test setup panel -->
+			<div class="col-md-4 right">
+				<div class="wrapper clearfix">
+					<h4 class="title" translate="TEST_PREPARATION_HEADER"></h4>
+					<div class="form-box">
+						<form name="setupExamForm" ng-submit="setupExamForm.$valid && createExam()" novalidate>
+							<div class="form-group">
+								<label translate="LEVEL_LABEL"></label>
+								<select class="form-control" ng-options="level as level.name | translate for level in levels track by level.id" ng-model="selectedLevel"></select>				
+							</div>
+
+							<div class="form-group">
+								<label translate="TEST_SKILL_LABEL"></label>
+								<select class="form-control" ng-options="skill as skill.name | translate for skill in testSkills track by skill.id" ng-model="selectedTestSkill"></select>			
+							</div>
+
+							<div class="form-group">
+								<label translate="NUMBER_OF_QUESTIONS_LABEL"></label>
+								<input type="number" class="form-control" name="numberOfQuestion" ng-model="numberOfQuestion" min="{{minNumberOfQuestions}}" required></input>
+								<p ng-show="setupExamForm.numberOfQuestion.$error.min">Required at least 10!</p>
+								<p ng-show="error">{{error}}</p>
+							</div>
+
+							<div class="form-group">
+								<div class="col-sm-4 col-sm-offset-4">
+									<button class="btn btn-primary btn-block" type="submit" translate="CREATE_TEST_BUTTON_LABEL" ng-disabled="setupExamForm.numberOfQuestion.$error.min"></button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+
+				<!-- <div class="wrapper">
+					<h4 class="title" translate="TAKEN_TESTS_HEADER"></h4>
+					<ul class="taken-test-list">
+						<li><a href="">Taken on Jul 14, 2016</a></li>
+						<li><a href="">Taken on Jul 15, 2016</a></li>
+						<li><a href="">Taken on Jul 16, 2016</a></li>
+						<li><a href="">Taken on Jul 17, 2016</a></li>
+					</ul>
+				</div> -->
+			</div>
+		</div>
+	</div>
+	<!-- </div> -->
+</div>
+<veazy-footer></veazy-footer>

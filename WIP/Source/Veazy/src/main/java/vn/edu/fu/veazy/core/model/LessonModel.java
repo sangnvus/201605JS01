@@ -14,7 +14,7 @@ import org.hibernate.search.annotations.Indexed;
 @DynamicInsert
 @DynamicUpdate
 @Indexed
-@Table(name = "Lesson")
+@Table(name = "`Lesson`")
 public class LessonModel extends BasicModel{
     /**
      * レベルにレッソンの順序

@@ -8,8 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -28,12 +28,13 @@ import vn.edu.fu.veazy.core.response.BriefLessonResponse;
 import vn.edu.fu.veazy.core.response.CreateLessonResponse;
 import vn.edu.fu.veazy.core.response.GetLessonResponse;
 import vn.edu.fu.veazy.core.response.GetLessonVersionResponse;
+import vn.edu.fu.veazy.core.response.StatsLessonsResponse;
 import vn.edu.fu.veazy.core.response.Response;
 import vn.edu.fu.veazy.core.response.ResponseCode;
 import vn.edu.fu.veazy.core.service.LessonService;
 import vn.edu.fu.veazy.core.service.UserService;
 
-@CrossOrigin(origins="http://localhost:3003")
+//@CrossOrigin(origins="http://localhost:3003")
 /**
  * @author CuHo
  *
@@ -65,14 +66,17 @@ public class LessonController {
      * @return 返事のＪＳＯＮ
      */
     @PreAuthorize("hasAuthority(2)")
-    @RequestMapping(value = Const.URLMAPPING_CREATE_LESSON, method = RequestMethod.POST)
+    @RequestMapping(value = Const.URLMAPPING_CREATE_LESSON, method = RequestMethod.POST,
+            produces={"application/json; charset=UTF-8"})
     public @ResponseBody
-    String createLesson(Principal principal, @ModelAttribute("create-lesson-form") CreateLessonForm form) {
+    String createLesson(Principal principal, @RequestBody CreateLessonForm form) {
         Response response = new Response(ResponseCode.BAD_REQUEST);
         try {
             String userName = principal.getName();
             LOGGER.debug(userName);
             UserModel user = userService.findUserByUsername(userName);
+            
+            LOGGER.debug(form.getVocabulary());
 
             if (HtmlUtils.isEmptyDocument(form.getReading())
                     || Utils.isNullOrEmpty(form.getDescription())
@@ -110,10 +114,11 @@ public class LessonController {
      * @return 返事のＪＳＯＮ
      */
     @PreAuthorize("hasAuthority(2)")
-    @RequestMapping(value = Const.URLMAPPING_DRAFT_LESSON, method = RequestMethod.POST)
+    @RequestMapping(value = Const.URLMAPPING_DRAFT_LESSON, method = RequestMethod.POST,
+            produces={"application/json; charset=UTF-8"})
     public @ResponseBody
     String saveDraftLesson(Principal principal,
-            @ModelAttribute("update-lesson-form") UpdateLessonForm form,
+            @RequestBody UpdateLessonForm form,
             @PathVariable("lesson_id") Integer lessonId) {
         Response response = new Response(ResponseCode.BAD_REQUEST);
         try {
@@ -121,13 +126,13 @@ public class LessonController {
             UserModel user = userService.findUserByUsername(userName);
             form.setLessonId(lessonId);
 
-            if (HtmlUtils.isEmptyDocument(form.getArticle())
+            if (HtmlUtils.isEmptyDocument(form.getReading())
                     || Utils.isNullOrEmpty(form.getDescription())
                     || HtmlUtils.isEmptyDocument(form.getGrammar())
                     || Utils.isNullOrEmpty(form.getTitle())
                     || HtmlUtils.isEmptyDocument(form.getListening())
                     || HtmlUtils.isEmptyDocument(form.getPractice())
-                    || HtmlUtils.isEmptyDocument(form.getReading())
+                    || HtmlUtils.isEmptyDocument(form.getConversation())
                     || HtmlUtils.isEmptyDocument(form.getVocabulary())) {
                 throw new NullOrEmptyContentException("Null or empty content");
             }
@@ -138,6 +143,9 @@ public class LessonController {
             LOGGER.debug("Update lesson successfully!");
 
             return response.toResponseJson();
+        } catch (CorruptedFormException e) {
+            LOGGER.error(e.getMessage());
+            response.setCode(e.getCode());
         } catch (Exception e) {
             LOGGER.error(e.getMessage());
             LOGGER.error("Unknown error occured!");
@@ -154,10 +162,11 @@ public class LessonController {
      * @return 返事のＪＳＯＮ
      */
     @PreAuthorize("hasAuthority(2)")
-    @RequestMapping(value = Const.URLMAPPING_UPDATE_LESSON, method = RequestMethod.POST)
+    @RequestMapping(value = Const.URLMAPPING_UPDATE_LESSON, method = RequestMethod.POST,
+            produces={"application/json; charset=UTF-8"})
     public @ResponseBody
     String updateLesson(Principal principal,
-            @ModelAttribute("update-lesson-form") UpdateLessonForm form,
+            @RequestBody UpdateLessonForm form,
             @PathVariable("lesson_id") Integer lessonId) {
         Response response = new Response(ResponseCode.BAD_REQUEST);
         try {
@@ -165,13 +174,13 @@ public class LessonController {
             UserModel user = userService.findUserByUsername(userName);
             form.setLessonId(lessonId);
 
-            if (HtmlUtils.isEmptyDocument(form.getArticle())
+            if (HtmlUtils.isEmptyDocument(form.getReading())
                     || Utils.isNullOrEmpty(form.getDescription())
                     || HtmlUtils.isEmptyDocument(form.getGrammar())
                     || Utils.isNullOrEmpty(form.getTitle())
                     || HtmlUtils.isEmptyDocument(form.getListening())
                     || HtmlUtils.isEmptyDocument(form.getPractice())
-                    || HtmlUtils.isEmptyDocument(form.getReading())
+                    || HtmlUtils.isEmptyDocument(form.getConversation())
                     || HtmlUtils.isEmptyDocument(form.getVocabulary())) {
                 throw new NullOrEmptyContentException("Null or empty content");
             }
@@ -183,6 +192,9 @@ public class LessonController {
             LOGGER.debug("Update lesson successfully!");
 
             return response.toResponseJson();
+        } catch (CorruptedFormException e) {
+            LOGGER.error(e.getMessage());
+            response.setCode(e.getCode());
         } catch (Exception e) {
             LOGGER.error(e.getMessage());
             LOGGER.error("Unknown error occured!");
@@ -198,7 +210,8 @@ public class LessonController {
      * @return 返事のＪＳＯＮ
      */
     @PreAuthorize("hasAuthority(2)")
-    @RequestMapping(value = Const.URLMAPPING_PUBLISH_LESSON, method = RequestMethod.GET)
+    @RequestMapping(value = Const.URLMAPPING_PUBLISH_LESSON, method = RequestMethod.GET,
+            produces={"application/json; charset=UTF-8"})
     public @ResponseBody
     String publishLesson(Principal principal, @PathVariable("lesson_id") Integer lessonId) {
         Response response = new Response(ResponseCode.BAD_REQUEST);
@@ -227,9 +240,11 @@ public class LessonController {
      * @return 返事のＪＳＯＮ
      */
     @PreAuthorize("isAuthenticated()")
-    @RequestMapping(value = Const.URLMAPPING_REPORT_LESSON, method = RequestMethod.POST)
+    @RequestMapping(value = Const.URLMAPPING_REPORT_LESSON, method = RequestMethod.POST,
+            produces={"application/json; charset=UTF-8"})
     public @ResponseBody
-    String reportLesson(Principal principal, @ModelAttribute("report-lesson-form") ReportLessonForm form, @PathVariable("lesson_id") Integer lessonId) {
+    String reportLesson(Principal principal, @RequestBody ReportLessonForm form,
+            @PathVariable("lesson_id") Integer lessonId) {
         Response response = new Response(ResponseCode.BAD_REQUEST);
         try {
             String userName = principal.getName();
@@ -254,7 +269,8 @@ public class LessonController {
      * @param courseId　レベルのＩＤ
      * @return　返事のＪＳＯＮ
      */
-    @RequestMapping(value = Const.URLMAPPING_GET_LESSON_COURSE, method = RequestMethod.GET)
+    @RequestMapping(value = Const.URLMAPPING_GET_LESSON_COURSE, method = RequestMethod.GET,
+            produces={"application/json; charset=UTF-8"})
     public @ResponseBody
     String getLessonOfCourse(@PathVariable("course_id") Integer courseId) {
         Response response = new Response(ResponseCode.BAD_REQUEST);
@@ -268,6 +284,7 @@ public class LessonController {
             return response.toResponseJson();
         } catch (Exception e) {
             LOGGER.error(e.getMessage());
+            e.printStackTrace();
         }
 
         LOGGER.error("Unknown error occured!");
@@ -280,7 +297,8 @@ public class LessonController {
      * @param lessonId　レッソンのＩＤ
      * @return　返事のＪＳＯＮ
      */
-    @RequestMapping(value = Const.URLMAPPING_GET_LESSON, method = RequestMethod.GET)
+    @RequestMapping(value = Const.URLMAPPING_GET_LESSON, method = RequestMethod.GET,
+            produces={"application/json; charset=UTF-8"})
     public @ResponseBody
     String getLesson(@PathVariable("lesson_id") Integer lessonId,
             @RequestParam(required = false) String action) {
@@ -302,8 +320,41 @@ public class LessonController {
         return response.toResponseJson();
     }
 
+    /**
+     *
+     * @param questionId url path
+     * @return json string
+     */
     @PreAuthorize("hasAuthority(2)")
-    @RequestMapping(value = Const.URLMAPPING_GET_ALL_LESSON, method = RequestMethod.GET)
+    @RequestMapping(value = Const.URLMAPPING_GET_SIZE_LESSON, method = RequestMethod.GET,
+            produces={"application/json; charset=UTF-8"})
+    public @ResponseBody
+    String getNumberLesson() {
+        Response response = new Response(ResponseCode.BAD_REQUEST);
+        try {
+            LOGGER.debug("Get to get number of lesson controller successful");
+            
+            int numberOfLessons = lessonService.size();
+            
+            StatsLessonsResponse data = new StatsLessonsResponse(numberOfLessons);
+
+            response.setCode(ResponseCode.SUCCESS);
+            response.setData(data);
+
+            LOGGER.debug("Get number of lesson successfully!");
+
+            return response.toResponseJson();
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage());
+            LOGGER.error("Unknown error occured!");
+            response.setCode(ResponseCode.INTERNAL_SERVER_ERROR);
+        }
+        return response.toResponseJson();
+    }
+
+    @PreAuthorize("hasAuthority(2)")
+    @RequestMapping(value = Const.URLMAPPING_GET_ALL_LESSON, method = RequestMethod.GET,
+            produces={"application/json; charset=UTF-8"})
     public @ResponseBody
     String getAllLesson() {
         Response response = new Response(ResponseCode.BAD_REQUEST);
@@ -317,6 +368,7 @@ public class LessonController {
             return response.toResponseJson();
         } catch (Exception e) {
             LOGGER.error(e.getMessage());
+            e.printStackTrace();
         }
 
         LOGGER.error("Unknown error occured!");
@@ -331,9 +383,11 @@ public class LessonController {
      * @return　返事のＪＳＯＮ
      */
     @PreAuthorize("hasAuthority(2)")
-    @RequestMapping(value = Const.URLMAPPING_GET_LESSON_VERSION, method = RequestMethod.GET)
+    @RequestMapping(value = Const.URLMAPPING_GET_LESSON_VERSION, method = RequestMethod.GET,
+            produces={"application/json; charset=UTF-8"})
     public @ResponseBody
-    String getLessonVersion(@PathVariable("lesson_id") Integer lessonId, @PathVariable("version") Integer version) {
+    String getLessonVersion(@PathVariable("lesson_id") Integer lessonId,
+            @PathVariable("version") Integer version) {
         Response response = new Response(ResponseCode.BAD_REQUEST);
         try {
             GetLessonVersionResponse data = lessonService.getLessonVersion(lessonId, version);
@@ -358,7 +412,8 @@ public class LessonController {
      * @return　返事のＪＳＯＮ
      */
     @PreAuthorize("hasAuthority(2)")
-    @RequestMapping(value = Const.URLMAPPING_DELETE_LESSON, method = RequestMethod.GET)
+    @RequestMapping(value = Const.URLMAPPING_DELETE_LESSON, method = RequestMethod.GET,
+            produces={"application/json; charset=UTF-8"})
     public @ResponseBody
     String delete(@PathVariable("lesson_id") Integer lessonId) {
         Response response = new Response(ResponseCode.BAD_REQUEST);

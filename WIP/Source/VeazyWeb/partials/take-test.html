@@ -1,0 +1,61 @@
+<style type="text/css">
+	.green-text {
+		color: green;
+		font-weight: 700 !important;
+	}
+
+	/*.check-box label {
+		cursor: default;
+	}*/
+
+	.test-content div.checkbox label {
+		cursor: default;
+	}
+
+	.reading-content {
+		padding: 10px;
+	}
+</style>
+
+<form ng-submit="submitTest()">
+	<div class="test-content clearfix" ng-if="exam.etaTime > 0">
+		<h3 count-down-timer>{{duration}}</h3>
+		<h2 class="title text-center" translate="TEST_HEADER"></h2>
+		<ul class="question-list" ng-if="exam.skill !== CODE.READING_SKILL">
+			<li ng-repeat="question in exam.listQuestions track by $index">
+				<p>{{$index + 1}}. {{question.question}}</p>
+				<ul class="answer-list">
+					<li ng-repeat="ans in question.answer track by $index">
+						<div class="checkbox">
+							<checkbox ng-model="ans.isSelected"></checkbox>
+							<label ng-class="{'green-text': ans.isRight}">{{ans.answer}}</label>
+						</div>
+					</li>
+				</ul>
+			</li>
+		</ul>
+
+		<ul class="question-list" ng-if="exam.skill === CODE.READING_SKILL">
+			<li ng-repeat="question in exam.listQuestions track by $index">
+				<p>{{$index + 1}}. ARTICLE_GUIDE</p>
+				<div class="reading-content" ng-bind-html="trustAsHtml(question.question)"></div>
+				<ul>
+					<li ng-repeat="question in question.listQuestions track by $index">
+						<p>{{$parent.$index + 1}}.{{$index + 1}}. {{question.question}}</p>
+						<ul class="answer-list">
+							<li ng-repeat="ans in question.answer">
+								<div class="checkbox">
+									<checkbox ng-model="ans.isSelected"></checkbox>
+									<label ng-class="{'green-text': ans.isRight}">{{ans.answer}}</label>
+								</div>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</li>
+		</ul>
+		<div class="text-center">
+			<button class="btn btn-success test-submit-btn" translate="SUBMIT_TEST_BUTTON_LABEL"></button>
+		</div>
+	</div>
+</form>

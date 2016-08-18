@@ -1,0 +1,47 @@
+<!-- Sidebar -->
+<div class="sidebar-wrapper">
+	<ul class="sidebar-nav">
+		<!-- Brand -->
+		<li class="sidebar-brand">
+			<a href="">
+				<i class="fa fa-paw"></i>
+				<span>Veazy</span>
+			</a>
+		</li>
+		<!-- Profile -->
+		<li class="profile clearfix">
+			<div class="clearfix">
+				<div class="profile-img-wrapper">
+					<img src="./bower_components/gentelella/production/images/img.jpg" alt="..." class="profile-img">
+				</div>
+				<div class="profile-info">
+					<span translate="WELCOME_MESSAGE"></span>
+					<h2>{{username}}</h2>
+				</div>
+			</div>
+			<div class="occupation">
+				<h5 translate="CONTENT_EDITOR_OCCUPATION"></h5>
+			</div>
+		</li>
+		<!-- Menu -->
+		<li class="side-bar-tab">
+			<a href="" ui-sref="editordashboard.reportlist"><i class="fa fa-tags"></i>{{'REPORT_TAB' | translate}}</a>
+		</li>
+		<li class="side-bar-tab">
+			<a href=""><i class="fa fa-book"></i>{{'LESSON_TAB' | translate}}<span class="fa fa-chevron-down pull-right"></span></a>
+			<ul class="nav child-menu">
+				<li><a href="" translate="LESSON_LIST_TAB" ui-sref="editordashboard.lesson.list"></a></li>
+				<li><a ui-sref="editordashboard.lesson.add" translate="ADD_LESSON_TAB"></a></li>
+			</ul>
+		</li>
+		<li class="side-bar-tab">
+			<a href=""><i class="fa fa-question-circle"></i>{{'QUESTION_TAB' | translate}}<span class="fa fa-chevron-down pull-right"></span></a>
+			<ul class="nav child-menu">
+				<li><a ui-sref="editordashboard.question.list" translate="QUESTION_LIST_TAB"></a></li>
+				<li><a ui-sref="editordashboard.question.add" translate="ADD_QUESTION_TAB"></a></li>
+			</ul>
+		</li>
+		<li class="side-bar-tab"><a href="" ng-click="logout()"><i class="fa fa-power-off"></i>{{'LOGOUT_TAB' | translate}}</a></li>
+		<li class="side-bar-tab"><a href="" ng-click="changeLanguage()"><i class="fa fa-power-off"></i>Change Language</a></li>
+	</ul>
+</div>
