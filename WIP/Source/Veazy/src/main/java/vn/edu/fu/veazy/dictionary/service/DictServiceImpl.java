@@ -49,7 +49,7 @@ public class DictServiceImpl implements DictService{
 		JaviModel sample = new JaviModel();
 		sample.setWord(key);
 		List<JaviModel> javis = javiDao.findByExample(sample);
-		List<LookupWordResponse> result = new Vector<>();
+		List<LookupWordResponse> result = new Vector<LookupWordResponse>();
 		if(javis != null && !javis.isEmpty()){
 			for (JaviModel javiModel : javis) {
 				result.add(loadFull(javiModel.getWord(),javiModel.getMeans()));
@@ -64,7 +64,7 @@ public class DictServiceImpl implements DictService{
 		VijaModel sample = new VijaModel();
 		sample.setWord(key);
 		List<VijaModel> vijas = vijaDao.findByExample(sample);
-		List<LookupWordResponse> result = new Vector<>();
+		List<LookupWordResponse> result = new Vector<LookupWordResponse>();
 		if(vijas != null && !vijas.isEmpty()){
 			for (VijaModel vijaModel : vijas) {
 				result.add(loadFull(vijaModel.getWord(),vijaModel.getMeans()));
