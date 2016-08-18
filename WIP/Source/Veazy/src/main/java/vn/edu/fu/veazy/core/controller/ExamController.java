@@ -161,7 +161,8 @@ public class ExamController {
             for (SubmitQuestionForm answerForm : listQuestion) {
                 Integer questionId = answerForm.getQuestionId();
                 for (ExamQuestionModel m : listOriginQuestion) {
-                    if (questionId == m.getQuestionId()) {
+                    if (questionId == m.getQuestionId()
+                            && m.getQuestionType() != Const.QUESTIONTYPE_GROUP) {
                         List<ExamAnswerModel> listAnswers = m.getListAnswers();
                         List<SubmitAnswerForm> listUserAnswers = answerForm.getListAnswers();
                         if (listAnswers.size() != listUserAnswers.size()) {
@@ -170,16 +171,19 @@ public class ExamController {
                         int index = 0;
                         singleQuesChoice = 0;
                         singleQuesRight = 0;
+                        boolean failedQues = false;
                         for (ExamAnswerModel ansModel : listAnswers) {
                             if (ansModel.getIsRight()) {
-                                if (listUserAnswers.get(index).getIsSelected()) {
+                                if (listUserAnswers.get(index).getIsSelected() && !failedQues) {
                                     singleQuesChoice++;
+                                    ansModel.setIsSelected(true);
                                 }
                                 singleQuesRight++;
                             } else {
                                 if (listUserAnswers.get(index).getIsSelected()) {
                                     singleQuesChoice = 0;
-                                    break;
+                                    ansModel.setIsSelected(true);
+                                    failedQues = true;
                                 }
                             }
                             index++;

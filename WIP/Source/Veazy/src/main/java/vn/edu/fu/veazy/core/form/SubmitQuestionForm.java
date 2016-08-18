@@ -31,8 +31,8 @@ public class SubmitQuestionForm {
         return listAnswers;
     }
 
-    public void setListAnswers(List<SubmitAnswerForm> answer) {
-        this.listAnswers = answer;
+    public void setListAnswers(List<SubmitAnswerForm> listAnswers) {
+        this.listAnswers = listAnswers;
     }
     
 }
