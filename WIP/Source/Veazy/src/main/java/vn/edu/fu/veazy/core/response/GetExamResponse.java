@@ -18,7 +18,7 @@ public class GetExamResponse {
 
     private Integer examId;
     private Integer courseId;
-    private Integer questionSkill;
+    private Integer skill;
     private List<ExamQuestionResponse> listQuestions;
     private Double result;
     private Integer takenTime;
@@ -30,7 +30,7 @@ public class GetExamResponse {
     public GetExamResponse(ExamModel exam) {
         this.examId = exam.getId();
         this.courseId = exam.getCourseId();
-        this.questionSkill = exam.getQuestionSkill();
+        this.skill = exam.getQuestionSkill();
         this.result = exam.getResult();
         this.takenTime = exam.getTakenTime();
         this.etaTime = exam.getEtaTime();
@@ -58,12 +58,12 @@ public class GetExamResponse {
         this.courseId = courseId;
     }
 
-    public Integer getQuestionSkill() {
-        return questionSkill;
+    public Integer getSkill() {
+        return skill;
     }
 
-    public void setQuestionSkill(Integer questionSkill) {
-        this.questionSkill = questionSkill;
+    public void setSkill(Integer skill) {
+        this.skill = skill;
     }
 
     public List<ExamQuestionResponse> getListQuestions() {
