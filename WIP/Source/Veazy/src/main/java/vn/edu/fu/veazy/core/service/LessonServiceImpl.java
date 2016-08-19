@@ -127,9 +127,10 @@ public class LessonServiceImpl implements LessonService{
 		if(listUpdating != null && listUpdating.size()>0){
 			updatingVersion = listUpdating.get(0);
 			//check if requester is creator
-			if(updatingVersion.getCreatorId() != requesterId){
-				throw new Exception("requester isn't creator");
-			}
+//			if(updatingVersion.getCreatorId() != requesterId){
+//				throw new Exception("requester isn't creator");
+//			}
+            updatingVersion.setCreatorId(requesterId);
 			updatingVersion.setUpdateDate(System.currentTimeMillis());
 			
 			updatingVersion.setArticle(form.getReading());
