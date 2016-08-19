@@ -119,9 +119,11 @@ public class ExamServiceTest {
     @Test
     public void testSaveExam() throws Exception {
         examService.saveExam(exam);
+        ExamModel foundExam = examService.findExamById(examId);
+        Assert.assertNotNull(foundExam);
     }
     
-    @Test
+    @Test(expected=Exception.class)
     public void testSaveExam2() throws Exception {
         examService.saveExam(null);
     }

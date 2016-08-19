@@ -69,6 +69,8 @@ public class UserServiceTest {
     @Test
     public void testSaveUser() throws Exception {
         userService.saveUser(user);
+		UserModel user = userService.findUserByUsername(username);
+        Assert.assertNotNull(user);
     }
 
     @Test
@@ -78,6 +80,9 @@ public class UserServiceTest {
         form.setEmail("user2@email.com");
         form.setPassword("user2");
         userService.saveUser(form);
+		
+		UserModel user = userService.findUserByUsername("user2");
+        Assert.assertNotNull(user);
     }
 
     @Test
@@ -156,56 +161,49 @@ public class UserServiceTest {
     @Test
     public void testUpdateUser() throws Exception {
         userService.update(user, form);
+		UserModel user = userService.findUserById(userId);
+		Assert.assertEquals("first", user.getFirstName());
     }
 
     @Test
     public void testUpdateUser2() throws Exception {
+		user.setFirstName("first");
         userService.update(user);
+		UserModel user = userService.findUserById(userId);
+		Assert.assertEquals("first", user.getFirstName());
     }
 
-    @Test
+    @Test(expected=Exception.class)
     public void testUpdateUser3() throws Exception {
-        try {
-            userService.update(null, form);
-        } catch (Exception ex) {
-            Assert.assertEquals(new Exception(), ex);
-        }
+        userService.update(null, form);
     }
 
-    @Test
+    @Test(expected=Exception.class)
     public void testUpdateUser4() throws Exception {
-        try {
-            userService.update(null, null);
-        } catch (Exception ex) {
-            Assert.assertEquals(new Exception(), ex);
-        }
+        userService.update(null, null);
     }
 
     @Test
     public void testChangeUserRole() throws Exception {
         userService.changeUserRoll(userId, role);
+		UserModel user = userService.findUserById(userId);
+		Assert.assertEquals(role, user.getRole());
     }
 
     @Test
     public void testChangePassword() throws Exception {
         userService.changePassword(userId, password, "newPassword");
+		UserModel user = userService.findUserById(userId);
+		Assert.assertEquals("newPassword", user.getEncryptedPassword());
     }
 
-    @Test
+    @Test(expected=PasswordIncorrectException.class)
     public void testChangePassword2() throws Exception {
-        try {
-            userService.changePassword(-1, "wrongPassword", "newPassword");
-        } catch (Exception ex) {
-            Assert.assertEquals(new PasswordIncorrectException("Wrong old password"), ex);
-        }
+        userService.changePassword(-1, "wrongPassword", "newPassword");
     }
 
-    @Test
+    @Test(expected=PasswordIncorrectException.class)
     public void testChangePassword3() throws Exception {
-        try {
             userService.changePassword(userId, "wrongPassword", "newPassword");
-        } catch (Exception ex) {
-            Assert.assertEquals(new PasswordIncorrectException("Wrong old password"), ex);
-        }
     }
 }

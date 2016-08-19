@@ -146,16 +146,24 @@ public class QuestionServiceTest {
 
     @Test
     public void testUpdateQuestion() throws Exception {
+		question.setAttachment("attach");
         questionService.update(question);
+        QuestionModel question = questionService.findQuestionByCode(questionCode);
+        Assert.assertEquals("attach", question.getAttachment());
     }
 
     @Test
     public void testUpdateQuestion2() throws Exception {
+		question.setAttachment("attach");
         questionService.update(groupQuestion);
+        QuestionModel question = questionService.findQuestionByCode(questionCode);
+        Assert.assertEquals("attach", question.getAttachment());
     }
 
     @Test
-    public void tesDeleteQuestion() throws Exception {
+    public void testDeleteQuestion() throws Exception {
         questionService.delete(question);
+        QuestionModel question = questionService.findQuestionByCode(questionCode);
+        Assert.assertNull(question);
     }
 }

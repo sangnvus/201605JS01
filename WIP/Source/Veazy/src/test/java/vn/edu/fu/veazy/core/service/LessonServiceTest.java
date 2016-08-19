@@ -60,6 +60,7 @@ public class LessonServiceTest {
         return createLesson;
     }
 	
+	@Before
     public void setUp() throws Exception {
         creatorModel = setUpUser("user1");
         creatorId = creatorModel.getId();
@@ -75,6 +76,10 @@ public class LessonServiceTest {
         lessonId = lesson.getLessonId();
 
         updateForm = new UpdateLessonForm();
+		updateForm.setDescription("des");
+		updateForm.setLessonId(lessonId);
+		updateForm.setCourseId(courseId);
+		updateForm.setVersion(version);
     }
 
     @After
@@ -180,6 +185,8 @@ public class LessonServiceTest {
 	    @Test
     public void testUpdateLesson() throws Exception {
         lessonService.updateLesson(creatorId, updateForm);
+		LessonModel lesson = lessonService.getLesson(lessonId, false);
+		Assert.assertEquals("des", lesson.getDescription());
     }
 
     @Test
@@ -274,6 +281,8 @@ public class LessonServiceTest {
     @Test
     public void testPublishLessonVersion4() throws Exception {
         lessonService.publishLessonVersion(creatorId, lessonId);
+		LessonModel lesson = lessonService.getLesson(lessonId, false);
+		Assert.assertNotEquals(null, lesson.getCurrentVersionId());
     }
 
     @Test

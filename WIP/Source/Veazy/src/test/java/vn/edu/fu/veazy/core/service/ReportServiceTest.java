@@ -80,9 +80,11 @@ public class ReportServiceTest {
     @Test
     public void testSaveReport() throws Exception {
         reportService.saveReport(report);
+        ReportModel report = reportService.getReport(reportId);
+        Assert.assertNotNull(report);
     }
 
-    @Test
+    @Test(expected=Exception.class)
     public void testSaveReport2() throws Exception {
         reportService.saveReport(null);
     }
@@ -128,6 +130,8 @@ public class ReportServiceTest {
     @Test
     public void testReadReport() throws Exception {
         reportService.readReport(reportId);
+        ReportModel report = reportService.getReport(reportId);
+        Assert.assertEquals(true, report.isReadFlag());
     }
 
     @Test
@@ -143,6 +147,8 @@ public class ReportServiceTest {
     @Test
     public void testDeleteReport() throws Exception {
         reportService.deleteReport(reportId);
+        ReportModel report = reportService.getReport(reportId);
+        Assert.assertNull(report);
     }
 
     @Test
