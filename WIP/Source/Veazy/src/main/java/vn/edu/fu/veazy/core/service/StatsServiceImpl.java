@@ -29,6 +29,7 @@ public class StatsServiceImpl implements StatsService {
         StatsSkillAvgResponse result = new StatsSkillAvgResponse();
         ExamModel e = new ExamModel();
         e.setUserId(userId);
+        e.setFinishState(true);
         
         Double avg = 0d;
         e.setQuestionSkill(Const.QUESTIONSKILL_LISTENING);
@@ -41,6 +42,7 @@ public class StatsServiceImpl implements StatsService {
             avg = sum / listExam.size();
         }
         result.setListening(avg);
+        listExam.clear();
         
         avg = 0d;
         e.setQuestionSkill(Const.QUESTIONSKILL_VOCABULARY);
@@ -53,6 +55,7 @@ public class StatsServiceImpl implements StatsService {
             avg = sum / listExam.size();
         }
         result.setVocabulary(avg);
+        listExam.clear();
         
         avg = 0d;
         e.setQuestionSkill(Const.QUESTIONSKILL_READING);
@@ -65,6 +68,7 @@ public class StatsServiceImpl implements StatsService {
             avg = sum / listExam.size();
         }
         result.setReading(avg);
+        listExam.clear();
         
         avg = 0d;
         e.setQuestionSkill(Const.QUESTIONSKILL_GRAMMAR);
@@ -77,6 +81,7 @@ public class StatsServiceImpl implements StatsService {
             avg = sum / listExam.size();
         }
         result.setGrammar(avg);
+        listExam.clear();
         
         return result;
     }
