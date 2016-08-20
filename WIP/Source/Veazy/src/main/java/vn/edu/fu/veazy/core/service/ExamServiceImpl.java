@@ -39,6 +39,7 @@ public class ExamServiceImpl implements ExamService {
             ExamModel exam = new ExamModel();
             //TODO need to check about getUserById method in dao
             exam.setUserId(learnerId);
+            exam.setFinishState(true);
             List<ExamModel> exams = examDao.findByExample(exam);
             return exams;
         } catch (Exception e) {
