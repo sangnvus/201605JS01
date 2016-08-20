@@ -12,6 +12,10 @@
 			submit: {
 				url: url + '/submit',
 				method: 'POST' 
+			},
+			getHistory: {
+				url: '/Veazy/api/user/exams',
+				method: 'GET'
 			}
 		});
 	};

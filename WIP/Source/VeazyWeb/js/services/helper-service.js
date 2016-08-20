@@ -5,7 +5,7 @@
 
 			this.calculateSingleQuestionMark = function(question) {
 
-				if (!question || !question.answer || question.answer.length === 0) {
+				if (!question || !question.listAnswers || question.listAnswers.length === 0) {
 					return false;
 				}
 				var rightAnswerNo = 0;			//the number of right answer(s) in a question
@@ -15,8 +15,8 @@
 				var questionPts;
 				var answer;
 
-				for (var i = 0; i < question.answer.length; i++) {
-					answer = question.answer[i];
+				for (var i = 0; i < question.listAnswers.length; i++) {
+					answer = question.listAnswers[i];
 
 					if (answer.isRight) {
 						rightAnswerNo++;
@@ -31,8 +31,13 @@
 						} 
 					}
 
-					//if user checks both right answer and wrong answer, then it is considered wrong --> zero mark
+					//user check bot right and wrong answers
 					if (checkedRightAnswerNo < checkedAnswerNo) {
+						checkedRightAnswerNo = 0;
+					}
+
+					//user does not check all right answers
+					if (checkedRightAnswerNo < rightAnswerNo) {
 						checkedRightAnswerNo = 0;
 					}
 				}
@@ -53,14 +58,14 @@
 				for (var i = 0; i < groupQuestion.listQuestions.length; i++) {
 					question = groupQuestion.listQuestions[i];
 					questionPts = self.calculateSingleQuestionMark(question);
-					question.questionPts = questionPts;
+					// question.questionPts = questionPts;
 					groupQuestionPts += questionPts;
 				}
 				return groupQuestionPts;
 			}
 
 			this.calculateExamMark = function(exam) {
-				if (!exam || !exam.listQuestions || exam.listQuestions.length === 0) {
+				if (exam == null || exam.listQuestions == null || exam.listQuestions.length === 0) {
 					return false;
 				}
 				var CODE = veazyConfig.CODE;
@@ -76,16 +81,16 @@
 					} else {
 						questionPts = self.calculateSingleQuestionMark(question);
 					}
-					question.questionPts = questionPts;
+					// question.questionPts = questionPts;
 					// question.questionPts = self.calculateSingleQuestionMark(question);
 					totalPts += questionPts;
 				}
 
-				return totalPts;
+				return (totalPts.toFixed(2)) * 100;
 			};
 
 			this.calculateTotalNumberOfQuestion = function(exam) {
-				if (!exam) {
+				if (exam == null) {
 					return false;
 				}
 

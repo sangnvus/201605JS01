@@ -28,15 +28,18 @@
 				switch (response.code) {
 					case CODE.SUCCESS: {
 						var exam = response.data;
-						$state.go('test.taketest', {
-							exam: response.data
-						}, {
-							reload:'test.taketest'
-						});
 
 						//no question of this level & skill added yet
-						if (exam.etaTime === 0) {
-							$scope.error = 'No question of this level & skill are added yet!';
+						// if (exam.etaTime === 0) {
+						if (exam.etaTime === 30) {
+							$scope.error = 'NO_EXAM';
+							console.log('here');
+						} else {
+							$state.go('test.taketest', {
+								exam: response.data
+							}, {
+								reload:'test.taketest'
+							});
 						}
 						break;
 					}
