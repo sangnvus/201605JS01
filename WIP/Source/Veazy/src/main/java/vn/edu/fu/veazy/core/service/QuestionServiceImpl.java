@@ -36,32 +36,15 @@ public class QuestionServiceImpl implements QuestionService {
     @Transactional
     public QuestionModel saveQuestion(QuestionModel question) throws Exception {
         try {
-        	
-        	if(question.getQuestionType() == Const.QUESTIONTYPE_GROUP){
-        		//Check duplicate question
-        		HashSet<String> setQuestion = new HashSet<>();
-        		for (QuestionModel childQuestion : question.getListQuestions()) {
-        			if(!setQuestion.add(childQuestion.getQuestion())){
-        				throw new Exception("duplicate question");
-        			}
-				}
-        		
-        		//Check duplicate answer in each question
-        		for (QuestionModel childQuestion : question.getListQuestions()) {
-        			HashSet<String> setAnswer = new HashSet<>();
-        			for (AnswerModel answer : childQuestion.getListAnswers()) {
-        				if(!setAnswer.add(answer.getAnswer())){
-        					throw new Exception("duplicate answer");
-        				}
+        	QuestionModel sample = new QuestionModel();
+        	sample.setQuestion(question.getQuestion());
+        	sample.setDeleteFlag(false);
+        	List<QuestionModel> questions = questionDao.findByExample(sample);
+        	if(questions!=null && !questions.isEmpty()){
+        		for (QuestionModel q : questions) {
+					if(q.getParentQuestion() == null){
+						throw new Exception("Duplicate question");
 					}
-				}
-        	}else{
-        		//Check duplicate answer
-        		HashSet<String> setAnswer = new HashSet<>();
-    			for (AnswerModel answer : question.getListAnswers()) {
-    				if(!setAnswer.add(answer.getAnswer())){
-    					throw new Exception("duplicate answer");
-    				}
 				}
         	}
             questionDao.save(question);
@@ -70,10 +53,11 @@ public class QuestionServiceImpl implements QuestionService {
             // TODO custom exception
             throw new Exception(e.getMessage(), e);
         }
-//        return null;
     }
 
-    @SuppressWarnings("unchecked")
+   
+
+	@SuppressWarnings("unchecked")
     @Override
     @Transactional
     public QuestionModel findQuestionById(Integer id) throws Exception {
@@ -145,15 +129,17 @@ public class QuestionServiceImpl implements QuestionService {
     @Transactional
     public void update(QuestionModel question) throws Exception {
         try {
-//            if (question.isUpdateAns()) {
-////                List<AnswerModel> listAns = findAnswerByQuestionId(question.getId());
-////                if (listAns != null && listAns.size() > 0) {
-////                    for (AnswerModel ans : listAns) {
-////                        answerDao.delete(ans);
-////                    }
-////                }
-//                question.setUpdateAns(false);
-//            }
+        	QuestionModel sample = new QuestionModel();
+        	sample.setQuestion(question.getQuestion());
+        	sample.setDeleteFlag(false);
+        	List<QuestionModel> questions = questionDao.findByExample(sample);
+        	if(questions!=null && !questions.isEmpty()){
+        		for (QuestionModel q : questions) {
+					if(question.getId() != q.getId() && q.getParentQuestion() == null){
+						throw new Exception("Duplicate question");
+					}
+				}
+        	}
             questionDao.update(question);
         } catch (Exception e) {
             // TODO custom exception
