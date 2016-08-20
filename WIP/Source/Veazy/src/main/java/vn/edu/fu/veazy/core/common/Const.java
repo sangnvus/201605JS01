@@ -42,9 +42,9 @@ public class Const {
     public static final String URLMAPPING_GET_CURRENT_USER = URL_PREFIX + "/user";
     public static final String URLMAPPING_UPDATE_CURRENT_USER = URL_PREFIX + "/user/update";
     public static final String URLMAPPING_CHGPWD_CURRENT_USER = URL_PREFIX + "/user/chgpwd";
+    public static final String URLMAPPING_GET_LEARNER_EXAMS = URL_PREFIX + "/user/exams";
     public static final String URLMAPPING_GET_LIST_USERS = URL_PREFIX + "/users";
     public static final String URLMAPPING_GET_SIZE_USERS = URL_PREFIX + "/users/count";
-    public static final String URLMAPPING_GET_LEARNER_EXAMS = URL_PREFIX + "/users/{user_id}/exams";
     public static final String URLMAPPING_GET_LEARNER_EXAM_STATISTIC = URL_PREFIX + "/users/{user_id}/exams/statistics";
 
     public static final String URLMAPPING_CHANGE_ROLE = URL_PREFIX + "/users/change_roll/{user_id}";
