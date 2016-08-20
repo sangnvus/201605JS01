@@ -20,7 +20,7 @@ public class CreateLessonResponse {
 	private String article;
 	public CreateLessonResponse(LessonModel lesson,LessonVersionModel version){
 		lessonId = lesson.getId();
-		courseId = lesson.getCourseId();
+		courseId = lesson.getCourse();
 		this.version = version.getVersion();
 		lessonTitle = version.getTitle();
 		description = version.getDescription();

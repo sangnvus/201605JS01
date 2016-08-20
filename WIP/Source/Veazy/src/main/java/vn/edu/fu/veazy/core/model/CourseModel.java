@@ -20,7 +20,6 @@ public class CourseModel{
 	 */
 	@Id
     @Column(name = "id", nullable = false)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 	
 	/**

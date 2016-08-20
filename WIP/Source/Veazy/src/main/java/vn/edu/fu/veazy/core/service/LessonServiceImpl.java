@@ -38,7 +38,7 @@ public class LessonServiceImpl implements LessonService{
 	public CreateLessonResponse createLesson(Integer creatorId, CreateLessonForm form) throws Exception {
 		// get data from form
 		LessonModel lesson = new LessonModel();
-		lesson.setCourseId(form.getCourseId());
+		lesson.setCourse(form.getCourseId());
 		LessonVersionModel lessonVersion = new LessonVersionModel();
 		lessonVersion.setCreatorId(creatorId);
 		lessonVersion.setDescription(form.getDescription());
@@ -113,7 +113,7 @@ public class LessonServiceImpl implements LessonService{
 		if(lesson == null || lesson.isDeleteFlag()){
 			throw new Exception("lesson doesn't exist");
 		}
-		lesson.setCourseId(form.getCourseId());
+		lesson.setCourse(form.getCourseId());
 		lessonDao.update(lesson);
 		
 		//get version in updating state
@@ -240,7 +240,7 @@ public class LessonServiceImpl implements LessonService{
 			LessonVersionModel version = lessonVersionDao
 			        .findById(lessonModel.getCurrentVersionId());
 			response.setTitle(version.getTitle());
-            response.setCourseId(lessonModel.getCourseId());
+            response.setCourse(lessonModel.getCourse());
 			response.setVersion(version.getVersion());
             response.setDescription(version.getDescription());
             response.setState(version.getState());
@@ -268,7 +268,7 @@ public class LessonServiceImpl implements LessonService{
                 LessonVersionModel version = lessonVersionDao
                         .findById(Integer.valueOf(lessonModel.getCurrentVersionId()));
                 response.setTitle(version.getTitle());
-                response.setCourseId(lessonModel.getCourseId());
+                response.setCourse(lessonModel.getCourse());
                 response.setVersion(version.getVersion());
                 response.setDescription(version.getDescription());
                 response.setState(version.getState());

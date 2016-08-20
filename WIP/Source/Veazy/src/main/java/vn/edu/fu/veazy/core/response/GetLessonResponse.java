@@ -25,7 +25,7 @@ public class GetLessonResponse {
 	private Integer nextLessonId;
 	public GetLessonResponse(LessonModel lesson, LessonVersionModel currentVersion, Integer nextId, Integer previousId) {
 		 lessonId = lesson.getId();
-		 courseId = lesson.getCourseId();
+		 courseId = lesson.getCourse();
 		 lessonTitle = currentVersion.getTitle();
 		 description = currentVersion.getDescription();
 		 updateDate = currentVersion.getUpdateDate();

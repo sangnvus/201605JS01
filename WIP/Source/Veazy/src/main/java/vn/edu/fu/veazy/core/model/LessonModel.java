@@ -26,7 +26,7 @@ public class LessonModel extends BasicModel{
 	 * レッソンのレベルのＩＤ
 	 */
 	@Column(name = "courseid", nullable = false)
-	private Integer courseId;
+	private Integer course;
 	
 	/**
 	 * レッソンの現在なバージョンのＩＤ
@@ -38,10 +38,10 @@ public class LessonModel extends BasicModel{
 		super();
 	}
 	public LessonModel(Integer id, Long createDate, Long updateDate, Long deleteDate, boolean deleteFlag, int index,
-			Integer courseId, Integer currentVersionId) {
+	        Integer courseId, Integer currentVersionId) {
 		super(id, createDate, updateDate, deleteDate, deleteFlag);
 		this.index = index;
-		this.courseId = courseId;
+		this.course = courseId;
 		this.currentVersionId = currentVersionId;
 	}
 	public int getIndex() {
@@ -50,11 +50,11 @@ public class LessonModel extends BasicModel{
 	public void setIndex(int index) {
 		this.index = index;
 	}
-	public Integer getCourseId() {
-		return courseId;
+	public Integer getCourse() {
+		return course;
 	}
-	public void setCourseId(Integer courseId) {
-		this.courseId = courseId;
+	public void setCourse(Integer courseId) {
+		this.course = courseId;
 	}
 	public Integer getCurrentVersionId() {
 		return currentVersionId;
