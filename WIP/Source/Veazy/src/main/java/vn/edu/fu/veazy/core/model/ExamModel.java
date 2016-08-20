@@ -13,6 +13,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
@@ -40,6 +41,7 @@ public class ExamModel extends BasicModel {
     @Column(name = "listQuestions", nullable = false)
     @Access(AccessType.PROPERTY)
     @LazyCollection(LazyCollectionOption.FALSE)
+    @OrderBy
     private List<ExamQuestionModel> listQuestions = new ArrayList<>();
     @Column(name = "result", columnDefinition = "FLOAT4 DEFAULT 0.0", nullable = false)
     private Double result;
