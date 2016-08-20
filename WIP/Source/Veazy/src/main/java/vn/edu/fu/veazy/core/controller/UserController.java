@@ -491,6 +491,7 @@ public class UserController {
             LOGGER.error(e.getMessage());
             LOGGER.error("Unknown error occured!");
             response.setCode(ResponseCode.INTERNAL_SERVER_ERROR);
+            e.printStackTrace();
         }
         return response.toResponseJson();
     }

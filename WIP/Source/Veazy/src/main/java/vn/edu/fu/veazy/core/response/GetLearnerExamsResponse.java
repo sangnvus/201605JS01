@@ -5,6 +5,7 @@
  */
 package vn.edu.fu.veazy.core.response;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -12,7 +13,7 @@ import java.util.List;
  * @author Hoang Linh
  */
 public class GetLearnerExamsResponse {
-    private List<ExamResultResponse> exams;
+    private List<ExamResultResponse> exams = new ArrayList<>();
 
     public GetLearnerExamsResponse() {
     }
