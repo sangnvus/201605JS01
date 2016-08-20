@@ -47,7 +47,6 @@ import org.slf4j.LoggerFactory;
 @Entity
 @DynamicInsert
 @DynamicUpdate
-@Indexed
 @Table(name = "`Question`")
 public class QuestionModel extends BasicModel implements Comparator<QuestionModel>{
     private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(QuestionModel.class);
@@ -73,7 +72,6 @@ public class QuestionModel extends BasicModel implements Comparator<QuestionMode
     private Integer questionEtaTime;
     @Column(name = "courseId", nullable = false)
     private Integer courseId;
-    @Field(store = Store.YES, index = Index.YES, analyze = Analyze.YES)
     @Column(name = "question", columnDefinition = "TEXT", nullable = false)
     private String question;
     @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "question", orphanRemoval = true)

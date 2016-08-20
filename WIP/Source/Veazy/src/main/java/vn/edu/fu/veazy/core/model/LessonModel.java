@@ -13,7 +13,6 @@ import org.hibernate.search.annotations.Indexed;
 @Entity
 @DynamicInsert
 @DynamicUpdate
-@Indexed
 @Table(name = "`Lesson`")
 public class LessonModel extends BasicModel{
     /**
