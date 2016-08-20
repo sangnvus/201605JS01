@@ -8,4 +8,5 @@ public interface ExamService {
     public void updateExam(ExamModel exam) throws Exception;
     public List<ExamModel> findLearnerExams(Integer learnerId) throws Exception;
     public ExamModel findExamById(Integer id) throws Exception;
+    void deleteExam(Integer examId)throws Exception;
 }

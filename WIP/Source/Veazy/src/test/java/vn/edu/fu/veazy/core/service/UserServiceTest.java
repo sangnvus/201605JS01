@@ -19,15 +19,16 @@ import vn.edu.fu.veazy.core.exception.PasswordIncorrectException;
 import vn.edu.fu.veazy.core.form.RegisterForm;
 import vn.edu.fu.veazy.core.form.UpdateUserForm;
 import vn.edu.fu.veazy.core.model.UserModel;
+
 /**
  *
  * @author Hoang Linh
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration( locations = { "classpath:testContext.xml" } )
+@ContextConfiguration(locations = {"classpath:testContext.xml"})
 public class UserServiceTest {
-    
-	private UserModel user;
+
+    private UserModel user;
     @Autowired
     private UserService userService;
     private Integer userId;
@@ -46,6 +47,7 @@ public class UserServiceTest {
         UserModel user = userService.findUserByUsername(username);
         return user;
     }
+
     @Before
     public void setUp() throws Exception {
         username = "user1";
@@ -68,9 +70,14 @@ public class UserServiceTest {
 
     @Test
     public void testSaveUser() throws Exception {
-        userService.saveUser(user);
-		UserModel user = userService.findUserByUsername(username);
+        RegisterForm form = new RegisterForm();
+        form.setUsername(username);
+        form.setEmail(email);
+        form.setPassword(password);
+        userService.saveUser(form);
+        UserModel user = userService.findUserByUsername(username);
         Assert.assertNotNull(user);
+        userService.delete(user);
     }
 
     @Test
@@ -80,8 +87,8 @@ public class UserServiceTest {
         form.setEmail("user2@email.com");
         form.setPassword("user2");
         userService.saveUser(form);
-		
-		UserModel user = userService.findUserByUsername("user2");
+
+        UserModel user = userService.findUserByUsername("user2");
         Assert.assertNotNull(user);
     }
 
@@ -97,7 +104,7 @@ public class UserServiceTest {
         Assert.assertNull(user);
     }
 
-    @Test
+    @Test(expected = Exception.class)
     public void testFindUserById3() throws Exception {
         UserModel user = userService.findUserById(null);
         Assert.assertNull(user);
@@ -133,7 +140,7 @@ public class UserServiceTest {
         Assert.assertNotNull(user);
     }
 
-    @Test
+    @Test(expected = Exception.class)
     public void testFindUserByUserName2() throws Exception {
         UserModel user = userService.findUserByUsername(null);
         Assert.assertNull(user);
@@ -161,24 +168,24 @@ public class UserServiceTest {
     @Test
     public void testUpdateUser() throws Exception {
         userService.update(user, form);
-		UserModel user = userService.findUserById(userId);
-		Assert.assertEquals("first", user.getFirstName());
+        UserModel user = userService.findUserById(userId);
+        Assert.assertEquals("first", user.getFirstName());
     }
 
     @Test
     public void testUpdateUser2() throws Exception {
-		user.setFirstName("first");
+        user.setFirstName("first");
         userService.update(user);
-		UserModel user = userService.findUserById(userId);
-		Assert.assertEquals("first", user.getFirstName());
+        UserModel user = userService.findUserById(userId);
+        Assert.assertEquals("first", user.getFirstName());
     }
 
-    @Test(expected=Exception.class)
+    @Test(expected = Exception.class)
     public void testUpdateUser3() throws Exception {
         userService.update(null, form);
     }
 
-    @Test(expected=Exception.class)
+    @Test(expected = Exception.class)
     public void testUpdateUser4() throws Exception {
         userService.update(null, null);
     }
@@ -186,24 +193,24 @@ public class UserServiceTest {
     @Test
     public void testChangeUserRole() throws Exception {
         userService.changeUserRoll(userId, role);
-		UserModel user = userService.findUserById(userId);
-		Assert.assertEquals(role, user.getRole());
+        UserModel user = userService.findUserById(userId);
+        Assert.assertEquals(role, user.getRole());
     }
 
     @Test
     public void testChangePassword() throws Exception {
         userService.changePassword(userId, password, "newPassword");
-		UserModel user = userService.findUserById(userId);
-		Assert.assertEquals("newPassword", user.getEncryptedPassword());
+        UserModel user = userService.findUserById(userId);
+        Assert.assertEquals("newPassword", user.getEncryptedPassword());
     }
 
-    @Test(expected=PasswordIncorrectException.class)
+    @Test(expected = PasswordIncorrectException.class)
     public void testChangePassword2() throws Exception {
         userService.changePassword(-1, "wrongPassword", "newPassword");
     }
 
-    @Test(expected=PasswordIncorrectException.class)
+    @Test(expected = PasswordIncorrectException.class)
     public void testChangePassword3() throws Exception {
-            userService.changePassword(userId, "wrongPassword", "newPassword");
+        userService.changePassword(userId, "wrongPassword", "newPassword");
     }
 }

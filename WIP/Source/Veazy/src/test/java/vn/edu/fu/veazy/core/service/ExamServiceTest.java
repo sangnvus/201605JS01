@@ -15,6 +15,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import vn.edu.fu.veazy.core.common.Const;
 import vn.edu.fu.veazy.core.form.RegisterForm;
 import vn.edu.fu.veazy.core.model.ExamModel;
 import vn.edu.fu.veazy.core.model.UserModel;
@@ -24,7 +25,6 @@ import vn.edu.fu.veazy.core.model.UserModel;
  * @author Hoang Linh
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration( locations = { "classpath:testContext.xml" } )
 @ContextConfiguration(locations = {"classpath:testContext.xml"})
 public class ExamServiceTest {
 
@@ -40,8 +40,6 @@ public class ExamServiceTest {
     private Integer userId;
     private Integer zeroExamUserId;
     private Integer examId;
-    private ExamModel exam;
-    
 
     private UserModel setUpUser(String userName) throws Exception {
         RegisterForm form = new RegisterForm();
@@ -56,9 +54,12 @@ public class ExamServiceTest {
     private ExamModel setUpExam(Integer userId) throws Exception {
         ExamModel exam = new ExamModel();
         exam.setUserId(userId);
-        examService.saveExam(exam);
-        List<ExamModel> findLearnerExams = examService.findLearnerExams(userId);
-        return findLearnerExams.get(0);
+        exam.setCourseId(1);
+        exam.setQuestionSkill(Const.QUESTIONSKILL_GRAMMAR);
+        exam.setResult(0.0);
+        exam.setEtaTime(1);
+        exam.setFinishState(true);
+        return exam;
     }
 
     @Before
@@ -67,15 +68,12 @@ public class ExamServiceTest {
         userId = userModel.getId();
 
         examModel = setUpExam(userId);
+        examService.saveExam(examModel);
         examId = examModel.getId();
 
         userModel2 = setUpUser("bbb");
         zeroExamUserId = userModel2.getId();
 
-        exam = new ExamModel();
-        exam.setUserId(userId);
-        exam.setCourseId(1);
-        
         System.out.println("set up data sucessfully");
     }
 
@@ -84,65 +82,75 @@ public class ExamServiceTest {
         try {
             userService.delete(userModel);
             userService.delete(userModel2);
+            examService.deleteExam(examId);
             System.out.println("tear down data sucessfully");
         } catch (Exception e) {
             assert false;
         }
-	}
-	
-	@Test
+    }
+
+    @Test
     public void testFindLearnerExams() throws Exception {
         List<ExamModel> exams = examService.findLearnerExams(userId);
         Assert.assertNotNull(exams);
-        Assert.assertNotNull(exams.get(0));
-        Assert.assertNotEquals(0,exams.size());
+        Assert.assertNotEquals(0, exams.size());
     }
-    
+
     @Test
     public void testFindLearnerExams2() throws Exception {
         List<ExamModel> exams = examService.findLearnerExams(zeroExamUserId);
-        Assert.assertEquals(new ArrayList<ExamModel>(), exams);
+        Assert.assertNotNull(exams);
+        Assert.assertEquals(0, exams.size());
     }
-    
+
     @Test
     public void testFindLearnerExams3() throws Exception {
         List<ExamModel> exams = examService.findLearnerExams(0);
-        Assert.assertNull(exams);
+        Assert.assertNotNull(exams);
+        Assert.assertEquals(0, exams.size());
     }
-    
+
     @Test
     public void testFindLearnerExams4() throws Exception {
         List<ExamModel> exams = examService.findLearnerExams(null);
-        Assert.assertNull(exams);
+        Assert.assertNotNull(exams);
+        Assert.assertEquals(0, exams.size());
     }
-    
+
     @Test
     public void testSaveExam() throws Exception {
+        ExamModel exam = setUpExam(userId);
         examService.saveExam(exam);
-        ExamModel foundExam = examService.findExamById(examId);
-        Assert.assertNotNull(foundExam);
+        Assert.assertNotNull(exam.getId());
+        examService.deleteExam(exam.getId());
     }
-    
-    @Test(expected=Exception.class)
+
+    @Test(expected = Exception.class)
     public void testSaveExam2() throws Exception {
         examService.saveExam(null);
     }
-    
+
     @Test
     public void testFindExamById() throws Exception {
         ExamModel foundExam = examService.findExamById(examId);
         Assert.assertNotNull(foundExam);
     }
-    
+
     @Test
     public void testFindExamById2() throws Exception {
         ExamModel foundExam = examService.findExamById(0);
         Assert.assertNull(foundExam);
     }
-    
+
     @Test
     public void testFindExamById3() throws Exception {
         ExamModel foundExam = examService.findExamById(null);
         Assert.assertNull(foundExam);
-	}
+    }
+    
+    public void testDeleteExam() throws Exception {
+        examService.deleteExam(examId);
+        ExamModel foundExam = examService.findExamById(examId);
+        Assert.assertNull(foundExam);
+    }
 }

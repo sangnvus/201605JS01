@@ -16,32 +16,60 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import vn.edu.fu.veazy.core.common.Const;
+import vn.edu.fu.veazy.core.form.AnswerForm;
 import vn.edu.fu.veazy.core.form.QuestionForm;
+import vn.edu.fu.veazy.core.form.RegisterForm;
 import vn.edu.fu.veazy.core.model.QuestionModel;
+import vn.edu.fu.veazy.core.model.UserModel;
 
 /**
  *
  * @author Hoang Linh
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration( locations = { "classpath:testContext.xml" } )
+@ContextConfiguration(locations = {"classpath:testContext.xml"})
 public class QuestionServiceTest {
-    
+
+    private UserModel user;
     private QuestionModel question;
     private QuestionModel groupQuestion;
     @Autowired
     private QuestionService questionService;
+    @Autowired
+    private UserService userService;
 
     private Integer questionId;
+    private Integer userId;
     private Integer questionCode;
     private Integer courseId;
     private Integer skill;
 
+    public UserModel setUpUser(String userName) throws Exception {
+        RegisterForm form = new RegisterForm();
+        form.setUsername(userName);
+        form.setEmail(userName);
+        form.setPassword(userName);
+        userService.saveUser(form);
+        UserModel user = userService.findUserByUsername(userName);
+        return user;
+    }
+
     private QuestionForm setUpQuestionForm(String question) throws Exception {
         QuestionForm form = new QuestionForm();
+        form.setAttachment("attach");
         form.setCourseId(courseId);
-        form.setQuestionSkill(skill);
+        form.setCreatorId(userId);
         form.setQuestion(question);
+        form.setQuestionAnswerType(Const.MULTIPLE_CHOICE);
+        form.setQuestionSkill(skill);
+        form.setQuestionType(Const.QUESTIONTYPE_SINGULAR);
+        List<AnswerForm> listAns = new ArrayList<>();
+        AnswerForm answerForm = new AnswerForm("answer1", true);
+        AnswerForm answerForm2 = new AnswerForm("answer2", false);
+        listAns.add(answerForm);
+        listAns.add(answerForm2);
+        form.setListAnswers(listAns);
+        form.setEtaTime(1);
         return form;
     }
 
@@ -60,11 +88,13 @@ public class QuestionServiceTest {
         QuestionModel question = new QuestionModel(form);
         return questionService.saveQuestion(question);
     }
-	
+
     @Before
     public void setUp() throws Exception {
         courseId = 1;
-        skill = Const.LISTENING;
+        user = setUpUser("user1");
+        userId = user.getId();
+        skill = Const.QUESTIONSKILL_LISTENING;
 
         question = setUpQuestion();
         groupQuestion = setUpGroupQuestion();
@@ -78,21 +108,22 @@ public class QuestionServiceTest {
         try {
             questionService.delete(question);
             questionService.delete(groupQuestion);
+            userService.delete(user);
         } catch (Exception e) {
             assert false;
         }
     }
-	
+
     @Test
     public void testSaveExam() throws Exception {
+        QuestionModel question = new QuestionModel(setUpQuestionForm("sample save question"));
         QuestionModel saveQuestion = questionService.saveQuestion(question);
         Assert.assertNotNull(saveQuestion);
     }
 
-    @Test
+    @Test(expected = Exception.class)
     public void testSaveExam2() throws Exception {
         QuestionModel saveQuestion = questionService.saveQuestion(null);
-        Assert.assertNull(saveQuestion);
     }
 
     @Test
@@ -146,15 +177,15 @@ public class QuestionServiceTest {
 
     @Test
     public void testUpdateQuestion() throws Exception {
-		question.setAttachment("attach");
+        question.setAttachment("attach");
         questionService.update(question);
         QuestionModel question = questionService.findQuestionByCode(questionCode);
         Assert.assertEquals("attach", question.getAttachment());
     }
 
     @Test
-    public void testUpdateQuestion2() throws Exception {
-		question.setAttachment("attach");
+    public void testUpdateGroupQuestion() throws Exception {
+        question.setAttachment("attach");
         questionService.update(groupQuestion);
         QuestionModel question = questionService.findQuestionByCode(questionCode);
         Assert.assertEquals("attach", question.getAttachment());

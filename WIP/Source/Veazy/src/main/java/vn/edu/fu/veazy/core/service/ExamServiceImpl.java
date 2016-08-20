@@ -76,4 +76,17 @@ public class ExamServiceImpl implements ExamService {
         
     }
 
+    @Override
+    public void deleteExam(Integer examId) throws Exception {
+        try {
+            ExamModel exam = examDao.findById(examId);
+            if (exam != null) {
+                examDao.delete(exam);
+            }
+        } catch (Exception e) {
+            // TODO custom exception
+            throw new Exception(e.getMessage(), e);
+        }
+    }
+
 }

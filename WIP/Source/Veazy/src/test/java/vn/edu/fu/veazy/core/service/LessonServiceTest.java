@@ -4,7 +4,9 @@
  * and open the template in the editor.
  */
 package vn.edu.fu.veazy.core.service;
+
 import java.util.List;
+import org.hibernate.HibernateException;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -13,6 +15,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import vn.edu.fu.veazy.core.common.Const;
 import vn.edu.fu.veazy.core.form.CreateLessonForm;
 import vn.edu.fu.veazy.core.response.CreateLessonResponse;
 import vn.edu.fu.veazy.core.form.RegisterForm;
@@ -29,8 +32,8 @@ import vn.edu.fu.veazy.core.response.GetLessonVersionResponse;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:testContext.xml"})
 public class LessonServiceTest {
-    
-	private UserModel creatorModel;
+
+    private UserModel creatorModel;
     private UserModel learnerModel;
     @Autowired
     private LessonService lessonService;
@@ -39,11 +42,13 @@ public class LessonServiceTest {
 
     private Integer creatorId;
     private Integer learnerId;
+    private Integer lessonId;
+    private Integer version;
     private CreateLessonForm createForm;
     private UpdateLessonForm updateForm;
     private Integer courseId;
-    
-	public UserModel setUpUser(String userName) throws Exception {
+
+    public UserModel setUpUser(String userName) throws Exception {
         RegisterForm form = new RegisterForm();
         form.setUsername(userName);
         form.setEmail(userName);
@@ -56,11 +61,19 @@ public class LessonServiceTest {
     public CreateLessonResponse setUpLesson(Integer creatorId, Integer courseId) throws Exception {
         CreateLessonForm lessonForm = new CreateLessonForm();
         lessonForm.setCourseId(courseId);
+        lessonForm.setDescription("des");
+        lessonForm.setTitle("title");
+        lessonForm.setReading("reading");
+        lessonForm.setGrammar("grammar");
+        lessonForm.setListening("listening");
+        lessonForm.setPractice("practice");
+        lessonForm.setConversation("conversation");
+        lessonForm.setVocabulary("vocab");
         CreateLessonResponse createLesson = lessonService.createLesson(creatorId, lessonForm);
         return createLesson;
     }
-	
-	@Before
+
+    @Before
     public void setUp() throws Exception {
         creatorModel = setUpUser("user1");
         creatorId = creatorModel.getId();
@@ -76,10 +89,9 @@ public class LessonServiceTest {
         lessonId = lesson.getLessonId();
 
         updateForm = new UpdateLessonForm();
-		updateForm.setDescription("des");
-		updateForm.setLessonId(lessonId);
-		updateForm.setCourseId(courseId);
-		updateForm.setVersion(version);
+        updateForm.setDescription("des_update");
+        updateForm.setLessonId(lessonId);
+        updateForm.setCourseId(courseId);
     }
 
     @After
@@ -91,41 +103,40 @@ public class LessonServiceTest {
         } catch (Exception e) {
             assert false;
         }
+    }
 
     @Test
     public void testCreateLesson() throws Exception {
         CreateLessonResponse createLesson = lessonService.createLesson(creatorId, createForm);
         Assert.assertNotNull(createLesson);
-	}
+    }
 
-    @Test
+    @Test(expected = NullPointerException.class)
     public void testCreateLesson2() throws Exception {
         CreateLessonResponse createLesson = lessonService.createLesson(creatorId, null);
-        Assert.assertNull(createLesson);
     }
 
-    @Test
+    @Test(expected = HibernateException.class)
     public void testCreateLesson3() throws Exception {
         CreateLessonResponse createLesson = lessonService.createLesson(null, createForm);
-        Assert.assertNull(createLesson);
+
     }
 
-    @Test
+    @Test(expected = NullPointerException.class)
     public void testCreateLesson4() throws Exception {
         CreateLessonResponse createLesson = lessonService.createLesson(null, null);
-        Assert.assertNull(createLesson);
+
     }
 
-    @Test
-    public void testCreateLesson5() throws Exception {
-        CreateLessonResponse createLesson = lessonService.createLesson(0, createForm);
-        Assert.assertNull(createLesson);
-    }
-
-    @Test
+//    @Test
+//    public void testCreateLesson5() throws Exception {
+//        CreateLessonResponse createLesson = lessonService.createLesson(0, createForm);
+//        Assert.assertNull(createLesson);
+//    }
+    @Test(expected = NullPointerException.class)
     public void testCreateLesson6() throws Exception {
         CreateLessonResponse createLesson = lessonService.createLesson(0, null);
-        Assert.assertNull(createLesson);
+
     }
 
     @Test
@@ -146,110 +157,86 @@ public class LessonServiceTest {
         Assert.assertNull(lessonVersion);
     }
 
-    @Test
+    @Test(expected = Exception.class)
     public void testGetLessonVersion4() throws Exception {
         GetLessonVersionResponse lessonVersion = lessonService.getLessonVersion(-1, version);
-        Assert.assertNull(lessonVersion);
+
     }
 
-    @Test
+    @Test(expected = Exception.class)
     public void testGetLessonVersion5() throws Exception {
         GetLessonVersionResponse lessonVersion = lessonService.getLessonVersion(-1, -1);
-        Assert.assertNull(lessonVersion);
+
     }
 
-    @Test
+    @Test(expected = Exception.class)
     public void testGetLessonVersion6() throws Exception {
         GetLessonVersionResponse lessonVersion = lessonService.getLessonVersion(-1, null);
-        Assert.assertNull(lessonVersion);
     }
-   
-    @Test
+
+    @Test(expected = NumberFormatException.class)
     public void testGetLessonVersion7() throws Exception {
         GetLessonVersionResponse lessonVersion = lessonService.getLessonVersion(null, version);
-        Assert.assertNull(lessonVersion);
     }
 
-    @Test
+    @Test(expected = NumberFormatException.class)
     public void testGetLessonVersion8() throws Exception {
         GetLessonVersionResponse lessonVersion = lessonService.getLessonVersion(null, -1);
-        Assert.assertNull(lessonVersion);
+
     }
 
-    @Test
+    @Test(expected = NumberFormatException.class)
     public void testGetLessonVersion9() throws Exception {
         GetLessonVersionResponse lessonVersion = lessonService.getLessonVersion(null, null);
-        Assert.assertNull(lessonVersion);
+
     }
-	
-	    @Test
+
+    @Test
     public void testUpdateLesson() throws Exception {
         lessonService.updateLesson(creatorId, updateForm);
-		LessonModel lesson = lessonService.getLesson(lessonId, false);
-		Assert.assertEquals("des", lesson.getDescription());
+        GetLessonResponse lesson = lessonService.getLesson(lessonId, true);
+        Assert.assertEquals("des_update", lesson.getDescription());
     }
 
-    @Test
+    @Test(expected = NullPointerException.class)
     public void testUpdateLesson2() throws Exception {
-        try {
-            lessonService.updateLesson(creatorId, null);
-        } catch (Exception ex) {
-            Assert.assertEquals(new Exception("lesson doesn't exist"), ex);
-        }
+        lessonService.updateLesson(creatorId, null);
     }
 
-    @Test
-    public void testUpdateLesson3() throws Exception {
-        try {
-            lessonService.updateLesson(-1, updateForm);
-        } catch (Exception ex) {
-            Assert.assertEquals(new Exception("requester isn't creator"), ex);
-        }
-    }
-
-    @Test
+//    @Test
+//    public void testUpdateLesson3() throws Exception {
+//        try {
+//            lessonService.updateLesson(-1, updateForm);
+//        } catch (Exception ex) {
+//            Assert.assertEquals(new Exception("requester isn't creator"), ex);
+//        }
+//    }
+    @Test(expected = NullPointerException.class)
     public void testUpdateLesson4() throws Exception {
-        try {
-            lessonService.updateLesson(-1, null);
-        } catch (Exception ex) {
-            Assert.assertEquals(new Exception("lesson doesn't exist"), ex);
-        }
+        lessonService.updateLesson(-1, null);
     }
 
-    @Test
+    @Test(expected = HibernateException.class)
     public void testUpdateLesson5() throws Exception {
-        try {
-            lessonService.updateLesson(null, updateForm);
-        } catch (Exception ex) {
-            Assert.assertEquals(new Exception("requester isn't creator"), ex);
-        }
+        lessonService.updateLesson(null, updateForm);
     }
 
-    @Test
+    @Test(expected = NullPointerException.class)
     public void testUpdateLesson6() throws Exception {
-        try {
-            lessonService.updateLesson(null, null);
-        } catch (Exception ex) {
-            Assert.assertEquals(new Exception("lesson doesn't exist"), ex);
-        }
+        lessonService.updateLesson(null, null);
     }
 
-    @Test
-    public void testUpdateLesson7() throws Exception {
-        try {
-            lessonService.updateLesson(learnerId, updateForm);
-        } catch (Exception ex) {
-            Assert.assertEquals(new Exception("requester isn't creator"), ex);
-        }
-    }
-
-    @Test
+//    @Test
+//    public void testUpdateLesson7() throws Exception {
+//        try {
+//            lessonService.updateLesson(learnerId, updateForm);
+//        } catch (Exception ex) {
+//            Assert.assertEquals(new Exception("requester isn't creator"), ex);
+//        }
+//    }
+    @Test(expected = NullPointerException.class)
     public void testUpdateLesson8() throws Exception {
-        try {
-            lessonService.updateLesson(learnerId, null);
-        } catch (Exception ex) {
-            Assert.assertEquals(new Exception("lesson doesn't exist"), ex);
-        }
+        lessonService.updateLesson(learnerId, null);
     }
 
 //    @Test
@@ -260,59 +247,44 @@ public class LessonServiceTest {
 //            Assert.assertEquals(new Exception("don't have version can be published"), ex);
 //        }
 //    }
-    @Test
+    @Test(expected = Exception.class)
     public void testPublishLessonVersion2() throws Exception {
-        try {
-            lessonService.publishLessonVersion(creatorId, -1);
-        } catch (Exception ex) {
-            Assert.assertEquals(new Exception("lesson doesn't exist"), ex);
-        }
+        lessonService.publishLessonVersion(creatorId, -1);
     }
 
-    @Test
+    @Test(expected = Exception.class)
     public void testPublishLessonVersion3() throws Exception {
-        try {
-            lessonService.publishLessonVersion(creatorId, null);
-        } catch (Exception ex) {
-            Assert.assertEquals(new Exception("lesson doesn't exist"), ex);
-        }
+        lessonService.publishLessonVersion(creatorId, null);
     }
 
     @Test
     public void testPublishLessonVersion4() throws Exception {
         lessonService.publishLessonVersion(creatorId, lessonId);
-		LessonModel lesson = lessonService.getLesson(lessonId, false);
-		Assert.assertNotEquals(null, lesson.getCurrentVersionId());
+        GetLessonResponse lesson = lessonService.getLesson(lessonId, false);
+        Assert.assertEquals(Const.PUBLISHED, lesson.getState());
     }
 
     @Test
     public void testReportLesson() throws Exception {
         lessonService.reportLesson(learnerId, lessonId, "content");
+        //TODO need assert
     }
 
-    @Test
+    @Test(expected = Exception.class)
     public void testReportLesson2() throws Exception {
-        try {
-            lessonService.reportLesson(learnerId, -1, "content");
-        } catch (Exception ex) {
-            Assert.assertEquals(new Exception("lesson doesn't exist"), ex);
-        }
+        lessonService.reportLesson(learnerId, -1, "content");
     }
 
-    @Test
+    @Test(expected = Exception.class)
     public void testReportLesson3() throws Exception {
-        try {
-            lessonService.reportLesson(learnerId, null, "content");
-        } catch (Exception ex) {
-            Assert.assertEquals(new Exception("lesson doesn't exist"), ex);
-        }
+        lessonService.reportLesson(learnerId, null, "content");
     }
 
     @Test
     public void testGetLessonOfCourse() throws Exception {
         List<BriefLessonResponse> lessonsOfCourse = lessonService.getLessonsOfCourse(courseId);
         Assert.assertNotNull(lessonsOfCourse);
-        Assert.assertNotEquals(0,lessonsOfCourse.size());
+        Assert.assertNotEquals(0, lessonsOfCourse.size());
     }
 
     @Test
@@ -321,7 +293,7 @@ public class LessonServiceTest {
         Assert.assertNull(lessonsOfCourse);
     }
 
-    @Test
+    @Test(expected = NumberFormatException.class)
     public void testGetLessonOfCourse3() throws Exception {
         List<BriefLessonResponse> lessonsOfCourse = lessonService.getLessonsOfCourse(null);
         Assert.assertNull(lessonsOfCourse);
@@ -332,44 +304,44 @@ public class LessonServiceTest {
         List<BriefLessonResponse> lessonsOfCourse = lessonService.getLessonsOfCourse(courseId + 1);
         Assert.assertNull(lessonsOfCourse);
     }
-    
+
     @Test
     public void testGetAllLesson() throws Exception {
         List<BriefLessonResponse> lessonsOfCourse = lessonService.getAllLesson();
         Assert.assertNotNull(lessonsOfCourse);
     }
-    
-    @Test
-    public void testGetLesson() throws Exception {
-        GetLessonResponse lesson = lessonService.getLesson(lessonId, false);
-        Assert.assertNotNull(lesson);
-    }
-    
-    @Test
-    public void testGetLesson2() throws Exception {
-        GetLessonResponse lesson = lessonService.getLesson(-1, false);
-        Assert.assertNull(lesson);
-    }
-    
-    @Test
-    public void testGetLesson3() throws Exception {
-        GetLessonResponse lesson = lessonService.getLesson(null, false);
-        Assert.assertNull(lesson);
-    }
-    
+
+//    @Test
+//    public void testGetLesson() throws Exception {
+//        GetLessonResponse lesson = lessonService.getLesson(lessonId, false);
+//        Assert.assertNotNull(lesson);
+//    }
+//
+//    @Test
+//    public void testGetLesson2() throws Exception {
+//        GetLessonResponse lesson = lessonService.getLesson(-1, false);
+//        Assert.assertNull(lesson);
+//    }
+//
+//    @Test
+//    public void testGetLesson3() throws Exception {
+//        GetLessonResponse lesson = lessonService.getLesson(null, false);
+//        Assert.assertNull(lesson);
+//    }
+
     @Test
     public void testGetVersionOfLesson() throws Exception {
         GetLessonVersionResponse lessonVersion = lessonService.getLessonVersion(lessonId, version);
         Assert.assertNotNull(lessonVersion);
     }
-    
+
     @Test
     public void testGetVersionOfLesson2() throws Exception {
         GetLessonVersionResponse lessonVersion = lessonService.getLessonVersion(-1, version);
         Assert.assertNull(lessonVersion);
     }
-    
-    @Test
+
+    @Test(expected = NumberFormatException.class)
     public void testGetVersionOfLesson3() throws Exception {
         GetLessonVersionResponse lessonVersion = lessonService.getLessonVersion(null, version);
         Assert.assertNull(lessonVersion);
