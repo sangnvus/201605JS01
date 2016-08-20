@@ -5,6 +5,7 @@
  */
 package vn.edu.fu.veazy.core.service;
 
+import java.util.HashSet;
 import java.util.List;
 
 import org.slf4j.LoggerFactory;
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import vn.edu.fu.veazy.core.common.Const;
 import vn.edu.fu.veazy.core.dao.GenericDao;
 import vn.edu.fu.veazy.core.model.AnswerModel;
 import vn.edu.fu.veazy.core.model.QuestionModel;
@@ -34,11 +36,35 @@ public class QuestionServiceImpl implements QuestionService {
     @Transactional
     public QuestionModel saveQuestion(QuestionModel question) throws Exception {
         try {
+        	
+        	if(question.getQuestionType() == Const.QUESTIONTYPE_GROUP){
+        		//Check duplicate question
+        		HashSet<String> setQuestion = new HashSet<>();
+        		for (QuestionModel childQuestion : question.getListQuestions()) {
+        			if(!setQuestion.add(childQuestion.getQuestion())){
+        				throw new Exception("duplicate question");
+        			}
+				}
+        		
+        		//Check duplicate answer in each question
+        		for (QuestionModel childQuestion : question.getListQuestions()) {
+        			HashSet<String> setAnswer = new HashSet<>();
+        			for (AnswerModel answer : childQuestion.getListAnswers()) {
+        				if(!setAnswer.add(answer.getAnswer())){
+        					throw new Exception("duplicate answer");
+        				}
+					}
+				}
+        	}else{
+        		//Check duplicate answer
+        		HashSet<String> setAnswer = new HashSet<>();
+    			for (AnswerModel answer : question.getListAnswers()) {
+    				if(!setAnswer.add(answer.getAnswer())){
+    					throw new Exception("duplicate answer");
+    				}
+				}
+        	}
             questionDao.save(question);
-//            List<QuestionModel> listSearchResult = questionDao.findByExample(question);
-//            if (listSearchResult != null && listSearchResult.size() > 0) {
-//                return listSearchResult.get(0);
-//            }
             return question;
         } catch (Exception e) {
             // TODO custom exception
