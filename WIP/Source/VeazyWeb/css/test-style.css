@@ -45,6 +45,39 @@
 	border: 1px solid #eee;
 }
 
+.test .left .checkbox label {
+	cursor: default;
+}
+
+.test .btn[disabled] {
+	cursor: default;
+}
+
+.test .true-answer {
+	color: green;
+	font-weight: 700 !important;
+}
+
+.test .wrong-answer {
+	color: red;
+	font-weight: 700 !important;
+}
+
+.test .reading-content {
+	margin: 0 15px 10px;
+}
+
+.test .question-grade {
+	padding-left: 40px;
+	font-weight: 700;
+}
+
+.test .error {
+	margin: 10px 0;
+	color: red;
+}
+
+
 .test .right {
 	padding-right: 0;
 }

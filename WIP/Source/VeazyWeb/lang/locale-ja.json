@@ -229,5 +229,17 @@
 	"ROLE_LABEL": "役割",
 	"STATUS_LABEL": "状態",
 	"FILTER_BUTTON_LABEL": "フィルター",
-	"OPERATIONS_LABEL": "操作"
+	"OPERATIONS_LABEL": "操作",
+
+	"ARTICLE_GUIDE": "次のエッセイを読み、それぞれの質問の中で最も正しい答え（複数可）を選択してください。",
+	"GRADE_LABEL": "グレード：",
+	"NO_EXAM": "このレベルとスキルに応じた質問はまだ追加されません！",
+	"RESULT_HEADING": "結果：",
+
+	"TEST_HISTORY_BUTTON_LABEL": "テスト歴史",
+
+	"REPORT_QUESTION_HEADING": "質問報告",
+	"REPORT_QUESTION_INTRO": "どうしてこの質問をご報告なったか、ご理由をお聞かせください。",
+	"REPORT_QUESTION_CONFIRM": "ご報告トは、レビューのために提出されました。 ご協力ありがとうございます。"
+
 }

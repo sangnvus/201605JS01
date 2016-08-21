@@ -59,7 +59,7 @@
 	"USERNAME_MAX_LENGTH": "Username must be no more than {{maxLength}} characters long!",
 	"EMAIL_REQUIRED": "Email required!",
 	"PASSWORD_REQUIRED": "Password required!",
-	"PASSWORD_NOT_MATCH": "Password does not matched!",
+	"PASSWORD_NOT_MATCH": "Password does not match!",
 	"PASSWORD_MIN_LENGTH": "Password must be at least {{minLength}} characters long!",
 	"PASSWORD_MAX_LENGTH": "Password must be no more than {{maxLength}} characters long!",
 	"INCORRECT_USERNAME_PASSWORD": "Incorrect username or password!",
@@ -230,5 +230,16 @@
 	"ROLE_LABEL": "Role",
 	"STATUS_LABEL": "Status",
 	"FILTER_BUTTON_LABEL": "Filter",
-	"OPERATIONS_LABEL": "Operations"
+	"OPERATIONS_LABEL": "Operations",
+
+	"ARTICLE_GUIDE": "Read the following essay and chooses the most correct answer(s) in each questions.",
+	"GRADE_LABEL": "Grade: ",
+	"NO_EXAM": "No question of this level & skill are added yet!",
+	"RESULT_HEADING": "Result: ",
+
+	"TEST_HISTORY_BUTTON_LABEL": "Test History",
+
+	"REPORT_QUESTION_HEADING": "Report Question",
+	"REPORT_QUESTION_INTRO": "Please tell us why you report this question",
+	"REPORT_QUESTION_CONFIRM": "Your report has been submitted for review. Thank you for your contribution."
 }

@@ -21,6 +21,17 @@
 		$httpProvider.defaults.withCredentials = true;
 	}]);
 
+	// app.config(['$provide', function($provide) {
+	// 	$provide.decorator('$uiViewScroll')
+	// }])
+
+	// app.run(['$rootScope', function($rootScope){
+	// 	$rootScope.$on('$stateChangeSuccess', function() {
+	// 	    document.body.scrollTop = 0;
+	// 	    document.documentElement.scrollTop = 0;
+	// 	});
+	// }]);
+
 	app.value('froalaConfig', {
 		language: 'en',
 		placeholderText: ''

@@ -1,13 +1,19 @@
 <div class="row-fluid clearfix">
-<h4 class="title">Report question</h4>
-<form class="">
+<h4 class="title" translate="REPORT_QUESTION_HEADING"></h4>
+<form name="reportQuestionForm" ng-submit="reportQuestionForm.$valid && submitReport()">
 	<div class="form-box">
-		<label>Please tell us why you report this question:</label>
-		<textarea class="form-control"></textarea>
+		<label translate="REPORT_QUESTION_INTRO"></label>
+		<textarea class="form-control" ng-model="content" required></textarea>
 	</div>
+
+	<div class="form-box" ng-show="reportSent">
+		<p translate="REPORT_QUESTION_CONFIRM"></p>
+	</div>
+
 	<div class="button-box text-right">
-		<button class="btn btn-primary btn-sm">Report</button>
-		<button class="btn btn-default btn-sm" ng-click="closeDialog()">Cancel</button>
+		<button class="btn btn-primary btn-sm" type="submit" ng-disabled="reportQuestionForm.$invalid" ng-hide="reportSent" translate="REPORT_QUESTION_BUTTON_LABEL"></button>
+		<button class="btn btn-default btn-sm" ng-click="closeDialog()" ng-hide="reportSent" translate="CANCEL_BUTTON_LABEL"></button>
+		<button class="btn btn-default btn-sm" ng-click="closeDialog()" ng-show="reportSent">OK</button>
 	</div>
 </form>
 </div>

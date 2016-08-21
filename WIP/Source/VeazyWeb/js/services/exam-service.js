@@ -26,6 +26,19 @@
 					});
 				});
 				return deferred.promise;
+			},
+			getHistory: function() {
+				var examFactory = new Exam();
+				var deferred = $q.defer();
+
+				$timeout(function() {
+					examFactory.$getHistory(function(response) {
+						deferred.resolve(response);
+					}, function(reject) {
+						deferred.reject();
+					})
+				});
+				return deferred.promise;
 			}
 		};
 	};
