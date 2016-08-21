@@ -28,17 +28,23 @@ public class GetExamResponse {
     }
 
     public GetExamResponse(ExamModel exam) {
+        this(exam, true);
+    }
+
+    public GetExamResponse(ExamModel exam, boolean questionInclude) {
         this.examId = exam.getId();
         this.courseId = exam.getCourseId();
         this.skill = exam.getQuestionSkill();
         this.result = exam.getResult();
         this.takenTime = exam.getTakenTime();
         this.etaTime = exam.getEtaTime();
-        List<ExamQuestionModel> examQuestions = exam.getListQuestions();
-        this.listQuestions = new ArrayList<>();
-        for(ExamQuestionModel question: examQuestions){
-            ExamQuestionResponse data = new ExamQuestionResponse(question);
-            listQuestions.add(data);
+        if (questionInclude) {
+            List<ExamQuestionModel> examQuestions = exam.getListQuestions();
+            this.listQuestions = new ArrayList<>();
+            for(ExamQuestionModel question: examQuestions){
+                ExamQuestionResponse data = new ExamQuestionResponse(question);
+                listQuestions.add(data);
+            }
         }
     }
 

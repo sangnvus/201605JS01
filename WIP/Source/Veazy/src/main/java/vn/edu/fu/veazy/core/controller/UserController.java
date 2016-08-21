@@ -33,7 +33,7 @@ import vn.edu.fu.veazy.core.form.RegisterForm;
 import vn.edu.fu.veazy.core.form.UpdateUserForm;
 import vn.edu.fu.veazy.core.model.ExamModel;
 import vn.edu.fu.veazy.core.model.UserModel;
-import vn.edu.fu.veazy.core.response.ExamResultResponse;
+import vn.edu.fu.veazy.core.response.GetExamResponse;
 import vn.edu.fu.veazy.core.response.GetLearnerExamsResponse;
 import vn.edu.fu.veazy.core.response.GetListUsersResponse;
 import vn.edu.fu.veazy.core.response.GetUserResponse;
@@ -481,7 +481,7 @@ public class UserController {
             }
             GetLearnerExamsResponse data = new GetLearnerExamsResponse();
             for (ExamModel exam : exams) {
-                ExamResultResponse erd = new ExamResultResponse(exam);
+                GetExamResponse erd = new GetExamResponse(exam, false);
                 data.addExam(erd);
             }
             LOGGER.debug("Get learner exams successfully!");

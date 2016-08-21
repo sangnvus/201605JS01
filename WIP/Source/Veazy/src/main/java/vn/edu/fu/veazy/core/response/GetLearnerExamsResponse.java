@@ -13,20 +13,20 @@ import java.util.List;
  * @author Hoang Linh
  */
 public class GetLearnerExamsResponse {
-    private List<ExamResultResponse> exams = new ArrayList<>();
+    private List<GetExamResponse> exams = new ArrayList<>();
 
     public GetLearnerExamsResponse() {
     }
 
-    public List<ExamResultResponse> getExams() {
+    public List<GetExamResponse> getExams() {
         return exams;
     }
 
-    public void setExams(List<ExamResultResponse> exams) {
+    public void setExams(List<GetExamResponse> exams) {
         this.exams = exams;
     }
     
-    public void addExam(ExamResultResponse exam){
+    public void addExam(GetExamResponse exam){
         exams.add(exam);
     }
 }
