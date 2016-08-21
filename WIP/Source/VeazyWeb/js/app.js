@@ -37,15 +37,4 @@
 		placeholderText: ''
 		// imageUploadURL: 'http://163.44.172.52:8080/Veazy/api/uploadfile'
 	});
-
-	// app.filter('start', [function () {
-	// 	return function (input, start) {
-	// 		if (!input || !input.length) {
-	// 			return; 
-	// 		}
-
-	// 		start =+ start;
-	// 		return input.slice(start);
-	// 	};
-	// }]);
 })();

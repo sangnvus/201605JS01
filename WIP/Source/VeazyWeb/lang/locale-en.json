@@ -241,5 +241,11 @@
 
 	"REPORT_QUESTION_HEADING": "Report Question",
 	"REPORT_QUESTION_INTRO": "Please tell us why you report this question",
-	"REPORT_QUESTION_CONFIRM": "Your report has been submitted for review. Thank you for your contribution."
+	"REPORT_QUESTION_CONFIRM": "Your report has been submitted for review. Thank you for your contribution.",
+
+	"SHOW_ONLY_QUESTIONS_WHERE_HEADING": "Show only questions where",
+	"SHOW_ONLY_LESSON_WHERE_HEADING": "Show only lessons where",
+	"ALL_TYPES": "All Types",
+	"ALL_LEVELS": "All Levels",
+	"ALL_SKILLS": "All Skills"
 }
