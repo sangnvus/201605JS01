@@ -96,17 +96,38 @@
 			templateUrl: 'partials/test.html',
 			controller: 'testCtrl'
 		}).state('test.taketest', {
-			url: '/take',
+			url: '/take/:examId',
 			params: {
 				exam: null
 			},
 			resolve: {
 				getExam: function($timeout, $state, $stateParams, $q, ExamService, veazyConfig) {
-					
+					var CODE = veazyConfig.CODE;
 					var deferred = $q.defer();
 					$timeout(function() {
 						if ($stateParams.exam) {
 							deferred.resolve();
+						} else if ($stateParams.examId) {
+							// console.log('here');
+							ExamService.redo($stateParams.examId).then(function(response) {
+								// deferred.resolve();
+								console.log(response);
+								switch (response.code) {
+									case CODE.SUCCESS: {
+										deferred.resolve(response);
+										break;
+									}
+									case CODE.UNAUTHORIZED: {
+										deferred.reject();
+										$state.go('login');
+										break;
+									}
+									default: {
+										deferred.reject();
+										$state.go('test');
+									}
+								}
+							});
 						} else {
 							deferred.reject();
 							$state.go('test');
@@ -134,6 +155,38 @@
 							deferred.reject();
 							$state.go('test');
 						}
+					});
+					return deferred.promise;
+				}
+			}
+		}).state('test.seelastresult', {
+			url: '/lastresult/:examId',
+			templateUrl: 'partials/logged-user-restricted/last-result.html',
+			controller: 'lastExamResultCtrl',
+			resolve: {
+				getLastExamResult: function($timeout, $state, $stateParams, $q, ExamService, veazyConfig) {
+					var CODE = veazyConfig.CODE;
+					var deferred = $q.defer();
+					var examId = $stateParams.examId;
+					$timeout(function() {
+						ExamService.getHistory(examId).then(function(response) {
+							switch (response.code) {
+								case CODE.SUCCESS: {
+									deferred.resolve(response);
+									break;
+								}
+								case CODE.UNAUTHORIZED: {
+									deferred.reject();
+									$state.go('login');
+									break;
+								}
+								default: {
+									deferred.reject();
+								}
+							}
+						}, function(reject) {
+							deferred.reject();
+						});
 					});
 					return deferred.promise;
 				}

@@ -13,9 +13,23 @@
 				url: url + '/submit',
 				method: 'POST' 
 			},
-			getHistory: {
+			getHistoryList: {
 				url: '/Veazy/api/user/exams',
 				method: 'GET'
+			},
+			getHistory: {
+				url: url + '/:examId',
+				method: 'GET',
+				params: {
+					examId: '@examId'
+				}
+			},
+			redo: {
+				url: url + '/:examId/redo',
+				method: 'GET',
+				params: {
+					examId: '@examId'
+				}
 			}
 		});
 	};

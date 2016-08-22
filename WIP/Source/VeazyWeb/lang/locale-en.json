@@ -247,5 +247,11 @@
 	"SHOW_ONLY_LESSON_WHERE_HEADING": "Show only lessons where",
 	"ALL_TYPES": "All Types",
 	"ALL_LEVELS": "All Levels",
-	"ALL_SKILLS": "All Skills"
+	"ALL_SKILLS": "All Skills",
+
+	"RETAKE_HYPERLINK": "Retake",
+	"TIME_TAKEN_LABEL": "Time taken",
+	"RESULT_LABEL": "Result",
+	"TEST_HISTORY_RECORD_HEADING": "{{skill}} Test"
+
 }
