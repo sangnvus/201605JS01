@@ -14,7 +14,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -29,7 +28,10 @@ import vn.edu.fu.veazy.core.form.ChgpwdForm;
 import vn.edu.fu.veazy.core.exception.CorruptedFormException;
 import vn.edu.fu.veazy.core.exception.InvalidEmailException;
 import vn.edu.fu.veazy.core.exception.PasswordExpectedException;
+import vn.edu.fu.veazy.core.form.ForgotPwdForm;
 import vn.edu.fu.veazy.core.form.LoginForm;
+import vn.edu.fu.veazy.core.form.Mail;
+import vn.edu.fu.veazy.core.form.MailSender;
 import vn.edu.fu.veazy.core.form.RegisterForm;
 import vn.edu.fu.veazy.core.form.UpdateUserForm;
 import vn.edu.fu.veazy.core.model.ExamModel;
@@ -81,7 +83,7 @@ public class UserController {
      */
     @PreAuthorize("!isAuthenticated()")
     @RequestMapping(value = Const.URLMAPPING_REGISTER, method = RequestMethod.POST,
-            produces={"application/json; charset=UTF-8"})
+            produces = {"application/json; charset=UTF-8"})
     public @ResponseBody
     String register(@RequestBody RegisterForm registerForm) {
         Response response = new Response(ResponseCode.BAD_REQUEST);
@@ -94,38 +96,38 @@ public class UserController {
             LOGGER.debug("<" + username + ">");
             LOGGER.debug("<" + pw + ">");
             LOGGER.debug("<" + email + ">");
-
+            
             if (!Utils.isValidEmail(registerForm.getEmail())) {
                 LOGGER.error("Submit invalid email!");
                 throw new InvalidEmailException("Invalid email");
             }
-
+            
             UserModel user = userService.findUserByEmail(registerForm.getEmail());
             if (user != null) {
                 LOGGER.error("Submit duplicated email!");
                 response.setCode(ResponseCode.DUPLICATED_EMAIL);
                 return response.toResponseJson();
             }
-
+            
             user = userService.findUserByUsername(registerForm.getUsername());
             if (user != null) {
                 LOGGER.error("Submit duplicated username!");
                 response.setCode(ResponseCode.DUPLICATED_USERNAME);
                 return response.toResponseJson();
             }
-
+            
             userService.saveUser(registerForm);
             LoginResponse data = new LoginResponse();
-
+            
             user = userService.findUserByUsername(registerForm.getUsername());
             data.setRole(user.getRole());
 //            TODO
 //            data.setToken(token);
             response.setCode(ResponseCode.SUCCESS);
             response.setData(data);
-
+            
             LOGGER.debug("Register new user successfully!");
-
+            
             return response.toResponseJson();
         } catch (CorruptedFormException e) {
             response.setCode(e.getCode());
@@ -146,7 +148,7 @@ public class UserController {
      */
     @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = Const.URLMAPPING_LOGIN, method = RequestMethod.POST,
-            produces={"application/x-www-form-urlencoded; charset=UTF-8"})
+            produces = {"application/x-www-form-urlencoded; charset=UTF-8"})
     public @ResponseBody
     String loginProceed(Principal principal, @ModelAttribute LoginForm loginForm) {
         Response response = new Response(ResponseCode.SUCCESS);
@@ -171,14 +173,14 @@ public class UserController {
         }
         return response.toResponseJson();
     }
-
+    
     @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = Const.URLMAPPING_LOGOUT, method = RequestMethod.GET)
     public @ResponseBody
-    String logoutProceed (HttpServletRequest request, HttpServletResponse response) {
+    String logoutProceed(HttpServletRequest request, HttpServletResponse response) {
         Response responseObj = new Response(ResponseCode.BAD_REQUEST);
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (auth != null){    
+        if (auth != null) {
             new SecurityContextLogoutHandler().logout(request, response, auth);
             responseObj.setCode(ResponseCode.SUCCESS);
         }
@@ -192,7 +194,7 @@ public class UserController {
      */
     @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = Const.URLMAPPING_GET_CURRENT_USER, method = RequestMethod.GET,
-            produces={"application/json; charset=UTF-8"})
+            produces = {"application/json; charset=UTF-8"})
     public @ResponseBody
     String getCurrentUser(Principal principal) {
         Response response = new Response(ResponseCode.BAD_REQUEST);
@@ -205,7 +207,7 @@ public class UserController {
                 response.setCode(ResponseCode.USER_NOT_FOUND);
                 return response.toResponseJson();
             }
-
+            
             LOGGER.debug("Get user details successfully!");
             GetUserResponse data = new GetUserResponse(user);
             response.setCode(ResponseCode.SUCCESS);
@@ -225,7 +227,7 @@ public class UserController {
      */
     @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = Const.URLMAPPING_UPDATE_CURRENT_USER, method = RequestMethod.POST,
-            produces={"application/json; charset=UTF-8"})
+            produces = {"application/json; charset=UTF-8"})
     public @ResponseBody
     String updateCurrentUser(Principal principal,
             @RequestBody UpdateUserForm form) {
@@ -239,7 +241,7 @@ public class UserController {
                 response.setCode(ResponseCode.USER_NOT_FOUND);
                 return response.toResponseJson();
             }
-
+            
             LOGGER.debug("Get user details successfully!");
             userService.update(user, form);
             GetUserResponse data = new GetUserResponse(user);
@@ -260,7 +262,7 @@ public class UserController {
      */
     @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = Const.URLMAPPING_CHGPWD_CURRENT_USER, method = RequestMethod.POST,
-            produces={"application/json; charset=UTF-8"})
+            produces = {"application/json; charset=UTF-8"})
     public @ResponseBody
     String changePasswordCurrentUser(Principal principal,
             @RequestBody ChgpwdForm form) {
@@ -294,21 +296,21 @@ public class UserController {
      */
     @PreAuthorize("hasAuthority(1)")
     @RequestMapping(value = Const.URLMAPPING_GET_USER, method = RequestMethod.GET,
-            produces={"application/json; charset=UTF-8"})
+            produces = {"application/json; charset=UTF-8"})
     public @ResponseBody
     String getUser(@PathVariable("user_id") Integer userId) {
         Response response = new Response(ResponseCode.BAD_REQUEST);
         try {
             // FIXME json object
             LOGGER.debug("Get to login proceed controller successful");
-
+            
             UserModel user = userService.findUserById(userId);
             if (user == null) {
                 LOGGER.error("User not exist!");
                 response.setCode(ResponseCode.USER_NOT_FOUND);
                 return response.toResponseJson();
             }
-
+            
             LOGGER.debug("Get user details successfully!");
             GetUserResponse data = new GetUserResponse(user);
             response.setCode(ResponseCode.SUCCESS);
@@ -335,7 +337,7 @@ public class UserController {
         try {
             // FIXME json object
             LOGGER.debug("Get to login proceed controller successful");
-
+            
             UserModel user = userService.findUserById(userId);
             if (user == null) {
                 LOGGER.error("User not exist!");
@@ -345,7 +347,7 @@ public class UserController {
             
             user.setIsBanned(true);
             userService.update(user);
-
+            
             LOGGER.debug("Ban user successfully!");
             response.setCode(ResponseCode.SUCCESS);
         } catch (Exception e) {
@@ -370,7 +372,7 @@ public class UserController {
         try {
             // FIXME json object
             LOGGER.debug("Get to login proceed controller successful");
-
+            
             UserModel user = userService.findUserById(userId);
             if (user == null) {
                 LOGGER.error("User not exist!");
@@ -380,7 +382,7 @@ public class UserController {
             
             user.setIsBanned(false);
             userService.update(user);
-
+            
             LOGGER.debug("Ban user successfully!");
             response.setCode(ResponseCode.SUCCESS);
         } catch (Exception e) {
@@ -398,14 +400,14 @@ public class UserController {
      */
     @PreAuthorize("hasAuthority(1)")
     @RequestMapping(value = Const.URLMAPPING_GET_LIST_USERS, method = RequestMethod.GET,
-            produces={"application/json; charset=UTF-8"})
+            produces = {"application/json; charset=UTF-8"})
     public @ResponseBody
     String getListUser() {
         Response response = new Response(ResponseCode.BAD_REQUEST);
         try {
             // FIXME json object
             LOGGER.debug("Get to login proceed controller successful");
-
+            
             List<UserModel> users = userService.findAllUser();
             if (users != null && users.size() > 0) {
                 GetListUsersResponse listUsers = new GetListUsersResponse();
@@ -432,14 +434,14 @@ public class UserController {
      */
     @PreAuthorize("hasAuthority(1)")
     @RequestMapping(value = Const.URLMAPPING_GET_SIZE_USERS, method = RequestMethod.GET,
-            produces={"application/json; charset=UTF-8"})
+            produces = {"application/json; charset=UTF-8"})
     public @ResponseBody
     String getNumberUser() {
         Response response = new Response(ResponseCode.BAD_REQUEST);
         try {
             // FIXME json object
             LOGGER.debug("Get to get number of user controller successful");
-
+            
             int active = userService.countActive();
             int total = userService.size();
             StatsUsersResponse resp = new StatsUsersResponse(active, total);
@@ -462,7 +464,7 @@ public class UserController {
      */
     @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = Const.URLMAPPING_GET_LEARNER_EXAMS, method = RequestMethod.GET,
-            produces={"application/json; charset=UTF-8"})
+            produces = {"application/json; charset=UTF-8"})
     public @ResponseBody
     String getLearnerExamss(Principal principal) {
         Response response = new Response(ResponseCode.BAD_REQUEST);
@@ -497,7 +499,7 @@ public class UserController {
         }
         return response.toResponseJson();
     }
-
+    
     @PreAuthorize("hasAuthority(1)") // ADMIN
     @RequestMapping(value = Const.URLMAPPING_CHANGE_ROLE, method = RequestMethod.GET)
     public @ResponseBody
@@ -505,7 +507,7 @@ public class UserController {
             @RequestBody ChangeRoleForm form) {
         Response response = new Response(ResponseCode.BAD_REQUEST);
         try {
-        	userService.changeUserRoll(userId, form.getRole());
+            userService.changeUserRoll(userId, form.getRole());
             response.setCode(ResponseCode.SUCCESS);
             
             LOGGER.debug("change user role successfully!");
@@ -514,9 +516,42 @@ public class UserController {
         } catch (Exception e) {
             LOGGER.error(e.getMessage());
         }
-
+        
         LOGGER.error("Unknown error occured!");
         response.setCode(ResponseCode.INTERNAL_SERVER_ERROR);
+        return response.toResponseJson();
+    }
+
+    /**
+     * Process request of change password current user detail.
+     *
+     * @return json string
+     */
+    @PreAuthorize("isAuthenticated()")
+    @RequestMapping(value = Const.URLMAPPING_FOTGOTPWD, method = RequestMethod.POST,
+            produces = {"application/json; charset=UTF-8"})
+    public @ResponseBody
+    String forgotPassword(@RequestBody ForgotPwdForm form,
+            HttpServletRequest req) {
+        Response response = new Response(ResponseCode.BAD_REQUEST);
+        try {
+            if (form != null) {
+                String email = form.getEmail();
+                UserModel user = userService.findUserByEmail(email);
+                if (user == null) {
+                    response.setCode(ResponseCode.EMAIL_NOT_FOUND);
+                }
+                Mail mail = new Mail(user, req);
+                MailSender.sentMail(mail);
+                response.setCode(ResponseCode.SUCCESS);
+            }
+        } catch (PasswordExpectedException e) {
+            response.setCode(e.getCode());
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage());
+            LOGGER.error("Unknown error occured!");
+            response.setCode(ResponseCode.INTERNAL_SERVER_ERROR);
+        }
         return response.toResponseJson();
     }
 }

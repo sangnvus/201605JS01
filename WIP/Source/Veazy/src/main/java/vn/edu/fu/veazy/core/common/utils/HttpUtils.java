@@ -18,6 +18,15 @@ public class HttpUtils {
         return url.substring(0, url.length() - uri.length() + ctx.length());
     }
 
+    public static String getDomainUrl(HttpServletRequest req) {
+        if (req == null) return null;
+        StringBuffer url = req.getRequestURL();
+        if (url == null) return null;
+        String uri = req.getRequestURI();
+        if (uri == null) return null;
+        return url.substring(0, url.length() - uri.length());
+    }
+    
     public static void addCorsHeader(HttpServletRequest request, HttpServletResponse response){
         if (Const.CORS_HEADER_ENABLED
                 && !Utils.isNullOrEmpty(request.getHeader(Const.CORS_HEADER_ORIGIN))) {

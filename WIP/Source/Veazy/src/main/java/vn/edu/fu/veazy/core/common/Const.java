@@ -7,7 +7,7 @@ package vn.edu.fu.veazy.core.common;
  *
  */
 public class Const {
-    
+
     public static final String FINAL_NAME = "Veazy";
 
     /**
@@ -15,8 +15,10 @@ public class Const {
      */
     public static final String CORS_HEADER_ORIGIN = "Origin";
     public static final boolean CORS_HEADER_ENABLED = true;
-    
-    /************************* System Config ****************************/
+
+    /**
+     * *********************** System Config ***************************
+     */
     public static final String RESOURCE_URL = "/res";
     public static final Integer EXAM_INSURANCE_TIME = 30;
 
@@ -42,6 +44,7 @@ public class Const {
     public static final String URLMAPPING_GET_CURRENT_USER = URL_PREFIX + "/user";
     public static final String URLMAPPING_UPDATE_CURRENT_USER = URL_PREFIX + "/user/update";
     public static final String URLMAPPING_CHGPWD_CURRENT_USER = URL_PREFIX + "/user/chgpwd";
+    public static final String URLMAPPING_FOTGOTPWD = URL_PREFIX + "/user/forgotpwd";
     public static final String URLMAPPING_GET_LEARNER_EXAMS = URL_PREFIX + "/user/exams";
     public static final String URLMAPPING_GET_LIST_USERS = URL_PREFIX + "/users";
     public static final String URLMAPPING_GET_SIZE_USERS = URL_PREFIX + "/users/count";
@@ -67,7 +70,7 @@ public class Const {
      * レッソン�?�アップデート�?�ＡＰＩ
      */
     public static final String URLMAPPING_DRAFT_LESSON = URL_PREFIX + "/lessons/savedraft/{lesson_id}";
-    
+
     /**
      * レッソンのアップデートのＡＰＩ
      */
@@ -158,7 +161,7 @@ public class Const {
      * レ�?ート�?�削除�?�ＡＰＩ
      */
     public static final String URLMAPPING_DELETE_REPORT = URL_PREFIX + "/report/delete/{report_id}";
-    
+
     // search
     /**
      * レ�?ート�?�削除�?�ＡＰＩ
@@ -224,5 +227,20 @@ public class Const {
     public static final Integer QUESTIONSKILL_GRAMMAR = 2;
     public static final Integer QUESTIONSKILL_LISTENING = 3;
     public static final Integer QUESTIONSKILL_READING = 4;
-
+    
+    /**
+     * *********************** Forgot password email **************************
+     */
+    public static final String EMAIL_ADDRESS = "veazysystem@gmail.com";
+    public static final String EMAIL_PASSWORD = "veazy123";
+    public static final String MAIL_SUBJECT = "Veazy Reset Password";
+    public static final String MAIL_CONTENT_PRE = "Hey";
+    public static final String MAIL_CONTENT_PRE2 = ",\n"
+            + "Someone has requested a new password for your Veazy account.\n";
+    public static final String MAIL_CONTENT_POST = "If you didn't make this request then you can safely ignore this email.\n"
+            + "Best,\n"
+            + "\n"
+            + "The Veazy Team";
+    public static final String LINK_CONTENT_PRE = "<a href=\"";
+    public static final String LINK_CONTENT_POST = "\">Reset Password</a>";
 }
