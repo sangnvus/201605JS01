@@ -7,13 +7,13 @@ package vn.edu.fu.veazy.core.service;
 
 import java.util.List;
 
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import vn.edu.fu.veazy.core.dao.GenericDao;
 import vn.edu.fu.veazy.core.model.AnswerModel;
+import vn.edu.fu.veazy.core.model.ExamQuestionModel;
 import vn.edu.fu.veazy.core.model.QuestionModel;
 
 /**
@@ -22,14 +22,15 @@ import vn.edu.fu.veazy.core.model.QuestionModel;
  */
 @Service
 public class QuestionServiceImpl implements QuestionService {
-    private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(QuestionServiceImpl.class);
-
     @Autowired
     private GenericDao<QuestionModel, Integer> questionDao;
 
     @Autowired
     private GenericDao<AnswerModel, Integer> answerDao;
 
+    @Autowired
+    private GenericDao<ExamQuestionModel, Integer> examQuestionDao;
+    
     @Override
     @Transactional
     public QuestionModel saveQuestion(QuestionModel question) throws Exception {
@@ -119,15 +120,7 @@ public class QuestionServiceImpl implements QuestionService {
     @Transactional
     public void update(QuestionModel question) throws Exception {
         try {
-//            if (question.isUpdateAns()) {
-////                List<AnswerModel> listAns = findAnswerByQuestionId(question.getId());
-////                if (listAns != null && listAns.size() > 0) {
-////                    for (AnswerModel ans : listAns) {
-////                        answerDao.delete(ans);
-////                    }
-////                }
-//                question.setUpdateAns(false);
-//            }
+			updateExamQuestion(question.getId());
             questionDao.update(question);
         } catch (Exception e) {
             // TODO custom exception
@@ -135,10 +128,23 @@ public class QuestionServiceImpl implements QuestionService {
         }
     }
 
-    @Override
+    private void updateExamQuestion(Integer questionId) throws Exception {
+    	ExamQuestionModel sample = new ExamQuestionModel();
+    	sample.setQuestionId(questionId);
+    	List<ExamQuestionModel> examQuestions = examQuestionDao.findByExample(sample);
+    	if(examQuestions != null && examQuestions.size()>0){
+    		for (ExamQuestionModel model : examQuestions) {
+				model.setIsChanged(true);
+				examQuestionDao.update(model);
+			}
+    	}
+	}
+
+	@Override
     @Transactional
     public void delete(QuestionModel question) throws Exception {
         try {
+        	updateExamQuestion(question.getId());
             question.setDeleteFlag(true);
             question.setDeleteDate(System.currentTimeMillis());
             questionDao.update(question);

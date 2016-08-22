@@ -101,6 +101,7 @@
   <bean id="lessonVersionDao" class="vn.edu.fu.veazy.core.dao.HibernateLessonVersionDao"/>
   <bean id="questionDao" class="vn.edu.fu.veazy.core.dao.HibernateQuestionDao"/>
   <bean id="reportDao" class="vn.edu.fu.veazy.core.dao.HibernateReportDao"/>
+  <bean id="examQuestionDao" class="vn.edu.fu.veazy.core.dao.HibernateExamQuestionDao"/>
   
   <!-- <bean id="luceneQuestion" class="vn.edu.fu.veazy.core.dao.HibernateLuceneDao">
     <constructor-arg>

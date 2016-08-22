@@ -9,29 +9,28 @@ import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import vn.edu.fu.veazy.core.model.ExamModel;
 import vn.edu.fu.veazy.core.model.ExamQuestionModel;
 
-public class HibernateExamDao implements GenericDao<ExamModel, Integer> {
+public class HibernateExamQuestionDao implements GenericDao<ExamQuestionModel, Integer> {
 
     @Autowired
     private SessionFactory sessionFactory;
 
     @Override
-    public void save(ExamModel exam) throws Exception {
-        sessionFactory.getCurrentSession().save(exam);
+    public void save(ExamQuestionModel question) throws Exception {
+        sessionFactory.getCurrentSession().save(question);
     }
 
     @Override
-    public ExamModel findById(Integer id) throws Exception {
-    	return sessionFactory.getCurrentSession().get(ExamModel.class, id);
+    public ExamQuestionModel findById(Integer id) throws Exception {
+    	return sessionFactory.getCurrentSession().get(ExamQuestionModel.class, id);
     }
 
     @SuppressWarnings("unchecked")
     @Override
-    public List<ExamModel> findByExample(ExamModel exampleInstance) throws Exception {
+    public List<ExamQuestionModel> findByExample(ExamQuestionModel exampleInstance) throws Exception {
         try {
-            return sessionFactory.getCurrentSession().createCriteria(ExamModel.class)
+            return sessionFactory.getCurrentSession().createCriteria(ExamQuestionModel.class)
                                                      .add(Example.create(exampleInstance))
                                                      .addOrder(Order.asc("id"))
                                                      .list();
@@ -43,9 +42,9 @@ public class HibernateExamDao implements GenericDao<ExamModel, Integer> {
 
     @SuppressWarnings("unchecked")
     @Override
-    public List<ExamModel> findByExample(ExamModel exampleInstance, int offset, int limit) throws Exception {
+    public List<ExamQuestionModel> findByExample(ExamQuestionModel exampleInstance, int offset, int limit) throws Exception {
         try {
-            return sessionFactory.getCurrentSession().createCriteria(ExamModel.class)
+            return sessionFactory.getCurrentSession().createCriteria(ExamQuestionModel.class)
                                                      .add(Example.create(exampleInstance))
                                                      .addOrder(Order.asc("id"))
                                                      .setFirstResult(offset)
@@ -59,26 +58,26 @@ public class HibernateExamDao implements GenericDao<ExamModel, Integer> {
 
     @SuppressWarnings("unchecked")
 	@Override
-    public List<ExamModel> getAll() throws Exception {
-        return sessionFactory.getCurrentSession().createCriteria(ExamModel.class)
+    public List<ExamQuestionModel> getAll() throws Exception {
+        return sessionFactory.getCurrentSession().createCriteria(ExamQuestionModel.class)
                 .addOrder(Order.asc("id")).list();
     }
 
     @Override
-    public void update(ExamModel exam) throws Exception {
-    	sessionFactory.getCurrentSession().update(exam);
+    public void update(ExamQuestionModel question) throws Exception {
+    	sessionFactory.getCurrentSession().update(question);
     }
 
     @Override
-    public void delete(ExamModel exam) throws Exception {
+    public void delete(ExamQuestionModel question) throws Exception {
     	//TODO set flag?
-    	sessionFactory.getCurrentSession().delete(exam);
+    	sessionFactory.getCurrentSession().delete(question);
     }
 
     @Override
     public Long getCount() throws Exception {
     	return (Long) sessionFactory.getCurrentSession()
-    			.createCriteria(ExamModel.class)
+    			.createCriteria(ExamQuestionModel.class)
     			.setProjection(Projections.rowCount())
     			.uniqueResult();
     }
@@ -89,5 +88,5 @@ public class HibernateExamDao implements GenericDao<ExamModel, Integer> {
         return null;
         
     }
-    
+
 }
