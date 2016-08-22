@@ -58,11 +58,13 @@
 								$scope.testGradeData = [[]];
 
 								$scope.testGradeLabels = [];
-								for (var i = 0; i < length; i++) {
+								for (var i = 0; i < responseData.length; i++) {
 									// $scope.testGradeLabels.push('Test' + (i + 1));
 									$scope.testGradeLabels.push('Test' + (i + 1));
 									$scope.testGradeData[0].push(responseData[i].result);
 								}
+
+								console.log($scope.testGradeData);
 							}
 
 							default: {

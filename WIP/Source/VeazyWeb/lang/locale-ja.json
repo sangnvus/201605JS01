@@ -187,7 +187,7 @@
 	"CREATED_DATE_LABEL": "作成日",
 	"LAST_UPDATE_DATE_LABEL": "最後更新日",
 
-	"QUESTION_DETAIL_HEADING": "{{id}}の質問",
+	"QUESTION_DETAIL_HEADING": "＃{{id}}の質問",
 	"EDIT_BUTTON_LABEL": "編集",
 	"DELETE_BUTTON_LABEL": "排除",
 	"BACK_TO_LIST_BUTTON_LABEL": "リストへ",
@@ -240,6 +240,12 @@
 
 	"REPORT_QUESTION_HEADING": "質問報告",
 	"REPORT_QUESTION_INTRO": "どうしてこの質問をご報告なったか、ご理由をお聞かせください。",
-	"REPORT_QUESTION_CONFIRM": "ご報告トは、レビューのために提出されました。 ご協力ありがとうございます。"
+	"REPORT_QUESTION_CONFIRM": "ご報告トは、レビューのために提出されました。 ご協力ありがとうございます。",
+
+	"SHOW_ONLY_QUESTIONS_WHERE_HEADING": "質問のみを表示",
+	"SHOW_ONLY_LESSON_WHERE_HEADING": "レッソンのみを表示",
+	"ALL_TYPES": "すべてのタイプ",
+	"ALL_LEVELS": "すべてのレベル",
+	"ALL_SKILLS": "すべてのスキル"
 
 }

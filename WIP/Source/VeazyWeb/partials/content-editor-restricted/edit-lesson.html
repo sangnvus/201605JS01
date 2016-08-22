@@ -1,92 +1,85 @@
 <div class="container-fluid add-lesson">
 	<div class="row">
-		<div class="col-md-10 col-md-offset-1">
-			<h1 class="text-center" translate="EDIT_LESSON_HEADING"></h1>
+		<div class="col-md-12">
 			<form class="form-horizontal" ng-submit="updateLesson()">
-				<div class="form-group">
-					<label class="control-label col-sm-2" translate="LESSON_TITLE_LABEL"></label>
-					<div class="col-sm-10">
-						<input class="form-control" type="text" ng-model="lesson.lessonTitle"></input>
-					</div>
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h4 translate="EDIT_LESSON_HEADING"></h4>
 				</div>
-				<!-- <div class="form-group">
-					<label class="control-label col-sm-3" translate="STATE_LABEL"></label>
-					<div class="col-sm-9">
-						<input class="form-control" type="text" ng-disabled="true"></input>
-					</div>
-				</div> -->
-				<div class="form-group">
-					<label class="control-label col-sm-2" translate="VERSION_LABEL"></label>
-					<div class="col-sm-10">
-						<input class="form-control" type="text" ng-disabled="true" ng-model="lesson.version"></input>
-					</div>
-				</div>
-				<div class="form-group">
-					<label class="control-label col-sm-2" translate="LEVEL_LABEL"></label>
-					<div class="col-sm-10">
-						<select class="form-control" ng-model="selectedLevel" ng-options="level as level.name | translate for level in levels track by level.id"></select>
-					</div>
-				</div>
-				<div class="form-group">
-					<label class="control-label col-sm-2" translate="DESCRIPTION_LABEL"></label>
-					<div class="col-sm-10">
-						<textarea class="form-control" ng-model="lesson.description"></textarea>
-					</div>
-				</div>
-				<div class="form-group">
-					<label class="control-label col-sm-2" translate="SECTIONS_LABEL"></label>
-					<div class="col-sm-10">
-						<div class="tab-framed">
-							<div class="inner">
-								<!--nav tab-->
-							<ul class="tabs clearfix">
-								<li class="active"><a href="#vocabulary" data-toggle="tab" tab-pane translate="VOCABULARY_SECTION"></a></li>
-								<li><a href="#grammar" data-toggle="tab" tab-pane translate="GRAMMAR_SECTION"></a></li>
-								<li><a href="#conversation" data-toggle="tab" tab-pane translate="CONVERSATION_SECTION"></a></li>
-								<li><a href="#listening" data-toggle="tab" tab-pane translate="LISTENING_SECTION"></a></li>
-								<li><a href="#practice" data-toggle="tab" tab-pane translate="PRACTICE_SECTION"></a></li>
-								<li><a href="#reading" data-toggle="tab" tab-pane translate="READING_SECTION"></a></li>
-								</div>
-							</ul>
-
-							<!--content panel-->
-							<div class="tab-content">
-								<div class="tab-pane fade in active clearfix" id="vocabulary">
-									<textarea froala="editorOptions.vocabulary" ng-model="lesson.vocabulary"></textarea>
-								</div>
-								<div class="tab-pane fade clearfix" id="grammar">
-									<textarea froala="editorOptions.grammar" ng-model="lesson.grammar"></textarea>
-								</div>
-								<div class="tab-pane fade clearfix" id="conversation">
-									<textarea froala="editorOptions.conversation" ng-model="lesson.conversation"></textarea>
-								</div>
-								<div class="tab-pane fade clearfix" id="listening">
-									<textarea froala="editorOptions.listening" ng-model="lesson.listening"></textarea>
-								</div>
-								<div class="tab-pane fade clearfix" id="practice">
-									<textarea froala="editorOptions.practice" ng-model="lesson.practice"></textarea>
-								</div>
-								<div class="tab-pane fade clearfix" id="reading">
-									<textarea froala="editorOptions.reading" ng-model="lesson.reading"></textarea>
+				<div class="panel-body">
+					<div class="col-md-10 col-md-offset-1">
+							<div class="form-group">
+								<label class="control-label col-sm-2" translate="LESSON_TITLE_LABEL"></label>
+								<div class="col-sm-10">
+									<input class="form-control" type="text" ng-model="lesson.lessonTitle"></input>
 								</div>
 							</div>
-						</div>
+							<div class="form-group">
+								<label class="control-label col-sm-2" translate="VERSION_LABEL"></label>
+								<div class="col-sm-10">
+									<input class="form-control" type="text" ng-disabled="true" ng-model="lesson.version"></input>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="control-label col-sm-2" translate="LEVEL_LABEL"></label>
+								<div class="col-sm-10">
+									<select class="form-control" ng-model="selectedLevel" ng-options="level as level.name | translate for level in levels track by level.id"></select>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="control-label col-sm-2" translate="DESCRIPTION_LABEL"></label>
+								<div class="col-sm-10">
+									<textarea class="form-control" ng-model="lesson.description"></textarea>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="control-label col-sm-2" translate="SECTIONS_LABEL"></label>
+								<div class="col-sm-10">
+									<div class="tab-framed">
+										<div class="inner">
+											<!--nav tab-->
+										<ul class="tabs clearfix">
+											<li class="active"><a href="#vocabulary" data-toggle="tab" tab-pane translate="VOCABULARY_SECTION"></a></li>
+											<li><a href="#grammar" data-toggle="tab" tab-pane translate="GRAMMAR_SECTION"></a></li>
+											<li><a href="#conversation" data-toggle="tab" tab-pane translate="CONVERSATION_SECTION"></a></li>
+											<li><a href="#listening" data-toggle="tab" tab-pane translate="LISTENING_SECTION"></a></li>
+											<li><a href="#practice" data-toggle="tab" tab-pane translate="PRACTICE_SECTION"></a></li>
+											<li><a href="#reading" data-toggle="tab" tab-pane translate="READING_SECTION"></a></li>
+											</div>
+										</ul>
+
+										<!--content panel-->
+										<div class="tab-content">
+											<div class="tab-pane fade in active clearfix" id="vocabulary">
+												<textarea froala="editorOptions.vocabulary" ng-model="lesson.vocabulary"></textarea>
+											</div>
+											<div class="tab-pane fade clearfix" id="grammar">
+												<textarea froala="editorOptions.grammar" ng-model="lesson.grammar"></textarea>
+											</div>
+											<div class="tab-pane fade clearfix" id="conversation">
+												<textarea froala="editorOptions.conversation" ng-model="lesson.conversation"></textarea>
+											</div>
+											<div class="tab-pane fade clearfix" id="listening">
+												<textarea froala="editorOptions.listening" ng-model="lesson.listening"></textarea>
+											</div>
+											<div class="tab-pane fade clearfix" id="practice">
+												<textarea froala="editorOptions.practice" ng-model="lesson.practice"></textarea>
+											</div>
+											<div class="tab-pane fade clearfix" id="reading">
+												<textarea froala="editorOptions.reading" ng-model="lesson.reading"></textarea>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
 					</div>
 				</div>
-				<div class="form-group text-center" style="padding: 20px 0;">
-					<div class="col-sm-2 col-sm-offset-2">
-						<button type="submit" class="btn btn-block btn-grass" translate="UPDATE_BUTTON_LABEL"></button>
-					</div>
-					<div class="col-sm-2">
-						<button type="button" class="btn btn-block btn-bluejeans" translate="SAVE_DRAFT_BUTTON_LABEL" ng-click="saveDraft()"></button>
-					</div>
-					<div class="col-sm-2">
-						<button type="button" class="btn btn-block btn-info" translate="BACK_TO_DETAIL_BUTTON_LABEL"ui-sref="editordashboard.lesson.detail({id: lesson.lessonId})"></button>
-					</div>
-					<div class="col-sm-2">
-						<button type="button" class="btn btn-block btn-sunflower" translate="BACK_TO_LIST_BUTTON_LABEL"ui-sref="editordashboard.lesson.list"></button>
-					</div>
+				<div class="panel-footer">
+					<button type="submit" class="btn btn-success" translate="UPDATE_BUTTON_LABEL"></button>
+					<button type="button" class="btn btn-info" translate="SAVE_DRAFT_BUTTON_LABEL" ng-click="saveDraft()"></button>
+					<button type="button" class="btn btn-default" translate="BACK_TO_DETAIL_BUTTON_LABEL"ui-sref="editordashboard.lesson.detail({id: lesson.lessonId})"></button>
 				</div>
+			</div>
 			</form>
 		</div>
 	</div>

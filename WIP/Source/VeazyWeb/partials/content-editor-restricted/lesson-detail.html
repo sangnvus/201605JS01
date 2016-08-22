@@ -1,66 +1,65 @@
 <div class="container-fluid add-lesson">
 	<div class="row">
-		<div class="col-md-10 col-md-offset-1">
-			<h1 class="text-center">{{lesson.lessonTitle}}</h1>
+		<div class="col-md-12">
 			<form class="form-horizontal" ng-submit="addLesson()">
-				<div class="form-group">
-					<label class="control-label col-sm-2" translate="VERSION_LABEL"></label>
-					<p class="control-label col-sm-10">{{lesson.version}}</p>
-				</div>
-				<div class="form-group">
-					<label class="control-label col-sm-2" translate="LEVEL_LABEL"></label>
-					<p class="control-label col-sm-10" translate="{{lesson.courseId | level}}"></p>
-				</div>
-				<div class="form-group">
-					<label class="control-label col-sm-2" translate="DESCRIPTION_LABEL"></label>
-					<p class="control-label col-sm-10">{{lesson.description}}</p>
-				</div>
-				<div class="form-group">
-					<label class="control-label col-sm-2" translate="SECTIONS_LABEL"></label>
-					<div class="col-sm-10">
-						<div class="tab-framed">
-							<div class="inner">
-							<!--nav tab-->
-							<ul class="tabs clearfix">
-								<li class="active"><a href="#vocabulary" data-toggle="tab" tab-pane translate="VOCABULARY_SECTION"></a></li>
-								<li><a href="#grammar" data-toggle="tab" tab-pane translate="GRAMMAR_SECTION"></a></li>
-								<li><a href="#conversation" data-toggle="tab" tab-pane translate="CONVERSATION_SECTION"></a></li>
-								<li><a href="#listening" data-toggle="tab" tab-pane translate="LISTENING_SECTION"></a></li>
-								<li><a href="#practice" data-toggle="tab" tab-pane translate="PRACTICE_SECTION"></a></li>
-								<li><a href="#reading" data-toggle="tab" tab-pane translate="READING_SECTION"></a></li>
-								</div>
-							</ul>
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="col-md-10 col-md-offset-1">
+						<h1 class="text-center">{{lesson.lessonTitle}}</h1>
+						<div class="form-group">
+							<label class="control-label col-sm-2" translate="VERSION_LABEL"></label>
+							<p class="control-label col-sm-10">{{lesson.version}}</p>
+						</div>
+						<div class="form-group">
+							<label class="control-label col-sm-2" translate="LEVEL_LABEL"></label>
+							<p class="control-label col-sm-10" translate="{{lesson.courseId | level}}"></p>
+						</div>
+						<div class="form-group">
+							<label class="control-label col-sm-2" translate="DESCRIPTION_LABEL"></label>
+							<p class="control-label col-sm-10">{{lesson.description}}</p>
+						</div>
+						<div class="form-group">
+							<label class="control-label col-sm-2" translate="SECTIONS_LABEL"></label>
+							<div class="col-sm-10">
+								<div class="tab-framed">
+									<div class="inner">
+									<!--nav tab-->
+									<ul class="tabs clearfix">
+										<li class="active"><a href="#vocabulary" data-toggle="tab" tab-pane translate="VOCABULARY_SECTION"></a></li>
+										<li><a href="#grammar" data-toggle="tab" tab-pane translate="GRAMMAR_SECTION"></a></li>
+										<li><a href="#conversation" data-toggle="tab" tab-pane translate="CONVERSATION_SECTION"></a></li>
+										<li><a href="#listening" data-toggle="tab" tab-pane translate="LISTENING_SECTION"></a></li>
+										<li><a href="#practice" data-toggle="tab" tab-pane translate="PRACTICE_SECTION"></a></li>
+										<li><a href="#reading" data-toggle="tab" tab-pane translate="READING_SECTION"></a></li>
+										</div>
+									</ul>
 
-							<!--content panel-->
-							<div class="tab-content">
-								<div class="tab-pane fade in active clearfix" id="vocabulary" ng-bind-html="trustAsHtml(lesson.vocabulary)">
-								</div>
-								<div class="tab-pane fade clearfix" id="grammar" ng-bind-html="trustAsHtml(lesson.grammar)">
-								</div>
-								<div class="tab-pane fade clearfix" id="conversation" ng-bind-html="trustAsHtml(lesson.conversation)">
-								</div>
-								<div class="tab-pane fade clearfix" id="listening" ng-bind-html="trustAsHtml(lesson.listening)">
-								</div>
-								<div class="tab-pane fade clearfix" id="practice" ng-bind-html="trustAsHtml(lesson.practice)">
-								</div>
-								<div class="tab-pane fade clearfix" id="reading" ng-bind-html="trustAsHtml(lesson.reading)">
+									<!--content panel-->
+									<div class="tab-content">
+										<div class="tab-pane fade in active clearfix" id="vocabulary" ng-bind-html="trustAsHtml(lesson.vocabulary)">
+										</div>
+										<div class="tab-pane fade clearfix" id="grammar" ng-bind-html="trustAsHtml(lesson.grammar)">
+										</div>
+										<div class="tab-pane fade clearfix" id="conversation" ng-bind-html="trustAsHtml(lesson.conversation)">
+										</div>
+										<div class="tab-pane fade clearfix" id="listening" ng-bind-html="trustAsHtml(lesson.listening)">
+										</div>
+										<div class="tab-pane fade clearfix" id="practice" ng-bind-html="trustAsHtml(lesson.practice)">
+										</div>
+										<div class="tab-pane fade clearfix" id="reading" ng-bind-html="trustAsHtml(lesson.reading)">
+										</div>
+									</div>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-				<div class="form-group" style="padding: 20px 0;">
-					<div class="col-md-2 col-md-offset-3">
-						<button type="button" class="btn btn-block btn-primary" translate="EDIT_BUTTON_LABEL" ui-sref="editordashboard.lesson.edit({id: lesson.lessonId})"></button>
-					</div>
-					<div class="col-md-2">
-						<button type="button" class="btn btn-block btn-danger" translate="DELETE_BUTTON_LABEL" ng-click="openConfirmDeleteDialog()"></button>	
-					</div>
-					<div class="col-md-2">
-						<button type="button" class="btn btn-block btn-sunflower" translate="BACK_TO_LIST_BUTTON_LABEL"ui-sref="editordashboard.lesson.list"></button>
-					</div>
+				<div class="panel-footer">
+					<button type="button" class="btn btn btn-primary" translate="EDIT_BUTTON_LABEL" ui-sref="editordashboard.lesson.edit({id: lesson.lessonId})"></button>
+					<button type="button" class="btn btn btn-danger" translate="DELETE_BUTTON_LABEL" ng-click="openConfirmDeleteDialog()"></button>	
 				</div>
 			</form>
+			</div>
 		</div>
 	</div>
 </div>

@@ -1,78 +1,95 @@
 <div class="container-fluid question-detail">
 	<div class="row">
-		<div class="col-md-9 col-md-offset-1">
-			<h1 class="text-center" translate="QUESTION_DETAIL_HEADING" translate-values="{id: question.questionId}"></h1>
-			<form class="form-horizontal" ng-submit="submitquestion()">
-				<!--question type select box-->
-				<div class="form-group">
-					<label class="control-label col-sm-3">{{'QUESTION_TYPE_LABEL' | translate}}</label>
-					<p class="control-label col-sm-9" translate="{{question.questionType | questionType}}"></p>
+		<div class="col-md-12">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h4 translate="QUESTION_DETAIL_HEADING" translate-values="{id: question.questionId}"></h4>
 				</div>
-				<!--level select box-->
-				<div class="form-group">
-					<label class="control-label col-sm-3">{{'LEVEL_LABEL' | translate}}</label>
-					<p class="control-label col-sm-9" translate="{{question.courseId | level}}"></p>
-				</div>
-				<!--test skill select box-->
-				<div class="form-group">
-					<label class="control-label col-sm-3">{{'TEST_SKILL_LABEL' | translate}}</label>
-					<p class="control-label col-sm-9" translate="{{question.questionSkill | testSkill}}"></p>
-				</div>
+				<div class="panel-body">
+					<div class="form-horizontal">
+						<div class="form-group">
+							<label class="control-label col-sm-2" translate="QUESTION_TYPE_LABEL"></label>
+							<p class="control-label col-sm-10" translate="{{question.questionType | questionType}}"></p>
+						</div>
+						<!--level select box-->
+						<div class="form-group">
+							<label class="control-label col-sm-2" translate="LEVEL_LABEL"></label>
+							<p class="control-label col-sm-10" translate="{{question.courseId | level}}"></p>
+						</div>
+						<!--test skill select box-->
+						<div class="form-group">
+							<label class="control-label col-sm-2" translate="TEST_SKILL_LABEL"></label>
+							<p class="control-label col-sm-10" translate="{{question.questionSkill | testSkill}}"></p>
+						</div>
+						<!-- time duration -->
+						<div class="form-group">
+							<label class="control-label col-sm-2" translate="TIME_ALLOWED_LABEL"></label>
+							<p class="control-label col-sm-10">{{question.etaTime | timeDuration}} (mm:ss)</p>
+						</div>
 
-				<!-- single question -->
-				<div ng-show="question.questionType === CODE.SINGLE_QUESTION_TYPE">
-					<!--question content-->
-					<div class="form-group">
-						<label class="control-label col-sm-3">{{'QUESTION_LABEL' | translate}}</label>
-						<p class="control-label col-sm-9" translate="{{question.question}}"></p>
+						<!--file attachment-->
+						<div class="form-group">
+							<label class="control-label col-sm-2">{{'FILE_ATTACHMENT_LABEL' | translate}}</label>
+							<p class="control-label col-sm-10">Some file</p>
+						</div>
 					</div>
-					<!--answer content-->
-					<div class="form-group">
-						<label class="control-label col-sm-3">{{'ANSWERS_LABEL' | translate}}</label>
-						<div class="col-sm-9">
-							<div class="row" ng-repeat="answer in question.listAnswers track by $index">
-								<div class="col-sm-12">
-									<div class="checkbox">
-							  			<label>
-							  				<checkbox ng-model="answer.isRight" ng-disabled="true" ng-class="{'btn-success': answer.isRight}"></checkbox>
-							  				{{answer.answer}}
-							  			</label>
+				</div>
+			</div>
+
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="form-horizontal" ng-show="question.questionType === CODE.SINGLE_QUESTION_TYPE">
+						<div class="form-group">
+							<label class="control-label col-sm-2" translate="QUESTION_LABEL"></label>
+							<p class="control-label col-sm-10" translate="{{question.question}}"></p>
+						</div>
+						<!--answer content-->
+						<div class="form-group">
+							<label class="control-label col-sm-2" translate="ANSWERS_LABEL"></label>
+							<div class="col-sm-10">
+								<div class="row" ng-repeat="answer in question.listAnswers track by $index">
+									<div class="col-sm-12">
+										<div class="checkbox">
+								  			<label>
+								  				<checkbox ng-model="answer.isRight" ng-disabled="true" ng-class="{'btn-success': answer.isRight}"></checkbox>
+								  				{{answer.answer}}
+								  			</label>
+										</div>
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
-				</div>
 
-				<!-- group question -->
-				<div ng-show="question.questionType === CODE.GROUP_QUESTION_TYPE">
-					<div class="form-group">
-						<label class="col-sm-3 control-label" translate="SHARED_CONTENT_LABEL"></label>
-						<p class="col-sm-9 control-label">
-							<a href="" ng-click="showSharedContent = !showSharedContent" ng-hide="showSharedContent">Click to show shared content <span class="glyphicon glyphicon-chevron-down"></span></a>
-							<a href="" ng-click="showSharedContent = !showSharedContent" ng-show="showSharedContent">Click to hide shared content <span class="glyphicon glyphicon-chevron-up"></span></a>
-						</p>
-						<div class="col-sm-9 col-sm-offset-3" ng-show="showSharedContent">
-							<div ng-bind-html="trustAsHtml(question.question)"></div>
-						</div>
-					</div>
-
-					<!--questions in group-->
-					<div class="form-group" ng-repeat="question in question.listQuestions track by $index">
-						<label class="col-sm-3 control-label" translate="QUESTION_IN_GROUP_LABEL" translate-values="{index: $index + 1}"></label>
-						<div class="col-sm-9">
-							<div class="form-group">
-								<p class="col-sm-12 control-label">{{question.question}}</p>
+					<div class="form-horizontal" ng-show="question.questionType === CODE.GROUP_QUESTION_TYPE">
+						<div class="form-group">
+							<label class="col-sm-2 control-label" translate="SHARED_CONTENT_LABEL"></label>
+							<p class="col-sm-10 control-label">
+								<a href="" ng-click="showSharedContent = !showSharedContent" ng-hide="showSharedContent">Click to show shared content <span class="glyphicon glyphicon-chevron-down"></span></a>
+								<a href="" ng-click="showSharedContent = !showSharedContent" ng-show="showSharedContent">Click to hide shared content <span class="glyphicon glyphicon-chevron-up"></span></a>
+							</p>
+							<div class="col-sm-10 col-sm-offset-2" ng-show="showSharedContent">
+								<div ng-bind-html="trustAsHtml(question.question)"></div>
 							</div>
-							<div class="form-group">
-								<div class="col-sm-12">
-									<div class="row" ng-repeat="answer in question.listAnswers track by $index">
-										<div class="col-sm-12">
-											<div class="checkbox">
-												<label>
-													<checkbox ng-model="answer.isRight" ng-disabled="true" ng-class="{'btn-success': answer.isRight}"></checkbox>
-													{{answer.answer}}
-												</label>
+						</div>
+
+						<!--questions in group-->
+						<div class="form-group" ng-repeat="question in question.listQuestions track by $index">
+							<label class="col-sm-2 control-label" translate="QUESTION_IN_GROUP_LABEL" translate-values="{index: $index + 1}"></label>
+							<div class="col-sm-10">
+								<div class="form-group">
+									<p class="col-sm-12 control-label">{{question.question}}</p>
+								</div>
+								<div class="form-group">
+									<div class="col-sm-12">
+										<div class="row" ng-repeat="answer in question.listAnswers track by $index">
+											<div class="col-sm-12">
+												<div class="checkbox">
+													<label>
+														<checkbox ng-model="answer.isRight" ng-disabled="true" ng-class="{'btn-success': answer.isRight}"></checkbox>
+														{{answer.answer}}
+													</label>
+												</div>
 											</div>
 										</div>
 									</div>
@@ -82,31 +99,11 @@
 					</div>
 				</div>
 
-				<!-- time duration -->
-				<div class="form-group">
-					<label class="control-label col-sm-3" translate="TIME_ALLOWED_LABEL"></label>
-					<p class="col-sm-9 control-label">{{question.etaTime | timeDuration}}</p>
+				<div class="panel-footer">
+					<button class="btn btn-primary" type="button" ui-sref="editordashboard.question.edit({questionId: question.questionId})">{{'EDIT_BUTTON_LABEL' | translate}}</button>	
+					<button class="btn btn-danger" type="button">{{'DELETE_BUTTON_LABEL' | translate}}</button>
 				</div>
-
-				<!--file attachment-->
-				<div class="form-group">
-					<label class="col-sm-3 control-label">{{'FILE_ATTACHMENT_LABEL' | translate}}</label>
-					<p class="col-sm-9 control-label">Some file</p>
-				</div>
-
-				<!--submit button-->
-				<div class="form-group text-center btn-box">
-					<div class="col-sm-2 col-sm-offset-3">
-						<button class="btn btn-primary btn-block" type="button" ui-sref="editordashboard.question.edit({questionId: question.questionId})">{{'EDIT_BUTTON_LABEL' | translate}}</button>	
-					</div>
-					<div class="col-sm-2">
-						<button class="btn btn-danger btn-block" type="button">{{'DELETE_BUTTON_LABEL' | translate}}</button>
-					</div>
-					<div class="col-sm-2">
-						<button class="btn btn-sunflower btn-block" type="button" ui-sref="editordashboard.question.list">{{'BACK_TO_LIST_BUTTON_LABEL' | translate}}</button>
-					</div>
-				</div>
-			</form>
+			</div>
 		</div>
 	</div>
 </div>

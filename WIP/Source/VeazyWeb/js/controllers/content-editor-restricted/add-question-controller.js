@@ -66,6 +66,7 @@
 
 		function createNewSingleQuestion() {
 			$scope.listAnswers = [];
+			$scope.errorMsg = null;
 			for (var i = 0; i < $scope.MIN_ANSWER_NUMBER; i++) {
 				$scope.listAnswers.push({
 					isRight: false
@@ -76,6 +77,7 @@
 
 		function createNewGroupQuestion() {
 			$scope.questions = [];
+			$scope.errorMsg = null;
 			for (var i = 0; i < $scope.MIN_QUESTION_NUMBER_IN_GROUP; i++) {
 				$scope.questions.push({
 					listAnswers: []
@@ -144,17 +146,17 @@
 				etaTime: parseInt(moment.duration(timepicker.minutes(), 'minute').format('ss')) + timepicker.seconds()
 			};
 
-			var dialogConfigObj = {
-				template: 'partials/content-editor-restricted/error-alert.html',
-				className: 'ngdialog-theme-default error-dialog',
-				showClose: false,
-				closeByDocument: false,
-				disableAnimation: true,
-				overlay: false,
-				width: 400,
-				controller: 'errorDialogCtrl',
-				data: {}
-			};
+			// var dialogConfigObj = {
+			// 	template: 'partials/content-editor-restricted/error-alert.html',
+			// 	className: 'ngdialog-theme-default error-dialog',
+			// 	showClose: false,
+			// 	closeByDocument: false,
+			// 	disableAnimation: true,
+			// 	overlay: false,
+			// 	width: 400,
+			// 	controller: 'errorDialogCtrl',
+			// 	data: {}
+			// };
 
 			switch ($scope.selectedQuestionType.id) {
 				case CODE.SINGLE_QUESTION_TYPE: {
@@ -168,13 +170,15 @@
 					var hasNoRightAnswer = ValidateHelper.hasNoRightAnswer(question);
 
 					if (isNullSingleQuestion) {
-						dialogConfigObj.data.errorMsg = 'MISSING_QUESTION_FIELD_MSG';
-						ngDialog.open(dialogConfigObj);
+						$scope.errorMsg = 'MISSING_QUESTION_FIELD_MSG';
+						// dialogConfigObj.data.errorMsg = 'MISSING_QUESTION_FIELD_MSG';
+						// ngDialog.open(dialogConfigObj);
 						return;
 					} else {
 						if (hasNoRightAnswer) {
-							dialogConfigObj.data.errorMsg = 'REQUIRED_ANSWERS_MSG'
-							ngDialog.open(dialogConfigObj);
+							$scope.errorMsg = 'REQUIRED_ANSWERS_MSG';
+							// dialogConfigObj.data.errorMsg = 'REQUIRED_ANSWERS_MSG';
+							// ngDialog.open(dialogConfigObj);
 							return;
 						};
 					}
@@ -197,13 +201,15 @@
 					var hasNoRightAnswerInGroup = ValidateHelper.hasNoRightAnswerInGroup(question);
 
 					if (isNullGroupQuestion) {
-						dialogConfigObj.data.errorMsg = 'MISSING_QUESTION_FIELD_MSG';
-						ngDialog.open(dialogConfigObj);
+						$scope.errorMsg = 'MISSING_QUESTION_FIELD_MSG';
+						// dialogConfigObj.data.errorMsg = 'MISSING_QUESTION_FIELD_MSG';
+						// ngDialog.open(dialogConfigObj);
 						return;
 					} else {
 						if (hasNoRightAnswerInGroup) {
-							dialogConfigObj.data.errorMsg = 'REQUIRED_ANSWERS_MSG'
-							ngDialog.open(dialogConfigObj);
+							$scope.errorMsg = 'REQUIRED_ANSWERS_MSG';
+							// dialogConfigObj.data.errorMsg = 'REQUIRED_ANSWERS_MSG';
+							// ngDialog.open(dialogConfigObj);
 							return;
 						}
 					}

@@ -1,15 +1,11 @@
 ;(function() {
-	var lessonListCtrl = function($scope, $state, FileUploader, ngDialog, LessonService, veazyConfig) {
+	var lessonListCtrl = function($scope, $state, $filter, FileUploader, ngDialog, LessonService, veazyConfig) {
 		var CODE = veazyConfig.CODE;
-		$scope.uploader = new FileUploader({
-			url: 'http://163.44.172.52:8080/Veazy/uploadfile',
-			method: 'POST',
-			withCredentials: true
-		});
-
-		$scope.uploader.onBeforeUploadItem(function(item) {
-			item.withCredentials = true;
-		});
+		// $scope.uploader = new FileUploader({
+		// 	url: 'http://163.44.172.52:8080/Veazy/uploadfile',
+		// 	method: 'POST',
+		// 	withCredentials: true
+		// });
 
 		LessonService.getAllLessons().then(function(response) {
 			switch (response.code) {
@@ -17,7 +13,9 @@
 					// deferred.resolve(response);
 
 					$scope.lessonList = response.data;
+					$scope.filteredLessonList = $scope.lessonList;
 
+					//pagination
 					$scope.totalItems = $scope.lessonList.length;
 					$scope.currentPage = 1;
 					$scope.numPerPage = 5;
@@ -43,7 +41,18 @@
 
 		});
 
-		// $scope.lessonList = getLessonList.data;
+		$scope.levels = veazyConfig.levels.slice(0);
+		$scope.levels.splice(0, 0, {
+			id: 0,
+			name: 'ALL_LEVELS'
+		});
+		$scope.selectedLevel = $scope.levels[0];
+
+		$scope.filter = function() {
+			var courseId = $scope.selectedLevel.id;
+
+			$scope.filteredLessonList = $filter('lesson')($scope.lessonList, courseId);
+		};
 
 		$scope.openConfirmDeleteDialog = function(lesson) {
 			ngDialog.open({
@@ -61,6 +70,6 @@
 		};
 	};
 
-	lessonListCtrl.$inject = ['$scope', '$state', 'FileUploader', 'ngDialog', 'LessonService', 'veazyConfig'];
+	lessonListCtrl.$inject = ['$scope', '$state', '$filter', 'FileUploader', 'ngDialog', 'LessonService', 'veazyConfig'];
 	angular.module('veazyControllers').controller('lessonListCtrl', lessonListCtrl);
 })();
