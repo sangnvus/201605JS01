@@ -3,8 +3,8 @@
 
 	var app = angular.module('veazyApp', ['ngRoute', 'veazyControllers', 'veazyDirectives', 'veazyFilters', 'veazyFactories', 
 		'veazyServices', 'ngAnimate', 'ngDialog', 'ngSanitize', 'froala', 'ui.router', 'ui.bootstrap', 'pascalprecht.translate', 
-		'ngCookies', 'chart.js', 'ngResource', 'angular-md5', 'validation.match', 'ui.validate', 'LocalStorageModule', 
-		'ae-datetimepicker', 'angularFileUpload', 'ui.checkbox', 'ncy-angular-breadcrumb']);
+		'ngCookies', 'chart.js', 'ngResource', 'angular-md5', 'validation.match', 'LocalStorageModule', 
+		'ae-datetimepicker', 'angularFileUpload', 'ui.checkbox']);
 
 	
 	// app.run(['$rootScope', '$state','ngDialog', function($rootScope, $state, ngDialog) {

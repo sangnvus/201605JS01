@@ -1,6 +1,10 @@
 ;(function() {
-	editorSideBarCtrl = function($scope, $state, $translate, User, veazyConfig, localStorageService) {
-		$scope.username =localStorageService.get('username');
+	editorSideBarCtrl = function($scope, $state, $translate, UserService, veazyConfig, localStorageService) {
+		var CODE = veazyConfig.CODE;
+
+		$scope.username = localStorageService.get('username');
+		
+		//click change language
 		$scope.changeLanguage = function() {
 			var currentLang = $translate.use();
 			if (currentLang === 'en') {
@@ -14,11 +18,9 @@
 			}
 		};
 
+		//click logout
 		$scope.logout = function() {
-			var CODE = veazyConfig.CODE;
-			var user = new User();
-			user.$logout(function(response) {
-				console.log(response);
+			UserService.logout().then(function(response) {
 
 				switch (response.code) {
 					case CODE.SUCCESS: {
@@ -30,13 +32,11 @@
 						
 					}
 				}
-			}, function() {
-
-			})
-		}
+			});
+		};
 	};
 
-	editorSideBarCtrl.$inject = ['$scope', '$state', '$translate', 'User', 'veazyConfig', 'localStorageService'];
+	editorSideBarCtrl.$inject = ['$scope', '$state', '$translate', 'UserService', 'veazyConfig', 'localStorageService'];
 
 	angular.module('veazyControllers').controller('editorSideBarCtrl', editorSideBarCtrl);
 })();

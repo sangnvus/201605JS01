@@ -13,7 +13,6 @@
 			UserService.register(user).then(function(registerResponse) {
 				UserService.login(user).then(function(loginResponse) {
 					localStorageService.set('username', $scope.username);
-
 					$state.go('register.success');
 				}, function(reject) {
 					$scope.errorMsg = reject;

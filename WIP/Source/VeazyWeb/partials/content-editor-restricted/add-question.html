@@ -137,17 +137,19 @@
 						</div>
 
 						<!--file attachment-->
-						<!-- <div class="form-group">
+						<div class="form-group" ng-show="selectedTestSkill.id === CODE.LISTENING_SKILL">
 							<label class="control-label col-sm-2">{{'FILE_ATTACHMENT_LABEL' | translate}}</label>
 							<div class="col-sm-10">
-								<input type="text" class="form-control"></input>
+								<!-- <input type="text" class="form-control"></input> -->
+								<input file-input type="file" class="file" data-show-preview="false" nv-file-select uploader="uploader" filters="audio">
 							</div>
-						</div> -->
+						</div>
 
-						<!-- <div class="form-group">
-							<p class="control-label col-sm-10 col-sm-offset-2" translate="{{errorMsg}}"></p>
-						</div> -->
+						<div class="form-group">
+							<p class="col-sm-10 col-sm-offset-2" ng-show="uploadErrorMsg" translate="{{uploadErrorMsg}}" style="color: red;"></p>
+						</div>
 
+						<!-- time duration -->
 						<div class="form-group">
 							<label class="control-label col-sm-2" translate="TIME_ALLOWED_LABEL"></label>
 							<div class="col-sm-10">

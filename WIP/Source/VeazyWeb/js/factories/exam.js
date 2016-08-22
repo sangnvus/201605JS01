@@ -23,14 +23,15 @@
 				params: {
 					examId: '@examId'
 				}
-			},
-			redo: {
-				url: url + '/:examId/redo',
-				method: 'GET',
-				params: {
-					examId: '@examId'
-				}
 			}
+			// ,
+			// redo: {
+			// 	url: url + '/:examId/redo',
+			// 	method: 'GET',
+			// 	params: {
+			// 		examId: '@examId'
+			// 	}
+			// }
 		});
 	};
 

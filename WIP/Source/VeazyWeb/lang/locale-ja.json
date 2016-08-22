@@ -246,6 +246,17 @@
 	"SHOW_ONLY_LESSON_WHERE_HEADING": "レッソンのみを表示",
 	"ALL_TYPES": "すべてのタイプ",
 	"ALL_LEVELS": "すべてのレベル",
-	"ALL_SKILLS": "すべてのスキル"
+	"ALL_SKILLS": "すべてのスキル",
+
+	"SEE_RESULT_HYPERLINK": "結果を調査",
+	"RETAKE_HYPERLINK": "再受験",
+	"TIME_TAKEN_LABEL": "かかった時間期限",
+	"RESULT_LABEL": "結果",
+	"TEST_HISTORY_RECORD_HEADING": "{{skill}}のテスト",
+
+	"REPORT_LIST": "報告リスト",
+	"MARK_AS_CHECKED_BUTTON_LABEL": "既読にします",
+
+	"NOT_VALID_AUDIO_FILE_ERROR_MSG": "有効なオーディオファイルではありません。のみの.mp3ファイルは許可されます！"
 
 }

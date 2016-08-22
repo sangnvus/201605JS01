@@ -249,9 +249,15 @@
 	"ALL_LEVELS": "All Levels",
 	"ALL_SKILLS": "All Skills",
 
-	"RETAKE_HYPERLINK": "Retake",
+	"SEE_RESULT_HYPERLINK": "See result",
+	"RETAKE_HYPERLINK": "Retake this test",
 	"TIME_TAKEN_LABEL": "Time taken",
 	"RESULT_LABEL": "Result",
-	"TEST_HISTORY_RECORD_HEADING": "{{skill}} Test"
+	"TEST_HISTORY_RECORD_HEADING": "{{skill}} Test",
+
+	"REPORT_LIST": "Report List",
+	"MARK_AS_CHECKED_BUTTON_LABEL": "Mark as checked",
+
+	"NOT_VALID_AUDIO_FILE_ERROR_MSG": "Not a valid audio file. Only .mp3 file is allowed!"
 
 }

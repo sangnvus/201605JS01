@@ -1,20 +1,10 @@
 ;(function() {
 	'usestrict';
-	var homeCtrl = function($scope, User, localStorageService) {
-		$scope.username = localStorageService.get('username');
+	var homeCtrl = function($scope, User) {
 
-		$scope.makeEditor = function() {
-			var user = new User();
-			user.username = 'wanda_maximoff';
-			user.$makeEditor(function(response) {
-				console.log(response);
-			}, function() {
-
-			});
-		};
 	};
 
-	homeCtrl.$inject = ['$scope', 'User', 'localStorageService'];
+	homeCtrl.$inject = ['$scope', 'User'];
 
 	angular.module('veazyControllers').controller('homeCtrl', homeCtrl);
 })();

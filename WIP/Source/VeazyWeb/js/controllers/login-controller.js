@@ -1,7 +1,7 @@
 ;(function() {
 	'use strict';
 
-	var loginCtrl = function($scope, $state, UserService, md5, veazyConfig, localStorageService) {
+	var loginCtrl = function($scope, $state, UserService, md5, localStorageService, veazyConfig) {
 		
 		$scope.login = function() {
 			var CODE = veazyConfig.CODE;
@@ -40,7 +40,7 @@
 		};
 	};
 
-	loginCtrl.$inject = ['$scope', '$state', 'UserService', 'md5', 'veazyConfig', 'localStorageService'];
+	loginCtrl.$inject = ['$scope', '$state', 'UserService', 'md5', 'localStorageService', 'veazyConfig'];
 
 	angular.module('veazyControllers').controller('loginCtrl', loginCtrl);
 })();

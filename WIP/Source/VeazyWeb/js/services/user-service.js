@@ -138,7 +138,20 @@
 					});
 				});
 				return deferred.promise;
-			}
+			},
+			logout: function() {
+				var userFactory = new User();
+				var deferred = $q.defer();
+				$timeout(function() {
+					userFactory.$logout(function(response) {
+						console.log(response);
+						deferred.resolve(response);
+					}, function() {
+						deferred.reject('ERROR_CONNECTION');
+					});
+				});
+				return deferred.promise;
+			},
 		};
 	}
 
