@@ -6,7 +6,7 @@
 
 			<!-- test content panel -->
 			<div class="col-md-8 left">
-				<div ui-view></div>
+				<div ui-view autoscroll=""></div>
 			</div>
 
 			<!-- test setup panel -->
@@ -27,9 +27,9 @@
 
 							<div class="form-group">
 								<label translate="NUMBER_OF_QUESTIONS_LABEL"></label>
-								<input type="number" class="form-control" name="numberOfQuestion" ng-model="numberOfQuestion" min="{{minNumberOfQuestions}}" required></input>
+								<input type="number" class="form-control" name="numberOfQuestion" ng-model="numberOfQuestion" required></input>
 								<p ng-show="setupExamForm.numberOfQuestion.$error.min">Required at least 10!</p>
-								<p ng-show="error">{{error}}</p>
+								<p class="error" ng-show="error" translate="{{error}}"></p>
 							</div>
 
 							<div class="form-group">

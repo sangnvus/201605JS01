@@ -36,6 +36,10 @@ public class ExamQuestionResponse {
     }
 
     public ExamQuestionResponse(ExamQuestionModel question) {
+        this(question, true);
+    }
+
+    public ExamQuestionResponse(ExamQuestionModel question, boolean userAnswerInclude) {
         this.questionId = question.getQuestionId();
         this.questionType = question.getQuestionType();
         this.question = question.getQuestion();
@@ -56,6 +60,7 @@ public class ExamQuestionResponse {
             List<ExamAnswerModel> listAns = question.getListAnswers();
             if (listAns != null && !listAns.isEmpty()) {
                 for (ExamAnswerModel ans : listAns) {
+                    if (!userAnswerInclude) ans.setIsSelected(false);
                     listAnswers.add(new ExamAnswerResponse(ans));
                 }
             }

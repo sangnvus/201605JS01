@@ -1,12 +1,12 @@
 ;(function() {
 	'use strict';
-	var headerCtrl = function($scope, $translate, $state, User, localStorageService, veazyConfig) {
+	var headerCtrl = function($scope, $translate, $state, UserService, localStorageService, veazyConfig) {
 		var CODE = veazyConfig.CODE;
+
+		//check current lang
 		var currentLang = $translate.use();
-		
 		$scope.showEnglishBrand = currentLang === 'ja';
 		$scope.showJapaneseBrand = currentLang === 'en';
-		// console.log($scope.showEnglishBrand, $scope.showJapaneseBrand);
 
 		//click change language
 		$scope.changeLanguage = function(keyLang) {
@@ -20,9 +20,7 @@
 
 		//click log out
 		$scope.logout = function() {
-			var user = new User();
-			user.$logout(function(response) {
-				console.log(response);
+			UserService.logout().then(function(response) {
 				switch (response.code) {
 					case CODE.SUCCESS: {
 
@@ -36,12 +34,10 @@
 
 					}
 				}
-			}, function() {
-				console.log('error');
 			});
 		};
 	};
-	headerCtrl.$inject = ['$scope', '$translate', '$state', 'User', 'localStorageService', 'veazyConfig'];
+	headerCtrl.$inject = ['$scope', '$translate', '$state', 'UserService', 'localStorageService', 'veazyConfig'];
 
 	angular.module('veazyControllers').controller('headerCtrl', headerCtrl);
 })();

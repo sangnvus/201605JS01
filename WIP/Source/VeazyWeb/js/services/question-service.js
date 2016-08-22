@@ -72,6 +72,22 @@
 					});
 				});
 				return deferred.promise;
+			},
+			report: function(questionId, content) {
+				var deferred = $q.defer();
+				var questionFactory = new Question({
+					questionId: questionId,
+					content: content
+				});
+
+				$timeout(function() {
+					questionFactory.$report(function(response) {
+						deferred.resolve(response);
+					}, function() {
+						deferred.reject();
+					});
+				});
+				return deferred.promise;
 			}
 		};
 	};

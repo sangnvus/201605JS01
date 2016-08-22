@@ -1,22 +1,3 @@
-<style type="text/css">
-	.green-text {
-		color: green;
-		font-weight: 700 !important;
-	}
-
-	/*.check-box label {
-		cursor: default;
-	}*/
-
-	.test-content div.checkbox label {
-		cursor: default;
-	}
-
-	.reading-content {
-		padding: 10px;
-	}
-</style>
-
 <form ng-submit="submitTest()">
 	<div class="test-content clearfix" ng-if="exam.etaTime > 0">
 		<h3 count-down-timer>{{duration}}</h3>
@@ -24,11 +5,12 @@
 		<ul class="question-list" ng-if="exam.skill !== CODE.READING_SKILL">
 			<li ng-repeat="question in exam.listQuestions track by $index">
 				<p>{{$index + 1}}. {{question.question}}</p>
+				<audio ng-if="exam.skill === CODE.LISTENING_SKILL" controls ng-src="{{question.attachment}}"></audio>
 				<ul class="answer-list">
-					<li ng-repeat="ans in question.answer track by $index">
+					<li ng-repeat="answer in question.listAnswers track by $index">
 						<div class="checkbox">
-							<checkbox ng-model="ans.isSelected"></checkbox>
-							<label ng-class="{'green-text': ans.isRight}">{{ans.answer}}</label>
+							<checkbox ng-model="answer.isSelected"></checkbox>
+							<label ng-class="{'true-answer': answer.isRight}">{{answer.answer}}</label>
 						</div>
 					</li>
 				</ul>
@@ -37,16 +19,16 @@
 
 		<ul class="question-list" ng-if="exam.skill === CODE.READING_SKILL">
 			<li ng-repeat="question in exam.listQuestions track by $index">
-				<p>{{$index + 1}}. ARTICLE_GUIDE</p>
+				<p>{{$index + 1}}. {{'ARTICLE_GUIDE' | translate}}</p>
 				<div class="reading-content" ng-bind-html="trustAsHtml(question.question)"></div>
 				<ul>
 					<li ng-repeat="question in question.listQuestions track by $index">
 						<p>{{$parent.$index + 1}}.{{$index + 1}}. {{question.question}}</p>
 						<ul class="answer-list">
-							<li ng-repeat="ans in question.answer">
+							<li ng-repeat="answer in question.listAnswers">
 								<div class="checkbox">
-									<checkbox ng-model="ans.isSelected"></checkbox>
-									<label ng-class="{'green-text': ans.isRight}">{{ans.answer}}</label>
+									<checkbox ng-model="answer.isSelected"></checkbox>
+									<label ng-class="{'true-answer': answer.isRight}">{{answer.answer}}</label>
 								</div>
 							</li>
 						</ul>

@@ -66,6 +66,7 @@ public class QuestionBankServiceImpl implements QuestionBankService {
                     exam.setEtaTime(time);
                     exam.setListQuestions(partExamQues);
                     exam.setUserId(userId);
+                    exam.setCreateDate(System.currentTimeMillis());
                     examDao.save(exam);
                     examPartResp.setExamId(exam.getId());
                 }
@@ -82,7 +83,7 @@ public class QuestionBankServiceImpl implements QuestionBankService {
             List<BriefQuestionResponse> result,
             Integer questionNumber, Integer courseId, Integer examSkill, boolean offlineCheck,
             ExamModel ex, List<ExamQuestionModel> exam) throws Exception {
-        int eta = Const.EXAM_INSURANCE_TIME;
+        int eta = 0;
         try {
             QuestionModel question = new QuestionModel();
 
@@ -131,7 +132,7 @@ public class QuestionBankServiceImpl implements QuestionBankService {
             // TODO custom exception
             throw new Exception(e.getMessage(), e);
         }
-        return eta;
+        return eta + Const.EXAM_INSURANCE_TIME;
     }
 
     /**

@@ -7,7 +7,7 @@
 			if (!input) {
 				return;
 			}
-			return moment.duration(input, 'seconds').format('mm:ss')
+			return moment.duration(input, 'seconds').format('mm:ss', {trim: false});
 		}
 	}]);
 })();

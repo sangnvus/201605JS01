@@ -29,14 +29,12 @@ import vn.edu.fu.veazy.core.form.AnswerForm;
 @Entity
 @DynamicInsert
 @DynamicUpdate
-@Indexed
 @Table(name = "`Answer`")
 public class AnswerModel extends BasicModel {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name="questionmodel_id")
     private QuestionModel question;
-    @Field(store = Store.YES, index = Index.YES, analyze = Analyze.YES)
     @Column(name = "answer", nullable = false)
     private String answer;
     @Column(name = "isRight", columnDefinition="BOOLEAN DEFAULT FALSE", nullable = true)

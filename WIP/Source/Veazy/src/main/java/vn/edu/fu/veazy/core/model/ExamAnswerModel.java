@@ -29,7 +29,6 @@ import vn.edu.fu.veazy.core.form.AnswerForm;
 @Entity
 @DynamicInsert
 @DynamicUpdate
-@Indexed
 @Table(name = "`ExamAnswer`")
 public class ExamAnswerModel extends BasicModel {
 

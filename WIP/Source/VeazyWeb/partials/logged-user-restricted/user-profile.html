@@ -5,14 +5,17 @@
 			<img src="img/emma.png" class="img-profile img-lg img-responsive">
 			<div class="text-center" style="padding: 15px 0;">
 				<button class="btn btn-primary" translate="CHANGE_PROFILE_PICTURE_BUTTON_LABEL"></button>
+				<!-- <input class="form-control" type="file" nv-file-select uploader="uploader"/><br/> -->
 			</div>
 		</div>
 
 		<div class="col-md-9">
 			<!-- profile options -->
 			<div class="dropdown pull-right">
-				<a href="" class="dropdown-toggle" type="button" data-toggle="dropdown" translate="ACTIONS_HYPERLINK">
-				<span class="caret"></span></a>
+				<a href="" class="dropdown-toggle" data-toggle="dropdown">
+					{{'ACTIONS_HYPERLINK' | translate}}
+					<span class="caret"></span>
+				</a>
 				<ul class="dropdown-menu">
 					<li><a href="" ng-click="openUpdateProfileDialog()" translate="UPDATE_PROFILE_HYPERLINK"></a></li>
 					<li><a href="" ng-click="openChangePasswordDialog()" translate="CHANGE_PASSWORD_HYPERLINK"></a></li>

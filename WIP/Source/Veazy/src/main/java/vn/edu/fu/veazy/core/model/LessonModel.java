@@ -13,7 +13,6 @@ import org.hibernate.search.annotations.Indexed;
 @Entity
 @DynamicInsert
 @DynamicUpdate
-@Indexed
 @Table(name = "`Lesson`")
 public class LessonModel extends BasicModel{
     /**
@@ -39,7 +38,7 @@ public class LessonModel extends BasicModel{
 		super();
 	}
 	public LessonModel(Integer id, Long createDate, Long updateDate, Long deleteDate, boolean deleteFlag, int index,
-			Integer courseId, Integer currentVersionId) {
+	        Integer courseId, Integer currentVersionId) {
 		super(id, createDate, updateDate, deleteDate, deleteFlag);
 		this.index = index;
 		this.courseId = courseId;

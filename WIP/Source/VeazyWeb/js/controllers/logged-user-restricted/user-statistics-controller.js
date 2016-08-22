@@ -1,6 +1,6 @@
 ;(function() {
 	'use strict';
-	var userStatisticsCtrl = function($scope, User, veazyConfig, UserService) {
+	var userStatisticsCtrl = function($scope, veazyConfig, ChartService) {
 		var CODE = veazyConfig.CODE;
 
 		// $scope.skillData = [
@@ -37,51 +37,51 @@
 		// };
 
 		//get stats of skills
-		UserService.getSkillStats().then(function(response) {
+		ChartService.getSkillStats().then(function(response) {
 			console.log(response);
 			switch (response.code) {
 				case CODE.SUCCESS: {
 					var data = response.data;
 					$scope.skillLabels =['Vocabulary', 'Grammar', 'Listening', 'Reading', 'Writing'];
 					$scope.skillData = [
-						[data.vocabulary, data.grammar, data.listening, data.reading, 9]
+						[data.vocabulary, data.grammar, data.listening, data.reading, 0]
 					];
+
+					//get marks of 10 recently exams
+					ChartService.getExamMarkStats(10).then(function(response) {
+						console.log(response);
+						switch (response.code) {
+							case CODE.SUCCESS: {
+								var responseData = response.data;
+
+								$scope.testGradeLabels = [];
+								$scope.testGradeData = [[]];
+
+								$scope.testGradeLabels = [];
+								for (var i = 0; i < responseData.length; i++) {
+									// $scope.testGradeLabels.push('Test' + (i + 1));
+									$scope.testGradeLabels.push('Test' + (i + 1));
+									$scope.testGradeData[0].push(responseData[i].result);
+								}
+
+								console.log($scope.testGradeData);
+							}
+
+							default: {
+								//handling other case
+							}
+						}
+					});
 				}
 
 				default: {
 					//handling other case
 				}
 			}
-		}, function(reject) {
-			//handling error
-		});
-
-		//get marks of 10 recently exams
-		UserService.getExamMarkStats(10).then(function(response) {
-			console.log(response);
-			switch (response.code) {
-				case CODE.SUCCESS: {
-					var data = response.data;
-					var length = response.data.length;
-
-					$scope.testGradeLabels = [];
-					for (var i = 0; i < length; i++) {
-						$scope.testGradeLabels.push('Test' + (i + 1));
-					}
-
-					$scope.skillData = [response.data];
-				}
-
-				default: {
-					//handling other case
-				}
-			}
-		}, function(reject) {
-			//handling error
 		});
 
 		//get marks of test based on level
-		UserService.getLevelStats().then(function(response) {
+		ChartService.getLevelStats().then(function(response) {
 			console.log(response);
 			switch (response.code) {
 				case CODE.SUCCESS: {
@@ -105,6 +105,6 @@
 		});
 	};
 
-	userStatisticsCtrl.$inject = ['$scope', 'User', 'veazyConfig', 'UserService'];
+	userStatisticsCtrl.$inject = ['$scope', 'veazyConfig', 'ChartService'];
 	angular.module('veazyControllers').controller('userStatisticsCtrl', userStatisticsCtrl);
 })();

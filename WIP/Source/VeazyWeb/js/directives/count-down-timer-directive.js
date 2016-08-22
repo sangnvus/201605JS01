@@ -9,6 +9,12 @@
 				$(element).css('position', 'absolute');
 				$(element).css('top', '0');
 				$(element).css('right', '10px');
+				$(element).css('border', '1px solid #ccc');
+				$(element).css('background-color', '#f2f2f2');
+				$(element).css('padding', '5px 10px');
+				$(element).css('border-radius', '4px');
+				$(element).css('font-family', 'Arial');
+				$(element).css('font-weight', '700');
 
 				//document scroll top
 				var lastScrollTop = 0;

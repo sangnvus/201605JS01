@@ -1,0 +1,45 @@
+
+<div class="row">
+	<div class="col-md-12">
+		<h3>Test History</h3>
+		<div class="panel panel-default" ng-repeat="test in testHistoryList | filter: paginate">
+			<div class="panel-body">
+				<div class="dropdown pull-right">
+					<a href="" class="dropdown-toggle" data-toggle="dropdown">
+						{{'ACTIONS_HYPERLINK' | translate}}
+						<span class="caret"></span>
+					</a>
+					<ul class="dropdown-menu">
+						<li><a href="" translate="SEE_RESULT_HYPERLINK" ui-sref="test.seelastresult({examId: test.examId})"></a></li>
+						<li><a href="" translate="RETAKE_HYPERLINK" ui-sref="test.taketest({examId: test.examId})"></a></li>
+					</ul>
+				</div>
+				<!-- <a href="" class="pull-right" translate="RETAKE_HYPERLINK" ng-click="getTest(test.examId)"></a> -->
+				<h3 translate="TEST_HISTORY_RECORD_HEADING" translate-values="{skill: ((test.skill | testSkill) | translate)}"></h3>
+				<table class="table">
+					<tbody>
+						<tr>
+							<td class="col-md-6" translate="LEVEL_LABEL"></td>
+							<td class="col-md-6">{{(test.courseId | level) | translate}}</td>
+						</tr>
+						<tr>
+							<td class="col-md-6"  translate="TIME_ALLOWED_LABEL"></td>
+							<td class="col-md-6">{{test.etaTime | timeDuration}}</td>
+						</tr>
+						<tr>
+							<td class="col-md-6" translate="TIME_TAKEN_LABEL"></td>
+							<td class="col-md-6">{{test.takenTime | timeDuration}}</td>
+						</tr>
+						<tr>
+							<td class="col-md-6" translate="RESULT_LABEL"></td>
+							<td class="col-md-6">{{test.result + '/100'}}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div class="text-center">
+			<uib-pagination class="pagination" total-items="testHistoryList.length" ng-model="currentPage" max-size="5" boundary-links="true" items-per-page="numPerPage" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></uib-pagination>
+		</div>
+	</div>
+</div>

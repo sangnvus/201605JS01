@@ -187,7 +187,7 @@
 	"CREATED_DATE_LABEL": "作成日",
 	"LAST_UPDATE_DATE_LABEL": "最後更新日",
 
-	"QUESTION_DETAIL_HEADING": "{{id}}の質問",
+	"QUESTION_DETAIL_HEADING": "＃{{id}}の質問",
 	"EDIT_BUTTON_LABEL": "編集",
 	"DELETE_BUTTON_LABEL": "排除",
 	"BACK_TO_LIST_BUTTON_LABEL": "リストへ",
@@ -229,5 +229,34 @@
 	"ROLE_LABEL": "役割",
 	"STATUS_LABEL": "状態",
 	"FILTER_BUTTON_LABEL": "フィルター",
-	"OPERATIONS_LABEL": "操作"
+	"OPERATIONS_LABEL": "操作",
+
+	"ARTICLE_GUIDE": "次のエッセイを読み、それぞれの質問の中で最も正しい答え（複数可）を選択してください。",
+	"GRADE_LABEL": "グレード：",
+	"NO_EXAM": "このレベルとスキルに応じた質問はまだ追加されません！",
+	"RESULT_HEADING": "結果：",
+
+	"TEST_HISTORY_BUTTON_LABEL": "テスト歴史",
+
+	"REPORT_QUESTION_HEADING": "質問報告",
+	"REPORT_QUESTION_INTRO": "どうしてこの質問をご報告なったか、ご理由をお聞かせください。",
+	"REPORT_QUESTION_CONFIRM": "ご報告トは、レビューのために提出されました。 ご協力ありがとうございます。",
+
+	"SHOW_ONLY_QUESTIONS_WHERE_HEADING": "質問のみを表示",
+	"SHOW_ONLY_LESSON_WHERE_HEADING": "レッソンのみを表示",
+	"ALL_TYPES": "すべてのタイプ",
+	"ALL_LEVELS": "すべてのレベル",
+	"ALL_SKILLS": "すべてのスキル",
+
+	"SEE_RESULT_HYPERLINK": "結果を調査",
+	"RETAKE_HYPERLINK": "再受験",
+	"TIME_TAKEN_LABEL": "かかった時間期限",
+	"RESULT_LABEL": "結果",
+	"TEST_HISTORY_RECORD_HEADING": "{{skill}}のテスト",
+
+	"REPORT_LIST": "報告リスト",
+	"MARK_AS_CHECKED_BUTTON_LABEL": "既読にします",
+
+	"NOT_VALID_AUDIO_FILE_ERROR_MSG": "有効なオーディオファイルではありません。のみの.mp3ファイルは許可されます！"
+
 }

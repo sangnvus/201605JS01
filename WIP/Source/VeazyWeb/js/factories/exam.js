@@ -12,7 +12,26 @@
 			submit: {
 				url: url + '/submit',
 				method: 'POST' 
+			},
+			getHistoryList: {
+				url: '/Veazy/api/user/exams',
+				method: 'GET'
+			},
+			getHistory: {
+				url: url + '/:examId',
+				method: 'GET',
+				params: {
+					examId: '@examId'
+				}
 			}
+			// ,
+			// redo: {
+			// 	url: url + '/:examId/redo',
+			// 	method: 'GET',
+			// 	params: {
+			// 		examId: '@examId'
+			// 	}
+			// }
 		});
 	};
 

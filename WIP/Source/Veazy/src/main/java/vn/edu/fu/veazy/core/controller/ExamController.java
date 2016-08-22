@@ -143,84 +143,85 @@ public class ExamController {
                 response.setCode(ResponseCode.USER_NOT_FOUND);
                 return response.toResponseJson();
             }
-            
-            ExamModel exam = examService.findExamById(form.getExamId());
-            if (exam == null) {
-                LOGGER.debug("exam not found!");
-                response.setCode(HttpStatus.NOT_FOUND.value());
-                return response.toResponseJson();
-            }
-
-            //calculate result
-            List<SubmitQuestionForm> listQuestion = form.getListQuestions();
-            List<ExamQuestionModel> listOriginQuestion = exam.getListQuestions();
-            Double userRight = 0d;
-            Integer totalRight = listOriginQuestion.size();
-            Integer singleQuesChoice = 0;
-            Integer singleQuesRight = 0;
-            for (SubmitQuestionForm answerForm : listQuestion) {
-                Integer questionId = answerForm.getQuestionId();
-                for (ExamQuestionModel m : listOriginQuestion) {
-                    if (questionId == m.getQuestionId()
-                            && m.getQuestionType() != Const.QUESTIONTYPE_GROUP) {
-                        List<ExamAnswerModel> listAnswers = m.getListAnswers();
-                        List<SubmitAnswerForm> listUserAnswers = answerForm.getListAnswers();
-                        if (listAnswers.size() != listUserAnswers.size()) {
-                            throw new CorruptedFormException("Wrong answer size");
-                        }
-                        int index = 0;
-                        singleQuesChoice = 0;
-                        singleQuesRight = 0;
-                        boolean failedQues = false;
-                        for (ExamAnswerModel ansModel : listAnswers) {
-                            if (ansModel.getIsRight()) {
-                                if (listUserAnswers.get(index).getIsSelected() && !failedQues) {
-                                    singleQuesChoice++;
-                                    ansModel.setIsSelected(true);
-                                }
-                                singleQuesRight++;
-                            } else {
-                                if (listUserAnswers.get(index).getIsSelected()) {
-                                    singleQuesChoice = 0;
-                                    ansModel.setIsSelected(true);
-                                    failedQues = true;
-                                }
-                            }
-                            index++;
-                        }
-                        if (singleQuesRight > 0)
-                            userRight += Utils.round(singleQuesChoice/singleQuesRight, 2);
-//                        int i = 0;
-//                        boolean correctChoice = false;
-//                        for (SubmitAnswerForm ansForm : listUserAnswers) {
-//                            if (ansForm.getIsSelected()) {
-//                                ExamAnswerModel origin = listAnswers.get(i);
-//                                origin.setIsSelected(true);
-//                                if (origin.getIsRight()) {
-//                                    correctChoice = true;
-//                                } else {
-//                                    correctChoice = false;
-//                                    break;
-//                                }
-//                            }
-//                            i++;
+//            
+//            ExamModel exam = examService.findExamById(form.getExamId());
+//            if (exam == null) {
+//                LOGGER.debug("exam not found!");
+//                response.setCode(HttpStatus.NOT_FOUND.value());
+//                return response.toResponseJson();
+//            }
+//
+//            //calculate result
+//            List<SubmitQuestionForm> listQuestion = form.getListQuestions();
+//            List<ExamQuestionModel> listOriginQuestion = exam.getListQuestions();
+//            Double userRight = 0d;
+//            Integer totalRight = listOriginQuestion.size();
+//            Integer singleQuesChoice = 0;
+//            Integer singleQuesRight = 0;
+//            for (SubmitQuestionForm answerForm : listQuestion) {
+//                Integer questionId = answerForm.getQuestionId();
+//                for (ExamQuestionModel m : listOriginQuestion) {
+//                    if (questionId == m.getQuestionId()
+//                            && m.getQuestionType() != Const.QUESTIONTYPE_GROUP) {
+//                        List<ExamAnswerModel> listAnswers = m.getListAnswers();
+//                        List<SubmitAnswerForm> listUserAnswers = answerForm.getListAnswers();
+//                        if (listAnswers.size() != listUserAnswers.size()) {
+//                            throw new CorruptedFormException("Wrong answer size");
 //                        }
+//                        int index = 0;
+//                        singleQuesChoice = 0;
+//                        singleQuesRight = 0;
+//                        boolean failedQues = false;
 //                        for (ExamAnswerModel ansModel : listAnswers) {
 //                            if (ansModel.getIsRight()) {
-//                                totalRight++;
+//                                if (listUserAnswers.get(index).getIsSelected() && !failedQues) {
+//                                    singleQuesChoice++;
+//                                    ansModel.setIsSelected(true);
+//                                }
+//                                singleQuesRight++;
+//                            } else {
+//                                if (listUserAnswers.get(index).getIsSelected()) {
+//                                    singleQuesChoice = 0;
+//                                    ansModel.setIsSelected(true);
+//                                    failedQues = true;
+//                                }
 //                            }
+//                            index++;
 //                        }
-                    }
-                }
-            }
-            if (totalRight > 0) exam.setResult(Utils.round(userRight/totalRight, 2) * 100);
-//            exam.setTakenTime(0);
-            exam.setTakenTime(form.getTakenTime());
-            //save in case is new exam
-            if (!exam.getFinishState()) {
-                exam.setFinishState(true);
-                examService.updateExam(exam);
-            }
+//                        if (singleQuesRight > 0)
+//                            userRight += Utils.round(singleQuesChoice/singleQuesRight, 2);
+////                        int i = 0;
+////                        boolean correctChoice = false;
+////                        for (SubmitAnswerForm ansForm : listUserAnswers) {
+////                            if (ansForm.getIsSelected()) {
+////                                ExamAnswerModel origin = listAnswers.get(i);
+////                                origin.setIsSelected(true);
+////                                if (origin.getIsRight()) {
+////                                    correctChoice = true;
+////                                } else {
+////                                    correctChoice = false;
+////                                    break;
+////                                }
+////                            }
+////                            i++;
+////                        }
+////                        for (ExamAnswerModel ansModel : listAnswers) {
+////                            if (ansModel.getIsRight()) {
+////                                totalRight++;
+////                            }
+////                        }
+//                    }
+//                }
+//            }
+//            if (totalRight > 0) exam.setResult(Utils.round(userRight/totalRight, 2) * 100);
+////            exam.setTakenTime(0);
+//            exam.setTakenTime(form.getTakenTime());
+//            //save in case is new exam
+//            if (!exam.getFinishState()) {
+//                exam.setFinishState(true);
+//                examService.updateExam(exam);
+//            }
+            ExamModel exam = examService.calcResult(form);
             GetExamResponse data = new GetExamResponse(exam);
             response.setCode(ResponseCode.SUCCESS);
             response.setData(data);
@@ -231,6 +232,7 @@ public class ExamController {
             LOGGER.error(e.getMessage());
             LOGGER.error("Unknown error occured!");
             response.setCode(ResponseCode.INTERNAL_SERVER_ERROR);
+            e.printStackTrace();
         }
         return response.toResponseJson();
     }
@@ -248,7 +250,7 @@ public class ExamController {
     String getExamAnswer(@PathVariable("exam_id") Integer examId,
             Principal principal) throws Exception {
         Response response = new Response(ResponseCode.BAD_REQUEST);
-//        try {
+        try {
             LOGGER.debug("Get to get exam answer controller successful");
 
             String userName = principal.getName();
@@ -270,12 +272,12 @@ public class ExamController {
             LOGGER.debug("Get exam successfully!");
 
             return response.toResponseJson();
-//        } catch (Exception e) {
-//            LOGGER.error(e.getMessage());
-//            LOGGER.error("Unknown error occured!");
-//            response.setCode(ResponseCode.INTERNAL_SERVER_ERROR);
-//        }
-//        return response.toResponseJson();
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage());
+            LOGGER.error("Unknown error occured!");
+            response.setCode(ResponseCode.INTERNAL_SERVER_ERROR);
+        }
+        return response.toResponseJson();
     }
 
     /**
@@ -292,7 +294,7 @@ public class ExamController {
             Principal principal) {
         Response response = new Response(ResponseCode.BAD_REQUEST);
         try {
-            LOGGER.debug("Get to redo exam controller successful");
+            LOGGER.debug("Get to get exam answer controller successful");
 
             String userName = principal.getName();
             UserModel user = userService.findUserByUsername(userName);
@@ -302,23 +304,15 @@ public class ExamController {
                 return response.toResponseJson();
             }
             ExamModel exam = examService.findExamById(examId);
-            // can't redo if not the creator of the exam
             if (!Objects.equals(user.getId(), exam.getUserId())) {
                 LOGGER.debug("user not allow!");
                 response.setCode(ResponseCode.USER_NOT_ALLOW);
                 return response.toResponseJson();
             }
-            List<QuestionResponse> datas = new ArrayList<>();
-            List<ExamQuestionModel> listQuestions = exam.getListQuestions();
-            for (ExamQuestionModel answer : listQuestions) {
-                Integer questionId = answer.getQuestionId();
-                QuestionModel question = questionService.findQuestionById(questionId);
-                QuestionResponse data = new QuestionResponse(question);
-                datas.add(data);
-            }
+            GetExamResponse data = new GetExamResponse(exam, false);
             response.setCode(ResponseCode.SUCCESS);
-            response.setData(datas);
-            LOGGER.debug("Redo exam successfully!");
+            response.setData(data);
+            LOGGER.debug("Get exam successfully!");
 
             return response.toResponseJson();
         } catch (Exception e) {

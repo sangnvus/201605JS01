@@ -8,6 +8,7 @@ import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Example;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -35,6 +36,7 @@ public class HibernateAnswerDao implements GenericDao<AnswerModel, Integer> {
         try {
             return sessionFactory.getCurrentSession().createCriteria(AnswerModel.class)
                                                      .add(Example.create(exampleInstance))
+                                                     .addOrder(Order.asc("id"))
                                                      .list();
         } catch (HibernateException e) {
             // TODO custom exception
@@ -48,6 +50,7 @@ public class HibernateAnswerDao implements GenericDao<AnswerModel, Integer> {
         try {
             return sessionFactory.getCurrentSession().createCriteria(AnswerModel.class)
                                                      .add(Example.create(exampleInstance))
+                                                     .addOrder(Order.asc("id"))
                                                      .setFirstResult(offset)
                                                      .setMaxResults(limit)
                                                      .list();

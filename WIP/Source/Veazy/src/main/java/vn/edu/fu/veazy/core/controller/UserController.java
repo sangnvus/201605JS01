@@ -1,6 +1,7 @@
 package vn.edu.fu.veazy.core.controller;
 
 import java.security.Principal;
+import java.util.Collections;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -33,7 +34,7 @@ import vn.edu.fu.veazy.core.form.RegisterForm;
 import vn.edu.fu.veazy.core.form.UpdateUserForm;
 import vn.edu.fu.veazy.core.model.ExamModel;
 import vn.edu.fu.veazy.core.model.UserModel;
-import vn.edu.fu.veazy.core.response.ExamResultResponse;
+import vn.edu.fu.veazy.core.response.GetExamResponse;
 import vn.edu.fu.veazy.core.response.GetLearnerExamsResponse;
 import vn.edu.fu.veazy.core.response.GetListUsersResponse;
 import vn.edu.fu.veazy.core.response.GetUserResponse;
@@ -480,8 +481,9 @@ public class UserController {
                 response.setCode(ResponseCode.USER_EXAMS_NOT_FOUND);
             }
             GetLearnerExamsResponse data = new GetLearnerExamsResponse();
+            Collections.reverse(exams);
             for (ExamModel exam : exams) {
-                ExamResultResponse erd = new ExamResultResponse(exam);
+                GetExamResponse erd = new GetExamResponse(exam, false);
                 data.addExam(erd);
             }
             LOGGER.debug("Get learner exams successfully!");
@@ -491,6 +493,7 @@ public class UserController {
             LOGGER.error(e.getMessage());
             LOGGER.error("Unknown error occured!");
             response.setCode(ResponseCode.INTERNAL_SERVER_ERROR);
+            e.printStackTrace();
         }
         return response.toResponseJson();
     }

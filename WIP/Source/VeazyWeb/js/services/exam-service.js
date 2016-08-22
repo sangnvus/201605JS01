@@ -26,7 +26,47 @@
 					});
 				});
 				return deferred.promise;
+			},
+			getHistoryList: function() {
+				var examFactory = new Exam();
+				var deferred = $q.defer();
+
+				$timeout(function() {
+					examFactory.$getHistoryList(function(response) {
+						deferred.resolve(response);
+					}, function(reject) {
+						deferred.reject();
+					})
+				});
+				return deferred.promise;
+			},
+			getHistory: function(examId) {
+				var examFactory = new Exam({examId: examId});
+				var deferred = $q.defer();
+
+				$timeout(function() {
+					examFactory.$getHistory(function(response) {
+						deferred.resolve(response);
+					}, function(reject) {
+						deferred.reject();
+					})
+				});
+				return deferred.promise;
 			}
+			// ,
+			// redo: function(examId) {
+			// 	var examFactory = new Exam({examId: examId});
+			// 	var deferred = $q.defer();
+
+			// 	$timeout(function() {
+			// 		examFactory.$redo(function(response) {
+			// 			deferred.resolve(response);
+			// 		}, function(reject) {
+			// 			deferred.reject();
+			// 		})
+			// 	});
+			// 	return deferred.promise;
+			// }
 		};
 	};
 

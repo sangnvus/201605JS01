@@ -16,6 +16,7 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
@@ -49,11 +50,13 @@ public class ExamQuestionModel extends BasicModel {
     @Column(name = "listAnswers", nullable = false)
     @Access(AccessType.PROPERTY)
     @LazyCollection(LazyCollectionOption.FALSE)
+    @OrderBy
     private List<ExamAnswerModel> listAnswers = new ArrayList<>();
     @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "parentQuestion", orphanRemoval = true)
     @Column(name = "listQuestions", nullable = false)
     @Access(AccessType.PROPERTY)
     @LazyCollection(LazyCollectionOption.FALSE)
+    @OrderBy
     private List<ExamQuestionModel> listQuestions = new ArrayList<>();
     @NotFound(action = NotFoundAction.IGNORE)
     @ManyToOne(fetch = FetchType.LAZY, optional = true)

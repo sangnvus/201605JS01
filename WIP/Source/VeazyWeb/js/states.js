@@ -4,45 +4,6 @@
 		//nested state & view
 		$urlRouterProvider.otherwise('/home');
 
-		// var authorizeUser = function(UserService, $state, $q, veazyConfig) {
-		// 	var CODE = veazyConfig.CODE;
-		// 	var deferred = $q.defer();
-		// 	var role;
-		// 	UserService.checkLoggedIn().then(function(response) {
-		// 		console.log(response);
-		// 		switch (response.code) {
-		// 			//already login
-		// 			case CODE.SUCCESS: {
-		// 				role = response.data.role;
-		// 				switch (role) {
-		// 					case CODE.USER: {
-		// 						$state.go('home');
-		// 						break;
-		// 					}
-		// 					case CODE.EDITOR: {
-		// 						$state.go('editordashboard.reportlist');
-		// 						break;
-		// 					}
-		// 					default: {
-
-		// 					}
-		// 				}
-		// 				deferred.reject();
-		// 			}
-
-		// 			default: {
-		// 				deferred.resolve();
-		// 			}
-		// 		}
-		// 		// deferred.reject();
-		// 	}, function() {
-		// 		// deferred.resolve();
-		// 		deferred.reject();
-		// 	});
-		// 	return deferred.promise;
-		// };
-		// authorizeUser.$inject = ['UserService', '$state', '$q', 'veazyConfig'];
-
 		$stateProvider.state('pagenotfound', {
 			url: '/error',
 			templateUrl: 'partials/404-error.html'
@@ -56,9 +17,6 @@
 			controller: 'loginCtrl',
 			checkLoggedIn: true,
 			resolve: {}
-			// resolve: {
-			// 	// authorizeUser: authorizeUser
-			// }
 		}).state('register', {
 			abstract: true,
 			url: '/register',
@@ -69,14 +27,8 @@
 			controller: 'registerCtrl',
 			checkLoggedIn: true,
 			resolve: {}
-			// resolve: {
-			// 	// authorizeUser: authorizeUser
-			// }
 		}).state('register.success', {
 			url: '/success',
-			params: {
-				username: null
-			},
 			templateUrl: 'partials/logged-user-restricted/register-success.html',
 			controller: 'registerSuccessCtrl',
 			resolve: {
@@ -144,65 +96,44 @@
 			templateUrl: 'partials/test.html',
 			controller: 'testCtrl'
 		}).state('test.taketest', {
-			url: '/take',
+			url: '/take/:examId',
 			params: {
 				exam: null
-				// level: null,
-				// skill: null,
-				// numberOfQuestion: null
 			},
 			resolve: {
 				getExam: function($timeout, $state, $stateParams, $q, ExamService, veazyConfig) {
-					
+					var CODE = veazyConfig.CODE;
 					var deferred = $q.defer();
 					$timeout(function() {
 						if ($stateParams.exam) {
 							deferred.resolve();
+						} else if ($stateParams.examId) {
+							// console.log('here');
+							ExamService.getHistory($stateParams.examId).then(function(response) {
+								// deferred.resolve();
+								console.log(response);
+								switch (response.code) {
+									case CODE.SUCCESS: {
+										deferred.resolve(response);
+										break;
+									}
+									case CODE.UNAUTHORIZED: {
+										deferred.reject();
+										$state.go('login');
+										break;
+									}
+									default: {
+										deferred.reject();
+										$state.go('test');
+									}
+								}
+							});
 						} else {
 							deferred.reject();
 							$state.go('test');
 						}
 					});
 					return deferred.promise;
-				// 	var CODE = veazyConfig.CODE;
-				// 	var levelId = $stateParams.level;
-				// 	var skillId = $stateParams.skill;
-				// 	var numberOfQuestion = parseInt($stateParams.numberOfQuestion);
-				// 	var deferred = $q.defer();
-
-				// 	// console.log(levelId, skillId, numberOfQuestion);
-					
-				// 	$timeout(function() {
-				// 		//in case of reload page, redirect to test setup
-				// 		if (!levelId || !skillId || !numberOfQuestion) {
-				// 			deferred.reject();
-				// 			$state.go('test');
-				// 		} else {
-				// 			//create test
-				// 			var exam = {
-				// 				courseId: levelId,
-				// 				skill: skillId,
-				// 				numberOfQuestion: numberOfQuestion
-				// 			};
-				// 			ExamService.create(exam).then(function(response) {
-				// 				console.log(response);
-				// 				switch (response.code) {
-				// 					case CODE.SUCCESS: {
-				// 						deferred.resolve(response);
-				// 						break;
-				// 					}
-				// 					default: {
-				// 						$state.go('test');
-				// 						deferred.reject();
-				// 					}
-				// 				}
-				// 			}, function(reject) {
-				// 				deferred.reject()
-				// 			});
-				// 		}
-				// 	});
-
-				// 	return deferred.promise;
 				}
 			},
 			templateUrl: 'partials/take-test.html',
@@ -224,6 +155,38 @@
 							deferred.reject();
 							$state.go('test');
 						}
+					});
+					return deferred.promise;
+				}
+			}
+		}).state('test.seelastresult', {
+			url: '/lastresult/:examId',
+			templateUrl: 'partials/logged-user-restricted/last-result.html',
+			controller: 'lastExamResultCtrl',
+			resolve: {
+				getLastExamResult: function($timeout, $state, $stateParams, $q, ExamService, veazyConfig) {
+					var CODE = veazyConfig.CODE;
+					var deferred = $q.defer();
+					var examId = $stateParams.examId;
+					$timeout(function() {
+						ExamService.getHistory(examId).then(function(response) {
+							switch (response.code) {
+								case CODE.SUCCESS: {
+									deferred.resolve(response);
+									break;
+								}
+								case CODE.UNAUTHORIZED: {
+									deferred.reject();
+									$state.go('login');
+									break;
+								}
+								default: {
+									deferred.reject();
+								}
+							}
+						}, function(reject) {
+							deferred.reject();
+						});
 					});
 					return deferred.promise;
 				}
@@ -267,6 +230,10 @@
 			url: '/statistics',
 			templateUrl: 'partials/logged-user-restricted/user-statistics.html',
 			controller: 'userStatisticsCtrl'
+		}).state('user.testhistory', {
+			url: '/testhistory',
+			templateUrl: 'partials/logged-user-restricted/test-history.html',
+			controller: 'testHistoryCtrl'
 		})
 		//dashboard of editor
 		.state('editordashboard', {
@@ -288,18 +255,11 @@
 		}).state('editordashboard.lesson.add', {
 			url: '/add',
 			templateUrl: 'partials/content-editor-restricted/add-lesson.html',
-			controller: 'addLessonCtrl',
-			ncyBreadcrumb: {
-				label: 'New',
-				parent: 'editordashboard.lesson.list'
-			}
+			controller: 'addLessonCtrl'
 		}).state('editordashboard.lesson.list', {
 			url: '',
 			templateUrl: 'partials/content-editor-restricted/lesson-list.html',
-			controller: 'lessonListCtrl',
-			ncyBreadcrumb: {
-				label: 'Lesson'
-			}
+			controller: 'lessonListCtrl'
 		}).state('editordashboard.lesson.detail', {
 			url: '/:id',
 			templateUrl: 'partials/content-editor-restricted/lesson-detail.html',

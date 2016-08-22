@@ -18,27 +18,39 @@ public class GetExamResponse {
 
     private Integer examId;
     private Integer courseId;
-    private Integer questionSkill;
+    private Integer skill;
     private List<ExamQuestionResponse> listQuestions;
     private Double result;
     private Integer takenTime;
     private Integer etaTime;
+    private Long takenDate;
 
     public GetExamResponse() {
     }
 
     public GetExamResponse(ExamModel exam) {
+        this(exam, true, true);
+    }
+
+    public GetExamResponse(ExamModel exam, boolean userAnswerInclude) {
+        this(exam, true, userAnswerInclude);
+    }
+
+    public GetExamResponse(ExamModel exam, boolean questionInclude, boolean userAnswerInclude) {
         this.examId = exam.getId();
         this.courseId = exam.getCourseId();
-        this.questionSkill = exam.getQuestionSkill();
+        this.skill = exam.getQuestionSkill();
         this.result = exam.getResult();
         this.takenTime = exam.getTakenTime();
         this.etaTime = exam.getEtaTime();
-        List<ExamQuestionModel> examQuestions = exam.getListQuestions();
-        this.listQuestions = new ArrayList<>();
-        for(ExamQuestionModel question: examQuestions){
-            ExamQuestionResponse data = new ExamQuestionResponse(question);
-            listQuestions.add(data);
+        this.takenDate = exam.getCreateDate();
+        if (questionInclude) {
+            List<ExamQuestionModel> examQuestions = exam.getListQuestions();
+            this.listQuestions = new ArrayList<>();
+            for(ExamQuestionModel question: examQuestions){
+                ExamQuestionResponse data = new ExamQuestionResponse(question, userAnswerInclude);
+                listQuestions.add(data);
+            }
         }
     }
 
@@ -58,12 +70,12 @@ public class GetExamResponse {
         this.courseId = courseId;
     }
 
-    public Integer getQuestionSkill() {
-        return questionSkill;
+    public Integer getSkill() {
+        return skill;
     }
 
-    public void setQuestionSkill(Integer questionSkill) {
-        this.questionSkill = questionSkill;
+    public void setSkill(Integer skill) {
+        this.skill = skill;
     }
 
     public List<ExamQuestionResponse> getListQuestions() {
@@ -96,6 +108,14 @@ public class GetExamResponse {
 
     public void setEtaTime(Integer etaTime) {
         this.etaTime = etaTime;
+    }
+
+    public Long getTakenDate() {
+        return takenDate;
+    }
+
+    public void setTakenDate(Long takenDate) {
+        this.takenDate = takenDate;
     }
 
 }

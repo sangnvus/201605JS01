@@ -5,6 +5,7 @@ import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Example;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -33,6 +34,7 @@ public class HibernateLessonVersionDao implements GenericDao<LessonVersionModel,
         try {
             return sessionFactory.getCurrentSession().createCriteria(LessonVersionModel.class)
                                                      .add(Example.create(exampleInstance))
+                                                     .addOrder(Order.asc("id"))
                                                      .list();
         } catch (HibernateException e) {
             // TODO custom exception
@@ -46,6 +48,7 @@ public class HibernateLessonVersionDao implements GenericDao<LessonVersionModel,
         try {
             return sessionFactory.getCurrentSession().createCriteria(LessonVersionModel.class)
                                                      .add(Example.create(exampleInstance))
+                                                     .addOrder(Order.asc("id"))
                                                      .setFirstResult(offset)
                                                      .setMaxResults(limit)
                                                      .list();
@@ -58,7 +61,8 @@ public class HibernateLessonVersionDao implements GenericDao<LessonVersionModel,
     @SuppressWarnings("unchecked")
 	@Override
     public List<LessonVersionModel> getAll() throws Exception {
-        return sessionFactory.getCurrentSession().createCriteria(LessonVersionModel.class).list();
+        return sessionFactory.getCurrentSession().createCriteria(LessonVersionModel.class)
+                .addOrder(Order.asc("id")).list();
     }
 
     @Override

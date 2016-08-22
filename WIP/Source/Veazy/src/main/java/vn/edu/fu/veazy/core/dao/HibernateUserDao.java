@@ -5,6 +5,7 @@ import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Example;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -34,6 +35,7 @@ public class HibernateUserDao implements GenericDao<UserModel, Integer> {
         try {
             return sessionFactory.getCurrentSession().createCriteria(UserModel.class)
                                                      .add(Example.create(exampleInstance))
+                                                     .addOrder(Order.asc("id"))
                                                      .list();
         } catch (HibernateException e) {
             // TODO custom exception
@@ -47,6 +49,7 @@ public class HibernateUserDao implements GenericDao<UserModel, Integer> {
         try {
             return sessionFactory.getCurrentSession().createCriteria(UserModel.class)
                                                      .add(Example.create(exampleInstance))
+                                                     .addOrder(Order.asc("id"))
                                                      .setFirstResult(offset)
                                                      .setMaxResults(limit)
                                                      .list();
@@ -59,7 +62,8 @@ public class HibernateUserDao implements GenericDao<UserModel, Integer> {
     @SuppressWarnings("unchecked")
 	@Override
     public List<UserModel> getAll() throws Exception {
-        return sessionFactory.getCurrentSession().createCriteria(UserModel.class).list();
+        return sessionFactory.getCurrentSession().createCriteria(UserModel.class)
+                .addOrder(Order.asc("id")).list();
     }
 
     @Override
