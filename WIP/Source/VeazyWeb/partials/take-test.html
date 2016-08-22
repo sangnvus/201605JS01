@@ -5,6 +5,7 @@
 		<ul class="question-list" ng-if="exam.skill !== CODE.READING_SKILL">
 			<li ng-repeat="question in exam.listQuestions track by $index">
 				<p>{{$index + 1}}. {{question.question}}</p>
+				<audio ng-if="exam.skill === CODE.LISTENING_SKILL" controls ng-src="{{question.attachment}}"></audio>
 				<ul class="answer-list">
 					<li ng-repeat="answer in question.listAnswers track by $index">
 						<div class="checkbox">

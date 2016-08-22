@@ -5,8 +5,6 @@
  */
 package vn.edu.fu.veazy.core.form;
 
-import java.util.List;
-
 /**
  *
  * @author Hoang Linh

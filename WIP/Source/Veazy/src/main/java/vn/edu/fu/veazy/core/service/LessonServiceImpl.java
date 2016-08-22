@@ -14,8 +14,6 @@ import vn.edu.fu.veazy.core.form.CreateLessonForm;
 import vn.edu.fu.veazy.core.form.UpdateLessonForm;
 import vn.edu.fu.veazy.core.model.LessonModel;
 import vn.edu.fu.veazy.core.model.LessonVersionModel;
-import vn.edu.fu.veazy.core.model.ReportModel;
-import vn.edu.fu.veazy.core.model.UserModel;
 import vn.edu.fu.veazy.core.response.BriefLessonResponse;
 import vn.edu.fu.veazy.core.response.CreateLessonResponse;
 import vn.edu.fu.veazy.core.response.GetLessonResponse;
@@ -28,10 +26,6 @@ public class LessonServiceImpl implements LessonService{
 	private GenericDao<LessonModel, Integer> lessonDao;
 	@Autowired
 	private GenericDao<LessonVersionModel, Integer> lessonVersionDao;
-	@Autowired
-	private GenericDao<ReportModel, Integer> reportDao;
-	@Autowired
-    private GenericDao<UserModel, Integer> userDao;
 	
 	@Override
 	@Transactional
@@ -195,29 +189,6 @@ public class LessonServiceImpl implements LessonService{
 			
 		}else{
 			throw new Exception("don't have version can be published");
-		}
-	}
-
-	@Override
-	@Transactional
-	public void reportLesson(Integer reporterId, Integer lessonId, String content) throws Exception {
-		LessonModel lesson = lessonDao.findById(lessonId);
-		if(lesson == null || lesson.isDeleteFlag()){
-			throw new Exception("lesson doesn't exist");
-		}
-		UserModel sample = new UserModel();
-		sample.setRole(Const.ROLE_EDITOR);
-		List<UserModel> listReceiver = userDao.findByExample(sample);
-		
-		for (UserModel userModel : listReceiver) {
-			ReportModel report = new ReportModel();
-			report.setSenderId(reporterId);
-			report.setReceiverId(userModel.getId());
-			report.setContent(content);
-			report.setLessonId(lessonId);
-			report.setCreateDate(System.currentTimeMillis());
-			//save to db
-			reportDao.save(report);
 		}
 	}
 

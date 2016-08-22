@@ -4,7 +4,7 @@
 		$scope.CODE = veazyConfig.CODE;
 
 		// $scope.exam = getExam.data;
-		$scope.exam = $state.params.exam;
+		$scope.exam = $state.params.exam || getExam.data;
 
 		$scope.trustAsHtml = Helper.trustAsHtml;
 

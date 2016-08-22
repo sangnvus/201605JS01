@@ -23,23 +23,17 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
-
-import vn.edu.fu.veazy.core.common.Const;
-import vn.edu.fu.veazy.core.form.AnswerForm;
-import vn.edu.fu.veazy.core.form.QuestionForm;
-
 import org.hibernate.annotations.Generated;
 import org.hibernate.annotations.GenerationTime;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
-import org.hibernate.search.annotations.Analyze;
-import org.hibernate.search.annotations.Field;
-import org.hibernate.search.annotations.Index;
-import org.hibernate.search.annotations.Indexed;
-import org.hibernate.search.annotations.Store;
 import org.slf4j.LoggerFactory;
+
+import vn.edu.fu.veazy.core.common.Const;
+import vn.edu.fu.veazy.core.form.AnswerForm;
+import vn.edu.fu.veazy.core.form.QuestionForm;
 
 /**
  *
@@ -50,7 +44,6 @@ import org.slf4j.LoggerFactory;
 @DynamicUpdate
 @Table(name = "`Question`")
 public class QuestionModel extends BasicModel implements Comparator<QuestionModel>{
-    private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(QuestionModel.class);
 
     @Column(name = "questionCode", columnDefinition="serial", nullable = false)
     @Generated(GenerationTime.INSERT)

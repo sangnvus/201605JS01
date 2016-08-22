@@ -109,7 +109,7 @@
 							deferred.resolve();
 						} else if ($stateParams.examId) {
 							// console.log('here');
-							ExamService.redo($stateParams.examId).then(function(response) {
+							ExamService.getHistory($stateParams.examId).then(function(response) {
 								// deferred.resolve();
 								console.log(response);
 								switch (response.code) {
@@ -255,18 +255,11 @@
 		}).state('editordashboard.lesson.add', {
 			url: '/add',
 			templateUrl: 'partials/content-editor-restricted/add-lesson.html',
-			controller: 'addLessonCtrl',
-			ncyBreadcrumb: {
-				label: 'New',
-				parent: 'editordashboard.lesson.list'
-			}
+			controller: 'addLessonCtrl'
 		}).state('editordashboard.lesson.list', {
 			url: '',
 			templateUrl: 'partials/content-editor-restricted/lesson-list.html',
-			controller: 'lessonListCtrl',
-			ncyBreadcrumb: {
-				label: 'Lesson'
-			}
+			controller: 'lessonListCtrl'
 		}).state('editordashboard.lesson.detail', {
 			url: '/:id',
 			templateUrl: 'partials/content-editor-restricted/lesson-detail.html',

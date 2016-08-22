@@ -8,30 +8,27 @@ package vn.edu.fu.veazy.core.controller;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
+
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+
 import vn.edu.fu.veazy.core.common.Const;
 import vn.edu.fu.veazy.core.form.QuestionForm;
-import vn.edu.fu.veazy.core.form.ReportForm;
 import vn.edu.fu.veazy.core.model.QuestionModel;
-import vn.edu.fu.veazy.core.model.ReportModel;
 import vn.edu.fu.veazy.core.model.UserModel;
-import vn.edu.fu.veazy.core.response.StatsQuestionsResponse;
 import vn.edu.fu.veazy.core.response.AddQuestionResponse;
 import vn.edu.fu.veazy.core.response.QuestionResponse;
 import vn.edu.fu.veazy.core.response.Response;
 import vn.edu.fu.veazy.core.response.ResponseCode;
+import vn.edu.fu.veazy.core.response.StatsQuestionsResponse;
 import vn.edu.fu.veazy.core.service.QuestionService;
-import vn.edu.fu.veazy.core.service.ReportService;
 import vn.edu.fu.veazy.core.service.UserService;
 
 /**
@@ -61,8 +58,6 @@ public class QuestionController {
     private UserService userService;
     @Autowired
     private QuestionService questionService;
-    @Autowired
-    private ReportService reportService;
 
     /**
      *
@@ -426,50 +421,6 @@ public class QuestionController {
             questionService.delete(question);
             response.setCode(ResponseCode.SUCCESS);
             LOGGER.debug("Delete question successfully!");
-
-            return response.toResponseJson();
-        } catch (Exception e) {
-            LOGGER.error(e.getMessage());
-            LOGGER.error("Unknown error occured!");
-            response.setCode(ResponseCode.INTERNAL_SERVER_ERROR);
-        }
-        return response.toResponseJson();
-    }
-
-    /**
-     *
-     * @param questionId url path
-     * @param principal authentication
-     * @param reportForm form submitted
-     * @return json string
-     */
-    @Secured("isAuthenticated()")
-    @RequestMapping(value = Const.URLMAPPING_REPORT_QUESTION, method = RequestMethod.POST,
-            produces={"application/json; charset=UTF-8"})
-    public @ResponseBody
-    String reportQuestion(@PathVariable("question_id") Integer questionId,
-            Principal principal, @RequestBody ReportForm reportForm) {
-        Response response = new Response(ResponseCode.BAD_REQUEST);
-        try {
-            LOGGER.debug("Get to report question controller successful");
-            QuestionModel question = questionService.findQuestionById(questionId);
-            if (question == null) {
-                LOGGER.debug("question not found!");
-                response.setCode(ResponseCode.QUESTION_NOT_FOUND);
-                return response.toResponseJson();
-            }
-            String userName = principal.getName();
-            UserModel user = userService.findUserByUsername(userName);
-            if (user == null) {
-                LOGGER.debug("user not found!");
-                response.setCode(ResponseCode.USER_NOT_FOUND);
-                return response.toResponseJson();
-            }
-            ReportModel report = new ReportModel(reportForm, user.getId(), questionId);
-            reportService.saveReport(report);
-
-            response.setCode(ResponseCode.SUCCESS);
-            LOGGER.debug("Report question successfully!");
 
             return response.toResponseJson();
         } catch (Exception e) {

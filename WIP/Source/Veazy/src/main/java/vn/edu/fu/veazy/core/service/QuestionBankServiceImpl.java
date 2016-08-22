@@ -14,13 +14,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import vn.edu.fu.veazy.core.common.Const;
 import vn.edu.fu.veazy.core.dao.GenericDao;
 import vn.edu.fu.veazy.core.form.AnswerForm;
 import vn.edu.fu.veazy.core.form.ExamPartForm;
 import vn.edu.fu.veazy.core.form.QuestionForm;
 import vn.edu.fu.veazy.core.model.AnswerModel;
-import vn.edu.fu.veazy.core.model.ExamAnswerModel;
 import vn.edu.fu.veazy.core.model.ExamModel;
 import vn.edu.fu.veazy.core.model.ExamQuestionModel;
 import vn.edu.fu.veazy.core.model.QuestionModel;
@@ -34,7 +34,6 @@ import vn.edu.fu.veazy.core.response.ExamPartResponse;
  */
 @Service
 public class QuestionBankServiceImpl implements QuestionBankService {
-    private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(QuestionBankServiceImpl.class);
 
     @Autowired
     private GenericDao<QuestionModel, Integer> questionDao;

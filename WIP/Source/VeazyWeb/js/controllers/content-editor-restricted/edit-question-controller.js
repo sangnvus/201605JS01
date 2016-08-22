@@ -175,6 +175,11 @@
 
 			});
 		};
+
+		$scope.froalaOptions = {
+		    // placeholderText: 'Edit Your Content Here!'
+		    imageUploadURL: '/Veazy/uploadfile'
+		};
 	};
 
 	editQuestionCtrl.$inject = ['$scope', '$state', 'veazyConfig', 'filterFilter', 'ngDialog', 'getQuestion', 

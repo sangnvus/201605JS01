@@ -7,7 +7,6 @@ package vn.edu.fu.veazy.core.response;
 
 import java.util.ArrayList;
 import java.util.List;
-import vn.edu.fu.veazy.core.model.UserModel;
 
 /**
  *

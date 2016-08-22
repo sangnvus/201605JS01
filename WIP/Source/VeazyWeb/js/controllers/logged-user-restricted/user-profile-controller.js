@@ -1,6 +1,8 @@
 (function() {
 	'use strict';
-	var userProfileCtrl = function($scope, UserService, veazyConfig, ngDialog, getUser) {
+	var userProfileCtrl = function($scope, UserService, veazyConfig, ngDialog, getUser, FileUploader) {
+		// $scope.uploader = new FileUploader();
+
 		$scope.user = getUser.data;
 		$scope.CODE = veazyConfig.CODE;
 
@@ -34,6 +36,10 @@
 			});
 		};
 
+		// $scope.openUploadAvatarDialog() = function() {
+
+		// };
+
 		$scope.makeMeEditor = function() {
 			UserService.makeEditor($scope.user.userName).then(function(response) {
 				console.log(response);
@@ -41,7 +47,7 @@
 		};
 	};
 
-	userProfileCtrl.$inject = ['$scope', 'UserService', 'veazyConfig', 'ngDialog', 'getUser'];
+	userProfileCtrl.$inject = ['$scope', 'UserService', 'veazyConfig', 'ngDialog', 'getUser', 'FileUploader'];
 
 	angular.module('veazyControllers').controller('userProfileCtrl', userProfileCtrl);
 })();

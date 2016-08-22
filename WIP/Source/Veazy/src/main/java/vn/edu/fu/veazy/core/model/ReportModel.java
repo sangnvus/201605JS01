@@ -9,6 +9,7 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
+
 import vn.edu.fu.veazy.core.form.ReportForm;
 
 @Entity
@@ -58,7 +59,7 @@ public class ReportModel {
 	 * 読んだことの印
 	 */
 	@Column(name = "isRead", columnDefinition="BOOLEAN DEFAULT FALSE", nullable = false)
-	private boolean readFlag;
+	private Boolean readFlag;
 	
 	/**
 	 * 報告の内容
@@ -82,7 +83,7 @@ public class ReportModel {
 		super();
 	}
         
-        public ReportModel(ReportForm form, Integer senderId, Integer questionId) {
+    public ReportModel(ReportForm form, Integer senderId, Integer questionId) {
         super();
         this.content = form.getContent();
         this.senderId = senderId;
