@@ -2,7 +2,6 @@ package vn.edu.fu.veazy.core.service;
 
 import java.util.List;
 
-import vn.edu.fu.veazy.core.response.GetCourseResponse;
 import vn.edu.fu.veazy.core.response.StatsCourseAvgResponse;
 import vn.edu.fu.veazy.core.response.StatsLastExamResponse;
 import vn.edu.fu.veazy.core.response.StatsSkillAvgResponse;

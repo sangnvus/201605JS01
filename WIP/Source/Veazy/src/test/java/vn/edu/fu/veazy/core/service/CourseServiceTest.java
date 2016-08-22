@@ -1,6 +1,6 @@
 package vn.edu.fu.veazy.core.service;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
 
 import java.util.ArrayList;
 import java.util.List;

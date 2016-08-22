@@ -9,12 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import vn.edu.fu.veazy.core.common.Const;
-import vn.edu.fu.veazy.core.form.AnswerForm;
-import vn.edu.fu.veazy.core.form.QuestionForm;
-import vn.edu.fu.veazy.core.model.AnswerModel;
 import vn.edu.fu.veazy.core.model.ExamAnswerModel;
 import vn.edu.fu.veazy.core.model.ExamQuestionModel;
-import vn.edu.fu.veazy.core.model.QuestionModel;
 
 /**
  *

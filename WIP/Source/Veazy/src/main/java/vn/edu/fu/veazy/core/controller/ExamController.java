@@ -7,41 +7,31 @@ package vn.edu.fu.veazy.core.controller;
 
 import java.security.Principal;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
+
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+
 import vn.edu.fu.veazy.core.common.Const;
-import vn.edu.fu.veazy.core.common.utils.Utils;
-import vn.edu.fu.veazy.core.exception.CorruptedFormException;
 import vn.edu.fu.veazy.core.form.CreateExamSinglePartForm;
 import vn.edu.fu.veazy.core.form.ExamPartForm;
-import vn.edu.fu.veazy.core.form.SubmitAnswerForm;
-import vn.edu.fu.veazy.core.form.SubmitQuestionForm;
 import vn.edu.fu.veazy.core.form.SubmitExamForm;
-import vn.edu.fu.veazy.core.model.ExamAnswerModel;
-import vn.edu.fu.veazy.core.model.ExamQuestionModel;
 import vn.edu.fu.veazy.core.model.ExamModel;
-import vn.edu.fu.veazy.core.model.QuestionModel;
 import vn.edu.fu.veazy.core.model.UserModel;
 import vn.edu.fu.veazy.core.response.ExamSinglePartResponse;
 import vn.edu.fu.veazy.core.response.GetExamResponse;
-import vn.edu.fu.veazy.core.response.QuestionResponse;
 import vn.edu.fu.veazy.core.response.Response;
 import vn.edu.fu.veazy.core.response.ResponseCode;
 import vn.edu.fu.veazy.core.service.ExamService;
 import vn.edu.fu.veazy.core.service.QuestionBankService;
-import vn.edu.fu.veazy.core.service.QuestionService;
 import vn.edu.fu.veazy.core.service.UserService;
 
 /**
@@ -66,8 +56,6 @@ public class ExamController {
     private QuestionBankService questionBankService;
     @Autowired
     private ExamService examService;
-    @Autowired
-    private QuestionService questionService;
 
     /**
      *

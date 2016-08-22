@@ -3,20 +3,22 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package vn.edu.fu.veazy.core.form;
-import java.util.*;
+package vn.edu.fu.veazy.core.common.utils;
+import java.util.Properties;
+
 import javax.mail.Message;
-import javax.mail.MessagingException;
 import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+
+import vn.edu.fu.veazy.core.form.Mail;
 /**
  *
  * @author Hoang Linh
  */
-public class MailSender {
+public class MailUtils {
     public static void sentMail(Mail mail){
         final String senderEmail = mail.getSenderEmailAddress();
         final String password = mail.getSenderPassword();

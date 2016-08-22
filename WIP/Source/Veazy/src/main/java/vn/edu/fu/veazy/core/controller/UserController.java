@@ -22,16 +22,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import vn.edu.fu.veazy.core.common.Const;
+import vn.edu.fu.veazy.core.common.utils.MailUtils;
 import vn.edu.fu.veazy.core.common.utils.Utils;
-import vn.edu.fu.veazy.core.form.ChangeRoleForm;
-import vn.edu.fu.veazy.core.form.ChgpwdForm;
 import vn.edu.fu.veazy.core.exception.CorruptedFormException;
 import vn.edu.fu.veazy.core.exception.InvalidEmailException;
 import vn.edu.fu.veazy.core.exception.PasswordExpectedException;
+import vn.edu.fu.veazy.core.form.ChangeRoleForm;
+import vn.edu.fu.veazy.core.form.ChgpwdForm;
 import vn.edu.fu.veazy.core.form.ForgotPwdForm;
 import vn.edu.fu.veazy.core.form.LoginForm;
 import vn.edu.fu.veazy.core.form.Mail;
-import vn.edu.fu.veazy.core.form.MailSender;
 import vn.edu.fu.veazy.core.form.RegisterForm;
 import vn.edu.fu.veazy.core.form.UpdateUserForm;
 import vn.edu.fu.veazy.core.model.ExamModel;
@@ -542,7 +542,7 @@ public class UserController {
                     response.setCode(ResponseCode.EMAIL_NOT_FOUND);
                 }
                 Mail mail = new Mail(user, req);
-                MailSender.sentMail(mail);
+                MailUtils.sentMail(mail);
                 response.setCode(ResponseCode.SUCCESS);
             }
         } catch (PasswordExpectedException e) {

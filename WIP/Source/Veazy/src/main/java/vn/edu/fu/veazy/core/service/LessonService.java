@@ -4,8 +4,8 @@ import java.util.List;
 
 import vn.edu.fu.veazy.core.form.CreateLessonForm;
 import vn.edu.fu.veazy.core.form.UpdateLessonForm;
-import vn.edu.fu.veazy.core.response.CreateLessonResponse;
 import vn.edu.fu.veazy.core.response.BriefLessonResponse;
+import vn.edu.fu.veazy.core.response.CreateLessonResponse;
 import vn.edu.fu.veazy.core.response.GetLessonResponse;
 import vn.edu.fu.veazy.core.response.GetLessonVersionResponse;
 

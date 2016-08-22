@@ -9,6 +9,7 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
+
 import vn.edu.fu.veazy.core.form.ReportForm;
 
 @Entity

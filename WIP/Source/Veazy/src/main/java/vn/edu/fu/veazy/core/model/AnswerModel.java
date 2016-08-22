@@ -5,20 +5,15 @@
  */
 package vn.edu.fu.veazy.core.model;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
-import org.hibernate.search.annotations.Analyze;
-import org.hibernate.search.annotations.Field;
-import org.hibernate.search.annotations.Index;
-import org.hibernate.search.annotations.Indexed;
-import org.hibernate.search.annotations.Store;
 
 import vn.edu.fu.veazy.core.form.AnswerForm;
 

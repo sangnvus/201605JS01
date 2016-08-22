@@ -10,7 +10,6 @@ import org.hibernate.criterion.Projections;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import vn.edu.fu.veazy.core.model.ExamModel;
-import vn.edu.fu.veazy.core.model.ExamQuestionModel;
 
 public class HibernateExamDao implements GenericDao<ExamModel, Integer> {
 

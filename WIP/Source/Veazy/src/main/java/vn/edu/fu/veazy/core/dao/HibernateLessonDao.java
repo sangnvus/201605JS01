@@ -14,7 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import vn.edu.fu.veazy.core.model.LessonModel;
-import vn.edu.fu.veazy.core.model.LessonVersionModel;
 
 @Repository
 public class HibernateLessonDao implements GenericDao<LessonModel, Integer> {
