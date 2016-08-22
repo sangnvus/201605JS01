@@ -43,7 +43,7 @@ public class QuestionBankServiceImpl implements QuestionBankService {
 
     @Override
     @Transactional
-    public List<ExamPartResponse> generateTest(Integer userId, Integer courseId,
+    public List<ExamPartResponse> generateExam(Integer userId, Integer courseId,
             List<ExamPartForm> examPart) throws Exception {
         List<ExamPartResponse> result = new ArrayList<>();
         boolean offlineCheck = (userId == -1);
@@ -56,7 +56,7 @@ public class QuestionBankServiceImpl implements QuestionBankService {
             exam.setResult(0d);
             exam.setTakenTime(0);
             exam.setFinishState(false);
-            int time = genTest(partQues, part.getNumberOfQuestion(), courseId, part.getSkill(),
+            int time = genExam(partQues, part.getNumberOfQuestion(), courseId, part.getSkill(),
                     offlineCheck, exam, partExamQues);
             ExamPartResponse examPartResp = new ExamPartResponse(part.getSkill(), time);
             if (partQues.size() > 0) {
@@ -78,7 +78,7 @@ public class QuestionBankServiceImpl implements QuestionBankService {
         return result;
     }
     
-    private Integer genTest(
+    private Integer genExam(
             List<BriefQuestionResponse> result,
             Integer questionNumber, Integer courseId, Integer examSkill, boolean offlineCheck,
             ExamModel ex, List<ExamQuestionModel> exam) throws Exception {

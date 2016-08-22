@@ -50,7 +50,7 @@ public class LessonServiceImpl implements LessonService{
 		lesson.setCreateDate(System.currentTimeMillis());
 		lessonVersion.setCreateDate(System.currentTimeMillis());
 		
-		lessonVersion.setState(Const.PUBLISHED);
+		lessonVersion.setState(Const.STATE_PUBLISHED);
 		
 		//save to db
 		lessonDao.save(lesson);
@@ -76,7 +76,7 @@ public class LessonServiceImpl implements LessonService{
 		}
 		//get all version in lesson
 		
-		List<LessonVersionModel> listVersion = getVersionOfLesson(lessonId, Const.PUBLISHED);
+		List<LessonVersionModel> listVersion = getVersionOfLesson(lessonId, Const.STATE_PUBLISHED);
 				
 		//get request version
 		LessonVersionModel lessonVersion = null;
@@ -113,7 +113,7 @@ public class LessonServiceImpl implements LessonService{
 		//get version in updating state
 		LessonVersionModel sample = new LessonVersionModel();
 		sample.setLessonId(form.getLessonId());
-		sample.setState(Const.UPDATING);
+		sample.setState(Const.STATE_UPDATING);
 		List<LessonVersionModel> listUpdating=  lessonVersionDao.findByExample(sample);
 		LessonVersionModel updatingVersion = null;
 		
@@ -144,9 +144,9 @@ public class LessonServiceImpl implements LessonService{
 			updatingVersion.setCreatorId(requesterId);
 			updatingVersion.setCreateDate(System.currentTimeMillis());
 			updatingVersion.setVersion(
-			        getVersionOfLesson(form.getLessonId(), Const.PUBLISHED).size()+1);
+			        getVersionOfLesson(form.getLessonId(), Const.STATE_PUBLISHED).size()+1);
 			updatingVersion.setLessonId(form.getLessonId());
-			updatingVersion.setState(Const.UPDATING);
+			updatingVersion.setState(Const.STATE_UPDATING);
 			
 			updatingVersion.setArticle(form.getReading());
 			updatingVersion.setGrammar(form.getGrammar());
@@ -172,7 +172,7 @@ public class LessonServiceImpl implements LessonService{
 		}
 		LessonVersionModel sample = new LessonVersionModel();
 		sample.setLessonId(lessionId);
-		sample.setState(Const.UPDATING);
+		sample.setState(Const.STATE_UPDATING);
 		sample.setCreatorId(requesterId);
 		List<LessonVersionModel> listUpdating=  lessonVersionDao.findByExample(sample);
 		LessonVersionModel updatingVersion = null;
@@ -181,7 +181,7 @@ public class LessonServiceImpl implements LessonService{
 		if(listUpdating != null && listUpdating.size()>0){
 			updatingVersion = listUpdating.get(0);
 			
-			updatingVersion.setState(Const.PUBLISHED);
+			updatingVersion.setState(Const.STATE_PUBLISHED);
 			lesson.setCurrentVersionId(updatingVersion.getId());
 			
 			lessonVersionDao.update(updatingVersion);
@@ -260,7 +260,7 @@ public class LessonServiceImpl implements LessonService{
 		LessonVersionModel currentVersion = lessonVersionDao
                 .findById(lesson.getCurrentVersionId());
 		if (edit) {
-		    List<LessonVersionModel> listUpdate = getVersionOfLesson(lessonId, Const.UPDATING);
+		    List<LessonVersionModel> listUpdate = getVersionOfLesson(lessonId, Const.STATE_UPDATING);
 		    if (listUpdate != null && listUpdate.size() > 0) {
 	            currentVersion = listUpdate.get(0);
 		    }

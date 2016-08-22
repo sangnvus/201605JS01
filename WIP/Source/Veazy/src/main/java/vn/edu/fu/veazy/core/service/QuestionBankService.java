@@ -11,6 +11,6 @@ import vn.edu.fu.veazy.core.response.ExamPartResponse;
  */
 public interface QuestionBankService {
 
-    public List<ExamPartResponse> generateTest(Integer userId, Integer courseId, List<ExamPartForm> examPart)
+    public List<ExamPartResponse> generateExam(Integer userId, Integer courseId, List<ExamPartForm> examPart)
             throws Exception;
 }

@@ -93,7 +93,7 @@ public class ExamController {
             part.setNumberOfQuestion(form.getNumberOfQuestion());
             listParts.add(part);
             ExamSinglePartResponse resp = new ExamSinglePartResponse(courseId,
-                    questionBankService.generateTest(userId, courseId, listParts));
+                    questionBankService.generateExam(userId, courseId, listParts));
 
             response.setCode(ResponseCode.SUCCESS);
             response.setData(resp);

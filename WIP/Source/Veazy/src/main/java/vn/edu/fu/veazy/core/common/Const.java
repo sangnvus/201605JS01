@@ -178,12 +178,12 @@ public class Const {
     /**
      * レッソン�?�読ん�?�状態
      */
-    public static final Integer UPDATING = 1;
+    public static final Integer STATE_UPDATING = 1;
 
     /**
      * レッソン�?�出版状態
      */
-    public static final Integer PUBLISHED = 2;
+    public static final Integer STATE_PUBLISHED = 2;
 
     /**
      * レッソン�?�最�?�?�指数

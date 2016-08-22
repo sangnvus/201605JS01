@@ -47,7 +47,6 @@
         <value>vn.edu.fu.veazy.core.model.ExamAnswerModel</value>
         <value>vn.edu.fu.veazy.core.model.LessonModel</value>
         <value>vn.edu.fu.veazy.core.model.LessonVersionModel</value>
-        <value>vn.edu.fu.veazy.core.model.MessageModel</value>
         <value>vn.edu.fu.veazy.core.model.QuestionModel</value>
         <value>vn.edu.fu.veazy.core.model.AnswerModel</value>
         <value>vn.edu.fu.veazy.core.model.ReportModel</value>
