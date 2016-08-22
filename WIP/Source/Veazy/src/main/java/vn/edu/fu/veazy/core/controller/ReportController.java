@@ -5,14 +5,17 @@ import java.util.List;
 
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import vn.edu.fu.veazy.core.common.Const;
+import vn.edu.fu.veazy.core.form.ReportForm;
 import vn.edu.fu.veazy.core.model.ReportModel;
 import vn.edu.fu.veazy.core.model.UserModel;
 import vn.edu.fu.veazy.core.response.Response;
@@ -129,10 +132,12 @@ public class ReportController {
     @RequestMapping(value = Const.URLMAPPING_DELETE_REPORT, method = RequestMethod.GET,
             produces={"application/json; charset=UTF-8"})
     public @ResponseBody
-    String deleteReport(@PathVariable("report_id") Integer reportId) {
+    String deleteReport(Principal principal,@PathVariable("report_id") Integer reportId) {
         Response response = new Response(ResponseCode.BAD_REQUEST);
         try {
-            reportService.deleteReport(reportId);
+        	String userName = principal.getName();
+            UserModel user = userService.findUserByUsername(userName);
+            reportService.deleteReport(user.getId(),reportId);
             response.setCode(ResponseCode.SUCCESS);
             LOGGER.debug("delete report successfully!");
 
@@ -145,4 +150,65 @@ public class ReportController {
         return response.toResponseJson();
     }
 
+    /**
+     * レッソンを報告のコントローラー
+     * @param principal 要求する人
+     * @param form レッソンを報告の形式
+     * @param lessonId レッソンのＩＤ
+     * @return 返事のＪＳＯＮ
+     */
+    @PreAuthorize("isAuthenticated()")
+    @RequestMapping(value = Const.URLMAPPING_REPORT_LESSON, method = RequestMethod.POST,
+            produces={"application/json; charset=UTF-8"})
+    public @ResponseBody
+    String reportLesson(Principal principal, @RequestBody ReportForm reportForm,
+            @PathVariable("lesson_id") Integer lessonId) {
+        Response response = new Response(ResponseCode.BAD_REQUEST);
+        try {
+            String userName = principal.getName();
+            UserModel user = userService.findUserByUsername(userName);
+            reportService.reportLesson(user.getId(), lessonId, reportForm.getContent());
+            response.setCode(ResponseCode.SUCCESS);
+
+            LOGGER.debug("Report lesson successfully!");
+
+            return response.toResponseJson();
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage());
+            LOGGER.error("Unknown error occured!");
+            response.setCode(ResponseCode.INTERNAL_SERVER_ERROR);
+        }
+        return response.toResponseJson();
+    }
+    
+    /**
+    *
+    * @param questionId url path
+    * @param principal authentication
+    * @param reportForm form submitted
+    * @return json string
+    */
+   @Secured("isAuthenticated()")
+   @RequestMapping(value = Const.URLMAPPING_REPORT_QUESTION, method = RequestMethod.POST,
+           produces={"application/json; charset=UTF-8"})
+   public @ResponseBody
+   String reportQuestion(@PathVariable("question_id") Integer questionId,
+           Principal principal, @RequestBody ReportForm reportForm) {
+       Response response = new Response(ResponseCode.BAD_REQUEST);
+       try {
+    	   String userName = principal.getName();
+           UserModel user = userService.findUserByUsername(userName);
+           reportService.reportQuestion(user.getId(), questionId, reportForm.getContent());
+           response.setCode(ResponseCode.SUCCESS);
+
+           LOGGER.debug("Report lesson successfully!");
+
+           return response.toResponseJson();
+       } catch (Exception e) {
+           LOGGER.error(e.getMessage());
+           LOGGER.error("Unknown error occured!");
+           response.setCode(ResponseCode.INTERNAL_SERVER_ERROR);
+       }
+       return response.toResponseJson();
+   }
 }

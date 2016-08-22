@@ -7,7 +7,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,7 +20,6 @@ import vn.edu.fu.veazy.core.common.utils.Utils;
 import vn.edu.fu.veazy.core.exception.CorruptedFormException;
 import vn.edu.fu.veazy.core.exception.NullOrEmptyContentException;
 import vn.edu.fu.veazy.core.form.CreateLessonForm;
-import vn.edu.fu.veazy.core.form.ReportLessonForm;
 import vn.edu.fu.veazy.core.form.UpdateLessonForm;
 import vn.edu.fu.veazy.core.model.UserModel;
 import vn.edu.fu.veazy.core.response.BriefLessonResponse;
@@ -232,37 +230,6 @@ public class LessonController {
         return response.toResponseJson();
     }
 
-    /**
-     * レッソンを報告のコントローラー
-     * @param principal 要求する人
-     * @param form レッソンを報告の形式
-     * @param lessonId レッソンのＩＤ
-     * @return 返事のＪＳＯＮ
-     */
-    @PreAuthorize("isAuthenticated()")
-    @RequestMapping(value = Const.URLMAPPING_REPORT_LESSON, method = RequestMethod.POST,
-            produces={"application/json; charset=UTF-8"})
-    public @ResponseBody
-    String reportLesson(Principal principal, @RequestBody ReportLessonForm form,
-            @PathVariable("lesson_id") Integer lessonId) {
-        Response response = new Response(ResponseCode.BAD_REQUEST);
-        try {
-            String userName = principal.getName();
-            UserModel user = userService.findUserByUsername(userName);
-            form.setLessonId(lessonId);
-            lessonService.reportLesson(user.getId(), lessonId, form.getContent());
-            response.setCode(ResponseCode.SUCCESS);
-
-            LOGGER.debug("Report lesson successfully!");
-
-            return response.toResponseJson();
-        } catch (Exception e) {
-            LOGGER.error(e.getMessage());
-            LOGGER.error("Unknown error occured!");
-            response.setCode(ResponseCode.INTERNAL_SERVER_ERROR);
-        }
-        return response.toResponseJson();
-    }
 
     /**
      * レベルの全部のレッソンをとる
