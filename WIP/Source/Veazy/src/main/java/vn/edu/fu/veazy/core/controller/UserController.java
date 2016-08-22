@@ -1,6 +1,7 @@
 package vn.edu.fu.veazy.core.controller;
 
 import java.security.Principal;
+import java.util.Collections;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -480,6 +481,7 @@ public class UserController {
                 response.setCode(ResponseCode.USER_EXAMS_NOT_FOUND);
             }
             GetLearnerExamsResponse data = new GetLearnerExamsResponse();
+            Collections.reverse(exams);
             for (ExamModel exam : exams) {
                 GetExamResponse erd = new GetExamResponse(exam, false);
                 data.addExam(erd);

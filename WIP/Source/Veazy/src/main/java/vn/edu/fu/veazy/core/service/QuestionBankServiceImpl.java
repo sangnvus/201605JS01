@@ -66,6 +66,7 @@ public class QuestionBankServiceImpl implements QuestionBankService {
                     exam.setEtaTime(time);
                     exam.setListQuestions(partExamQues);
                     exam.setUserId(userId);
+                    exam.setCreateDate(System.currentTimeMillis());
                     examDao.save(exam);
                     examPartResp.setExamId(exam.getId());
                 }

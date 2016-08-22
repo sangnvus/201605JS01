@@ -250,7 +250,7 @@ public class ExamController {
     String getExamAnswer(@PathVariable("exam_id") Integer examId,
             Principal principal) throws Exception {
         Response response = new Response(ResponseCode.BAD_REQUEST);
-//        try {
+        try {
             LOGGER.debug("Get to get exam answer controller successful");
 
             String userName = principal.getName();
@@ -272,12 +272,12 @@ public class ExamController {
             LOGGER.debug("Get exam successfully!");
 
             return response.toResponseJson();
-//        } catch (Exception e) {
-//            LOGGER.error(e.getMessage());
-//            LOGGER.error("Unknown error occured!");
-//            response.setCode(ResponseCode.INTERNAL_SERVER_ERROR);
-//        }
-//        return response.toResponseJson();
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage());
+            LOGGER.error("Unknown error occured!");
+            response.setCode(ResponseCode.INTERNAL_SERVER_ERROR);
+        }
+        return response.toResponseJson();
     }
 
     /**
@@ -294,7 +294,7 @@ public class ExamController {
             Principal principal) {
         Response response = new Response(ResponseCode.BAD_REQUEST);
         try {
-            LOGGER.debug("Get to redo exam controller successful");
+            LOGGER.debug("Get to get exam answer controller successful");
 
             String userName = principal.getName();
             UserModel user = userService.findUserByUsername(userName);
@@ -304,23 +304,15 @@ public class ExamController {
                 return response.toResponseJson();
             }
             ExamModel exam = examService.findExamById(examId);
-            // can't redo if not the creator of the exam
             if (!Objects.equals(user.getId(), exam.getUserId())) {
                 LOGGER.debug("user not allow!");
                 response.setCode(ResponseCode.USER_NOT_ALLOW);
                 return response.toResponseJson();
             }
-            List<QuestionResponse> datas = new ArrayList<>();
-            List<ExamQuestionModel> listQuestions = exam.getListQuestions();
-            for (ExamQuestionModel answer : listQuestions) {
-                Integer questionId = answer.getQuestionId();
-                QuestionModel question = questionService.findQuestionById(questionId);
-                QuestionResponse data = new QuestionResponse(question);
-                datas.add(data);
-            }
+            GetExamResponse data = new GetExamResponse(exam, false);
             response.setCode(ResponseCode.SUCCESS);
-            response.setData(datas);
-            LOGGER.debug("Redo exam successfully!");
+            response.setData(data);
+            LOGGER.debug("Get exam successfully!");
 
             return response.toResponseJson();
         } catch (Exception e) {
