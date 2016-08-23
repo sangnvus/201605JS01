@@ -100,7 +100,7 @@
 	"CREATE_TEST_BUTTON_LABEL": "Create",
 	"TAKEN_TESTS_HEADER": "Recently taken tests",
 	"TEST_HEADER": "Test",
-	"SUBMIT_TEST_BUTTON_LABEL": "Submit",
+	"SUBMIT_TEST_BUTTON_LABEL": "Check Answer",
 	"REPORT_QUESTION_BUTTON_LABEL": "Report",
 
 	"PROFILE_HEADER": "Profile: {{username}}",
@@ -258,6 +258,23 @@
 	"REPORT_LIST": "Report List",
 	"MARK_AS_CHECKED_BUTTON_LABEL": "Mark as checked",
 
-	"NOT_VALID_AUDIO_FILE_ERROR_MSG": "Not a valid audio file. Only .mp3 file is allowed!"
+	"NOT_VALID_AUDIO_FILE_ERROR_MSG": "Not a valid audio file. Only .mp3 file is allowed!",
+
+	"ADMIN_OCCUPATION": "Administrator",
+	"DASHBOARD_TAB": "Dashboard",
+	"USER_TAB": "User Management",
+	"USER_NUMBER_LABEL": "Users: ",
+	"LESSON_NUMBER_LABEL": "Lessons: ",
+	"QUESTION_NUMBER_LABEL": "Questions: ",
+	"REPORT_NUMBER_LABEL": "Reports: ",
+	"MANAGE_HYPERLINK": "Manage",
+	"BAN_HYPERLINK": "Ban",
+	"UNBAN_HYPERLINK": "Unban",
+	"ASSIGN_AS_EDITOR_HYPERLINK": "Assign as editor",
+	"ASSIGN_AS_ADMIN_HYPERLINK": "Assign as admin",
+	"OCCUPATION_LABEL": "Occupation",
+	"ASSIGN_AS_EDITOR_BUTTON_LABEL": "Assign as editor",
+	"ASSIGN_AS_ADMIN_BUTTON_LABEL": "Assign as admin",
+	"BAN_BUTTON_LABEL": "Ban"
 
 }

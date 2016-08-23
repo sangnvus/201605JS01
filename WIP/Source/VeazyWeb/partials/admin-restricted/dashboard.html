@@ -1,21 +1,82 @@
 <style type="text/css">
 	.stats-block {
-		background-color: #F6F6F6;
+		/*background-color: #F6F6F6;
 		border: 1px solid #dedede;
 		-webkit-border-radius: 4px;
 		-moz-border-radius: 4px;
 		border-radius: 4px;
-		line-height: 18px
+		line-height: 18px*/
+	}
+
+	.dashboard {
+		padding-top: 200px;
+	}
+
+	.stats-block span.glyphicon {
+		font-size: 50px;
+		display: block;
+		margin-bottom: 15px;
+	}
+
+	.stats-block span.glyphicon-user {
+		color: #0392cf;
+	}
+
+	.stats-block span.glyphicon-book {
+		color: #7bc043;
+	}
+
+	.stats-block span.glyphicon-question-sign {
+		color: #f37736;
+	}
+
+	.stats-block span.glyphicon-exclamation-sign {
+		color: #ee4035;
+	}
+
+	.state-block label {
+		display: block;
 	}
 </style>
 
-<div class="container">
+<div class="container-fluid dashboard">
 	<div class="row">
-		<div class="col-md-2">
-			<div class="stats-block">
-				Number of Users
+		<div class="col-md-2 col-md-offset-2 stats-block">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<span class="glyphicon glyphicon-user"></span>
+					<label translate="USER_NUMBER_LABEL"></label> 150
+				</div>
 			</div>
 		</div>
+
+		<div class="col-md-2 stats-block">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<span class="glyphicon glyphicon-book"></span>
+					<label translate="LESSON_NUMBER_LABEL"></label> 150
+				</div>
+			</div>
+		</div>
+
+		<div class="col-md-2 stats-block">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<span class="glyphicon glyphicon-question-sign"></span>
+					<label translate="QUESTION_NUMBER_LABEL"></label> 150
+				</div>
+			</div>
+		</div>
+
+		<div class="col-md-2 stats-block">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<span class="glyphicon glyphicon-exclamation-sign"></span>
+					<label translate="REPORT_NUMBER_LABEL"></label> 150
+				</div>
+			</div>
+		</div>
+
 
 		<!-- <div class="col-md-2">
 			<div class="stats-block">

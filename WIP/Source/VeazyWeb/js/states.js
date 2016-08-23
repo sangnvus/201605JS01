@@ -359,7 +359,8 @@
 		})
 		.state('admin.users', {
 			url: '/users',
-			templateUrl: 'partials/admin-restricted/users.html'
+			templateUrl: 'partials/admin-restricted/users.html',
+			controller: 'userManagementCtrl'
 		})
 		;
 	}]);

@@ -1,6 +1,6 @@
 ;(function() {
 	'use strict';
-	var questionDetailCtrl = function($scope, $state, $stateParams, veazyConfig, QuestionService, Helper) {
+	var questionDetailCtrl = function($scope, $state, $stateParams, veazyConfig, QuestionService, Helper, ngDialog) {
 		$scope.CODE = veazyConfig.CODE;
 		var CODE = veazyConfig.CODE;
 		var MESSAGE = veazyConfig.MESSAGE;
@@ -31,9 +31,22 @@
 		$scope.trustAsHtml = Helper.trustAsHtml;
 
 		// $scope.question = getQuestion;
+		$scope.openConfirmDeleteDialog = function() {
+			ngDialog.open({
+				template: 'partials/content-editor-restricted/delete-question.html',
+				className: 'ngdialog-theme-default delete-lesson-dialog',
+				showClose: true,
+				closeByDocument: false,
+				width: 500,
+				controller: 'deleteQuestionCtrl',
+				data: {
+					question: $scope.question
+				}
+			});
+		}
 	};
 
-	questionDetailCtrl.$inject = ['$scope', '$state', '$stateParams', 'veazyConfig', 'QuestionService', 'Helper'];
+	questionDetailCtrl.$inject = ['$scope', '$state', '$stateParams', 'veazyConfig', 'QuestionService', 'Helper', 'ngDialog'];
 
 	angular.module('veazyControllers').controller('questionDetailCtrl', questionDetailCtrl);
 })();
