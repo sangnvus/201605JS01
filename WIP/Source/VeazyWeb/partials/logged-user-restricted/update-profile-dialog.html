@@ -1,20 +1,22 @@
 <div class="row-fluid clearfix">
 <h4 class="title" translate="UPDATE_PROFILE_HEADER"></h4>
-<form class="form-horizontal" name="changePasswordForm" novalidate>
+<form class="form-horizontal" name="updateProfileForm" novalidate>
 	<div class="form-box">
+		<!-- last name -->
 		<div class="form-group">
 			<label class="control-label col-sm-3" translate="FIRSTNAME_LABEL"></label>
 			<div class="col-sm-9">
 				<input class="form-control" type="text" ng-model="firstName" ng-value="ngDialogData.user.firstName"></input>
 			</div>
 		</div>
-
+		<!-- first name -->
 		<div class="form-group">
 			<label class="control-label col-sm-3" translate="LASTNAME_LABEL"></label>
 			<div class="col-sm-9">
 				<input class="form-control" type="text" ng-model="lastName" ng-value="ngDialogData.user.lastName"></input>
 			</div>
 		</div>
+		<!-- birthday -->
 		<div class="form-group">
 			<label class="control-label col-sm-3" translate="BIRTHDAY_LABEL"></label>
 			<div class="col-sm-9">
@@ -26,34 +28,39 @@
 				</div>
 			</div>
 		</div>
+		<!-- address -->
 		<div class="form-group">
 			<label class="control-label col-sm-3" translate="ADDRESS_LABEL"></label>
 			<div class="col-sm-9">
 				<input class="form-control" type="text" ng-model="address" ng-value="ngDialogData.user.address"></input>
 			</div>
 		</div>
+		<!-- hobby -->
 		<div class="form-group">
 			<label class="control-label col-sm-3" translate="HOBBY_LABEL"></label>
 			<div class="col-sm-9">
-				<textarea class="form-control" ng-model="hobby" ng-value="ngDialogData.user.hobby"></textarea>
+				<textarea class="form-control" ng-model="hobby" ng-init="hobby = ngDialogData.user.hobby"></textarea>
 			</div>
 		</div>
+		<!-- bio -->
 		<div class="form-group">
 			<label class="control-label col-sm-3" translate="ABOUT_ME_LABEL"></label>
 			<div class="col-sm-9">
-				<textarea class="form-control" ng-model="bio" ng-value="ngDialogData.user.bio"></textarea>
+				<textarea class="form-control" ng-model="bio" ng-init="bio = ngDialogData.user.bio"></textarea>
 			</div>
 		</div>
+		<!-- quote-->
 		<div class="form-group">
 			<label class="control-label col-sm-3" translate="FAVORITE_QUOTE"></label>
 			<div class="col-sm-9">
-				<textarea class="form-control" ng-model="quote"></textarea>
+				<textarea class="form-control" ng-model="quote" ng-init="quote = ngDialogData.user.quote"></textarea>
 			</div>
 		</div>
+		<!-- website -->
 		<div class="form-group">
 			<label class="control-label col-sm-3" translate="WEBSITE_LABEL"></label>
 			<div class="col-sm-9">
-				<input type="text" class="form-control" ng-model="website" ng-value="ngDialog.user.website"></input>
+				<input type="text" class="form-control" ng-model="website" ng-value="ngDialogData.user.website"></input>
 			</div>
 		</div>
 	</div>

@@ -275,6 +275,8 @@
 	"OCCUPATION_LABEL": "Occupation",
 	"ASSIGN_AS_EDITOR_BUTTON_LABEL": "Assign as editor",
 	"ASSIGN_AS_ADMIN_BUTTON_LABEL": "Assign as admin",
-	"BAN_BUTTON_LABEL": "Ban"
+	"BAN_BUTTON_LABEL": "Ban",
+
+	"RETAKE_TEST_BUTTON_LABEL": "Retake"
 
 }

@@ -65,7 +65,8 @@
 			var type = $scope.selectedQuestionType.id;
 			var level = $scope.selectedLevel.id;
 			var skill = $scope.selectedTestSkill.id;
-			$scope.filteredQuestionList = $filter('question')($scope.questionList, type, level, skill);
+			var keyword = $scope.keyword;
+			$scope.filteredQuestionList = $filter('question')($scope.questionList, type, level, skill, keyword);
 			$scope.currentPage = 1;
 		};
 

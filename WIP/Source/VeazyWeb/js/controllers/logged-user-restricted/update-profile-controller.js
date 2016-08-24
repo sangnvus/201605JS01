@@ -35,6 +35,7 @@
 				hobby: $scope.hobby,
 				address: $scope.address,
 				bio: $scope.bio,
+				quote: $scope.quote,
 				website: $scope.website
 			};
 

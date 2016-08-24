@@ -160,7 +160,7 @@
 				}
 			}
 		}).state('test.seelastresult', {
-			url: '/lastresult/:examId',
+			url: '/:examId/result-from-last-time',
 			templateUrl: 'partials/logged-user-restricted/last-result.html',
 			controller: 'lastExamResultCtrl',
 			resolve: {
@@ -191,7 +191,64 @@
 					return deferred.promise;
 				}
 			}
-		}).state('user', {
+		}).state('test.retake', {
+			url: '/:examId/retake',
+			templateUrl: 'partials/take-test.html',
+			controller: 'retakeTestCtrl',
+			resolve: {
+				getExam: function($state, $stateParams, $q, ExamService, veazyConfig) {
+					var CODE = veazyConfig.CODE;
+					var deferred = $q.defer();
+					var examId = $stateParams.examId;
+
+					ExamService.getHistory($stateParams.examId).then(function(response) {
+						console.log(response);
+						switch (response.code) {
+							case CODE.SUCCESS: {
+								deferred.resolve(response);
+								break;
+							}
+							case CODE.UNAUTHORIZED: {
+								deferred.reject();
+								$state.go('login');
+								break;
+							}
+							default: {
+								deferred.reject();
+								$state.go('test');
+							}
+						}
+					}, function(reject) {
+						deferred.reject();
+					});
+					return deferred.promise;
+				}
+			}
+		}).state('test.retakeresult', {
+			url: '/:examId/retake/result',
+			templateUrl: 'partials/logged-user-restricted/retake-test-result.html',
+			controller: 'retakeTestResultCtrl',
+			params: {
+				examResult: null
+			},
+			resolve: {
+				getExamResult: function($timeout, $state, $stateParams, $q, ExamService) {
+					var deferred = $q.defer();
+					$timeout(function() {
+						if ($stateParams.examResult) {
+							deferred.resolve();
+						} else {
+							deferred.reject();
+							$state.go('test.retake', {examId: $stateParams.examId});
+						}
+					});
+					return deferred.promise;
+				}
+			}
+		})
+
+		//user profile
+		.state('user', {
 			url: '/user',
 			abstract: true,
 			templateUrl: 'partials/logged-user-restricted/user.html',
@@ -389,20 +446,19 @@
 										$state.go('editordashboard.reportlist');
 										break;
 									}
-									default: {
-
+									case CODE.ADMIN: {
+										$state.go('admin.dashboard')
 									}
 								}
 								deferred.reject();
 							}
 
+							//haven't logged in  yet
 							default: {
 								deferred.resolve();
 							}
 						}
-						// deferred.reject();
 					}, function() {
-						// deferred.resolve();
 						deferred.reject();
 					});
 					return deferred.promise;

@@ -10,7 +10,7 @@
 					<li ng-repeat="answer in question.listAnswers track by $index">
 						<div class="checkbox">
 							<checkbox ng-model="answer.isSelected"></checkbox>
-							<label ng-class="{'true-answer': answer.isRight}">{{answer.answer}}</label>
+							<label>{{answer.answer}}</label>
 						</div>
 					</li>
 				</ul>
@@ -28,7 +28,7 @@
 							<li ng-repeat="answer in question.listAnswers">
 								<div class="checkbox">
 									<checkbox ng-model="answer.isSelected"></checkbox>
-									<label ng-class="{'true-answer': answer.isRight}">{{answer.answer}}</label>
+									<label>{{answer.answer}}</label>
 								</div>
 							</li>
 						</ul>

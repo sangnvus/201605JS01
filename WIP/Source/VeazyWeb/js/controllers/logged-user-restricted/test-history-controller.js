@@ -5,7 +5,7 @@
 			console.log(response);
 			switch (response.code) {
 				case CODE.SUCCESS: {
-					$scope.testHistoryList = response.data.exams;
+					$scope.testHistoryList = response.data.exams.reverse();
 					// console.log($scope.testHistoryList);
 
 					//pagination
@@ -28,11 +28,24 @@
 			}
 		});
 
-		$scope.getTest = function(examId) {
+		$scope.getTest = function(exam) {
+			var examId = exam.examId;
 			ExamService.getHistory(examId).then(function(response) {
 				console.log(response);
-			}, function(reject) {
+				switch (response.code) {
+					case CODE.SUCCESS: {
+						exam.listQuestion = response.data.listQuestions;
+						break;
+					}
 
+					case CODE.UNAUTHORIZED: {
+
+					}
+
+					default: {
+
+					}
+				} 
 			});
 		};
 	};
