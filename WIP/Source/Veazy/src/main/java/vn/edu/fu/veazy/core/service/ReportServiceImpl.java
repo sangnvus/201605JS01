@@ -96,6 +96,7 @@ public class ReportServiceImpl implements ReportService{
 			report.setLessonId(lessonId);
 			report.setQuestionId(-1);
 			report.setCreateDate(System.currentTimeMillis());
+            report.setReadFlag(false);
 			//save to db
 			reportDao.save(report);
 		}
@@ -121,6 +122,7 @@ public class ReportServiceImpl implements ReportService{
 			report.setQuestionId(questionId);
 			report.setLessonId(-1);
 			report.setCreateDate(System.currentTimeMillis());
+			report.setReadFlag(false);
 			//save to db
 			reportDao.save(report);
 		}
