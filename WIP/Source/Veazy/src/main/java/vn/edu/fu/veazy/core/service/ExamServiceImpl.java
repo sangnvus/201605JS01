@@ -83,7 +83,7 @@ public class ExamServiceImpl implements ExamService {
             // TODO custom exception
             throw new Exception(e.getMessage(), e);
         }
-        
+
     }
 
     @Override
@@ -93,14 +93,14 @@ public class ExamServiceImpl implements ExamService {
         if (exam == null) {
             throw new Exception("Exam not found");
         }
-
+        
         //calculate result
         List<SubmitQuestionForm> listQuestion = form.getListQuestions();
         List<ExamQuestionModel> listOriginQuestion = exam.getListQuestions();
         Double[] result = calcResult(listQuestion, listOriginQuestion);
         Double examResult = 0d;
         if (result.length == 2 && result[1] > 0) {
-            examResult = Utils.round(result[0]/result[1], 2) * 100;
+            examResult = Utils.round(result[0] / result[1], 2) * 100;
         }
         exam.setResult(examResult);
 //        exam.setTakenTime(0);
@@ -112,7 +112,7 @@ public class ExamServiceImpl implements ExamService {
         }
         return exam;
     }
-    
+
     private Double[] calcResult(List<SubmitQuestionForm> listUserQuestions,
             List<ExamQuestionModel> listOriginQuestions) {
         Double userRight = 0d;
@@ -139,6 +139,7 @@ public class ExamServiceImpl implements ExamService {
                         singleQuesRight = 0;
                         boolean failedQues = false;
                         for (ExamAnswerModel ansModel : listAnswers) {
+                            ansModel.setIsSelected(false);
                             if (ansModel.getIsRight()) {
                                 if (listUserAnswers.get(index).getIsSelected() && !failedQues) {
                                     singleQuesChoice++;
@@ -154,14 +155,15 @@ public class ExamServiceImpl implements ExamService {
                             }
                             index++;
                         }
-                        if (singleQuesRight > 0)
-                            userRight += Utils.round(singleQuesChoice/singleQuesRight, 2);
+                        if (singleQuesRight > 0) {
+                            userRight += Utils.round(singleQuesChoice / singleQuesRight, 2);
+                        }
                     }
                 }
             }
         }
 //        if (totalRight > 0) return new Utils.round(userRight/totalRight, 2) * 100;
-        return new Double[] {userRight, totalRight};
+        return new Double[]{userRight, totalRight};
     }
 
 }

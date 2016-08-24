@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,8 +17,11 @@ import vn.edu.fu.veazy.core.common.Const;
 import vn.edu.fu.veazy.core.form.ReportForm;
 import vn.edu.fu.veazy.core.model.ReportModel;
 import vn.edu.fu.veazy.core.model.UserModel;
+import vn.edu.fu.veazy.core.response.GetLessonResponse;
+import vn.edu.fu.veazy.core.response.GetReportDataResponse;
 import vn.edu.fu.veazy.core.response.Response;
 import vn.edu.fu.veazy.core.response.ResponseCode;
+import vn.edu.fu.veazy.core.service.LessonService;
 import vn.edu.fu.veazy.core.service.ReportService;
 import vn.edu.fu.veazy.core.service.UserService;
 
@@ -44,6 +46,11 @@ public class ReportController {
 
     
     /**
+     * lesson service
+     */
+    @Autowired
+    private LessonService lessonService;
+    /**
      * レポートの詳細な内容をとる
      * @param reportId　レポートのＩＤ
      * @return　返事のＪＳＯＮ
@@ -55,7 +62,18 @@ public class ReportController {
     String getReport(@PathVariable("report_id") Integer reportId) {
         Response response = new Response(ResponseCode.BAD_REQUEST);
         try {
-            ReportModel data = reportService.getReport(reportId);
+            ReportModel report = reportService.getReport(reportId);
+            GetReportDataResponse data = new GetReportDataResponse(report);
+            Integer lessonId = data.getLessonId();
+            Integer senderId = data.getSenderId();
+            if(lessonId != null){
+                GetLessonResponse lesson = lessonService.getLesson(lessonId, false);
+                data.setLesonTitle(lesson.getLessonTitle());
+            }
+            if(senderId != null){
+                UserModel user = userService.findUserById(senderId);
+                data.setUsername(user.getUserName());
+            }
             response.setCode(ResponseCode.SUCCESS);
             response.setData(data);
             LOGGER.debug("get report successfully!");
@@ -188,7 +206,7 @@ public class ReportController {
     * @param reportForm form submitted
     * @return json string
     */
-   @Secured("isAuthenticated()")
+   @PreAuthorize("isAuthenticated()")
    @RequestMapping(value = Const.URLMAPPING_REPORT_QUESTION, method = RequestMethod.POST,
            produces={"application/json; charset=UTF-8"})
    public @ResponseBody
