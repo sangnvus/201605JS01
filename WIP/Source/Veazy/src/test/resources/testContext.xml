@@ -47,7 +47,6 @@
         <value>vn.edu.fu.veazy.core.model.ExamAnswerModel</value>
         <value>vn.edu.fu.veazy.core.model.LessonModel</value>
         <value>vn.edu.fu.veazy.core.model.LessonVersionModel</value>
-        <value>vn.edu.fu.veazy.core.model.MessageModel</value>
         <value>vn.edu.fu.veazy.core.model.QuestionModel</value>
         <value>vn.edu.fu.veazy.core.model.AnswerModel</value>
         <value>vn.edu.fu.veazy.core.model.ReportModel</value>
@@ -57,7 +56,7 @@
       <props>
         <prop key="hibernate.dialect">org.hibernate.dialect.PostgreSQL82Dialect</prop>
         <prop key="hibernate.show_sql">true</prop>
-        <prop key="hibernate.hbm2ddl.auto">update</prop>
+        <prop key="hibernate.hbm2ddl.auto">create-drop</prop>
         <prop key="hibernate.connection.characterEncoding">utf8</prop>
         <prop key="hibernate.connection.charSet">utf8</prop>
         <prop key="hibernate.connection.useUnicode">true</prop>
@@ -86,8 +85,8 @@
             value="org.hibernate.search.store.FSDirectoryProvider" />
     <entry key="hibernate.search.default.indexBase" value="index" />
   </util:map> -->
-  
-  <bean id="searchListener" class="org.hibernate.search.event.impl.FullTextIndexEventListener" />
+  <!-- 
+  <bean id="searchListener" class="org.hibernate.search.event.impl.FullTextIndexEventListener" /> -->
 
   <bean id="transactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager"
         p:sessionFactory-ref="sessionFactory">
@@ -101,6 +100,7 @@
   <bean id="lessonVersionDao" class="vn.edu.fu.veazy.core.dao.HibernateLessonVersionDao"/>
   <bean id="questionDao" class="vn.edu.fu.veazy.core.dao.HibernateQuestionDao"/>
   <bean id="reportDao" class="vn.edu.fu.veazy.core.dao.HibernateReportDao"/>
+  <bean id="examQuestionDao" class="vn.edu.fu.veazy.core.dao.HibernateExamQuestionDao"/>
   
   <!-- <bean id="luceneQuestion" class="vn.edu.fu.veazy.core.dao.HibernateLuceneDao">
     <constructor-arg>
