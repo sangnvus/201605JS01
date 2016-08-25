@@ -2,6 +2,7 @@ package vn.edu.fu.veazy.core.controller;
 
 import java.security.Principal;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.slf4j.LoggerFactory;
@@ -84,6 +85,7 @@ public class StatsController {
      * 
      * @return json
      */
+    @SuppressWarnings("rawtypes")
     @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = Const.URLMAPPING_STATS_LAST_EXAM, method = RequestMethod.GET,
             produces={"application/json; charset=UTF-8"})
@@ -101,8 +103,17 @@ public class StatsController {
             }
             
             List<StatsLastExamResponse> listAvg = statsService.getLastExamResult(user.getId(), number);
+            List<Double> results = new ArrayList<>();
+            List<Long> dates = new ArrayList<>();
+            HashMap<String, List> resp = new HashMap<>();
+            resp.put("results", results);
+            resp.put("dates", dates);
+            for (StatsLastExamResponse last : listAvg) {
+                results.add(last.getResult());
+                dates.add(last.getDate());
+            }
             response.setCode(ResponseCode.SUCCESS);
-            response.setData(listAvg);
+            response.setData(resp);
             
             return response.toResponseJson();
         } catch (Exception e) {

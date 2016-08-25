@@ -103,7 +103,7 @@ public class StatsServiceImpl implements StatsService {
             }
             listExam = listExam.subList(from, listExam.size());
             for (ExamModel exam : listExam) {
-                result.add(new StatsLastExamResponse(exam.getResult()));
+                result.add(new StatsLastExamResponse(exam.getResult(), exam.getCreateDate()));
             }
         }
         return result;
