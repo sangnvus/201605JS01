@@ -70,6 +70,7 @@
 	"GRAMMAR_SKILL": "文法",
 	"LISTENING_SKILL": "聴解",
 	"READING_SKILL": "読解",
+	"WRITING_SKILL": "文書",
 	"VOCABULARY_SECTION": "語彙",
 	"GRAMMAR_SECTION": "文法",
 	"CONVERSATION_SECTION": "会話",
@@ -78,21 +79,21 @@
 	"READING_SECTION": "読解",
 
 	"COURSE_HEADER": "ベトナム語コース",
-	"SEARCH_LESSON_LABEL": "レッソン検索",
-	"SEARCH_LESSON_PLACEHOLDER": "レッソン検索のため入力",
+	"SEARCH_LESSON_LABEL": "授業検索",
+	"SEARCH_LESSON_PLACEHOLDER": "授業検索のため入力",
 	"STUDY_BUTTON_LABEL": "学習",
 
 	"COURSE_LABEL": "コース：",
-	"PREVIOUS_LESSON_HYPERLINK": "前のレッソンへ",
-	"NEXT_LESSON_HYPERLINK": "次のレッソンへ",
-	"REPORT_LESSON_HYPERLINK": "レッソン報告",
-	"SIDE_SEARCH_LESSON_HEADER": "レッソン検索",
+	"PREVIOUS_LESSON_HYPERLINK": "前の授業へ",
+	"NEXT_LESSON_HYPERLINK": "次の授業へ",
+	"REPORT_LESSON_HYPERLINK": "授業報告",
+	"SIDE_SEARCH_LESSON_HEADER": "授業検索",
 	"SIDE_SEARCH_LESSON_PLACEHOLDER": "検索のため入力",
 	"SIDE_DICTIONARY_HEADER": "辞書",
 
 	"PROVIDED_BY_HEADING": "提供組織",
-	"LESSON_DETAIL_HEADING": "レッソン情報",
-	"ABOUT_LESSON_HEADING": "レッソン紹介",
+	"LESSON_DETAIL_HEADING": "授業情報",
+	"ABOUT_LESSON_HEADING": "授業紹介",
 
 	"TEST_PREPARATION_HEADER": "テスト準備",
 	"NUMBER_OF_QUESTIONS_LABEL": "質問の数 ",
@@ -130,20 +131,20 @@
 
 	"WELCOME_MESSAGE": "ようこそ、",
 	"CONTENT_EDITOR_OCCUPATION": "内容編集者",
-	"LESSON_TAB": "レッソン管理",
-	"LESSON_LIST_TAB": "レッソンリスト",
-	"ADD_LESSON_TAB": "レッソン追加",
+	"LESSON_TAB": "授業管理",
+	"LESSON_LIST_TAB": "授業リスト",
+	"ADD_LESSON_TAB": "授業追加",
 	"QUESTION_TAB": "質問管理",
 	"QUESTION_LIST_TAB": "質問リスト",
 	"ADD_QUESTION_TAB": "質問追加",
 	"REPORT_TAB": "報告管理",
 	"LOGOUT_TAB": "ログアウト",
 
-	"ADD_LESSON_HEADING": "新レッソン作成",
+	"ADD_LESSON_HEADING": "新授業作成",
 	"CREATE_BUTTON_LABEL": "作成",
 
-	"LESSON_LIST_HEADING": "レッソンリスト",
-	"SEARCH_LESSON_PLACEHOLDER": "レッソンを検索",
+	"LESSON_LIST_HEADING": "授業リスト",
+	"SEARCH_LESSON_PLACEHOLDER": "授業を検索",
 	"ID_LABEL": "ID番号",
 	"TITLE_LABEL": "題名",
 	"CONTENT_LABEL": "内容",
@@ -154,7 +155,7 @@
 	"EDIT_BUTTON_LABEL": "編集",
 	"DELETE_BUTTON_LABEL": "削除",
 
-	"EDIT_LESSON_HEADING": "レッソン編集",
+	"EDIT_LESSON_HEADING": "授業編集",
 	"VERSION_LABEL": "バージョン",
 	"UPDATE_BUTTON_LABEL": "更新",
 	"SAVE_DRAFT_BUTTON_LABEL": "下書き保存",
@@ -209,10 +210,10 @@
 	"READING_SECTION_PLACEHOLDER": "読解の分の内容を入力",
 
 	"ERROR_DIALOG_HEADING": "エラー",
-	"MISSING_ADD_LESSON_FIELD": "新レッソンを作成できませんでした！レッソン情報と内容を空白のままにしないことをご確認ください。",
-	"MISSING_UPDATE_LESSON_FIELD": "レッソン編集できませんでした！レッソン情報と内容を空白のままにしないことをご確認ください。",
-	"DELETE_LESSON_HEADING": "レッソン削除",
-	"DELETE_LESSON_CONFIRM": "「{{title}}」というレレッソン削除をご確認ください。",
+	"MISSING_ADD_LESSON_FIELD": "新授業を作成できませんでした！授業情報と内容を空白のままにしないことをご確認ください。",
+	"MISSING_UPDATE_LESSON_FIELD": "授業編集できませんでした！授業情報と内容を空白のままにしないことをご確認ください。",
+	"DELETE_LESSON_HEADING": "授業削除",
+	"DELETE_LESSON_CONFIRM": "「{{title}}」というレ授業削除をご確認ください。",
 
 	"BACK_TO_DETAIL_BUTTON_LABEL": "質問内容へ",
 
@@ -243,7 +244,7 @@
 	"REPORT_QUESTION_CONFIRM": "ご報告トは、レビューのために提出されました。 ご協力ありがとうございます。",
 
 	"SHOW_ONLY_QUESTIONS_WHERE_HEADING": "質問のみを表示",
-	"SHOW_ONLY_LESSON_WHERE_HEADING": "レッソンのみを表示",
+	"SHOW_ONLY_LESSON_WHERE_HEADING": "授業のみを表示",
 	"ALL_TYPES": "すべてのタイプ",
 	"ALL_LEVELS": "すべてのレベル",
 	"ALL_SKILLS": "すべてのスキル",
@@ -257,6 +258,32 @@
 	"REPORT_LIST": "報告リスト",
 	"MARK_AS_CHECKED_BUTTON_LABEL": "既読にします",
 
-	"NOT_VALID_AUDIO_FILE_ERROR_MSG": "有効なオーディオファイルではありません。のみの.mp3ファイルは許可されます！"
+	"NOT_VALID_AUDIO_FILE_ERROR_MSG": "有効なオーディオファイルではありません。のみの.mp3ファイルは許可されます！",
+
+	"ADMIN_OCCUPATION": "管理者",
+	"DASHBOARD_TAB": "ダッシュボード",
+	"USER_TAB": "ユーザー管理",
+	"USER_NUMBER_LABEL": "人数：",
+	"LESSON_NUMBER_LABEL": "授業授業数：",
+	"QUESTION_NUMBER_LABEL": "質問数：",
+	"REPORT_NUMBER_LABEL": "報告数：",
+	"MANAGE_HYPERLINK": "管理",
+	"BAN_HYPERLINK": "禁止",
+	"UNBAN_HYPERLINK": "禁止を解除します",
+	"ASSIGN_AS_EDITOR_HYPERLINK": "編集者として割り当てます",
+	"ASSIGN_AS_ADMIN_HYPERLINK": "管理者として割り当てます",
+	"OCCUPATION_LABEL": "役割",
+	"ASSIGN_AS_EDITOR_BUTTON_LABEL": "編集者として割り当て",
+	"ASSIGN_AS_ADMIN_BUTTON_LABEL": "編集者として割り当て",
+	"BAN_BUTTON_LABEL": "禁止",
+
+	"RETAKE_TEST_BUTTON_LABEL": "再受験",
+	"STATISTICS_OF_SKILLS_HEADING": "テストスキル",
+	"STATISTICS_OF_RECENTLY_TEST_HEADING": "１０最も最近のテストの点数",
+	"STATISTICS_OF_LEVEL_HEADING": "テストレベル",
+
+	"TAKEN_DATE_HEADING": "受験日：",
+	"TIME_ALLOWED_HEADING": "時間期限：",
+	"TIME_TAKEN_HEADING": "ご使用になった時間："
 
 }

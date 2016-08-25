@@ -236,7 +236,7 @@
 				console.log(response);
 				switch (response.code) {
 					case CODE.SUCCESS: {
-						$state.go('editordashboard.question.list');
+						$state.go('editor.question.list');
 						break;
 					}
 					case CODE.UNAUTHORIZED: {

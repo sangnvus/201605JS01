@@ -39,12 +39,12 @@
 						<tbody>
 							<tr ng-repeat="lesson in filteredLessonList | start: (currentPage - 1) * numPerPage | limitTo: numPerPage">
 								<td>{{lesson.lessonId}}</td>
-								<td><a href="" ui-sref="editordashboard.lesson.detail({id: {{lesson.lessonId}}})">{{lesson.title}}</a></td>
+								<td><a href="" ui-sref="editor.lesson.detail({id: {{lesson.lessonId}}})">{{lesson.title}}</a></td>
 	
 								<td translate="{{lesson.courseId | level}}"></td>
 								<td>{{lesson.version}}</td>
 								<td>
-									<button class="btn btn-primary btn-sm" ng-click="showEditDialog()" ui-sref="editordashboard.lesson.edit({id: {{lesson.lessonId}}})" translate="EDIT_BUTTON_LABEL"></button>
+									<button class="btn btn-primary btn-sm" ng-click="showEditDialog()" ui-sref="editor.lesson.edit({id: {{lesson.lessonId}}})" translate="EDIT_BUTTON_LABEL"></button>
 									<button class="btn btn-danger btn-sm" ng-click="openConfirmDeleteDialog(lesson)" translate="DELETE_BUTTON_LABEL"></button>
 								</td>
 							</tr>

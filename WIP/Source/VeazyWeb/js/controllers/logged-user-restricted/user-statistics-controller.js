@@ -1,7 +1,12 @@
 ;(function() {
 	'use strict';
-	var userStatisticsCtrl = function($scope, veazyConfig, ChartService) {
+	var userStatisticsCtrl = function($scope, $filter, veazyConfig, ChartService) {
 		var CODE = veazyConfig.CODE;
+		// var currentLang = $translate.use;
+
+		// if (currentLang === 'en') {
+		// 	$scope.levelLabels = 
+		// }
 
 		// $scope.skillData = [
 		// 	[65, 59, 90, 81, 0]
@@ -11,34 +16,28 @@
 		// $scope.testGradeData = [
 		// 	[65, 59, 48, 81, 56, 55, 40, 78, 100, 57]
 		// ];
+		// console.log($translate('BEGINNER_LEVEL'))
 		
-		$scope.levelLabels = ['Beginner', 'Upper-beginner', 'Intermediate', 'Upper-intermediate', 'Advanced', 'Master'];
-		$scope.levelData = [
-			[65, 59, 80, 81, 92, 55, 40]
+		$scope.levelLabels = [
+			$filter('translate')('BEGINNER_LEVEL'), 
+			$filter('translate')('UPPER_BEGINNER_LEVEL'),
+			$filter('translate')('INTERMEDIATE_LEVEL'),
+			$filter('translate')('UPPER_INTERMEDIATE_LEVEL'),
+			$filter('translate')('ADVANCED_LEVEL'),
+			$filter('translate')('MASTER_LEVEL')
 		];
-		// $scope.onClick = function (points, evt) {
-		// 	console.log(points, evt);
-		// };
-		// $scope.datasetOverride = [{ yAxisID: 'y-axis-1' }, { yAxisID: 'y-axis-2' }];
-		// $scope.options = {
-		// 	scales: {
-		// 		yAxes: [{
-		// 			id: 'y-axis-1',
-		// 			type: 'linear',
-		// 			display: true,
-		// 			position: 'left'
-		// 		}, {
-		// 			id: 'y-axis-2',
-		// 			type: 'linear',
-		// 			display: true,
-		// 			position: 'right'
-		// 		}
-		// 	]}
-		// };
+
+		$scope.skillLabels = [
+			$filter('translate')('VOCABULARY_SKILL'),
+			$filter('translate')('GRAMMAR_SKILL'),
+			$filter('translate')('LISTENING_SKILL'),
+			$filter('translate')('READING_SKILL'),
+			$filter('translate')('WRITING_SKILL')
+		]
 
 		//get stats of skills
 		ChartService.getSkillStats().then(function(response) {
-			console.log(response);
+			// console.log(response);
 			switch (response.code) {
 				case CODE.SUCCESS: {
 					var data = response.data;
@@ -48,30 +47,56 @@
 					];
 
 					//get marks of 10 recently exams
-					ChartService.getExamMarkStats(10).then(function(response) {
-						console.log(response);
-						switch (response.code) {
-							case CODE.SUCCESS: {
-								var responseData = response.data;
+					// ChartService.getExamMarkStats(10).then(function(response) {
+					// 	// console.log(response);
+					// 	switch (response.code) {
+					// 		case CODE.SUCCESS: {
+					// 			var responseData = response.data;
 
-								$scope.testGradeLabels = [];
-								$scope.testGradeData = [[]];
+					// 			$scope.testGradeLabels = [];
+					// 			$scope.testGradeData = [[]];
 
-								$scope.testGradeLabels = [];
-								for (var i = 0; i < responseData.length; i++) {
-									// $scope.testGradeLabels.push('Test' + (i + 1));
-									$scope.testGradeLabels.push('Test' + (i + 1));
-									$scope.testGradeData[0].push(responseData[i].result);
-								}
+					// 			$scope.testGradeLabels = [];
+					// 			for (var i = 0; i < responseData.length; i++) {
+					// 				// $scope.testGradeLabels.push('Test' + (i + 1));
+					// 				$scope.testGradeLabels.push('Test' + (i + 1));
+					// 				$scope.testGradeData[0].push(responseData[i].result);
+					// 			}
 
-								console.log($scope.testGradeData);
-							}
+					// 			// console.log($scope.testGradeData);
+					// 		}
 
-							default: {
-								//handling other case
-							}
-						}
-					});
+					// 		default: {
+					// 			//handling other case
+					// 		}
+					// 	}
+					// });
+					break;
+				}
+
+				default: {
+					//handling other case
+				}
+			}
+		});
+
+		ChartService.getExamMarkStats(10).then(function(response) {
+			// console.log(response);
+			switch (response.code) {
+				case CODE.SUCCESS: {
+					var responseData = response.data;
+
+					$scope.testGradeLabels = [];
+					$scope.testGradeData = [[]];
+
+					$scope.testGradeLabels = [];
+					for (var i = 0; i < responseData.length; i++) {
+						// $scope.testGradeLabels.push('Test' + (i + 1));
+						$scope.testGradeLabels.push('Test' + (i + 1));
+						$scope.testGradeData[0].push(responseData[i].result);
+					}
+
+					// console.log($scope.testGradeData);
 				}
 
 				default: {
@@ -87,11 +112,18 @@
 				case CODE.SUCCESS: {
 					// var data = response.data;
 					// var length = response.data.length;
+					var responseData = response.data;
+					$scope.levelData = [[]];
 
 					// $scope.testGradeLabels = [];
-					// for (var i = 0; i < length; i++) {
-					// 	$scope.testGradeLabels.push('Test' + (i + 1));
-					// }
+					for (var i = 0; i < responseData.length; i++) {
+						// $scope.testGradeLabels.push('Test' + (i + 1));
+						// $scope.testGradeLabels.push('Test' + (i + 1));
+						$scope.levelData[0].push(responseData[i].avgResult);
+					}
+
+					// console.log($scope.levelData);
+					break;
 
 					// $scope.skillData = [response.data];
 				}
@@ -105,6 +137,6 @@
 		});
 	};
 
-	userStatisticsCtrl.$inject = ['$scope', 'veazyConfig', 'ChartService'];
+	userStatisticsCtrl.$inject = ['$scope', '$filter', 'veazyConfig', 'ChartService'];
 	angular.module('veazyControllers').controller('userStatisticsCtrl', userStatisticsCtrl);
 })();

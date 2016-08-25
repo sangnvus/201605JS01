@@ -65,13 +65,13 @@
 									<!-- <td class="text-center">{{$index + 1}}</td> -->
 									<td>{{question.questionId}}</td>
 									<td>
-										<a href="" ui-sref="editordashboard.question.detail({questionId: question.questionId})" translate="SEE_CONTENT_HYPERLINK"></a>
+										<a href="" ui-sref="editor.question.detail({questionId: question.questionId})" translate="SEE_CONTENT_HYPERLINK"></a>
 									</td>
 									<td translate="{{question.questionType | questionType}}"></td>
 									<td translate="{{question.courseId | level}}"></td>
 									<td translate="{{question.questionSkill | testSkill}}"></td>
 									<td>
-										<button class="btn btn-primary btn-sm" ui-sref="editordashboard.question.edit({questionId: question.questionId})" translate="EDIT_BUTTON_LABEL"></button>
+										<button class="btn btn-primary btn-sm" ui-sref="editor.question.edit({questionId: question.questionId})" translate="EDIT_BUTTON_LABEL"></button>
 										<button class="btn btn-danger btn-sm" ng-click="openConfirmDeleteDialog(question)" translate="DELETE_BUTTON_LABEL"></button>
 									</td>
 								</tr>

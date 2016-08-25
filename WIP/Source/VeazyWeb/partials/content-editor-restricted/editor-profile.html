@@ -1,9 +1,30 @@
-<div class="profile-content">
+<style type="text/css">
+	.editor-profile a {
+		text-decoration: none;
+	}
+
+	.editor-profile .item {
+		margin-bottom: 30px;
+	}
+
+	.editor-profile .item-heading {
+		color: #f87600;
+		margin-top: 0;
+	}
+</style>
+
+<div class="container-fluid editor-profile">
 	<div class="row">
-		<!-- user profile avatar -->
+		<div class="col-md-12">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h4>Editor Profile: Crimson</h4>
+				</div>
+				<div class="panel-body">
+					<!-- user profile avatar -->
 		<div class="col-md-3">
 			<div class="col-sm-10 col-sm-offset-1">
-				<img src="img/onthi.jpg" class="img-responsive">
+				<img src="img/1.png" class="img-responsive">
 			</div>
 		</div>
 
@@ -17,7 +38,6 @@
 				<ul class="dropdown-menu">
 					<li><a href="" ng-click="openUpdateProfileDialog()" translate="UPDATE_PROFILE_HYPERLINK"></a></li>
 					<li><a href="" ng-click="openChangePasswordDialog()" translate="CHANGE_PASSWORD_HYPERLINK"></a></li>
-					<li><a href="" ng-click="makeMeEditor()" translate="MAKE_ME_EDITOR"></a></li>
 				</ul>
 			</div>
 
@@ -81,6 +101,9 @@
 						<p class="col-md-9" ng-show="user.website"><a ng-href="http://{{user.website}}" target="_blank" class="website">{{user.website}}</a></p>
 						<p class="col-md-9 not-added-yet" ng-hide="user.website" translate="NOT_ADDED_LABEL"></p>
 					</div>
+				</div>
+			</div>
+		</div>
 				</div>
 			</div>
 		</div>

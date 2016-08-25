@@ -71,7 +71,7 @@
 					console.log(response);
 					switch (response.code) {
 						case CODE.SUCCESS: {
-							$state.go('editordashboard.lesson.detail', {
+							$state.go('editor.lesson.detail', {
 								id: response.data.lessonId
 							});
 							break;

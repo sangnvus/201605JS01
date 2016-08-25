@@ -15,12 +15,12 @@
 
 									<!-- english ver -->
 									<span ng-if="currentLang == 'en'">
-										On {{report.createDate | date}}, user {{report.senderId}} reported about <a ng-if="report.lessonId" ui-sref="editordashboard.lesson.detail({id: report.lessonId})">lesson #{{report.lessonId}}</a>: <cite>"{{report.content}}"</cite>.
+										On {{report.createDate | date}}, user {{report.senderId}} reported about <a ng-if="report.lessonId" ui-sref="editor.lesson.detail({id: report.lessonId})">lesson #{{report.lessonId}}</a>: <cite>"{{report.content}}"</cite>.
 									</span>
 
 									<!-- japanese ver -->
 									<span ng-if="currentLang == 'ja'">
-										{{report.createDate | date: 'yyyy年MM月dd日'}}に、 {{report.senderId}}というユーザーは、｢<cite>{{report.content}}</cite>｣と<a ng-if="report.lessonId" ui-sref="editordashboard.question.detail({questionId: report.questionId})">{{report.lessonId}}のレッソン</a>について報告しました。
+										{{report.createDate | date: 'yyyy年MM月dd日'}}に、 {{report.senderId}}というユーザーは、｢<cite>{{report.content}}</cite>｣と<a ng-if="report.lessonId" ui-sref="editor.question.detail({questionId: report.questionId})">{{report.lessonId}}のレッソン</a>について報告しました。
 									</span>
 								</td>
 								<td class="col-md-2 text-right">
