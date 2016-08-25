@@ -6,7 +6,7 @@
 				console.log(response.code);
 				switch (response.code) {
 					case CODE.SUCCESS: {
-						$state.go('editordashboard.question.list', {}, {
+						$state.go('editor.question.list', {}, {
 							reload: true
 						});
 						ngDialog.close();

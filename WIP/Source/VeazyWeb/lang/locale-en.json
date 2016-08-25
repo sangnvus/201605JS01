@@ -70,6 +70,7 @@
 	"GRAMMAR_SKILL": "Grammar",
 	"LISTENING_SKILL": "Listening",
 	"READING_SKILL": "Reading",
+	"WRITING_SKILL": "Writing",
 	"VOCABULARY_SECTION": "Vocab",
 	"GRAMMAR_SECTION": "Grammar",
 	"CONVERSATION_SECTION": "Convo",
@@ -99,7 +100,7 @@
 	"DURATION_LABEL": "Duration",
 	"CREATE_TEST_BUTTON_LABEL": "Create",
 	"TAKEN_TESTS_HEADER": "Recently taken tests",
-	"TEST_HEADER": "Test",
+	"TEST_HEADER": "{{skill}} Test",
 	"SUBMIT_TEST_BUTTON_LABEL": "Check Answer",
 	"REPORT_QUESTION_BUTTON_LABEL": "Report",
 
@@ -277,6 +278,14 @@
 	"ASSIGN_AS_ADMIN_BUTTON_LABEL": "Assign as admin",
 	"BAN_BUTTON_LABEL": "Ban",
 
-	"RETAKE_TEST_BUTTON_LABEL": "Retake"
+	"RETAKE_TEST_BUTTON_LABEL": "Retake",
+
+	"STATISTICS_OF_SKILLS_HEADING": "Test Skills",
+	"STATISTICS_OF_RECENTLY_TEST_HEADING": "Marks of 10 Recent Test",
+	"STATISTICS_OF_LEVEL_HEADING": "Test Levels",
+
+	"TAKEN_DATE_HEADING": "Taken date:",
+	"TIME_ALLOWED_HEADING": "Time allowed:",
+	"TIME_TAKEN_HEADING": "Time taken:"
 
 }

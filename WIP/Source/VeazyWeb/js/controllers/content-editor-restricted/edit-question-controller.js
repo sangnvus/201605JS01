@@ -47,7 +47,6 @@
 				},
 				useCurrent: false,
 				format: 'mm:ss',
-				// defaultDate: moment().minutes(0).seconds(30)
 				defaultDate: moment().startOf('day').seconds($scope.question.etaTime),
 				minDate: moment().startOf('day').seconds(30),
 				maxDate: moment().startOf('day').minutes(10)
@@ -56,7 +55,6 @@
 
 		//add one more answer to a single question or a question in group of questions
 		$scope.addAnswer = function(answers) {
-			// var answers = question.answers;
 			answers.push({});
 		};
 
@@ -69,7 +67,6 @@
 
 		//add one more question to group of questions
 		$scope.addQuestion = function(questions) {
-			// var questions = groupQuestion.questions;
 			questions.push({
 				listAnswers: []
 			});
@@ -80,7 +77,6 @@
 		};
 
 		$scope.removeQuestion = function(groupQuestion, index) {
-			// console.log(groupQuestion)
 			var questions = groupQuestion.listQuestions;
 			questions.splice(index, 1);
 			console.log(groupQuestion);
@@ -161,13 +157,18 @@
 				console.log(response);
 				switch (response.code) {
 					case CODE.SUCCESS: {
-						$state.go('editordashboard.question.detail', {
+						$state.go('editor.question.detail', {
 							questionId: question.questionId
 						});
 						break;
 					}
 					case CODE.UNAUTHORIZED: {
 						$state.go('login');
+						break;
+					}
+
+					case CODE.NO_PERMISSION: {
+						$state.go('forbidden');
 						break;
 					}
 				}

@@ -51,7 +51,7 @@
 					var CODE = veazyConfig.CODE;
 					switch (response.code) {
 						case CODE.SUCCESS: {
-							$state.go('editordashboard.lesson.detail', {
+							$state.go('editor.lesson.detail', {
 								id: $scope.lesson.lessonId
 							});
 							break;
@@ -85,7 +85,7 @@
 				var CODE = veazyConfig.CODE;
 				switch (response.code) {
 					case CODE.SUCCESS: {
-						$state.go('editordashboard.lesson.detail', {
+						$state.go('editor.lesson.detail', {
 							id: $scope.lesson.lessonId
 						});
 						break;

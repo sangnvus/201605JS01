@@ -19,6 +19,10 @@
 	font-weight: 700;
 }
 
+.ngdialog-content .form-box {
+	padding: 20px;
+}
+
 .ngdialog .button-box {
 	padding: 10px 12px;
 	background-color: #f6f7f9;
@@ -76,7 +80,7 @@
 
 /*=== Change password dialog in user profile page ===*/
 .change-password-dialog .form-box {
-	padding: 20px;
+	/*padding: 20px;*/
 }
 
 .change-password-dialog h5.error {
@@ -90,7 +94,7 @@
 }
 
 .update-profile-dialog .form-box {
-	padding: 20px;
+	/*padding: 20px;*/
 }
 
 /*=== delete lesson ===*/
@@ -99,7 +103,7 @@
 }
 
 .delete-lesson-dialog .form-box {
-	padding: 20px;
+	/*padding: 20px;*/
 	min-height: 120px;
 }
 

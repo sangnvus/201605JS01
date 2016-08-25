@@ -12,7 +12,7 @@
 				switch (response.code) {
 					case CODE.SUCCESS: {
 						ngDialog.close();
-						$state.go('editordashboard.lesson.list', {}, {reload: true});
+						$state.go('editor.lesson.list', {}, {reload: true});
 						break;
 					}
 					default: {

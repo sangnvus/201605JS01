@@ -1,13 +1,31 @@
 ;(function() {
 	'use strict';
-	var veazyFilters = angular.module('veazyFilters');
+	// var veazyFilters = angular.module('veazyFilters');
 
-	veazyFilters.filter('timeDuration', [function() {
-		return function (input) {
-			if (!input) {
+	var timeDuration = function($translate) {
+		return function (input, type) {
+			if (input == null) {
 				return;
 			}
-			return moment.duration(input, 'seconds').format('mm:ss', {trim: false});
+
+			var currentLang = $translate.use();
+			if (type) {
+				if (type === 'number') {
+					return moment.duration(input, 'seconds').format('hh:mm:ss', {trim: false});
+				} else if (type == 'text') {
+					if (currentLang === 'en') {
+						return moment.duration(input, 'seconds').format('m[min]s[sec]');
+					} else if (currentLang === 'ja') {
+						return moment.duration(input, 'seconds').format('m[分]s[秒]');
+					}
+				}
+			} else {
+				return moment.duration(input, 'seconds').format('hh:mm:ss', {trim: false});
+			}
 		}
-	}]);
+	};
+
+	timeDuration.$inject = ['$translate'];
+
+	angular.module('veazyFilters').filter('timeDuration', timeDuration);
 })();

@@ -1,11 +1,7 @@
 ;(function() {
 	var lessonListCtrl = function($scope, $state, $filter, FileUploader, ngDialog, LessonService, veazyConfig) {
 		var CODE = veazyConfig.CODE;
-		// $scope.uploader = new FileUploader({
-		// 	url: 'http://163.44.172.52:8080/Veazy/uploadfile',
-		// 	method: 'POST',
-		// 	withCredentials: true
-		// });
+
 
 		LessonService.getAllLessons().then(function(response) {
 			switch (response.code) {

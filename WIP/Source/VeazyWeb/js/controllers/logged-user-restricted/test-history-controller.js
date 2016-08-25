@@ -5,7 +5,7 @@
 			console.log(response);
 			switch (response.code) {
 				case CODE.SUCCESS: {
-					$scope.testHistoryList = response.data.exams.reverse();
+					$scope.testHistoryList = response.data.exams;
 					// console.log($scope.testHistoryList);
 
 					//pagination

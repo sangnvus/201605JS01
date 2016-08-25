@@ -21,7 +21,7 @@
 
 					//if editor --> redirect to editor dashboard
 					case CODE.EDITOR: {
-						$state.go('editordashboard.reportlist');
+						$state.go('editor.reportlist');
 						break;
 					}
 

@@ -5,7 +5,7 @@
 		var CODE = veazyConfig.CODE;
 
 		ReportService.getList().then(function(response) {
-			// console.log(response);
+			console.log(response);
 			switch (response.code) {
 				case CODE.SUCCESS: {
 					$scope.reportList = response.data;
