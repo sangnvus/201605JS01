@@ -1,6 +1,7 @@
 package vn.edu.fu.veazy.core.controller;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.LoggerFactory;
@@ -61,8 +62,12 @@ public class StatsController {
             }
             
             List<StatsCourseAvgResponse> listAvg = statsService.getCourseAvg(user.getId());
+            List<Double> p = new ArrayList<Double>();
+            for (StatsCourseAvgResponse s : listAvg) {
+                p.add(s.getAvgResult());
+            }
             response.setCode(ResponseCode.SUCCESS);
-            response.setData(listAvg);
+            response.setData(p);
             
             return response.toResponseJson();
         } catch (Exception e) {
