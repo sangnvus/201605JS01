@@ -27,6 +27,7 @@ import vn.edu.fu.veazy.core.common.utils.Utils;
 import vn.edu.fu.veazy.core.exception.CorruptedFormException;
 import vn.edu.fu.veazy.core.exception.InvalidEmailException;
 import vn.edu.fu.veazy.core.exception.PasswordExpectedException;
+import vn.edu.fu.veazy.core.exception.PasswordIncorrectException;
 import vn.edu.fu.veazy.core.form.ChangeRoleForm;
 import vn.edu.fu.veazy.core.form.ChgpwdForm;
 import vn.edu.fu.veazy.core.form.ForgotPwdForm;
@@ -276,9 +277,11 @@ public class UserController {
                 response.setCode(ResponseCode.USER_NOT_FOUND);
                 return response.toResponseJson();
             }
-            userService.changePassword(user.getId(), form.getOldPassword(), form.getNewPassword());
+            userService.changePassword(user, form.getOldPassword(), form.getNewPassword());
             response.setCode(ResponseCode.SUCCESS);
         } catch (PasswordExpectedException e) {
+            response.setCode(e.getCode());
+        } catch (PasswordIncorrectException e) {
             response.setCode(e.getCode());
         } catch (Exception e) {
             LOGGER.error(e.getMessage());

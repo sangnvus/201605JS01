@@ -63,7 +63,7 @@ public class ExamController {
      * @param principal
      * @return json string
      */
-    @PreAuthorize("permitAll()")
+    @PreAuthorize("!hasAnyAuthority(1,2)")
     @RequestMapping(value = Const.URLMAPPING_CREATE_EXAM, method = RequestMethod.POST,
             produces={"application/json; charset=UTF-8"})
     public @ResponseBody

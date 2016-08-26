@@ -19,6 +19,6 @@ public interface UserService {
     public void deleteUsers(List<UserModel> users) throws Exception;
     public int size() throws Exception;
     public void changeUserRoll(Integer userId, int role) throws Exception;
-    public void changePassword(Integer id, String oldPassword, String newPassword) throws Exception;
     public int countActive() throws Exception;
+    public void changePassword(UserModel model, String oldPassword, String newPassword) throws Exception;
 }

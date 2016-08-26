@@ -201,15 +201,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public void changePassword(Integer id, String oldPassword, String newPassword) throws Exception {
-        UserModel user = new UserModel();
-        user.setId(id);
-        user.setEncryptedPassword(oldPassword);
-        List<UserModel> listMatch = userDao.findByExample(user);
-        if (listMatch == null || listMatch.size() != 1) {
+    public void changePassword(UserModel user, String oldPassword, String newPassword) throws Exception {
+        if (!user.getEncryptedPassword().trim().equals(oldPassword)) {
             throw new PasswordIncorrectException("Wrong old password");
         }
-        user = listMatch.get(0);
         user.setEncryptedPassword(newPassword);
         userDao.update(user);
     }
