@@ -130,7 +130,7 @@ public class UserServiceTest {
     @Test
     public void testChangePassword() throws Exception {
         String newPass = "new123";
-        userService.changePassword(initUser.getId(), initUser.getEncryptedPassword(), newPass);
+        userService.changePassword(initUser, initUser.getEncryptedPassword(), newPass);
         Assert.assertEquals(newPass, initUser.getEncryptedPassword());
     }
 }

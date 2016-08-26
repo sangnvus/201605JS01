@@ -94,7 +94,7 @@ public class ReportServiceImpl implements ReportService{
 			report.setReceiverId(userModel.getId());
 			report.setContent(content);
 			report.setLessonId(lessonId);
-			report.setQuestionId(-1);
+//			report.setQuestionId(-1);
 			report.setCreateDate(System.currentTimeMillis());
             report.setReadFlag(false);
 			//save to db
@@ -120,7 +120,7 @@ public class ReportServiceImpl implements ReportService{
 			report.setReceiverId(userModel.getId());
 			report.setContent(content);
 			report.setQuestionId(questionId);
-			report.setLessonId(-1);
+//			report.setLessonId(-1);
 			report.setCreateDate(System.currentTimeMillis());
 			report.setReadFlag(false);
 			//save to db
