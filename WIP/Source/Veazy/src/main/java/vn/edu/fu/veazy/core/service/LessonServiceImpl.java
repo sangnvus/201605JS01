@@ -215,6 +215,12 @@ public class LessonServiceImpl implements LessonService{
 			response.setVersion(version.getVersion());
             response.setDescription(version.getDescription());
             response.setState(version.getState());
+            response.setConversation(version.getReading());
+            response.setReading(version.getArticle());
+            response.setGrammar(version.getGrammar());
+            response.setVocabulary(version.getVocabulary());
+            response.setListening(version.getListening());
+            response.setPractice(version.getPractice());
 			listResult.add(response);
 		}
 		return listResult;
@@ -243,6 +249,12 @@ public class LessonServiceImpl implements LessonService{
                 response.setVersion(version.getVersion());
                 response.setDescription(version.getDescription());
                 response.setState(version.getState());
+                response.setConversation(version.getReading());
+                response.setReading(version.getArticle());
+                response.setGrammar(version.getGrammar());
+                response.setVocabulary(version.getVocabulary());
+                response.setListening(version.getListening());
+                response.setPractice(version.getPractice());
                 listResult.add(response);
             }
         }

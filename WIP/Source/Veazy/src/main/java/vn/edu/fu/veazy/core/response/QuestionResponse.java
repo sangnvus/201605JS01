@@ -32,6 +32,7 @@ public class QuestionResponse {
     private Long updateDate;
     private List<AnswerResponse> listAnswers = new ArrayList<>();
     private List<QuestionResponse> listQuestions = new ArrayList<>();
+    private String attachment;
 
     public QuestionResponse() {
     }
@@ -46,6 +47,7 @@ public class QuestionResponse {
         this.questionSkill = question.getQuestionSkill();
         this.etaTime = question.getQuestionEtaTime();
         this.questionType = question.getQuestionType();
+        this.attachment = question.getAttachment();
 //        this.state = question.getState();
         this.updateDate = question.getUpdateDate();
         if (this.questionType == Const.QUESTIONTYPE_GROUP) {
@@ -175,6 +177,14 @@ public class QuestionResponse {
 
     public void setUpdateDate(Long updateDate) {
         this.updateDate = updateDate;
+    }
+
+    public String getAttachment() {
+        return attachment;
+    }
+
+    public void setAttachment(String attachment) {
+        this.attachment = attachment;
     }
 
 }

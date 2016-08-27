@@ -54,6 +54,7 @@ public class Const {
     public static final String URLMAPPING_STATS_SKILL_AVG = URL_PREFIX + "/stats/skill/avg";
     public static final String URLMAPPING_STATS_LAST_EXAM = URL_PREFIX + "/stats/exam/last/{number}";
     public static final String URLMAPPING_STATS_COURSE_AVG = URL_PREFIX + "/stats/course/avg";
+    public static final String URLMAPPING_STATS_ALL = URL_PREFIX + "/stats/all";
 
     //lesson api
     /**

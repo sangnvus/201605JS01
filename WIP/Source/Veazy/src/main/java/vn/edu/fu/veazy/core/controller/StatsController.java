@@ -4,6 +4,7 @@ import java.security.Principal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -148,6 +149,64 @@ public class StatsController {
             StatsSkillAvgResponse listAvg = statsService.getSkillAvg(user.getId());
             response.setCode(ResponseCode.SUCCESS);
             response.setData(listAvg);
+            
+            return response.toResponseJson();
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage());
+        }
+
+        LOGGER.error("Unknown error occured!");
+        response.setCode(ResponseCode.INTERNAL_SERVER_ERROR);
+        return response.toResponseJson();
+    }
+
+    /**
+     * Process request for statistic.
+     * 
+     * @return json
+     */
+    @SuppressWarnings("rawtypes")
+    @PreAuthorize("isAuthenticated()")
+    @RequestMapping(value = Const.URLMAPPING_STATS_ALL, method = RequestMethod.GET,
+            produces={"application/json; charset=UTF-8"})
+    public @ResponseBody String getAllStats(Principal principal) {
+        Response response = new Response(ResponseCode.BAD_REQUEST);
+        try {
+            LOGGER.debug("Get to all stats successfully");
+            String userName = principal.getName();
+            UserModel user = userService.findUserByUsername(userName);
+            if (user == null) {
+                LOGGER.debug("user not found!");
+                response.setCode(ResponseCode.USER_NOT_FOUND);
+                return response.toResponseJson();
+            }
+            
+            Map<String, Object> res = new HashMap<>();
+            
+            StatsSkillAvgResponse listSkillAvg = statsService.getSkillAvg(user.getId());
+            res.put("skill", listSkillAvg);
+            
+            List<StatsLastExamResponse> listLast = statsService.getLastExamResult(user.getId(), 10);
+            List<Double> results = new ArrayList<>();
+            List<Long> dates = new ArrayList<>();
+            HashMap<String, List> resp = new HashMap<>();
+            resp.put("results", results);
+            resp.put("dates", dates);
+            for (StatsLastExamResponse last : listLast) {
+                results.add(last.getResult());
+                dates.add(last.getDate());
+            }
+            res.put("last10", resp);
+            
+            List<StatsCourseAvgResponse> listCourseAvg = statsService.getCourseAvg(user.getId());
+            List<Double> p = new ArrayList<Double>();
+            for (StatsCourseAvgResponse s : listCourseAvg) {
+                p.add(s.getAvgResult());
+            }
+            res.put("course", p);
+            
+            response.setCode(ResponseCode.SUCCESS);
+            response.setData(res);
             
             return response.toResponseJson();
         } catch (Exception e) {
