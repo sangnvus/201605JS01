@@ -1,6 +1,7 @@
 package vn.edu.fu.veazy.core.controller;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.LoggerFactory;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import vn.edu.fu.veazy.core.common.Const;
 import vn.edu.fu.veazy.core.form.ReportForm;
+import vn.edu.fu.veazy.core.model.LessonModel;
 import vn.edu.fu.veazy.core.model.ReportModel;
 import vn.edu.fu.veazy.core.model.UserModel;
 import vn.edu.fu.veazy.core.response.GetLessonResponse;
@@ -102,7 +104,21 @@ public class ReportController {
             String userName = principal.getName();
             UserModel user = userService.findUserByUsername(userName);
 
-            List<ReportModel> data = reportService.getAllReports(user.getId());
+            List<ReportModel> listReport = reportService.getAllReports(user.getId());
+            List<GetReportDataResponse> data = new ArrayList<>();
+            for (ReportModel m : listReport) {
+                GetReportDataResponse rep = new GetReportDataResponse(m);
+                if (m.getSenderId() != null) {
+                    UserModel u = userService.findUserById(m.getSenderId());
+                    rep.setUsername(u.getUserName());
+                }
+                Integer lid = m.getLessonId();
+                if (lid != null && lid > -1) {
+                    GetLessonResponse lesson = lessonService.getLesson(lid, false);
+                    rep.setLesonTitle(lesson.getLessonTitle());
+                }
+                data.add(rep);
+            }
             response.setCode(ResponseCode.SUCCESS);
             response.setData(data);
             LOGGER.debug("get all reports successfully!");
