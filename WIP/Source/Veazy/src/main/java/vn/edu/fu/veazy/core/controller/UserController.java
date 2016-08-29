@@ -504,7 +504,7 @@ public class UserController {
     }
     
     @PreAuthorize("hasAuthority(1)") // ADMIN
-    @RequestMapping(value = Const.URLMAPPING_CHANGE_ROLE, method = RequestMethod.GET)
+    @RequestMapping(value = Const.URLMAPPING_CHANGE_ROLE, method = RequestMethod.POST)
     public @ResponseBody
     String changeUserRoll(@PathVariable("user_id") Integer userId,
             @RequestBody ChangeRoleForm form) {
