@@ -12,6 +12,10 @@ import java.util.List;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.sound.sampled.AudioFileFormat;
+import javax.sound.sampled.AudioFormat;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
 
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +28,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import javazoom.spi.mpeg.sampled.file.MpegAudioFileReader;
 import vn.edu.fu.veazy.core.common.Const;
 import vn.edu.fu.veazy.core.common.utils.HttpUtils;
 import vn.edu.fu.veazy.core.form.FileUploadForm;
@@ -96,12 +101,31 @@ public class CoreController {
             if (null != files && files.size() > 0) {
                 for (MultipartFile multipartFile : files) {
                     String fileName = multipartFile.getOriginalFilename();
-                    File f = new File(uploadDir.getAbsolutePath() + "/" + fileName);
-                    if (!f.exists()) f.createNewFile();
+                    String filePath = uploadDir.getAbsolutePath();
+                    if (fileName.endsWith(".mp3")) {
+                        filePath += "/mp3";
+                        base += "/mp3";
+                    } else {
+                        filePath += "/img";
+                        base += "/img";
+                    }
+                    File f = new File(filePath + "/" + fileName);
+                    if (!f.exists()) {
+                        f.mkdirs();
+                        f.createNewFile();
+                    }
                     InputStream is = multipartFile.getInputStream();
                     Files.copy(is, f.toPath(), StandardCopyOption.REPLACE_EXISTING);
                     is.close();
-                    fileNames.add(new UploadFileResponse(base + "/" + fileName));
+                    if (fileName.endsWith(".mp3")) {
+                        AudioFileFormat format = new MpegAudioFileReader().getAudioFileFormat(f);
+                        AudioFormat audioFormat = format.getFormat();
+                        long frames = format.getFrameLength();
+                        double durationInSeconds = (frames+0.0) / audioFormat.getFrameRate();
+                        fileNames.add(new UploadFileResponse(base + "/" + fileName, durationInSeconds));
+                    } else {
+                        fileNames.add(new UploadFileResponse(base + "/" + fileName));
+                    }
                 }
                 if (fileNames.size() == 1 ) {
                     return fileNames.get(0).toString();
