@@ -8,70 +8,75 @@
 				</div>
 				<div class="panel-body">
 					<div class="col-md-10 col-md-offset-1">
-							<div class="form-group">
-								<label class="control-label col-sm-2" translate="LESSON_TITLE_LABEL"></label>
-								<div class="col-sm-10">
-									<input class="form-control" type="text" ng-model="lesson.lessonTitle"></input>
-								</div>
+						<div class="form-group">
+							<label class="control-label col-sm-2" translate="LESSON_TITLE_LABEL"></label>
+							<div class="col-sm-10">
+								<input class="form-control" type="text" ng-model="lesson.lessonTitle"></input>
 							</div>
-							<div class="form-group">
-								<label class="control-label col-sm-2" translate="VERSION_LABEL"></label>
-								<div class="col-sm-10">
-									<input class="form-control" type="text" ng-disabled="true" ng-model="lesson.version"></input>
-								</div>
+						</div>
+						<div class="form-group">
+							<label class="control-label col-sm-2" translate="VERSION_LABEL"></label>
+							<div class="col-sm-10">
+								<input class="form-control" type="text" ng-disabled="true" ng-model="lesson.version"></input>
 							</div>
-							<div class="form-group">
-								<label class="control-label col-sm-2" translate="LEVEL_LABEL"></label>
-								<div class="col-sm-10">
-									<select class="form-control" ng-model="selectedLevel" ng-options="level as level.name | translate for level in levels track by level.id"></select>
-								</div>
+						</div>
+						<div class="form-group">
+							<label class="control-label col-sm-2" translate="LEVEL_LABEL"></label>
+							<div class="col-sm-10">
+								<select class="form-control" ng-model="selectedLevel" ng-options="level as level.name | translate for level in levels track by level.id"></select>
 							</div>
-							<div class="form-group">
-								<label class="control-label col-sm-2" translate="DESCRIPTION_LABEL"></label>
-								<div class="col-sm-10">
-									<textarea class="form-control" ng-model="lesson.description"></textarea>
-								</div>
+						</div>
+						<div class="form-group">
+							<label class="control-label col-sm-2" translate="DESCRIPTION_LABEL"></label>
+							<div class="col-sm-10">
+								<textarea class="form-control" ng-model="lesson.description"></textarea>
 							</div>
-							<div class="form-group">
-								<label class="control-label col-sm-2" translate="SECTIONS_LABEL"></label>
-								<div class="col-sm-10">
-									<div class="tab-framed">
-										<div class="inner">
-											<!--nav tab-->
-										<ul class="tabs clearfix">
-											<li class="active"><a href="#vocabulary" data-toggle="tab" tab-pane translate="VOCABULARY_SECTION"></a></li>
-											<li><a href="#grammar" data-toggle="tab" tab-pane translate="GRAMMAR_SECTION"></a></li>
-											<li><a href="#conversation" data-toggle="tab" tab-pane translate="CONVERSATION_SECTION"></a></li>
-											<li><a href="#listening" data-toggle="tab" tab-pane translate="LISTENING_SECTION"></a></li>
-											<li><a href="#practice" data-toggle="tab" tab-pane translate="PRACTICE_SECTION"></a></li>
-											<li><a href="#reading" data-toggle="tab" tab-pane translate="READING_SECTION"></a></li>
-											</div>
-										</ul>
+						</div>
+						<div class="form-group">
+							<label class="control-label col-sm-2" translate="SECTIONS_LABEL"></label>
+							<div class="col-sm-10">
+								<div class="tab-framed">
+									<div class="inner">
+										<!--nav tab-->
+									<ul class="tabs clearfix">
+										<li class="active"><a href="#vocabulary" data-toggle="tab" tab-pane translate="VOCABULARY_SECTION"></a></li>
+										<li><a href="#grammar" data-toggle="tab" tab-pane translate="GRAMMAR_SECTION"></a></li>
+										<li><a href="#conversation" data-toggle="tab" tab-pane translate="CONVERSATION_SECTION"></a></li>
+										<li><a href="#listening" data-toggle="tab" tab-pane translate="LISTENING_SECTION"></a></li>
+										<li><a href="#practice" data-toggle="tab" tab-pane translate="PRACTICE_SECTION"></a></li>
+										<li><a href="#reading" data-toggle="tab" tab-pane translate="READING_SECTION"></a></li>
+										</div>
+									</ul>
 
-										<!--content panel-->
-										<div class="tab-content">
-											<div class="tab-pane fade in active clearfix" id="vocabulary">
-												<textarea froala="editorOptions.vocabulary" ng-model="lesson.vocabulary"></textarea>
-											</div>
-											<div class="tab-pane fade clearfix" id="grammar">
-												<textarea froala="editorOptions.grammar" ng-model="lesson.grammar"></textarea>
-											</div>
-											<div class="tab-pane fade clearfix" id="conversation">
-												<textarea froala="editorOptions.conversation" ng-model="lesson.conversation"></textarea>
-											</div>
-											<div class="tab-pane fade clearfix" id="listening">
-												<textarea froala="editorOptions.listening" ng-model="lesson.listening"></textarea>
-											</div>
-											<div class="tab-pane fade clearfix" id="practice">
-												<textarea froala="editorOptions.practice" ng-model="lesson.practice"></textarea>
-											</div>
-											<div class="tab-pane fade clearfix" id="reading">
-												<textarea froala="editorOptions.reading" ng-model="lesson.reading"></textarea>
-											</div>
+									<!--content panel-->
+									<div class="tab-content">
+										<div class="tab-pane fade in active clearfix" id="vocabulary">
+											<textarea froala="editor" ng-model="lesson.vocabulary"></textarea>
+										</div>
+										<div class="tab-pane fade clearfix" id="grammar">
+											<textarea froala="editor" ng-model="lesson.grammar"></textarea>
+										</div>
+										<div class="tab-pane fade clearfix" id="conversation">
+											<textarea froala="editor" ng-model="lesson.conversation"></textarea>
+										</div>
+										<div class="tab-pane fade clearfix" id="listening">
+											<textarea froala="editor" ng-model="lesson.listening"></textarea>
+										</div>
+										<div class="tab-pane fade clearfix" id="practice">
+											<textarea froala="editor" ng-model="lesson.practice"></textarea>
+										</div>
+										<div class="tab-pane fade clearfix" id="reading">
+											<textarea froala="editor" ng-model="lesson.reading"></textarea>
 										</div>
 									</div>
 								</div>
 							</div>
+						</div>
+
+						<!-- validation message -->
+						<div class="form-group">
+							<p class="col-sm-10 col-sm-offset-2 msg-error" ng-show="errorMsg" translate="{{errorMsg}}"></p>
+						</div>
 					</div>
 				</div>
 				<div class="panel-footer">

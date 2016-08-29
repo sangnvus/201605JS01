@@ -3,21 +3,42 @@
 	var userManagementCtrl = function($scope, UserService, veazyConfig, ngDialog, FileUploader) {
 		// $scope.uploader = new FileUploader();
 		$scope.CODE = veazyConfig.CODE;
+		var CODE = $scope.CODE;
 
-		// console.log(getUser);
-		// console.log($scope.user);
+		UserService.getUserList().then(function(response) {
+			switch (response.code) {
+				case CODE.SUCCESS: {
+					console.log(response.data);
+					$scope.userList = response.data.listUsers;
+					$scope.filteredUserList = $scope.userList;
 
-		//click change password
-		// $scope.openChangePasswordDialog = function() {
-		// 	ngDialog.open({
-		// 		template: 'partials/logged-user-restricted/change-password-dialog.html',
-		// 		className: 'ngdialog-theme-default change-password-dialog',
-		// 		showClose: true,
-		// 		closeByDocument: false,
-		// 		width: 500,
-		// 		controller: 'changePasswordCtrl'
-		// 	});
-		// };
+					//pagination
+					$scope.totalItems = $scope.userList.length;
+					$scope.currentPage = 1;
+					$scope.numPerPage = 5;
+
+					$scope.paginate = function(value) {
+						var begin, end, index;
+						begin = ($scope.currentPage - 1) * $scope.numPerPage;
+						end = begin + $scope.numPerPage;
+						index = $scope.userList.indexOf(value);
+						return (begin <= index && index < end);
+					};
+					break;
+				}
+				case CODE.UNAUTHORIZED: {
+					$state.go('login');
+					break;
+				}
+				case CODE.NO_PERMISSION: {
+					$state.go('forbidden');
+					break;
+				}
+				default: {
+
+				}
+			}
+		});
 
 		//click update profile
 		$scope.openUserDetailDialog = function() {
@@ -27,10 +48,16 @@
 				showClose: true,
 				closeByDocument: false,
 				width: 700,
-				// controller: 'updateProfileCtrl',
-				data: {
-					user: $scope.user
+				resolve: {
+					getUser: function($timeout, $q, veazyConfig, UserService) {
+						// UserService.getUserDetail()
+						// return UserService.getUserDetail();
+					}
 				}
+				// controller: 'updateProfileCtrl',
+				// data: {
+				// 	user: $scope.user
+				// }
 			});
 		};
 	};

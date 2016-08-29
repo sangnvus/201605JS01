@@ -11,6 +11,7 @@
 
 			//call service
 			LessonService.report(lessonId, content).then(function(response) {
+				console.log(response);
 				switch (response.code) {
 					case CODE.SUCCESS: {
 						$scope.reportSent = true;

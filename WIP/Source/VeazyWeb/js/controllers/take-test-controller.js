@@ -2,6 +2,7 @@
 	'use strict';
 	var takeTestCtrl = function($scope, $state, $interval, veazyConfig, getExam, ExamService, Helper) {
 		$scope.CODE = veazyConfig.CODE;
+		var CODE = $scope.CODE;
 
 		// $scope.exam = getExam.data;
 		$scope.exam = $state.params.exam || getExam.data;
@@ -38,9 +39,8 @@
 		$scope.submitTest = function() {
 			$interval.cancel(countDown);
 			var exam = $scope.exam;
-			exam.takenTime = seconds;
+			exam.takenTime = $scope.exam.etaTime - seconds;
 
-			console.log(exam);
 			if (exam.offlineCheck) {
 				exam.totalPts = Helper.calculateExamMark($scope.exam);
 				$state.go('test.testresult', {
@@ -48,10 +48,13 @@
 				});
 			} else {
 				ExamService.submit(exam).then(function(response) {
-					console.log(response);
-					$state.go('test.testresult', {
-						examResult: response.data
-					});
+					switch (response.code) {
+						case CODE.SUCCESS: {
+							console.log(response.data);
+							$state.go('test.savedresult', {examId: response.data.examId});
+							break;
+						}
+					}
 				});
 			}
 		};

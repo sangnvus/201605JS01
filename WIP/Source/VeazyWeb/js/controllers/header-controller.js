@@ -16,11 +16,8 @@
 		};
 
 		//if not logged in, this = null
-		UserService.checkLoggedIn().then(function(response) {
-			if (response.code === CODE.SUCCESS) {
-				$scope.username = localStorageService.get('username');
-			}
-		});
+		$scope.username = localStorageService.get('username');
+
 
 		//click log out
 		$scope.logout = function() {

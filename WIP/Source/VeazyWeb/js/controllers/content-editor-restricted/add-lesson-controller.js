@@ -1,14 +1,14 @@
 ;(function() {
 	'use strict';
-	var addLessonCtrl = function($scope, $state, veazyConfig, $filter, LessonService, ValidateHelper, ngDialog) {
+	var addLessonCtrl = function($scope, $state, veazyConfig, $filter, LessonService, Validator, ngDialog) {
 		$scope.sections = veazyConfig.lessonSections;
 		$scope.levels = veazyConfig.levels;
 		$scope.selectedLevel = $scope.levels[0];
 
 		$scope.editorOptions = {
 			vocabulary: {
-				placeholderText: $filter('translate')('VOCABULARY_SECTION_PLACEHOLDER'),
-				imageUploadURL: '/Veazy/uploadfile'
+				imageUploadURL: '/Veazy/uploadfile',
+				placeholderText: $filter('translate')('VOCABULARY_SECTION_PLACEHOLDER')
 			},
 			grammar: {
 				imageUploadURL: '/Veazy/uploadfile',
@@ -32,43 +32,20 @@
 			},
 		};
 
+		$scope.lesson = {};
+
 		$scope.addLesson = function() {
 			var CODE = veazyConfig.CODE;
-			var lesson = {
-				courseId: $scope.selectedLevel.id,
-				title: $scope.title,
-				description: $scope.description,
-				vocabulary: $scope.vocabulary,
-				grammar: $scope.grammar,
-				conversation: $scope.conversation,
-				listening: $scope.listening,
-				practice: $scope.practice,
-				reading: $scope.reading
-			};
+			var lesson = $scope.lesson;
+			lesson.courseId = $scope.selectedLevel.id;
 
-			//validate if data is null
-			var isNullLesson = ValidateHelper.isNullLesson(lesson);
-			// console.log(isNullLesson);
-
-			if (isNullLesson) {
-				//alert error
-				ngDialog.open({
-					template: 'partials/content-editor-restricted/error-alert.html',
-					className: 'ngdialog-theme-default error-dialog',
-					showClose: false,
-					closeByDocument: false,
-					disableAnimation: true,
-					overlay: false,
-					width: 400,
-					data: {
-						errorMsg: 'MISSING_ADD_LESSON_FIELD'
-					},
-					controller: 'errorDialogCtrl'
-				});
+			//validate if lesson data is null or has blank content
+			if (Validator.isNullLesson(lesson)) {
+				$scope.errorMsg = 'MISSING_ADD_LESSON_FIELD';
 			} else {
 				//send request to server
 				LessonService.create(lesson).then(function(response) {
-					console.log(response);
+					// console.log(response);
 					switch (response.code) {
 						case CODE.SUCCESS: {
 							$state.go('editor.lesson.detail', {
@@ -80,17 +57,19 @@
 							$state.go('login');
 							break;
 						}
+
+						case CODE.NO_PERMISSON: {
+							$state.go('forbidden');
+						}
 						default: {
 							
 						}
 					}
-				}, function(reject) {
-
 				});
 			}
 		};
 	};
 
-	addLessonCtrl.$inject = ['$scope', '$state', 'veazyConfig', '$filter', 'LessonService', 'ValidateHelper', 'ngDialog'];
+	addLessonCtrl.$inject = ['$scope', '$state', 'veazyConfig', '$filter', 'LessonService', 'Validator', 'ngDialog'];
 	angular.module('veazyControllers').controller('addLessonCtrl', addLessonCtrl);
 })();

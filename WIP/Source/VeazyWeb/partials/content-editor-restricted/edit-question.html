@@ -65,7 +65,7 @@
 							</div>
 							<!--button for adding answer into question-->
 							<div class="form-group">
-								<div class="col-sm-10 col-sm-offset-2">
+								<div class="col-sm-12 text-right">
 									<button class="btn btn-primary" type="button" ng-click="addAnswer(question.listAnswers)" uib-tooltip="{{'ADD_ANSWER_TOOLTIP' | translate}}" tooltip-append-to-body="true" tooltip-placement="right"><span class="glyphicon glyphicon-plus"></span></button>
 								</div>
 							</div>
@@ -121,7 +121,7 @@
 									</div>
 									<!--button for adding answer into question in group-->
 									<div class="form-group">
-										<div class="col-sm-9">
+										<div class="col-sm-9 text-right">
 											<button class="btn btn-primary" type="button" ng-click="addAnswer(singleQuestion.listAnswers)" uib-tooltip="{{'ADD_ANSWER_TOOLTIP' | translate}}" tooltip-append-to-body="true" tooltip-placement="right"><span class="glyphicon glyphicon-plus"></span></button>
 										</div>
 									</div>
@@ -133,6 +133,20 @@
 									<button class="btn btn-primary" type="button" ng-click="addQuestion(question.listQuestions)" uib-tooltip="{{'ADD_QUESTION_TOOLTIP' | translate}}" tooltip-append-to-body="true" tooltip-placement="right"><span class="glyphicon glyphicon-plus"></span></button>
 								</div>
 							</div>
+						</div>
+
+						<!--file attachment-->
+						<div class="form-group" ng-show="selectedTestSkill.id === CODE.LISTENING_SKILL">
+							<label class="control-label col-sm-2">{{'FILE_ATTACHMENT_LABEL' | translate}}</label>
+							<div class="col-sm-10">
+								<!-- <input type="text" class="form-control"></input> -->
+								<audio ng-if="selectedTestSkill.id === CODE.LISTENING_SKILL" controls ng-src="{{question.attachment}}"></audio>
+								<input file-input type="file" class="file" data-show-preview="false" nv-file-select uploader="uploader" filters="audio">
+							</div>
+						</div>
+
+						<div class="form-group">
+							<p class="col-sm-10 col-sm-offset-2 msg-error" ng-show="uploadErrorMsg" translate="{{uploadErrorMsg}}"></p>
 						</div>
 
 						<div class="form-group">
@@ -147,13 +161,9 @@
 							</div>
 						</div>
 
-						<!--file attachment-->
-						<!-- <div class="form-group">
-							<label class="col-sm-2 control-label">{{'FILE_ATTACHMENT_LABEL' | translate}}</label>
-							<div class="col-sm-10">
-								<input type="text" class="form-control"></input>
-							</div>
-						</div> -->
+						<div class="form-group">
+							<p class="col-sm-10 col-sm-offset-2 msg-error" ng-show="errorMsg" translate="{{errorMsg}}"></p>
+						</div>
 					</div>
 				</div>
 				<div class="panel-footer">

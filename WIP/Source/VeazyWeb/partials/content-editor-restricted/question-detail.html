@@ -24,13 +24,13 @@
 						<!-- time duration -->
 						<div class="form-group">
 							<label class="control-label col-sm-2" translate="TIME_ALLOWED_LABEL"></label>
-							<p class="control-label col-sm-10">{{question.etaTime | timeDuration}} (mm:ss)</p>
+							<p class="control-label col-sm-10">{{question.etaTime | timeDuration : 'text'}}</p>
 						</div>
 
 						<!--file attachment-->
-						<div class="form-group">
+						<div class="form-group" ng-if="question.questionSkill === CODE.LISTENING_SKILL">
 							<label class="control-label col-sm-2">{{'FILE_ATTACHMENT_LABEL' | translate}}</label>
-							<p class="control-label col-sm-10">Some file</p>
+							<audio controls ng-src="{{question.attachment}}"></audio>
 						</div>
 					</div>
 				</div>

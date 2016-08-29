@@ -1,6 +1,6 @@
 ;(function() {
 	'use strict';
-	var reportQuestionDialogCtrl = function($scope, veazyConfig, ngDialog, QuestionService) {
+	var reportQuestionDialogCtrl = function($scope, $state, veazyConfig, ngDialog, QuestionService) {
 		var CODE = veazyConfig.CODE;
 		$scope.reportSent = false;
 
@@ -18,6 +18,11 @@
 						break;
 					}
 
+					case CODE.UNAUTHORIZED: {
+						$state.go('login');
+						break;
+					}
+
 					default: {
 						//handling error
 					}
@@ -30,6 +35,6 @@
 		};
 	};
 
-	reportQuestionDialogCtrl.$inject = ['$scope', 'veazyConfig', 'ngDialog', 'QuestionService'];
+	reportQuestionDialogCtrl.$inject = ['$scope', '$state', 'veazyConfig', 'ngDialog', 'QuestionService'];
 	angular.module('veazyControllers').controller('reportQuestionDialogCtrl', reportQuestionDialogCtrl);
 })();

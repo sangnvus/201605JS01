@@ -10,55 +10,44 @@
 
 			// console.log(keyword);
 			var filteredList = [];
+			var question;
+			var listQuestions;
+			var listAnswers;
+			var found;
 
-			for (var i = 0; i < input.length; i++) {
-				var question = input[i];
-				//reading skill
-				var found = false;
-				if (question.questionSkill === veazyConfig.CODE.READING_SKILL) {
-					
-					//check content
-					if (question.question.includes(keyword)) {
+			//if there are keyword then search all answers that have keyword
+			if (keyword) {
+				for (var i = 0; i < input.length; i++) {
+					question = input[i];
+					found = false;
+					if (question.question.toLowerCase().includes(keyword.toLowerCase())) {
 						filteredList.push(question);
 						found = true;
-						// break;
 					}
-
-					var listQuestions = question.listQuestions;
-					for (var j = 0; j < listQuestions.length; j++) {
-						//check questions
-						if (listQuestions[j].question.includes(keyword) && found === false) {
+					if (question.questionSkill === veazyConfig.CODE.READING_SKILL) {
+						listQuestions = question.listQuestions;
+						if ($filter('filter')(listQuestions, {question: keyword}).length > 0 && found === false) {
 							filteredList.push(question);
 							found = true;
-							// break;
 						}
 
-						var listAnswers = listQuestions[j].listAnswers;
-						for (var k = 0; k < listAnswers.length; k++) {
-							//check answers
-							if (listAnswers[k].answer.includes(keyword) && found === false) {
+						listQuestions.forEach(function(singleQuestion) {
+							listAnswers = singleQuestion.listAnswers;
+							if ($filter('filter')(listAnswers, {answer: keyword}).length > 0 && found === false) {
 								filteredList.push(question);
 								found = true;
-								// break;
 							}
-						}
-					}
-				} else {
-					if (question.question.includes(keyword)) {
-						filteredList.push(question);
-						found = true;
-						// break;
-					}
-					var listAnswers = question.listAnswers;
-					for (var m = 0; m < listAnswers.length; m++) {
-						//check answers
-						if (listAnswers[m].answer.includes(keyword) && found === false) {
+						});
+					} else {
+						listAnswers = question.listAnswers;
+						if ($filter('filter')(listAnswers, {answer: keyword}).length > 0 && found === false) {
 							filteredList.push(question);
 							found = true;
-							// break;
 						}
 					}
 				}
+			} else {
+				filteredList = input;
 			}
 
 			console.log(filteredList);

@@ -75,6 +75,16 @@
 			id: 2,
 			name: 'Draft'
 		}],
+		roles: [{
+			id: 1, 
+			name: 'ADMIN'
+		}, {
+			id: 2, 
+			name: 'EDITOR'
+		}, {
+			id: 3, 
+			name: 'USER'
+		}],
 		REGULATIONS: {
 			USERNAME_MIN_LENGTH: 6,
 			USERNAME_MAX_LENGTH: 30,

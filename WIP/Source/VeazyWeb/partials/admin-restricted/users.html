@@ -62,46 +62,10 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
-								<td><a href="" class="username" ng-click="openUserDetailDialog()">Crimson</a></td>
+							<tr ng-repeat="user in userList | start: (currentPage - 1) * numPerPage | limitTo: numPerPage">
+								<td><a href="" class="username" ng-click="openUserDetailDialog()">{{user.userName}}</a></td>
 								<td>Active</td>
-								<td>User</td>
-								<td>
-									<div class="dropdown">
-										<a href="" class="dropdown-toggle" data-toggle="dropdown">
-											{{'MANAGE_HYPERLINK' | translate}}
-											<span class="caret"></span>
-										</a>
-										<ul class="dropdown-menu">
-											<li><a href="" ng-click="" translate="BAN_HYPERLINK"></a></li>
-											<li><a href="" ng-click="" translate="ASSIGN_AS_EDITOR_HYPERLINK"></a></li>
-											<li><a href="" ng-click="" translate="ASSIGN_AS_ADMIN_HYPERLINK"></a></li>
-										</ul>
-									</div>
-								</td>
-							</tr>
-							<tr>
-								<td><a href="" class="username">editor</a></td>
-								<td>Active</td>
-								<td>Content Editor</td>
-								<td>
-									<div class="dropdown">
-										<a href="" class="dropdown-toggle" data-toggle="dropdown">
-											{{'MANAGE_HYPERLINK' | translate}}
-											<span class="caret"></span>
-										</a>
-										<ul class="dropdown-menu">
-											<li><a href="" ng-click="" translate="BAN_HYPERLINK"></a></li>
-											<li><a href="" ng-click="" translate="ASSIGN_AS_EDITOR_HYPERLINK"></a></li>
-											<li><a href="" ng-click="" translate="ASSIGN_AS_ADMIN_HYPERLINK"></a></li>
-										</ul>
-									</div>
-								</td>
-							</tr>
-							<tr>
-								<td><a href="" class="username">anonymous</a></td>
-								<td>Banned</td>
-								<td>User</td>
+								<td>{{(user.role | role) | translate}}</td>
 								<td>
 									<div class="dropdown">
 										<a href="" class="dropdown-toggle" data-toggle="dropdown">
@@ -122,7 +86,7 @@
 			</div>
 
 			<div class="text-center">
-				<uib-pagination class="pagination" total-items="filteredQuestionList.length" ng-model="currentPage" max-size="5" boundary-links="true" items-per-page="numPerPage" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></uib-pagination>
+				<uib-pagination class="pagination" total-items="filteredUserList.length" ng-model="currentPage" max-size="5" boundary-links="true" items-per-page="numPerPage" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></uib-pagination>
 			</div>
 		</div>
 	</div>

@@ -9,18 +9,23 @@
 			}
 
 			var currentLang = $translate.use();
+			var sec;
+			var isMinute;
+			var duration = moment.duration(input, 'seconds');
 			if (type) {
 				if (type === 'number') {
-					return moment.duration(input, 'seconds').format('hh:mm:ss', {trim: false});
+					return duration.format('hh:mm:ss', {trim: false});
 				} else if (type == 'text') {
+					sec = parseInt(duration.format('s'));
+					isMinute = sec % 60 === 0;
 					if (currentLang === 'en') {
-						return moment.duration(input, 'seconds').format('m[min]s[sec]');
+						return isMinute ? duration.format('m[min]') : duration.format('m[min] s[sec]');
 					} else if (currentLang === 'ja') {
-						return moment.duration(input, 'seconds').format('m[分]s[秒]');
+						return isMinute ? duration.format('m[分]') : duration.format('m[分]s[秒]');
 					}
 				}
 			} else {
-				return moment.duration(input, 'seconds').format('hh:mm:ss', {trim: false});
+				return duration.format('hh:mm:ss', {trim: false});
 			}
 		}
 	};

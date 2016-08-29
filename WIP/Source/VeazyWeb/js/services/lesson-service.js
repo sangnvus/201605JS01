@@ -86,22 +86,9 @@
 
 				$timeout(function() {
 					lessonFactory.$getDraft(function(response) {
-						console.log(response);
-						switch (response.code) {
-							case CODE.SUCCESS: {
-								// deferred.resolve(response);
-								// break;
-							}
-							case CODE.UNAUTHORIZED: {
-								deferred.resolve(response);
-								break;
-							}
-							default:{
-								deferred.reject(MESSAGE[response.code]);
-							}
-						}
+						deferred.resolve(response);
 					}, function() {
-						deferred.reject('ERROR_CONNECTION');
+						deferred.reject();
 					});
 				});
 				return deferred.promise;
@@ -113,7 +100,31 @@
 					lessonFactory.$create(function(response) {
 						deferred.resolve(response);
 					}, function(reject) {
-						deferred.reject('ERROR_CONNECTION');
+						deferred.reject();
+					});
+				});
+				return deferred.promise;
+			},
+			saveDraft: function(lesson) {
+				var deferred = $q.defer();
+				var lessonFactory = new Lesson(lesson);
+				$timeout(function() {
+					lessonFactory.$saveDraft(function(response) {
+						deferred.resolve(response);
+					}, function(reject) {
+						deferred.reject();
+					});
+				});
+				return deferred.promise;
+			},
+			update: function(lesson) {
+				var deferred = $q.defer();
+				var lessonFactory = new Lesson(lesson);
+				$timeout(function() {
+					lessonFactory.$update(function(response) {
+						deferred.resolve(response);
+					}, function(reject) {
+						deferred.reject();
 					});
 				});
 				return deferred.promise;

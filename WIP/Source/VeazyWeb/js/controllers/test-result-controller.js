@@ -28,7 +28,9 @@
 		$scope.exam.totalNumberOfQuestions = Helper.calculateTotalNumberOfQuestion($scope.exam);
 
 		if (!$scope.exam.result) {
-			$scope.exam.result = Helper.calculateExamMark($scope.exam) / Helper.calculateTotalNumberOfQuestion($scope.exam);
+			var mark = Helper.calculateExamMark($scope.exam);
+			var numberOfQuestions = Helper.calculateTotalNumberOfQuestion($scope.exam);
+			$scope.exam.result = mark / numberOfQuestions;
 		}
 
 		// $scope.grade = $scope.exam.totalPts / $scope.exam.totalNumberOfQuestions;

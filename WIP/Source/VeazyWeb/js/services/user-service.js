@@ -21,7 +21,7 @@
 				var deferred = $q.defer();
 				$timeout(function() {
 					userFactory.$login(function(response) {
-						console.log(response);
+						// console.log(response);
 						switch (response.code) {
 							case CODE.SUCCESS: {
 								deferred.resolve(response);
@@ -42,7 +42,7 @@
 				var deferred = $q.defer();
 				$timeout(function() {
 					userFactory.$register(function(response) {
-						console.log(response);
+						// console.log(response);
 						switch (response.code) {
 							case CODE.SUCCESS: {
 								deferred.resolve(response);
@@ -144,14 +144,54 @@
 				var deferred = $q.defer();
 				$timeout(function() {
 					userFactory.$logout(function(response) {
-						console.log(response);
+						// console.log(response);
 						deferred.resolve(response);
 					}, function() {
-						deferred.reject('ERROR_CONNECTION');
+						deferred.reject();
 					});
 				});
 				return deferred.promise;
 			},
+			changePassword: function(oldPassword, newPassword) {
+				var userFactory = new User({
+					oldPassword: oldPassword,
+					newPassword: newPassword
+				});
+				var deferred = $q.defer();
+				$timeout(function() {
+					userFactory.$changePassword(function(response) {
+						// console.log(response);
+						deferred.resolve(response);
+					}, function() {
+						deferred.reject();
+					});
+				});
+				return deferred.promise;
+			},
+			getUserList: function() {
+				var userFactory = new User();
+				var deferred = $q.defer();
+				$timeout(function() {
+					userFactory.$getUserList(function(response) {
+						deferred.resolve(response);
+					}, function(reject) {
+						deferred.reject();
+					});
+				});
+				return deferred.promise;
+			},
+			getUserDetail: function(userId) {
+				var userFactory = new User({userId: userId});
+				var deferred = $q.defer();
+				$timeout(function() {
+					userFactory.$getUserDetail(function(response) {
+						deferred.resolve(response);
+					}, function(reject) {
+						deferred.reject();
+					});
+				});
+				return deferred.promise;
+			}
 		};
 	}
 

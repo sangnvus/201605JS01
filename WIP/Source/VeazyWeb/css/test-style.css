@@ -53,6 +53,18 @@
 	cursor: default;
 }
 
+.test .test-info {
+	border: 1px solid #ccc;
+	background-color: #f2f2f2;
+	padding: 10px 20px;
+	border-radius: 4px;
+	margin-bottom: 20px;
+}
+
+.test .test-info h5 {
+	margin: 0;
+}
+
 .test .true-answer {
 	color: green;
 	font-weight: 700 !important;

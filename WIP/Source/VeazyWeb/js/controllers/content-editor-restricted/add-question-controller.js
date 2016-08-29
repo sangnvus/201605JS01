@@ -1,6 +1,6 @@
 ;(function() {
 	'use strict';
-	var addQuestionCtrl = function($scope, $state, veazyConfig, QuestionService, ValidateHelper, ngDialog, FileUploader) {
+	var addQuestionCtrl = function($scope, $state, veazyConfig, QuestionService, Validator, ngDialog, FileUploader) {
 		$scope.CODE = veazyConfig.CODE;
 		$scope.MIN_ANSWER_NUMBER = 2;				//the min number of answers required in a question
 		$scope.MIN_QUESTION_NUMBER_IN_GROUP = 2;	//the min number of questions required in a group question
@@ -177,10 +177,6 @@
 				etaTime: parseInt(moment.duration(timepicker.minutes(), 'minute').format('ss')) + timepicker.seconds()
 			};
 
-			if ($scope.selectedTestSkill.id === CODE.LISTENING_SKILL) {
-				question.attachment = $scope.attachment;
-			}
-
 			switch ($scope.selectedQuestionType.id) {
 				case CODE.SINGLE_QUESTION_TYPE: {
 
@@ -189,8 +185,8 @@
 					question.listAnswers = $scope.listAnswers;
 
 					//validate & alert error
-					var isNullSingleQuestion = ValidateHelper.isNullSingleQuestion(question);
-					var hasNoRightAnswer = ValidateHelper.hasNoRightAnswer(question);
+					var isNullSingleQuestion = Validator.isNullSingleQuestion(question);
+					var hasNoRightAnswer = Validator.hasNoRightAnswer(question);
 
 					if (isNullSingleQuestion) {
 						$scope.errorMsg = 'MISSING_QUESTION_FIELD_MSG';
@@ -200,6 +196,14 @@
 							$scope.errorMsg = 'REQUIRED_ANSWERS_MSG';
 							return;
 						};
+					}
+
+					if ($scope.selectedTestSkill.id === CODE.LISTENING_SKILL) {
+						question.attachment = $scope.attachment;
+						if (question.attachment == null) {
+							$scope.uploadErrorMsg = 'NO_AUDIO_FILE';
+							return;
+						}
 					}
 					break;
 				}
@@ -216,8 +220,8 @@
 					});
 
 					//validate & alert error
-					var isNullGroupQuestion = ValidateHelper.isNullGroupQuestion(question);
-					var hasNoRightAnswerInGroup = ValidateHelper.hasNoRightAnswerInGroup(question);
+					var isNullGroupQuestion = Validator.isNullGroupQuestion(question);
+					var hasNoRightAnswerInGroup = Validator.hasNoRightAnswerInGroup(question);
 
 					if (isNullGroupQuestion) {
 						$scope.errorMsg = 'MISSING_QUESTION_FIELD_MSG';
@@ -254,7 +258,7 @@
 		};
 	};
 
-	addQuestionCtrl.$inject = ['$scope', '$state', 'veazyConfig', 'QuestionService', 'ValidateHelper', 'ngDialog', 'FileUploader'];
+	addQuestionCtrl.$inject = ['$scope', '$state', 'veazyConfig', 'QuestionService', 'Validator', 'ngDialog', 'FileUploader'];
 
 	angular.module('veazyControllers').controller('addQuestionCtrl', addQuestionCtrl);
 })();

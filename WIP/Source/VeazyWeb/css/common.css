@@ -44,6 +44,10 @@ body {
   background: #fff;
 }
 
+.msg-error {
+  color: red;
+}
+
 *:focus {
 	outline: 0 !important;
 }

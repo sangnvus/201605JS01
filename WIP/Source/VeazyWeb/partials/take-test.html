@@ -1,7 +1,7 @@
 <form ng-submit="submitTest()">
 	<div class="test-content clearfix" ng-if="exam.etaTime > 0">
+		<h1 class="title text-center" translate="TEST_HEADER" translate-values="{skill: ((exam.skill | testSkill) | translate)}"></h1>
 		<h3 count-down-timer>{{duration}}</h3>
-		<h2 class="title text-center" translate="TEST_HEADER"></h2>
 		<ul class="question-list" ng-if="exam.skill !== CODE.READING_SKILL">
 			<li ng-repeat="question in exam.listQuestions track by $index">
 				<p>{{$index + 1}}. {{question.question}}</p>

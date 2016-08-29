@@ -28,89 +28,90 @@
 	}
 
 	.provided-by {
-		/*color: #f87600 !important;*/
 		font-family: Mickey;
-		/*position: absolute;*/
-		/*left: 40%;*/
-		/*margin-top: 10px;*/
 		font-size: 40px;
 		letter-spacing: 5px;
+	}
+
+	a.nav-link.pull-left > .glyphicon {
+		margin-right: 7px;
+	}
+
+	a.nav-link.pull-right > .glyphicon {
+		margin-left: 7px;
 	}
 </style>
 
 <veazy-header></veazy-header>
 <div class="background-white">
 	<div class="lesson-detail container">
-	<div class="row">
-		<div class="col-md-9 content-container">
-			<header>
-				<h1 class="lesson-title">{{lesson.lessonTitle}}</h1>
-				<hr>
-				<!-- <label class="detail"><span class="glyphicon glyphicon-folder-open"></span>&nbsp;{{'COURSE_LABEL' | translate}} <a href="" ui-sref="courselist" translate="{{lesson.courseId | level}}"></a></label><br> -->
-				<!-- <hr> -->
-			</header>
+		<div class="row">
+			<div class="col-md-9 content-container">
+				<header>
+					<h1 class="lesson-title">{{lesson.lessonTitle}}</h1>
+					<hr>
+				</header>
 
-			<section class="clearfix">
-				<!-- Tabs Default Style -->
-				<div class="tabs-framed lesson-content">
-					<div class="inner">
-						<!--nav tab-->
-						<ul class="tabs clearfix">
-							<li class="active"><a href="#vocabulary" data-toggle="tab" tab-pane translate="VOCABULARY_SECTION"></a></li>
-							<li><a href="#grammar" data-toggle="tab" tab-pane translate="GRAMMAR_SECTION"></a></li>
-							<li><a href="#conversation" data-toggle="tab" tab-pane translate="CONVERSATION_SECTION"></a></li>
-							<li><a href="#listening" data-toggle="tab" tab-pane translate="LISTENING_SECTION"></a></li>
-							<li><a href="#practice" data-toggle="tab" tab-pane translate="PRACTICE_SECTION"></a></li>
-							<li><a href="#reading" data-toggle="tab" tab-pane translate="READING_SECTION"></a></li>
-							<a href="" class="pull-right" ng-show="isLoggedIn" ng-click="openReportDialog()">
-								<span class="glyphicon glyphicon-exclamation-sign"></span>
-								{{'REPORT_LESSON_HYPERLINK' | translate}}
-							</a>
-							<!-- <div class="dropdown pull-right">
-								<a href="" class="dropdown-toggle" type="button" data-toggle="dropdown">Options
-								<span class="caret"></span></a>
-								<ul class="dropdown-menu">
-									<li><a href="" translate="REPORT_LESSON_HYPERLINK"></a></li>
-									<li><a href="">Option 2</a></li>
-									<li><a href="">Option 3</a></li>
-								</ul>
-							</div> -->
-						</ul>
+				<section class="clearfix">
+					<!-- Tabs Default Style -->
+					<div class="tabs-framed lesson-content">
+						<div class="inner">
+							<!--nav tab-->
+							<ul class="tabs clearfix">
 
-						<!--content panel-->
-						<div class="tab-content boxed">
-							<div class="tab-pane fade in active clearfix" id="vocabulary" ng-bind-html="trustAsHtml(lesson.vocabulary)"></div>
-							<div class="tab-pane fade clearfix" id="grammar" ng-bind-html="trustAsHtml(lesson.grammar)"></div>
-							<div class="tab-pane fade clearfix" id="conversation" ng-bind-html="trustAsHtml(lesson.conversation)"></div>
-							<div class="tab-pane fade clearfix" id="listening" ng-bind-html="trustAsHtml(lesson.listening)"></div>
-							<div class="tab-pane fade clearfix" id="practice" ng-bind-html="trustAsHtml(lesson.practice)"></div>
-							<div class="tab-pane fade clearfix" id="reading" ng-bind-html="trustAsHtml(lesson.reading)"></div>
-						</div>
-					</div>
-				</div>
-				<!--lesson navigation-->
-				<a href="" class="pull-left"><span class="glyphicon glyphicon-circle-arrow-left"></span>&nbsp;{{'PREVIOUS_LESSON_HYPERLINK' | translate}}</a>
-				<a href="" class="pull-right">{{'NEXT_LESSON_HYPERLINK' | translate}}&nbsp;<span class="glyphicon glyphicon-circle-arrow-right"></span></a>
-			</section>
-		</div>
-		<div class="col-md-3">
-			<div class="row">
-				<div class="col-md-12">
-					<div class="panel panel-default">
-						<div class="panel-body">
-							<h5 style="font-weight: 700;" translate="PROVIDED_BY_HEADING"></h5>
-							<p class="provided-by">Veazy</p>
-						</div>
-					</div>
-					<div class="panel panel-default box-with-label" title="{{'LESSON_DETAIL_HEADING' | translate}}">
-						<div class="panel-body">
-							<div class="row-fluid">
-								<label translate="COURSE_LABEL"></label>
-								<label style="font-weight: normal;" translate="{{lesson.courseId | level}}"></label>
+								<!-- lesson section tab -->
+								<li class="active"><a href="#vocabulary" data-toggle="tab" tab-pane translate="VOCABULARY_SECTION"></a></li>
+								<li><a href="#grammar" data-toggle="tab" tab-pane translate="GRAMMAR_SECTION"></a></li>
+								<li><a href="#conversation" data-toggle="tab" tab-pane translate="CONVERSATION_SECTION"></a></li>
+								<li><a href="#listening" data-toggle="tab" tab-pane translate="LISTENING_SECTION"></a></li>
+								<li><a href="#practice" data-toggle="tab" tab-pane translate="PRACTICE_SECTION"></a></li>
+								<li><a href="#reading" data-toggle="tab" tab-pane translate="READING_SECTION"></a></li>
+								
+								<!-- report lesson -->
+								<a href="" class="pull-right" ng-show="isLoggedIn" ng-click="openReportDialog()">
+									<span class="glyphicon glyphicon-exclamation-sign"></span>
+									{{'REPORT_LESSON_HYPERLINK' | translate}}
+								</a>
+							</ul>
+
+							<!--content panel-->
+							<div class="tab-content boxed">
+								<div class="tab-pane fade in active clearfix" id="vocabulary" ng-bind-html="trustAsHtml(lesson.vocabulary)"></div>
+								<div class="tab-pane fade clearfix" id="grammar" ng-bind-html="trustAsHtml(lesson.grammar)"></div>
+								<div class="tab-pane fade clearfix" id="conversation" ng-bind-html="trustAsHtml(lesson.conversation)"></div>
+								<div class="tab-pane fade clearfix" id="listening" ng-bind-html="trustAsHtml(lesson.listening)"></div>
+								<div class="tab-pane fade clearfix" id="practice" ng-bind-html="trustAsHtml(lesson.practice)"></div>
+								<div class="tab-pane fade clearfix" id="reading" ng-bind-html="trustAsHtml(lesson.reading)"></div>
 							</div>
-							<div class="row-fluid">
-								<label translate="ABOUT_LESSON_HEADING"></label>
-								<label style="font-weight: normal;">{{lesson.description}}</label>
+						</div>
+					</div>
+
+					<!--lesson navigation-->
+					<a href="" class="pull-left nav-link" ui-sref="lessondetail({lessonId: lesson.previousLessonId})"><span class="glyphicon glyphicon-circle-arrow-left"></span>{{'PREVIOUS_LESSON_HYPERLINK' | translate}}</a>
+					<a href="" class="pull-right nav-link" ui-sref="lessondetail({lessonId: lesson.nextLessonId})">{{'NEXT_LESSON_HYPERLINK' | translate}}<span class="glyphicon glyphicon-circle-arrow-right"></span></a>
+				</section>
+			</div>
+
+			<!-- lesson info -->
+			<div class="col-md-3">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="panel panel-default">
+							<div class="panel-body">
+								<h5 style="font-weight: 700;" translate="PROVIDED_BY_HEADING"></h5>
+								<p class="provided-by">Veazy</p>
+							</div>
+						</div>
+						<div class="panel panel-default box-with-label" title="{{'LESSON_DETAIL_HEADING' | translate}}">
+							<div class="panel-body">
+								<div class="row-fluid">
+									<label translate="COURSE_LABEL"></label>
+									<label style="font-weight: normal;" translate="{{lesson.courseId | level}}"></label>
+								</div>
+								<div class="row-fluid">
+									<label translate="ABOUT_LESSON_HEADING"></label>
+									<label style="font-weight: normal;">{{lesson.description}}</label>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -118,81 +119,5 @@
 			</div>
 		</div>
 	</div>
-	<!-- <div class="row">
-		<div class="col-md-9 left">
-			<div class="wrapper">
-				<header>
-				<h1 class="lesson-title">{{lesson.lessonTitle}}</h1>
-				<hr>
-				<label class="detail"><span class="glyphicon glyphicon-folder-open"></span>&nbsp;{{'COURSE_LABEL' | translate}} <a href="" ui-sref="courselist" translate="{{lesson.courseId | level}}"></a></label><br>
-				<hr>
-				</header>
-
-				<section class="clearfix"> -->
-					<!-- Tabs Default Style -->
-<!-- 					<div class="tabs-framed lesson-content">
-						<div class="inner"> -->
-							<!--nav tab-->
-							<!-- <ul class="tabs clearfix">
-								<li class="active"><a href="#vocabulary" data-toggle="tab" tab-pane translate="VOCABULARY_SECTION"></a></li>
-								<li><a href="#grammar" data-toggle="tab" tab-pane translate="GRAMMAR_SECTION"></a></li>
-								<li><a href="#conversation" data-toggle="tab" tab-pane translate="CONVERSATION_SECTION"></a></li>
-								<li><a href="#listening" data-toggle="tab" tab-pane translate="LISTENING_SECTION"></a></li>
-								<li><a href="#practice" data-toggle="tab" tab-pane translate="PRACTICE_SECTION"></a></li>
-								<li><a href="#reading" data-toggle="tab" tab-pane translate="READING_SECTION"></a></li>
-								<a href="" class="pull-right" ng-show="isLoggedIn" ng-click="openReportDialog()">
-									<span class="glyphicon glyphicon-exclamation-sign"></span>
-									{{'REPORT_LESSON_HYPERLINK' | translate}}
-								</a> -->
-								<!-- <div class="dropdown pull-right">
-									<a href="" class="dropdown-toggle" type="button" data-toggle="dropdown">Options
-									<span class="caret"></span></a>
-									<ul class="dropdown-menu">
-										<li><a href="" translate="REPORT_LESSON_HYPERLINK"></a></li>
-										<li><a href="">Option 2</a></li>
-										<li><a href="">Option 3</a></li>
-									</ul>
-								</div> -->
-							<!-- </ul> -->
-
-							<!--content panel-->
-							<!-- <div class="tab-content boxed">
-								<div class="tab-pane fade in active clearfix" id="vocabulary" ng-bind-html="trustAsHtml(lesson.vocabulary)"></div>
-								<div class="tab-pane fade clearfix" id="grammar" ng-bind-html="trustAsHtml(lesson.grammar)"></div>
-								<div class="tab-pane fade clearfix" id="conversation" ng-bind-html="trustAsHtml(lesson.reading)"></div>
-								<div class="tab-pane fade clearfix" id="listening" ng-bind-html="trustAsHtml(lesson.listening)"></div>
-								<div class="tab-pane fade clearfix" id="practice" ng-bind-html="trustAsHtml(lesson.practice)"></div>
-								<div class="tab-pane fade clearfix" id="reading" ng-bind-html="trustAsHtml(lesson.reading)"></div>
-							</div>
-						</div>
-					</div> -->
-					<!--lesson navigation-->
-					<!-- <a href="" class="pull-left"><span class="glyphicon glyphicon-circle-arrow-left"></span>&nbsp;{{'PREVIOUS_LESSON_HYPERLINK' | translate}}</a>
-					<a href="" class="pull-right">{{'NEXT_LESSON_HYPERLINK' | translate}}&nbsp;<span class="glyphicon glyphicon-circle-arrow-right"></span></a>
-				</section>
-			</div>
-		</div> -->
-		<!-- <div class="col-md-3 right"> -->
-			<!--lesson img, MIGHT NEED TO CHANGE-->
-	<!-- 		<div class="row-fluid text-center clearfix">
-				<img src="./img/lesson-img.jpg" class="" width="150" height="160">
-			</div> -->
-			<!--search box-->
-<!-- 			<div class="row-fluid clearfix">
-				<h4 class="item-heading" translate="SIDE_SEARCH_LESSON_HEADER"></h4>
-	            <div class="input-group">
-	            	<input class="form-control" type="text" placeholder="{{'SIDE_SEARCH_LESSON_PLACEHOLDER' | translate}}" enter-to-search="searchLesson()"></input>
-	            	<span class="input-group-btn">
-	            		<button class="btn btn-secondary btn-primary" ng-click="searchLesson()"><span class="glyphicon glyphicon-search"></span></button>
-	            	</span>
-	            </div>
-			</div> -->
-			<!--list-->
-		<!-- 	<div class="row-fluid clearfix">
-				<h4 class="item-heading" translate="SIDE_DICTIONARY_HEADER"></h4>
-			</div>
-		</div>
-	</div> -->
-</div>
 </div>	
 <veazy-footer></veazy-footer>

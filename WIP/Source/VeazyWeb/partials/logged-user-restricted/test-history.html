@@ -10,7 +10,7 @@
 						<span class="caret"></span>
 					</a>
 					<ul class="dropdown-menu">
-						<li><a href="" translate="SEE_RESULT_HYPERLINK" ui-sref="test.seelastresult({examId: test.examId})"></a></li>
+						<li><a href="" translate="SEE_RESULT_HYPERLINK" ui-sref="test.savedresult({examId: test.examId})"></a></li>
 						<li><a href="" translate="RETAKE_HYPERLINK" ui-sref="test.retake({examId: test.examId})"></a></li>
 					</ul>
 				</div>
@@ -19,19 +19,23 @@
 				<table class="table">
 					<tbody>
 						<tr>
-							<td class="col-md-6" translate="LEVEL_LABEL"></td>
+							<td class="col-md-6"><label translate="TAKEN_DATE_LABEL"></label></td>
+							<td class="col-md-6">{{test.takenDate | dateFormat}}</td>
+						</tr>
+						<tr>
+							<td class="col-md-6"><label translate="LEVEL_LABEL"></label></td>
 							<td class="col-md-6">{{(test.courseId | level) | translate}}</td>
 						</tr>
 						<tr>
-							<td class="col-md-6"  translate="TIME_ALLOWED_LABEL"></td>
+							<td class="col-md-6"><label translate="TIME_ALLOWED_LABEL"></label></td>
 							<td class="col-md-6">{{test.etaTime | timeDuration}}</td>
 						</tr>
-						<tr>
-							<td class="col-md-6" translate="TIME_TAKEN_LABEL"></td>
+<!-- 						<tr>
+							<td class="col-md-6"><label translate="TIME_TAKEN_LABEL"></label></td>
 							<td class="col-md-6">{{test.takenTime | timeDuration}}</td>
-						</tr>
+						</tr> -->
 						<tr>
-							<td class="col-md-6" translate="RESULT_LABEL"></td>
+							<td class="col-md-6"><label translate="RESULT_LABEL"></label></td>
 							<td class="col-md-6">{{test.result + '/100'}}</td>
 						</tr>
 					</tbody>

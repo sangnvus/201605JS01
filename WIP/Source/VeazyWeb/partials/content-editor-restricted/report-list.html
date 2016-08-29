@@ -15,12 +15,30 @@
 
 									<!-- english ver -->
 									<span ng-if="currentLang == 'en'">
-										On {{report.createDate | date}}, user {{report.senderId}} reported about <a ng-if="report.lessonId" ui-sref="editor.lesson.detail({id: report.lessonId})">lesson #{{report.lessonId}}</a>: <cite>"{{report.content}}"</cite>.
+
+										<!-- report lesson -->
+										<span ng-if="report.lessonId">
+											On {{report.createDate | date}}, user {{report.username}} wrote a report about  <a ui-sref="editor.lesson.detail({id: report.lessonId})"> a lesson named {{report.lesonTitle}}</a>: <cite>"{{report.content}}"</cite>.
+										</span>
+
+										<!-- report question -->
+										<span ng-if="report.questionId">
+											On {{report.createDate | date}}, user {{report.username}} wrote a report about <a ui-sref="editor.question.detail({questionId: report.questionId})">a question</a>: <cite>"{{report.content}}"</cite>.
+										</span>
 									</span>
 
 									<!-- japanese ver -->
 									<span ng-if="currentLang == 'ja'">
-										{{report.createDate | date: 'yyyy年MM月dd日'}}に、 {{report.senderId}}というユーザーは、｢<cite>{{report.content}}</cite>｣と<a ng-if="report.lessonId" ui-sref="editor.question.detail({questionId: report.questionId})">{{report.lessonId}}のレッソン</a>について報告しました。
+
+										<!-- report lesson -->
+										<span ng-if="report.questionId === -1">
+											{{report.createDate | date: 'yyyy年MM月dd日'}}に、 {{report.username}}というユーザーは、｢<cite>{{report.content}}</cite>｣と<a ui-sref="editor.lesson.detail({id: report.lessonId})">１つのレッソン</a>について報告しました。
+										</span>
+
+										<!-- report question -->
+										<span ng-if="report.questionId === -1">
+											{{report.createDate | date: 'yyyy年MM月dd日'}}に、 {{report.username}}というユーザーは、｢<cite>{{report.content}}</cite>｣と<a ui-sref="editor.question.detail({questionId: report.questionId})">１つのレッソン</a>について報告しました。
+										</span>
 									</span>
 								</td>
 								<td class="col-md-2 text-right">

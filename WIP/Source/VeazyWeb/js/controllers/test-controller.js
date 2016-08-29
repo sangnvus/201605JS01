@@ -24,22 +24,17 @@
 
 			//call to service
 			ExamService.create(examInput).then(function(response) {
-				console.log(response);
+				// console.log(response);
 				switch (response.code) {
 					case CODE.SUCCESS: {
 						var exam = response.data;
 
 						//no question of this level & skill added yet
 						// if (exam.etaTime === 0) {
-						if (exam.etaTime === 30) {
-							$scope.error = 'NO_EXAM';
-							console.log('here');
+						if (exam.listQuestions.length > 0) {
+							$state.go('test.taketest', {exam: response.data}, {reload:'test.taketest'});
 						} else {
-							$state.go('test.taketest', {
-								exam: response.data
-							}, {
-								reload:'test.taketest'
-							});
+							$scope.error = 'NO_EXAM';
 						}
 						break;
 					}

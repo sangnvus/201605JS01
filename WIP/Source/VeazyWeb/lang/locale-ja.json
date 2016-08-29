@@ -100,7 +100,7 @@
 	"DURATION_LABEL": "時間期限",
 	"CREATE_TEST_BUTTON_LABEL": "作成",
 	"TAKEN_TESTS_HEADER": "受けたテストリスト",
-	"TEST_HEADER": "テスト",
+	"TEST_HEADER": "{{skill}}テスト",
 	"SUBMIT_TEST_BUTTON_LABEL": "提出",
 	"REPORT_QUESTION_BUTTON_LABEL": "報告",
 
@@ -212,6 +212,7 @@
 	"ERROR_DIALOG_HEADING": "エラー",
 	"MISSING_ADD_LESSON_FIELD": "新授業を作成できませんでした！授業情報と内容を空白のままにしないことをご確認ください。",
 	"MISSING_UPDATE_LESSON_FIELD": "授業編集できませんでした！授業情報と内容を空白のままにしないことをご確認ください。",
+	"MISSING_SAVE_DRAFT_FIELD": "授業下書きを保存できませんでした！授業情報と内容を空白のままにしないことをご確認ください。",
 	"DELETE_LESSON_HEADING": "授業削除",
 	"DELETE_LESSON_CONFIRM": "「{{title}}」というレ授業削除をご確認ください。",
 
@@ -251,7 +252,8 @@
 
 	"SEE_RESULT_HYPERLINK": "結果を調査",
 	"RETAKE_HYPERLINK": "再受験",
-	"TIME_TAKEN_LABEL": "かかった時間期限",
+	"TAKEN_DATE_LABEL": "受験日",
+	"TIME_TAKEN_LABEL": "ご使用になった時間",
 	"RESULT_LABEL": "結果",
 	"TEST_HISTORY_RECORD_HEADING": "{{skill}}のテスト",
 
@@ -259,6 +261,7 @@
 	"MARK_AS_CHECKED_BUTTON_LABEL": "既読にします",
 
 	"NOT_VALID_AUDIO_FILE_ERROR_MSG": "有効なオーディオファイルではありません。のみの.mp3ファイルは許可されます！",
+	"NO_AUDIO_FILE": "音声ファイルはまだ追加されていません！",
 
 	"ADMIN_OCCUPATION": "管理者",
 	"DASHBOARD_TAB": "ダッシュボード",
@@ -284,6 +287,19 @@
 
 	"TAKEN_DATE_HEADING": "受験日：",
 	"TIME_ALLOWED_HEADING": "時間期限：",
-	"TIME_TAKEN_HEADING": "ご使用になった時間："
+	"TIME_TAKEN_HEADING": "ご使用になった時間：",
+	"NUMBER_OF_QUESTIONS_HEADING": "質問数：",
+
+	"KEYWORD_LABEL": "キーワード",
+	"CHANGE_PASSWORD_HEADING": "パスワード変更",
+	"CURRENT_PASSWORD_LABEL": "現在の",
+	"NEW_PASSWORD_LABEL": "新しいの",
+	"RETYPE_PASSWORD_LABEL": "再入力",
+	"CHANGED_SUCCESSFUL_NOTIFICATION": "パスワード変更は成功しました！",
+	"CHANGE_PASSWORD_BUTTON_LABEL": "変更",
+
+	"USER": "ユーザー",
+	"EDITOR": "編集者",
+	"ADMIN": "管理者"
 
 }

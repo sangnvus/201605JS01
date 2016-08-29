@@ -1,5 +1,5 @@
 ;(function() {
-	var editLessonCtrl = function($scope, $state, Lesson, veazyConfig, getLesson, ValidateHelper, ngDialog) {
+	var editLessonCtrl = function($scope, $state, LessonService, veazyConfig, getLesson, Validator, ngDialog) {
 		$scope.lesson = getLesson.data;
 
 		$scope.levels = veazyConfig.levels;
@@ -12,41 +12,14 @@
 
 		$scope.updateLesson = function() {
 			// console.log($scope.lesson.update)
-			var lesson = new Lesson({
-				lessonId: $scope.lesson.lessonId,
-				courseId: $scope.selectedLevel.id,
-				title: $scope.lesson.lessonTitle,
-				description: $scope.lesson.description,
-				vocabulary: $scope.lesson.vocabulary,
-				grammar: $scope.lesson.grammar,
-				conversation: $scope.lesson.conversation,
-				listening: $scope.lesson.listening,
-				practice: $scope.lesson.practice,
-				reading: $scope.lesson.reading
-				// version: $scope.lesson.version
-			});
+			var lesson = $scope.lesson;
+			lesson.title = $scope.lesson.lessonTitle;
+			lesson.courseId = $scope.selectedLevel.id;
 
-			//validate if data is null
-			// var isNullLesson = ValidateHelper.isNullLesson(lesson);
-			// console.log(isNullLesson);
-
-			// if (isNullLesson) {
-			// 	//alert error
-			// 	ngDialog.open({
-			// 		template: 'partials/content-editor-restricted/error-alert.html',
-			// 		className: 'ngdialog-theme-default error-dialog',
-			// 		showClose: false,
-			// 		closeByDocument: false,
-			// 		disableAnimation: true,
-			// 		overlay: false,
-			// 		width: 400,
-			// 		data: {
-			// 			errorMsg: 'MISSING_UPDATE_LESSON_FIELD'
-			// 		},
-			// 		controller: 'errorDialogCtrl'
-			// 	});
-			// } else {
-				lesson.$update(function(response) {
+			if (Validator.isNullLesson(lesson)) {
+				$scope.errorMsg = 'MISSING_UPDATE_LESSON_FIELD';
+			} else {
+				LessonService.update(lesson).then(function(response) {
 					console.log(response);
 					var CODE = veazyConfig.CODE;
 					switch (response.code) {
@@ -56,76 +29,57 @@
 							});
 							break;
 						}
-					}
-				}, function() {
 
+						case CODE.UNAUTHORIZED: {
+							$state.go('login');
+							break;
+						}
+
+						case CODE.NO_PERMISSION: {
+							$state.go('forbidden');
+							break;
+						}
+					}
 				});
-			// }
+			}
 		};
 
 		$scope.saveDraft = function() {
-			var lesson = new Lesson({
-				lessonId: $scope.lesson.lessonId,
-				courseId: $scope.selectedLevel.id,
-				title: $scope.lesson.lessonTitle,
-				description: $scope.lesson.description,
-				vocabulary: $scope.lesson.vocabulary,
-				grammar: $scope.lesson.grammar,
-				conversation: $scope.lesson.conversation,
-				listening: $scope.lesson.listening,
-				practice: $scope.lesson.practice,
-				reading: $scope.lesson.reading
-				// version: $scope.lesson.version
-			});
+			var lesson = $scope.lesson;
+			lesson.title = $scope.lesson.lessonTitle;
+			lesson.courseId = $scope.selectedLevel.id;
 
-			console.log(lesson);
-
-			lesson.$saveDraft(function(response) {
-				console.log(response);
-				var CODE = veazyConfig.CODE;
-				switch (response.code) {
-					case CODE.SUCCESS: {
-						$state.go('editor.lesson.detail', {
-							id: $scope.lesson.lessonId
-						});
-						break;
+			if (Validator.isNullLesson(lesson)) {
+				$scope.errorMsg = 'MISSING_SAVE_DRAFT_FIELD';
+			} else {
+				LessonService.saveDraft(lesson).then(function(response) {
+					console.log(response);
+					var CODE = veazyConfig.CODE;
+					switch (response.code) {
+						case CODE.SUCCESS: {
+							$state.go('editor.lesson.detail', {
+								id: $scope.lesson.lessonId
+							});
+							break;
+						}
+						case CODE.UNAUTHORIZED: {
+							$state.go('login');
+							break;
+						}
+						case CODE.NO_PERMISSION: {
+							$state.go('forbidden');
+							break;
+						}
 					}
-				}
-			}, function() {
-
-			});
+				});
+			};
 		};
 
-		$scope.editorOptions = {
-			vocabulary: {
-				// placeholderText: $filter('translate')('VOCABULARY_SECTION_PLACEHOLDER')
-				// imageUploadMethod: 'POST',
-				// imageUploadParam: 'files',
-				imageUploadURL: 'http://163.44.172.52:8080/Veazy/uploadfile'
-			},
-			grammar: {
-				imageUploadURL: 'http://163.44.172.52:8080/Veazy/uploadfile'
-				// placeholderText: $filter('translate')('GRAMMAR_SECTION_PLACEHOLDER')
-			},
-			conversation: {
-				imageUploadURL: 'http://163.44.172.52:8080/Veazy/uploadfile'
-				// placeholderText: $filter('translate')('CONVERSATION_SECTION_PLACEHOLDER')
-			},
-			listening: {
-				imageUploadURL: 'http://163.44.172.52:8080/Veazy/uploadfile'
-				// placeholderText: $filter('translate')('LISTENING_SECTION_PLACEHOLDER')
-			},
-			practice: {
-				imageUploadURL: 'http://163.44.172.52:8080/Veazy/uploadfile'
-				// placeholderText: $filter('translate')('PRACTICE_SECTION_PLACEHOLDER')
-			},
-			reading: {
-				imageUploadURL: 'http://163.44.172.52:8080/Veazy/uploadfile'
-				// placeholderText: $filter('translate')('READING_SECTION_PLACEHOLDER')
-			},
+		$scope.editor = {
+			imageUploadURL: '/Veazy/uploadfile'
 		};
 	};
 
-	editLessonCtrl.$inject = ['$scope', '$state', 'Lesson', 'veazyConfig', 'getLesson', 'ValidateHelper', 'ngDialog'];
+	editLessonCtrl.$inject = ['$scope', '$state', 'LessonService', 'veazyConfig', 'getLesson', 'Validator', 'ngDialog'];
 	angular.module('veazyControllers').controller('editLessonCtrl', editLessonCtrl);
 })();

@@ -1,6 +1,5 @@
 ;(function() {
-	editQuestionCtrl = function($scope, $state, veazyConfig, filterFilter, ngDialog, getQuestion, QuestionService, 
-		ValidateHelper, ngDialog) {
+	editQuestionCtrl = function($scope, $state, veazyConfig, FileUploader, getQuestion, QuestionService, Validator) {
 		$scope.CODE = veazyConfig.CODE;
 		$scope.MIN_ANSWER_NUMBER = 2;				//the min number of answers required in a question
 		$scope.MIN_QUESTION_NUMBER_IN_GROUP = 2;	//the min number of questions required in a group question
@@ -37,7 +36,28 @@
 			}
 		};
 
-		// console.log(moment().startOf('day').seconds($scope.question.etaTime).minutes())
+		//file uploader config
+		$scope.uploader = new FileUploader({
+			url: '/Veazy/uploadfile',
+			autoUpload: true,
+			withCredentials: true,
+			filters: [{						//filter file upload, only allow mp3
+				name: 'audio',
+				fn: function(item) {
+					if (item.type === 'audio/mp3') {
+						$scope.uploadErrorMsg = null;
+						return true;
+					} else {
+						$scope.uploadErrorMsg = 'NOT_VALID_AUDIO_FILE_ERROR_MSG';
+					}
+				}
+			}]
+		});
+
+		//bind uploaded file url to question's attachment
+		$scope.uploader.onSuccessItem = function(item, response) {
+			$scope.question.attachment = response.link;
+		};
 
 		$scope.vm = {
 			options: {
@@ -89,19 +109,8 @@
 				questionAnswerType: 1,
 				questionType: $scope.selectedQuestionType.id,
 				courseId: $scope.selectedLevel.id,
-				questionSkill: $scope.selectedTestSkill.id
-			};
-
-			var dialogConfigObj = {
-				template: 'partials/content-editor-restricted/error-alert.html',
-				className: 'ngdialog-theme-default error-dialog',
-				showClose: false,
-				closeByDocument: false,
-				disableAnimation: true,
-				overlay: false,
-				width: 400,
-				controller: 'errorDialogCtrl',
-				data: {}
+				questionSkill: $scope.selectedTestSkill.id,
+				attachment: $scope.question.attachment
 			};
 
 			var timepicker = $scope.vm.date;
@@ -114,20 +123,29 @@
 					question.listAnswers = $scope.question.listAnswers;
 
 					//validate & alert error
-					var isNullSingleQuestion = ValidateHelper.isNullSingleQuestion(question);
-					var hasNoRightAnswer = ValidateHelper.hasNoRightAnswer(question);
+					var isNullSingleQuestion = Validator.isNullSingleQuestion(question);
+					var hasNoRightAnswer = Validator.hasNoRightAnswer(question);
 
 					if (isNullSingleQuestion) {
-						dialogConfigObj.data.errorMsg = 'MISSING_QUESTION_FIELD_MSG';
-						ngDialog.open(dialogConfigObj);
+						$scope.errorMsg = 'MISSING_QUESTION_FIELD_MSG';
+						// ngDialog.open(dialogConfigObj);
 						return;
 					} else {
 						if (hasNoRightAnswer) {
-							dialogConfigObj.data.errorMsg = 'REQUIRED_ANSWERS_MSG'
-							ngDialog.open(dialogConfigObj);
+							$scope.errorMsg = 'REQUIRED_ANSWERS_MSG'
+							// ngDialog.open(dialogConfigObj);
 							return;
 						};
 					}
+
+					// if ($scope.selectedTestSkill.id === CODE.LISTENING_SKILL) {
+					// 	// question.attachment = $scope.attachment;
+					// 	if (question.attachment == null) {
+					// 		$scope.uploadErrorMsg = 'NO_AUDIO_FILE';
+					// 		return;
+					// 	}
+					// }
+					// break;
 					break;
 				}
 				case CODE.GROUP_QUESTION_TYPE: {
@@ -135,17 +153,17 @@
 					question.listQuestions = $scope.question.listQuestions;
 
 					//validate & alert error
-					var isNullGroupQuestion = ValidateHelper.isNullGroupQuestion(question);
-					var hasNoRightAnswerInGroup = ValidateHelper.hasNoRightAnswerInGroup(question);
+					var isNullGroupQuestion = Validator.isNullGroupQuestion(question);
+					var hasNoRightAnswerInGroup = Validator.hasNoRightAnswerInGroup(question);
 
 					if (isNullGroupQuestion) {
-						dialogConfigObj.data.errorMsg = 'MISSING_QUESTION_FIELD_MSG';
-						ngDialog.open(dialogConfigObj);
+						$scope.errorMsg = 'MISSING_QUESTION_FIELD_MSG';
+						// ngDialog.open(dialogConfigObj);
 						return;
 					} else {
 						if (hasNoRightAnswerInGroup) {
-							dialogConfigObj.data.errorMsg = 'REQUIRED_ANSWERS_MSG'
-							ngDialog.open(dialogConfigObj);
+							$scope.errorMsg = 'REQUIRED_ANSWERS_MSG'
+							// ngDialog.open(dialogConfigObj);
 							return;
 						}
 					}
@@ -183,8 +201,7 @@
 		};
 	};
 
-	editQuestionCtrl.$inject = ['$scope', '$state', 'veazyConfig', 'filterFilter', 'ngDialog', 'getQuestion', 
-	'QuestionService', 'ValidateHelper', 'ngDialog'];
+	editQuestionCtrl.$inject = ['$scope', '$state', 'veazyConfig', 'FileUploader', 'getQuestion', 'QuestionService', 'Validator'];
 
 	angular.module('veazyControllers').controller('editQuestionCtrl', editQuestionCtrl);
 })();

@@ -86,6 +86,7 @@
 
 							default: {
 								deferred.reject();
+								break;
 							}
 						}
 					}, function(reject) {
@@ -162,8 +163,8 @@
 					return deferred.promise;
 				}
 			}
-		}).state('test.seelastresult', {
-			url: '/:examId/result-from-last-time',
+		}).state('test.savedresult', {
+			url: '/:examId/result',
 			templateUrl: 'partials/logged-user-restricted/last-result.html',
 			controller: 'lastExamResultCtrl',
 			resolve: {
@@ -225,28 +226,29 @@
 					return deferred.promise;
 				}
 			}
-		}).state('test.retakeresult', {
-			url: '/:examId/retake/result',
-			templateUrl: 'partials/logged-user-restricted/retake-test-result.html',
-			controller: 'retakeTestResultCtrl',
-			params: {
-				examResult: null
-			},
-			resolve: {
-				getExamResult: function($timeout, $state, $stateParams, $q, ExamService) {
-					var deferred = $q.defer();
-					$timeout(function() {
-						if ($stateParams.examResult) {
-							deferred.resolve();
-						} else {
-							deferred.reject();
-							$state.go('test.retake', {examId: $stateParams.examId});
-						}
-					});
-					return deferred.promise;
-				}
-			}
 		})
+		// .state('test.retakeresult', {
+		// 	url: '/:examId/retake/result',
+		// 	templateUrl: 'partials/logged-user-restricted/retake-test-result.html',
+		// 	controller: 'retakeTestResultCtrl',
+		// 	params: {
+		// 		examResult: null
+		// 	},
+		// 	resolve: {
+		// 		getExamResult: function($timeout, $state, $stateParams, $q, ExamService) {
+		// 			var deferred = $q.defer();
+		// 			$timeout(function() {
+		// 				if ($stateParams.examResult) {
+		// 					deferred.resolve();
+		// 				} else {
+		// 					deferred.reject();
+		// 					$state.go('test.retake', {examId: $stateParams.examId});
+		// 				}
+		// 			});
+		// 			return deferred.promise;
+		// 		}
+		// 	}
+		// })
 
 		//user profile
 		.state('user', {
@@ -371,8 +373,13 @@
 								break;
 							}
 							case CODE.UNAUTHORIZED: {
-								$state.go('login');
 								deferred.reject();
+								$state.go('login');
+								break;
+							}
+							case CODE.NO_PERMISSION: {
+								deferred.reject();
+								$state.go('forbidden');
 								break;
 							}
 						}

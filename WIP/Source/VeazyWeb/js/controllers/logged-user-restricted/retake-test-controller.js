@@ -13,7 +13,7 @@
 			case CODE.READING_SKILL: {
 				$scope.exam.listQuestions.forEach(function(groupQuestion) {
 					groupQuestion.listQuestions.forEach(function(singleQuestion) {
-						singleQuestion.listAnswer.forEach(function(answer) {
+						singleQuestion.listAnswers.forEach(function(answer) {
 							answer.isSelected = false;
 						});
 					});
@@ -62,16 +62,16 @@
 		$scope.submitTest = function() {
 			$interval.cancel(countDown);
 			var exam = $scope.exam;
-			exam.takenTime = seconds;
+			exam.takenTime = $scope.exam.etaTime - seconds;
 
 			ExamService.submit(exam).then(function(response) {
 				console.log(response);
 				switch (response.code) {
 					case CODE.SUCCESS: {
 						//go to page which display result of test retaken
-						$state.go('test.retakeresult', {
+						$state.go('test.savedresult', {
 							examId: $scope.exam.examId, 
-							examResult: response.data
+							// examResult: response.data
 						});
 						break;
 					}

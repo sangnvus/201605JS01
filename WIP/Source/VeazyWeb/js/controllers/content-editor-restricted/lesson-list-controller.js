@@ -1,8 +1,8 @@
 ;(function() {
-	var lessonListCtrl = function($scope, $state, $filter, FileUploader, ngDialog, LessonService, veazyConfig) {
+	var lessonListCtrl = function($scope, $state, $filter, ngDialog, LessonService, veazyConfig) {
 		var CODE = veazyConfig.CODE;
 
-
+		//call service
 		LessonService.getAllLessons().then(function(response) {
 			switch (response.code) {
 				case CODE.SUCCESS: {
@@ -29,12 +29,15 @@
 					$state.go('login');
 					break;
 				}
+
+				case CODE.NO_PERMISSION: {
+					$state.go('forbidden');
+					break;
+				}
 				default: {
 
 				}
 			}
-		}, function() {
-
 		});
 
 		$scope.levels = veazyConfig.levels.slice(0);
@@ -46,8 +49,9 @@
 
 		$scope.filter = function() {
 			var courseId = $scope.selectedLevel.id;
+			var keyword = $scope.keyword;
 
-			$scope.filteredLessonList = $filter('lesson')($scope.lessonList, courseId);
+			$scope.filteredLessonList = $filter('lesson')($scope.lessonList, courseId, keyword);
 		};
 
 		$scope.openConfirmDeleteDialog = function(lesson) {
@@ -66,6 +70,6 @@
 		};
 	};
 
-	lessonListCtrl.$inject = ['$scope', '$state', '$filter', 'FileUploader', 'ngDialog', 'LessonService', 'veazyConfig'];
+	lessonListCtrl.$inject = ['$scope', '$state', '$filter', 'ngDialog', 'LessonService', 'veazyConfig'];
 	angular.module('veazyControllers').controller('lessonListCtrl', lessonListCtrl);
 })();

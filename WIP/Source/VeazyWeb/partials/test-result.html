@@ -1,5 +1,5 @@
 <div class="test-content clearfix">
-	<h1 class="title text-center" translate="TEST_HEADER"></h1>
+	<h1 class="title text-center" translate="TEST_HEADER" translate-values="{skill: ((exam.skill | testSkill) | translate)}"></h1>
 	<h3 class="text-right" style="margin-right: 15px; color: red;">{{'RESULT_HEADING' | translate}}{{exam.result}}%</h3>
 
 	<!-- question list -->
@@ -32,8 +32,8 @@
 	</ul>
 
 	<ul class="question-list" ng-if="exam.skill === CODE.READING_SKILL">
-		<li ng-repeat="question in exam.listQuestions track by $index">
-			<p>{{$index + 1}}. {{'ARTICLE_GUIDE' | translate}}</p>
+		<li ng-repeat="question in exam.listQuestions track by $index" class="clearfix">
+			<div><p>{{$index + 1}}. {{'ARTICLE_GUIDE' | translate}}</p></div>
 
 			<!-- reading content -->
 			<div class="reading-content" ng-bind-html="trustAsHtml(question.question)"></div>

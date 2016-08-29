@@ -1,7 +1,7 @@
 ;(function() {
 	var veazyServices = angular.module('veazyServices');
 
-	ValidateHelper = function() {
+	Validator = function() {
 		return new function() {
 			var self = this;
 
@@ -177,7 +177,7 @@
 	};
 
 
-	ValidateHelper.$inject = [];
+	Validator.$inject = [];
 
-	veazyServices.service('ValidateHelper', ValidateHelper);
+	veazyServices.service('Validator', Validator);
 })();

@@ -52,6 +52,21 @@
 				url: url + '/stats/course/avg',
 				method: 'GET'
 			},
+			changePassword: {
+				url: url + '/user/chgpwd',
+				method: 'POST'
+			},
+			getUserList: {
+				url: url + '/users',
+				method: 'GET'
+			},
+			getUserDetail: {
+				url: url + '/users/:userId',
+				method: 'GET',
+				params: {
+					userId: '@userId'
+				}
+			},
 			makeEditor: {
 				url: '/Veazy/mked/:username',
 				method: 'GET',
