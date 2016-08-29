@@ -23,15 +23,20 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import vn.edu.fu.veazy.core.common.Const;
 import vn.edu.fu.veazy.core.form.CreateExamSinglePartForm;
 import vn.edu.fu.veazy.core.form.ExamPartForm;
+import vn.edu.fu.veazy.core.form.QuestionForm;
 import vn.edu.fu.veazy.core.form.SubmitExamForm;
 import vn.edu.fu.veazy.core.model.ExamModel;
+import vn.edu.fu.veazy.core.model.ExamQuestionModel;
+import vn.edu.fu.veazy.core.model.QuestionModel;
 import vn.edu.fu.veazy.core.model.UserModel;
+import vn.edu.fu.veazy.core.response.ExamQuestionResponse;
 import vn.edu.fu.veazy.core.response.ExamSinglePartResponse;
 import vn.edu.fu.veazy.core.response.GetExamResponse;
 import vn.edu.fu.veazy.core.response.Response;
 import vn.edu.fu.veazy.core.response.ResponseCode;
 import vn.edu.fu.veazy.core.service.ExamService;
 import vn.edu.fu.veazy.core.service.QuestionBankService;
+import vn.edu.fu.veazy.core.service.QuestionService;
 import vn.edu.fu.veazy.core.service.UserService;
 
 /**
@@ -56,6 +61,8 @@ public class ExamController {
     private QuestionBankService questionBankService;
     @Autowired
     private ExamService examService;
+    @Autowired
+    private QuestionService questionService;
 
     /**
      *
@@ -131,84 +138,6 @@ public class ExamController {
                 response.setCode(ResponseCode.USER_NOT_FOUND);
                 return response.toResponseJson();
             }
-//            
-//            ExamModel exam = examService.findExamById(form.getExamId());
-//            if (exam == null) {
-//                LOGGER.debug("exam not found!");
-//                response.setCode(HttpStatus.NOT_FOUND.value());
-//                return response.toResponseJson();
-//            }
-//
-//            //calculate result
-//            List<SubmitQuestionForm> listQuestion = form.getListQuestions();
-//            List<ExamQuestionModel> listOriginQuestion = exam.getListQuestions();
-//            Double userRight = 0d;
-//            Integer totalRight = listOriginQuestion.size();
-//            Integer singleQuesChoice = 0;
-//            Integer singleQuesRight = 0;
-//            for (SubmitQuestionForm answerForm : listQuestion) {
-//                Integer questionId = answerForm.getQuestionId();
-//                for (ExamQuestionModel m : listOriginQuestion) {
-//                    if (questionId == m.getQuestionId()
-//                            && m.getQuestionType() != Const.QUESTIONTYPE_GROUP) {
-//                        List<ExamAnswerModel> listAnswers = m.getListAnswers();
-//                        List<SubmitAnswerForm> listUserAnswers = answerForm.getListAnswers();
-//                        if (listAnswers.size() != listUserAnswers.size()) {
-//                            throw new CorruptedFormException("Wrong answer size");
-//                        }
-//                        int index = 0;
-//                        singleQuesChoice = 0;
-//                        singleQuesRight = 0;
-//                        boolean failedQues = false;
-//                        for (ExamAnswerModel ansModel : listAnswers) {
-//                            if (ansModel.getIsRight()) {
-//                                if (listUserAnswers.get(index).getIsSelected() && !failedQues) {
-//                                    singleQuesChoice++;
-//                                    ansModel.setIsSelected(true);
-//                                }
-//                                singleQuesRight++;
-//                            } else {
-//                                if (listUserAnswers.get(index).getIsSelected()) {
-//                                    singleQuesChoice = 0;
-//                                    ansModel.setIsSelected(true);
-//                                    failedQues = true;
-//                                }
-//                            }
-//                            index++;
-//                        }
-//                        if (singleQuesRight > 0)
-//                            userRight += Utils.round(singleQuesChoice/singleQuesRight, 2);
-////                        int i = 0;
-////                        boolean correctChoice = false;
-////                        for (SubmitAnswerForm ansForm : listUserAnswers) {
-////                            if (ansForm.getIsSelected()) {
-////                                ExamAnswerModel origin = listAnswers.get(i);
-////                                origin.setIsSelected(true);
-////                                if (origin.getIsRight()) {
-////                                    correctChoice = true;
-////                                } else {
-////                                    correctChoice = false;
-////                                    break;
-////                                }
-////                            }
-////                            i++;
-////                        }
-////                        for (ExamAnswerModel ansModel : listAnswers) {
-////                            if (ansModel.getIsRight()) {
-////                                totalRight++;
-////                            }
-////                        }
-//                    }
-//                }
-//            }
-//            if (totalRight > 0) exam.setResult(Utils.round(userRight/totalRight, 2) * 100);
-////            exam.setTakenTime(0);
-//            exam.setTakenTime(form.getTakenTime());
-//            //save in case is new exam
-//            if (!exam.getFinishState()) {
-//                exam.setFinishState(true);
-//                examService.updateExam(exam);
-//            }
             ExamModel exam = examService.calcResult(form);
             GetExamResponse data = new GetExamResponse(exam);
             response.setCode(ResponseCode.SUCCESS);
@@ -296,6 +225,13 @@ public class ExamController {
                 LOGGER.debug("user not allow!");
                 response.setCode(ResponseCode.USER_NOT_ALLOW);
                 return response.toResponseJson();
+            }
+            List<ExamQuestionModel> examQuestions = exam.getListQuestions();
+            for(ExamQuestionModel question: examQuestions){
+                if (question.getIsChanged()) {
+                    QuestionModel m = questionService.findQuestionById(question.getQuestionId());
+                    question.updateProperty(new QuestionForm(m));
+                }
             }
             GetExamResponse data = new GetExamResponse(exam, false);
             response.setCode(ResponseCode.SUCCESS);

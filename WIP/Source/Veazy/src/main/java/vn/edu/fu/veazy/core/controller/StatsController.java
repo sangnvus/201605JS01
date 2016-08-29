@@ -22,6 +22,11 @@ import vn.edu.fu.veazy.core.response.ResponseCode;
 import vn.edu.fu.veazy.core.response.StatsCourseAvgResponse;
 import vn.edu.fu.veazy.core.response.StatsLastExamResponse;
 import vn.edu.fu.veazy.core.response.StatsSkillAvgResponse;
+import vn.edu.fu.veazy.core.response.StatsUsersResponse;
+import vn.edu.fu.veazy.core.service.ExamService;
+import vn.edu.fu.veazy.core.service.LessonService;
+import vn.edu.fu.veazy.core.service.QuestionService;
+import vn.edu.fu.veazy.core.service.ReportService;
 import vn.edu.fu.veazy.core.service.StatsService;
 import vn.edu.fu.veazy.core.service.UserService;
 
@@ -42,6 +47,18 @@ public class StatsController {
     
     @Autowired
     private UserService userService;
+    
+    @Autowired
+    private ReportService reportService;
+    
+    @Autowired
+    private QuestionService questionService;
+    
+    @Autowired
+    private LessonService lessonService;
+    
+    @Autowired
+    private ExamService examService;
 
     /**
      * Process request for statistic.
@@ -204,6 +221,59 @@ public class StatsController {
                 p.add(s.getAvgResult());
             }
             res.put("course", p);
+            
+            response.setCode(ResponseCode.SUCCESS);
+            response.setData(res);
+            
+            return response.toResponseJson();
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage());
+        }
+
+        LOGGER.error("Unknown error occured!");
+        response.setCode(ResponseCode.INTERNAL_SERVER_ERROR);
+        return response.toResponseJson();
+    }
+
+    /**
+     * Process request for statistic.
+     * 
+     * @return json
+     */
+//    @PreAuthorize("hasAuthority(1)")
+    @PreAuthorize("isAuthenticated()")
+    @RequestMapping(value = Const.URLMAPPING_STATS_ADMIN_ALL, method = RequestMethod.GET,
+            produces={"application/json; charset=UTF-8"})
+    public @ResponseBody String getAllAdminStats(Principal principal) {
+        Response response = new Response(ResponseCode.BAD_REQUEST);
+        try {
+            LOGGER.debug("Get to all stats successfully");
+            String userName = principal.getName();
+            UserModel user = userService.findUserByUsername(userName);
+            if (user == null) {
+                LOGGER.debug("user not found!");
+                response.setCode(ResponseCode.USER_NOT_FOUND);
+                return response.toResponseJson();
+            }
+            
+            Map<String, Object> res = new HashMap<>();
+
+            int active = userService.countActive();
+            int total = userService.size();
+            StatsUsersResponse userSize = new StatsUsersResponse(active, total);
+            res.put("users", userSize);
+            
+            int totalReport = reportService.getAllReports(user.getId()).size();
+            res.put("reports", totalReport);
+            
+            int totalQues = questionService.size();
+            res.put("questions", totalQues);
+            
+            int totalLes = lessonService.size();
+            res.put("lessons", totalLes);
+            
+            int takenExams = examService.findLearnerExams(null).size();
+            res.put("takenExams", takenExams);
             
             response.setCode(ResponseCode.SUCCESS);
             response.setData(res);
