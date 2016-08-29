@@ -13,6 +13,7 @@ import vn.edu.fu.veazy.core.model.UserModel;
  */
 public class GetUserResponse {
 
+    private Integer id;
     private String email;
     private String userName;
     private String firstName;
@@ -31,6 +32,7 @@ public class GetUserResponse {
     }
 
     public GetUserResponse(UserModel user) {
+        this.id = user.getId();
         this.email = user.getEmail();
         this.userName = user.getUserName();
         this.firstName = user.getFirstName();
@@ -44,6 +46,14 @@ public class GetUserResponse {
         this.website = user.getWebsite();
         this.quote = user.getQuote();
         this.isBanned = user.getIsBanned();
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getEmail() {
