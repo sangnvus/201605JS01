@@ -138,6 +138,7 @@
 	"QUESTION_LIST_TAB": "質問リスト",
 	"ADD_QUESTION_TAB": "質問追加",
 	"REPORT_TAB": "報告管理",
+	"CHANGE_LANGUAGE_TAB": "言語変更",
 	"LOGOUT_TAB": "ログアウト",
 
 	"ADD_LESSON_HEADING": "新授業作成",
@@ -267,7 +268,7 @@
 	"DASHBOARD_TAB": "ダッシュボード",
 	"USER_TAB": "ユーザー管理",
 	"USER_NUMBER_LABEL": "人数：",
-	"LESSON_NUMBER_LABEL": "授業授業数：",
+	"LESSON_NUMBER_LABEL": "授業数：",
 	"QUESTION_NUMBER_LABEL": "質問数：",
 	"REPORT_NUMBER_LABEL": "報告数：",
 	"MANAGE_HYPERLINK": "管理",
@@ -279,6 +280,10 @@
 	"ASSIGN_AS_EDITOR_BUTTON_LABEL": "編集者として割り当て",
 	"ASSIGN_AS_ADMIN_BUTTON_LABEL": "編集者として割り当て",
 	"BAN_BUTTON_LABEL": "禁止",
+	"ACTIVE": "アクティブ",
+	"BANNED": "禁止",
+	"ALL_ROLES": "すべての役割",
+	"ALL_STATUSES": "すべての状態",
 
 	"RETAKE_TEST_BUTTON_LABEL": "再受験",
 	"STATISTICS_OF_SKILLS_HEADING": "テストスキル",

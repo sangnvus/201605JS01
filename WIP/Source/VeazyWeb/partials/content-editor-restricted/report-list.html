@@ -29,15 +29,14 @@
 
 									<!-- japanese ver -->
 									<span ng-if="currentLang == 'ja'">
-
 										<!-- report lesson -->
-										<span ng-if="report.questionId === -1">
-											{{report.createDate | date: 'yyyy年MM月dd日'}}に、 {{report.username}}というユーザーは、｢<cite>{{report.content}}</cite>｣と<a ui-sref="editor.lesson.detail({id: report.lessonId})">１つのレッソン</a>について報告しました。
+										<span ng-if="report.lessonId">
+											{{report.createDate | date: 'yyyy年MM月dd日'}}に、 {{report.username}}というユーザーは、｢<cite>{{report.content}}</cite>｣と<a ui-sref="editor.lesson.detail({id: report.lessonId})">｢{{report.lesonTitle}}｣というレッソン</a>について報告しました。
 										</span>
 
 										<!-- report question -->
-										<span ng-if="report.questionId === -1">
-											{{report.createDate | date: 'yyyy年MM月dd日'}}に、 {{report.username}}というユーザーは、｢<cite>{{report.content}}</cite>｣と<a ui-sref="editor.question.detail({questionId: report.questionId})">１つのレッソン</a>について報告しました。
+										<span ng-if="report.questionId">
+											{{report.createDate | date: 'yyyy年MM月dd日'}}に、 {{report.username}}というユーザーは、｢<cite>{{report.content}}</cite>｣と<a ui-sref="editor.question.detail({questionId: report.questionId})">１つの質問</a>について報告しました。
 										</span>
 									</span>
 								</td>

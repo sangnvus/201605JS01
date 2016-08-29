@@ -67,6 +67,27 @@
 					userId: '@userId'
 				}
 			},
+			ban: {
+				url: url + '/users/ban/:userId',
+				method: 'GET',
+				params: {
+					userId: '@userId'
+				}
+			},
+			unban: {
+				url: url + '/users/unban/:userId',
+				method: 'GET',
+				params: {
+					userId: '@userId'
+				}
+			},
+			changeRole: {
+				url: url + '/users/change_roll/:userId',
+				method: 'POST',
+				params: {
+					userId: '@userId'
+				}
+			},
 			makeEditor: {
 				url: '/Veazy/mked/:username',
 				method: 'GET',

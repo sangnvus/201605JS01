@@ -48,6 +48,7 @@
 				});
 			} else {
 				ExamService.submit(exam).then(function(response) {
+					// console.log(response);
 					switch (response.code) {
 						case CODE.SUCCESS: {
 							console.log(response.data);
