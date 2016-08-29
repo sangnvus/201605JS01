@@ -25,6 +25,7 @@ public class GetUserResponse {
     private String bio;
     private String website;
     private String quote;
+    private Boolean isBanned;
 
     public GetUserResponse() {
     }
@@ -42,6 +43,7 @@ public class GetUserResponse {
         this.bio = user.getBio();
         this.website = user.getWebsite();
         this.quote = user.getQuote();
+        this.isBanned = user.getIsBanned();
     }
 
     public String getEmail() {
@@ -138,6 +140,14 @@ public class GetUserResponse {
 
     public void setQuote(String quote) {
         this.quote = quote;
+    }
+
+    public Boolean getIsBanned() {
+        return isBanned;
+    }
+
+    public void setIsBanned(Boolean isBanned) {
+        this.isBanned = isBanned;
     }
 
 }
