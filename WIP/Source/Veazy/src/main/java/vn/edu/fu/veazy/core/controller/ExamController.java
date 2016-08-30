@@ -228,9 +228,7 @@ public class ExamController {
             }
             List<ExamQuestionModel> examQuestions = exam.getListQuestions();
             for(ExamQuestionModel question: examQuestions){
-                LOGGER.debug("<<<");
                 if (question.getIsChanged() != null && question.getIsChanged()) {
-                    LOGGER.debug(">>>>>>>>>>>>>>>>>>>>>>>> ");
                     QuestionModel m = questionService.findQuestionById(question.getQuestionId());
                     question.updateProperty(new QuestionForm(m));
                     question.setIsChanged(true);

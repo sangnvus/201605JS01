@@ -122,6 +122,7 @@ public class CoreController {
                         AudioFormat audioFormat = format.getFormat();
                         long frames = format.getFrameLength();
                         double durationInSeconds = (frames+0.0) / audioFormat.getFrameRate();
+                        durationInSeconds += Const.EXAM_LISTENING_TIME_ENTENDED;
                         fileNames.add(new UploadFileResponse(base + "/" + fileName, durationInSeconds));
                     } else {
                         fileNames.add(new UploadFileResponse(base + "/" + fileName));

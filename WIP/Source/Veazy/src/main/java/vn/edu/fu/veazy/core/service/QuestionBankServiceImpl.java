@@ -131,7 +131,7 @@ public class QuestionBankServiceImpl implements QuestionBankService {
             // TODO custom exception
             throw new Exception(e.getMessage(), e);
         }
-        return eta + Const.EXAM_INSURANCE_TIME;
+        return eta + Const.EXAM_TIME_EXTENDED;
     }
 
     /**

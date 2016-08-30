@@ -20,7 +20,8 @@ public class Const {
      * *********************** System Config ***************************
      */
     public static final String RESOURCE_URL = "/res";
-    public static final Integer EXAM_INSURANCE_TIME = 30;
+    public static final Integer EXAM_TIME_EXTENDED = 30;
+    public static final Integer EXAM_LISTENING_TIME_ENTENDED = 30;
 
     /**
      * *********************** URL Mapping *****************************
