@@ -493,7 +493,8 @@
 		})
 		.state('admin.dashboard', {
 			url: '/dashboard',
-			templateUrl: 'partials/admin-restricted/dashboard.html'
+			templateUrl: 'partials/admin-restricted/dashboard.html',
+			controller: 'adminDashboadCtrl'
 		})
 		.state('admin.users', {
 			url: '/users',

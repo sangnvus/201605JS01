@@ -85,6 +85,13 @@
 			id: 3, 
 			name: 'USER'
 		}],
+		statuses: [{
+			id: 1,
+			name: 'BANNED'
+		}, {
+			id: 2,
+			name: 'ACTIVE'
+		}],
 		REGULATIONS: {
 			USERNAME_MIN_LENGTH: 6,
 			USERNAME_MAX_LENGTH: 30,

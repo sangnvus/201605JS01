@@ -138,6 +138,7 @@
 	"QUESTION_LIST_TAB": "Question List",
 	"ADD_QUESTION_TAB": "Add Question",
 	"REPORT_TAB": "Report",
+	"CHANGE_LANGUAGE_TAB": "Change Language",
 	"LOGOUT_TAB": "Logout",
 
 	"ADD_LESSON_HEADING": "Add New Lesson",
@@ -280,6 +281,10 @@
 	"ASSIGN_AS_EDITOR_BUTTON_LABEL": "Assign as editor",
 	"ASSIGN_AS_ADMIN_BUTTON_LABEL": "Assign as admin",
 	"BAN_BUTTON_LABEL": "Ban",
+	"ACTIVE": "Active",
+	"BANNED": "Banned",
+	"ALL_ROLES": "All Roles",
+	"ALL_STATUSES": "All Statuses",
 
 	"RETAKE_TEST_BUTTON_LABEL": "Retake",
 

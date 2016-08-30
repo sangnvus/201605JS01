@@ -24,31 +24,13 @@
 			</div>
 		</li>
 
-		<li class="side-bar-tab">
+		<li class="side-bar-tab" ui-sref-active="active">
 			<a href="" ui-sref="admin.dashboard"><i class="fa fa-tags"></i>{{'DASHBOARD_TAB' | translate}}</a>
 		</li>
 		<li class="side-bar-tab">
 			<a href="" ui-sref="admin.users"><i class="fa fa-tags"></i>{{'USER_TAB' | translate}}</a>
 		</li>
-		<!-- Menu -->
-		<!-- <li class="side-bar-tab">
-			<a href="" ui-sref="editor.reportlist"><i class="fa fa-tags"></i>{{'REPORT_TAB' | translate}}</a>
-		</li> -->
-		<!-- <li class="side-bar-tab">
-			<a href=""><i class="fa fa-book"></i>{{'LESSON_TAB' | translate}}<span class="fa fa-chevron-down pull-right"></span></a>
-			<ul class="nav child-menu">
-				<li><a href="" translate="LESSON_LIST_TAB" ui-sref="editor.lesson.list"></a></li>
-				<li><a ui-sref="editor.lesson.add" translate="ADD_LESSON_TAB"></a></li>
-			</ul>
-		</li> -->
-		<!-- <li class="side-bar-tab">
-			<a href=""><i class="fa fa-question-circle"></i>{{'QUESTION_TAB' | translate}}<span class="fa fa-chevron-down pull-right"></span></a>
-			<ul class="nav child-menu">
-				<li><a ui-sref="editor.question.list" translate="QUESTION_LIST_TAB"></a></li>
-				<li><a ui-sref="editor.question.add" translate="ADD_QUESTION_TAB"></a></li>
-			</ul>
-		</li> -->
-		<li class="side-bar-tab"><a href="" ng-click="changeLanguage()"><i class="fa fa-cogs"></i>Change Language</a></li>
+		<li class="side-bar-tab"><a href="" ng-click="changeLanguage()"><i class="fa fa-cogs"></i>{{'CHANGE_LANGUAGE_TAB'| translate}}</a></li>
 		<li class="side-bar-tab"><a href="" ng-click="logout()"><i class="fa fa-power-off"></i>{{'LOGOUT_TAB' | translate}}
 	</ul>
 </div>

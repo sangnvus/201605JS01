@@ -18,6 +18,10 @@
 			getLevelStats: {
 				url: url + '/stats/course/avg',
 				method: 'GET'
+			},
+			getSystemStats: {
+				url: url + '/stats/admin/all',
+				method: 'GET'
 			}
 		});
 	};

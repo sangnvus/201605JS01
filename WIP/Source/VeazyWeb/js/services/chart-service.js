@@ -43,6 +43,19 @@
 					});
 				});
 				return deferred.promise;
+			},
+			getSystemStats: function() {
+				var deferred = $q.defer();
+				var chartFactory = new Chart();
+
+				$timeout(function() {
+					chartFactory.$getSystemStats(function(response){
+						deferred.resolve(response);
+					}, function(reject) {
+						deferred.reject('ERROR_CONNECTION');
+					});
+				});
+				return deferred.promise;
 			}
 		};
 	};

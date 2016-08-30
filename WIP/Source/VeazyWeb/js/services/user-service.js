@@ -191,6 +191,42 @@
 					});
 				});
 				return deferred.promise;
+			},
+			ban: function(userId) {
+				var userFactory = new User({userId: userId});
+				var deferred = $q.defer();
+				$timeout(function() {
+					userFactory.$ban(function(response) {
+						deferred.resolve(response);
+					}, function(reject) {
+						deferred.reject();
+					});
+				});
+				return deferred.promise;
+			},
+			unban: function(userId) {
+				var userFactory = new User({userId: userId});
+				var deferred = $q.defer();
+				$timeout(function() {
+					userFactory.$unban(function(response) {
+						deferred.resolve(response);
+					}, function(reject) {
+						deferred.reject();
+					});
+				});
+				return deferred.promise;
+			},
+			changeRole: function(userId, role) {
+				var userFactory = new User({userId: userId, role: role});
+				var deferred = $q.defer();
+				$timeout(function() {
+					userFactory.$changeRole(function(response) {
+						deferred.resolve(resolve);
+					}, function(reject) {
+						deferred.reject();
+					});
+				});
+				return deferred.promise;
 			}
 		};
 	}
