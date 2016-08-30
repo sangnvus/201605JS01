@@ -228,9 +228,12 @@ public class ExamController {
             }
             List<ExamQuestionModel> examQuestions = exam.getListQuestions();
             for(ExamQuestionModel question: examQuestions){
-                if (question.getIsChanged()) {
+                LOGGER.debug("<<<");
+                if (question.getIsChanged() != null && question.getIsChanged()) {
+                    LOGGER.debug(">>>>>>>>>>>>>>>>>>>>>>>> ");
                     QuestionModel m = questionService.findQuestionById(question.getQuestionId());
                     question.updateProperty(new QuestionForm(m));
+                    question.setIsChanged(true);
                 }
             }
             GetExamResponse data = new GetExamResponse(exam, false);
@@ -243,6 +246,7 @@ public class ExamController {
             LOGGER.error(e.getMessage());
             LOGGER.error("Unknown error occured!");
             response.setCode(ResponseCode.INTERNAL_SERVER_ERROR);
+            e.printStackTrace();
         }
         return response.toResponseJson();
     }
