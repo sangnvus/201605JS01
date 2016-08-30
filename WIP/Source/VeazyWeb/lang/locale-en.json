@@ -263,7 +263,8 @@
 	"MARK_AS_CHECKED_BUTTON_LABEL": "Mark as checked",
 
 	"NOT_VALID_AUDIO_FILE_ERROR_MSG": "Not a valid audio file. Only .mp3 file is allowed!",
-	"NO_AUDIO_FILE": "You have not chosen an audio file yet!",
+	"NO_AUDIO_FILE_MSG": "You have not chosen an audio file yet!",
+	"SMALL_ETA_TIME_MSG": "Time duration of listening question must be longer than time duration of audio file!",
 
 	"ADMIN_OCCUPATION": "Administrator",
 	"DASHBOARD_TAB": "Dashboard",

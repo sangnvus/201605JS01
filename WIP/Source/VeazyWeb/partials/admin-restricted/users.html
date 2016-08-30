@@ -63,7 +63,10 @@
 						<tbody>
 							<tr ng-repeat="user in filteredUserList | start: (currentPage - 1) * numPerPage | limitTo: numPerPage">
 								<td><a href="" class="username" ng-click="openUserDetailDialog(user.id)">{{user.userName}}</a></td>
-								<td>{{(user.isBanned | status) | translate}}</td>
+								<td>
+									<span ng-if="user.isBanned" translate="BANNED"></span>
+									<span ng-if="!user.isBanned" translate="ACTIVE"></span>
+								</td>
 								<td>{{(user.role | role) | translate}}</td>
 								<td>
 									<div class="dropdown">

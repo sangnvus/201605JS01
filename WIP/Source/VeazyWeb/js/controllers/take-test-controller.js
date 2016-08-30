@@ -6,6 +6,7 @@
 
 		// $scope.exam = getExam.data;
 		$scope.exam = $state.params.exam || getExam.data;
+		// console.log($scope.exam);
 
 		$scope.trustAsHtml = Helper.trustAsHtml;
 

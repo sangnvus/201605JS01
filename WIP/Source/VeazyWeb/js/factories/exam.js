@@ -23,6 +23,13 @@
 				params: {
 					examId: '@examId'
 				}
+			},
+			redoHistory: {
+				url: url + '/:examId/redo',
+				method: 'GET',
+				params: {
+					examId: '@examId'
+				}
 			}
 			// ,
 			// redo: {

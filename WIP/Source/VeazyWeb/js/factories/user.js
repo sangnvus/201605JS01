@@ -82,10 +82,11 @@
 				}
 			},
 			changeRole: {
-				url: url + '/users/change_roll/:userId',
-				method: 'POST',
-				params: {
-					userId: '@userId'
+				url: url + '/users/change_roll',
+				method: 'GET',
+				paras: {
+					userId: '@userId',
+					role: '@role'
 				}
 			},
 			makeEditor: {

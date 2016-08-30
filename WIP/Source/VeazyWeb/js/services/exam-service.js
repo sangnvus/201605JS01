@@ -52,6 +52,19 @@
 					})
 				});
 				return deferred.promise;
+			},
+			redoHistory: function(examId) {
+				var examFactory = new Exam({examId: examId});
+				var deferred = $q.defer();
+
+				$timeout(function() {
+					examFactory.$redoHistory(function(response) {
+						deferred.resolve(response);
+					}, function(reject) {
+						deferred.reject();
+					})
+				});
+				return deferred.promise;
 			}
 			// ,
 			// redo: function(examId) {
