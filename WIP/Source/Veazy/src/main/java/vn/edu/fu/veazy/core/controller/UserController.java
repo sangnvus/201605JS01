@@ -504,12 +504,12 @@ public class UserController {
     }
     
     @PreAuthorize("hasAuthority(1)") // ADMIN
-    @RequestMapping(value = Const.URLMAPPING_CHANGE_ROLE, method = RequestMethod.POST)
+    @RequestMapping(value = Const.URLMAPPING_CHANGE_ROLE, method = RequestMethod.GET)
     public @ResponseBody
-    String changeUserRoll(@RequestBody ChangeRoleForm form) {
+    String changeUserRoll(@PathVariable("user_id") Integer user_id, @PathVariable("role") Integer role) {
         Response response = new Response(ResponseCode.BAD_REQUEST);
         try {
-            userService.changeUserRoll(form.getUserId(), form.getRole());
+            userService.changeUserRoll(user_id, role);
             response.setCode(ResponseCode.SUCCESS);
             
             LOGGER.debug("change user role successfully!");
