@@ -8,9 +8,9 @@ public class ChangeRoleForm {
 	/**
 	 * ユーザーの役割
 	 */
-	private int role;
+	private Integer role;
 	
-	public ChangeRoleForm(Integer userId, int role) {
+	public ChangeRoleForm(Integer userId, Integer role) {
 		super();
 		this.userId = userId;
 		this.role = role;
@@ -21,10 +21,10 @@ public class ChangeRoleForm {
 	public void setUserId(Integer userId) {
 		this.userId = userId;
 	}
-	public int getRole() {
+	public Integer getRole() {
 		return role;
 	}
-	public void setRole(int role) {
+	public void setRole(Integer role) {
 		this.role = role;
 	}
 	

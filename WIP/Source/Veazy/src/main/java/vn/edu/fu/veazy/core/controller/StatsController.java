@@ -240,8 +240,7 @@ public class StatsController {
      * 
      * @return json
      */
-//    @PreAuthorize("hasAuthority(1)")
-    @PreAuthorize("isAuthenticated()")
+    @PreAuthorize("hasAuthority(1)")
     @RequestMapping(value = Const.URLMAPPING_STATS_ADMIN_ALL, method = RequestMethod.GET,
             produces={"application/json; charset=UTF-8"})
     public @ResponseBody String getAllAdminStats(Principal principal) {

@@ -50,7 +50,7 @@ public class Const {
     public static final String URLMAPPING_GET_SIZE_USERS = URL_PREFIX + "/users/count";
     public static final String URLMAPPING_GET_LEARNER_EXAM_STATISTIC = URL_PREFIX + "/users/{user_id}/exams/statistics";
 
-    public static final String URLMAPPING_CHANGE_ROLE = URL_PREFIX + "/users/change_roll/{user_id}";
+    public static final String URLMAPPING_CHANGE_ROLE = URL_PREFIX + "/users/change_roll";
     public static final String URLMAPPING_STATS_SKILL_AVG = URL_PREFIX + "/stats/skill/avg";
     public static final String URLMAPPING_STATS_LAST_EXAM = URL_PREFIX + "/stats/exam/last/{number}";
     public static final String URLMAPPING_STATS_COURSE_AVG = URL_PREFIX + "/stats/course/avg";
