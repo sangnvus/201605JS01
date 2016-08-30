@@ -49,12 +49,7 @@ public class GetExamResponse {
             List<ExamQuestionModel> examQuestions = exam.getListQuestions();
             this.listQuestions = new ArrayList<>();
             for(ExamQuestionModel question: examQuestions){
-                ExamQuestionResponse data = null;
-                if (!question.getIsChanged()) {
-                    data = new ExamQuestionResponse(question, userAnswerInclude);
-                } else {
-                    
-                }
+                ExamQuestionResponse data = new ExamQuestionResponse(question, userAnswerInclude);
                 listQuestions.add(data);
             }
         }
