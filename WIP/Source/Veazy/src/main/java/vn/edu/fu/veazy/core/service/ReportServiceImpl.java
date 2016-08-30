@@ -87,6 +87,11 @@ public class ReportServiceImpl implements ReportService{
 		sample.setRole(Const.ROLE_EDITOR);
 		sample.setIsBanned(false);
 		List<UserModel> listReceiver = userDao.findByExample(sample);
+        sample.setRole(Const.ROLE_ADMIN);
+        List<UserModel> listExtended = userDao.findByExample(sample);
+        if (listExtended != null && listExtended.size() > 0) {
+            listReceiver.addAll(listExtended);
+        }
 		
 		for (UserModel userModel : listReceiver) {
 			ReportModel report = new ReportModel();
@@ -113,6 +118,11 @@ public class ReportServiceImpl implements ReportService{
 		sample.setRole(Const.ROLE_EDITOR);
 		sample.setIsBanned(false);
 		List<UserModel> listReceiver = userDao.findByExample(sample);
+        sample.setRole(Const.ROLE_ADMIN);
+        List<UserModel> listExtended = userDao.findByExample(sample);
+        if (listExtended != null && listExtended.size() > 0) {
+            listReceiver.addAll(listExtended);
+        }
 
 		for (UserModel userModel : listReceiver) {
 			ReportModel report = new ReportModel();

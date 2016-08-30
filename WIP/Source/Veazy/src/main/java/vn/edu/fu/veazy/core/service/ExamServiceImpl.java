@@ -141,8 +141,8 @@ public class ExamServiceImpl implements ExamService {
                         for (ExamAnswerModel ansModel : listAnswers) {
                             ansModel.setIsSelected(false);
                             if (ansModel.getIsRight()) {
-                                if (listUserAnswers.get(index).getIsSelected() && !failedQues) {
-                                    singleQuesChoice++;
+                                if (listUserAnswers.get(index).getIsSelected()) {
+                                    if (!failedQues) singleQuesChoice++;
                                     ansModel.setIsSelected(true);
                                 }
                                 singleQuesRight++;
