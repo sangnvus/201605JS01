@@ -203,7 +203,7 @@
 					var deferred = $q.defer();
 					var examId = $stateParams.examId;
 
-					ExamService.getHistory($stateParams.examId).then(function(response) {
+					ExamService.redoHistory($stateParams.examId).then(function(response) {
 						console.log(response);
 						switch (response.code) {
 							case CODE.SUCCESS: {

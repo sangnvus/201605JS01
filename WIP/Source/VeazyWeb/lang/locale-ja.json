@@ -262,7 +262,8 @@
 	"MARK_AS_CHECKED_BUTTON_LABEL": "既読にします",
 
 	"NOT_VALID_AUDIO_FILE_ERROR_MSG": "有効なオーディオファイルではありません。のみの.mp3ファイルは許可されます！",
-	"NO_AUDIO_FILE": "音声ファイルはまだ追加されていません！",
+	"NO_AUDIO_FILE_MSG": "音声ファイルはまだ追加されていません！",
+	"SMALL_ETA_TIME_MSG": "質問の時間期限は、音声ファイルより長くする必要です！",
 
 	"ADMIN_OCCUPATION": "管理者",
 	"DASHBOARD_TAB": "ダッシュボード",
