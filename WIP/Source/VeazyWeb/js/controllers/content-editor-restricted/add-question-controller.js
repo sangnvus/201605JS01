@@ -201,14 +201,15 @@
 
 					if ($scope.selectedTestSkill.id === CODE.LISTENING_SKILL) {
 						question.attachment = $scope.attachment;
+						question.etaTime = $scope.minMp3Length;
 						if (question.attachment == null) {
 							$scope.uploadErrorMsg = 'NO_AUDIO_FILE_MSG';
 							return;
 						}
-						if (question.etaTime < $scope.minMp3Length) {
-							$scope.errorMsg = 'SMALL_ETA_TIME_MSG';
-							return;
-						}
+						// if (question.etaTime < $scope.minMp3Length) {
+						// 	$scope.errorMsg = 'SMALL_ETA_TIME_MSG';
+						// 	return;
+						// }
 					}
 					break;
 				}

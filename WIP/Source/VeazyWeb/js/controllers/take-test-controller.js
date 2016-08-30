@@ -43,6 +43,7 @@
 			exam.takenTime = $scope.exam.etaTime - seconds;
 
 			if (exam.offlineCheck) {
+				exam.takenDate = moment().valueOf();
 				exam.totalPts = Helper.calculateExamMark($scope.exam);
 				$state.go('test.testresult', {
 					examResult: exam

@@ -7,8 +7,8 @@
 			// template: '<h2 id="hihi" style="position: absolute; right: 0; top: 0;">{{duration}}</h2>',
 			link: function(scope, element, attrs) {
 				$(element).css('position', 'absolute');
-				$(element).css('top', '0');
-				$(element).css('right', '10px');
+				$(element).css('top', '70px');
+				$(element).css('right', '20px');
 				$(element).css('border', '1px solid #ccc');
 				$(element).css('background-color', '#f2f2f2');
 				$(element).css('padding', '5px 10px');

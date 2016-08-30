@@ -21,6 +21,7 @@
 						</div>
 					</li>
 				</ul>
+				<p ng-if="question.isChanged" translate="CHANGE_NOTIFICATION"></p>
 
 				<!-- grade -->
 				<!-- <p class="question-grade">{{'GRADE_LABEL' | translate}} {{question.questionPts | percentGrade}}</p> -->
@@ -58,7 +59,8 @@
 								</div>
 							</li>
 						</ul>
-						<!-- <p class="question-grade">{{'GRADE_LABEL' | translate}} {{question.questionPts | percentGrade}}</p> -->
+
+						<p ng-if="question.isChanged" translate="CHANGE_NOTIFICATION"></p>
 					</div>
 
 					<!-- report button -->

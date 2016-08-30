@@ -1,10 +1,13 @@
 <form ng-submit="submitTest()">
 	<div class="test-content clearfix" ng-if="exam.etaTime > 0">
-		<h1 class="title text-center" translate="TEST_HEADER" translate-values="{skill: ((exam.skill | testSkill) | translate)}"></h1>
+		<h1 class="title" translate="TEST_HEADER" translate-values="{skill: ((exam.skill | testSkill) | translate)}"></h1>
 		<h3 count-down-timer>{{duration}}</h3>
 		<ul class="question-list" ng-if="exam.skill !== CODE.READING_SKILL">
 			<li ng-repeat="question in exam.listQuestions track by $index">
-				<p>{{$index + 1}}. {{question.question}}</p>
+				<p>
+					<span><u translate="TEST_QUESTION_HEADING" translate-values="{index: $index + 1}"></u></span> 
+					<span>{{question.question}}</span>
+				</p>
 				<audio ng-if="exam.skill === CODE.LISTENING_SKILL" controls ng-src="{{question.attachment}}"></audio>
 				<ul class="answer-list">
 					<li ng-repeat="answer in question.listAnswers track by $index">
@@ -14,16 +17,23 @@
 						</div>
 					</li>
 				</ul>
+				<p><i ng-if="question.isChanged" translate="CHANGE_NOTIFICATION"></i></p>
 			</li>
 		</ul>
 
 		<ul class="question-list" ng-if="exam.skill === CODE.READING_SKILL">
 			<li ng-repeat="question in exam.listQuestions track by $index">
-				<p>{{$index + 1}}. {{'ARTICLE_GUIDE' | translate}}</p>
+				<p>
+					<span><u translate="READING_HEADING" translate-values="{index: $index + 1}"></u></span> 
+					<span translate="ARTICLE_GUIDE">{{question.question}}</span>
+				</p>
 				<div class="reading-content" ng-bind-html="trustAsHtml(question.question)"></div>
 				<ul>
 					<li ng-repeat="question in question.listQuestions track by $index">
-						<p>{{$parent.$index + 1}}.{{$index + 1}}. {{question.question}}</p>
+						<p>
+							<span><u translate="TEST_QUESTION_HEADING" translate-values="{index: $index + 1}"></u></span> 
+							<span>{{question.question}}</span>
+						</p>
 						<ul class="answer-list">
 							<li ng-repeat="answer in question.listAnswers">
 								<div class="checkbox">
@@ -32,6 +42,7 @@
 								</div>
 							</li>
 						</ul>
+						<p><i ng-if="question.isChanged" translate="CHANGE_NOTIFICATION"></i></p>
 					</li>
 				</ul>
 			</li>

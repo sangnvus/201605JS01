@@ -1,7 +1,8 @@
 ;(function() {
 	'use strict';
 	var headerCtrl = function($scope, $translate, $state, UserService, localStorageService, veazyConfig) {
-		var CODE = veazyConfig.CODE;
+		$scope.CODE = veazyConfig.CODE;
+		var CODE = $scope.CODE;
 
 		//check current lang
 		var currentLang = $translate.use();

@@ -1,6 +1,8 @@
 /*=== heading ===*/
 .test h1.title {
-	margin: 30px 0;
+	margin: 30px 25px;
+	padding-bottom: 10px;
+	border-bottom: 1px solid rgb(204, 204, 204);
 }
 
 .test h4.title {
@@ -56,7 +58,7 @@
 .test .test-info {
 	border: 1px solid #ccc;
 	background-color: #f2f2f2;
-	padding: 10px 20px;
+	padding: 10px 15px;
 	border-radius: 4px;
 	margin-bottom: 20px;
 }

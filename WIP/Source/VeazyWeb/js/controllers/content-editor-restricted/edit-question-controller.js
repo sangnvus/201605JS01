@@ -57,6 +57,8 @@
 		//bind uploaded file url to question's attachment
 		$scope.uploader.onSuccessItem = function(item, response) {
 			$scope.question.attachment = response.link;
+			$scope.minMp3Length = response.mp3Length;
+			$scope.uploaded = true;
 		};
 
 		$scope.vm = {
@@ -82,7 +84,7 @@
 		$scope.removeAnswer = function(answers, index) {
 			// var answers = question.answers;
 			answers.splice(index, 1);
-			console.log(answers);
+			// console.log(answers);
 		};
 
 		//add one more question to group of questions
@@ -99,7 +101,7 @@
 		$scope.removeQuestion = function(groupQuestion, index) {
 			var questions = groupQuestion.listQuestions;
 			questions.splice(index, 1);
-			console.log(groupQuestion);
+			// console.log(groupQuestion);
 		};
 
 		$scope.updateQuestion = function() {
@@ -115,7 +117,22 @@
 
 			var timepicker = $scope.vm.date;
 			var etaTime = parseInt(moment.duration(timepicker.minutes(), 'minute').format('ss')) + timepicker.seconds();
-			question.etaTime = etaTime;
+			if ($scope.selectedTestSkill.id === CODE.LISTENING_SKILL) {
+				// console.log('1')
+				if ($scope.uploaded === true) {
+					// console.log('2')
+					question.etaTime = $scope.minMp3Length;
+				} 
+				else {
+					// console.log('3')
+					question.etaTime = $scope.question.etaTime;
+				}
+			} else {
+				// console.log('4')
+				question.etaTime = etaTime;
+			}
+			// var etaTime = parseInt(moment.duration(timepicker.minutes(), 'minute').format('ss')) + timepicker.seconds();
+			// question.etaTime = etaTime;
 
 			switch ($scope.selectedQuestionType.id) {
 				case CODE.SINGLE_QUESTION_TYPE: {

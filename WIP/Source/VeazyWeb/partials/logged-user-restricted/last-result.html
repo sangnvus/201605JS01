@@ -1,5 +1,5 @@
 <div class="test-content clearfix">
-	<h1 class="title text-center" translate="TEST_HEADER" translate-values="{skill: ((exam.skill | testSkill) | translate)}"></h1>
+	<h1 class="title" translate="TEST_HEADER" translate-values="{skill: ((exam.skill | testSkill) | translate)}"></h1>
 	<div class="col-md-4 col-md-offset-8">
 		<div class="test-info">
 			<h5><label translate="TAKEN_DATE_HEADING"></label> {{exam.takenDate | dateFormat}}</h5>
@@ -16,7 +16,10 @@
 			<div class="col-sm-10">
 
 				<!-- question -->
-				<p>{{$index + 1}}. {{question.question}}</p>
+				<p>
+					<span><u translate="TEST_QUESTION_HEADING" translate-values="{index: $index + 1}"></u></span> 
+					<span>{{question.question}}</span>
+				</p>
 				<audio ng-if="exam.skill === CODE.LISTENING_SKILL" controls ng-src="{{question.attachment}}"></audio>
 				<!-- answer list -->
 				<ul class="answer-list">
@@ -37,7 +40,12 @@
 	<!-- question list -->
 	<ul class="question-list" ng-if="exam.skill === CODE.READING_SKILL">
 		<li class="clearfix" ng-repeat="question in exam.listQuestions track by $index">
-			<p>{{$index + 1}}. {{'ARTICLE_GUIDE' | translate}}</p>
+			<div>
+				<p>
+					<span><u translate="READING_HEADING" translate-values="{index: $index + 1}"></u></span> 
+					<span translate="ARTICLE_GUIDE">{{question.question}}</span>
+				</p>
+			</div>
 
 			<!-- reading content -->
 			<div class="reading-content" ng-bind-html="trustAsHtml(question.question)"></div>
@@ -49,7 +57,10 @@
 				<li ng-repeat="question in question.listQuestions track by $index">
 					<div class="col-sm-10">
 						<!-- question -->
-						<p>{{$parent.$index + 1}}.{{$index + 1}}. {{question.question}}</p>
+						<p>
+							<span><u translate="TEST_QUESTION_HEADING" translate-values="{index: $index + 1}"></u></span> 
+							<span>{{question.question}}</span>
+						</p>
 						
 						<!-- answer -->
 						<ul class="answer-list">

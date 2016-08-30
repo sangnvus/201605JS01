@@ -8,8 +8,8 @@
 	"COURSE_INTRO": "これらの無料のコースに登録することで、今すぐあなたの知識を向上させます！",
 	"EXAM_HEADING": "テスト",
 	"EXAM_INTRO": "自分自身に挑戦するだけでなく、あなたの知識を確認します。",
-	"DICTIONARY_HEADING": "辞書",
-	"DICTIONARY_INTRO": "常に研究中に学習をサポートする便利コンパニオン！",
+	"MULTI_LANG_HEADING": "多言語",
+	"MULTI_LANG_INTRO": "日本語または英語のようにインターフェース言語をカスタマイズします",
 	"STATISTICS_HEADING": "学習統計",
 	"STATISTICS_INTRO": "あなたの無限の能力を反映している場所 - あなたの研究の進捗状況や成績を追跡します。",
 	"TEAM_HEADING": "Veazyチーム",
@@ -28,6 +28,23 @@
 	"UPPER_INTERMEDIATE_LEVEL": "中上級",
 	"ADVANCED_LEVEL": "上級",
 	"MASTER_LEVEL": "マスター",
+
+	"MINH_NN_LABEL": "MinhNN - 霊獣",
+	"TUNG_DT_LABEL": "TungDT - ゴミマフィア",
+	"LINH_NH_LABEL": "LinhNH - 韓国人ファンボーイ",
+	"THANG_PD_LABEL": "ThangPD - 柴犬",
+	"QUAN_NH_LABEL": "QuanNH - クーアンシウ",
+	"DUY_NT_LABEL": "DuyNT - 災害プログラマー",
+
+	"LOCATION_HEADING": "所在地",
+	"LOCATION_LABEL": "本社",
+	"LOCATION_NAME": "ベトナム　ハノイ市　Hoalacキャンパス　A寮　１０４番のルーム",
+	"AROUND_THE_WEB_HEADING": "ウェッブの周り",
+	"CONTACT_HEADING": "連絡先",
+	"CHIEF_EXECUTIVE_LABEL": "代表者",
+	"CHIEF_EXECUTIVE_NAME": "Nguyen Ngoc Minh",
+	"CHIEF_EXECUTIVE_TELEPHONE_LABEL": "電話番号：01645698393",
+	"CHIEF_EXECUTIVE_EMAIL_LABEL": "メール：MinhNNSE0123@fpt.edu.vn",
 
 	"USERNAME_PLACEHOLDER": "ユーザー名",
 	"PASSWORD_PLACEHOLDER": "パスワード",
@@ -306,6 +323,10 @@
 
 	"USER": "ユーザー",
 	"EDITOR": "編集者",
-	"ADMIN": "管理者"
+	"ADMIN": "管理者",
+
+	"TEST_QUESTION_HEADING": "{{index}}番:",
+	"READING_HEADING": "{{index}}の論文：",
+	"CHANGE_NOTIFICATION": "（*）上の質問は、あなたがこのテストを受けた最後の時間以降に更新されました。"
 
 }

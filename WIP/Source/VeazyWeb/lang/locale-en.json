@@ -8,8 +8,8 @@
 	"COURSE_INTRO": "Improve your knowledge right now by enrolling into these free courses!",
 	"EXAM_HEADING": "Exam",
 	"EXAM_INTRO": "Review your knowledge as well as challenging yourself.",
-	"DICTIONARY_HEADING": "Dictionary",
-	"DICTIONARY_INTRO": "Convenient companion that always supports learning during study!",
+	"MULTI_LANG_HEADING": "Multi-language",
+	"MULTI_LANG_INTRO": "Convenient companion that always supports learning during study!",
 	"STATISTICS_HEADING": "Study Statistics",
 	"STATISTICS_INTRO": "Keep track of your study progress and grades - a place that reflects your unlimited abilities.",
 	"TEAM_HEADING": "Veazy Team",
@@ -28,6 +28,23 @@
 	"UPPER_INTERMEDIATE_LEVEL": "Upper-intermediate",
 	"ADVANCED_LEVEL": "Advanced",
 	"MASTER_LEVEL": "Master",
+
+	"MINH_NN_LABEL": "MinhNN - Holy Beast",
+	"TUNG_DT_LABEL": "TungDT - Junk Mafia",
+	"LINH_NH_LABEL": "LinhNH - Korean Fanboy",
+	"THANG_PD_LABEL": "ThangPD - Shiba Inu",
+	"QUAN_NH_LABEL": "QuanNH - Quan Siu",
+	"DUY_NT_LABEL": "DuyNT - Coder of Calamity",
+
+	"LOCATION_HEADING": "Location",
+	"LOCATION_LABEL": "Head office:",
+	"LOCATION_NAME": "Room 104, Dormitory A, Hoa Lac Campus, Hanoi City, Vietnam",
+	"AROUND_THE_WEB_HEADING": "Around the Web",
+	"CONTACT_HEADING": "Contact Us",
+	"CHIEF_EXECUTIVE_LABEL": "Chief Executive:",
+	"CHIEF_EXECUTIVE_NAME": "Nguyen Ngoc Minh",
+	"CHIEF_EXECUTIVE_TELEPHONE_LABEL": "Telephone: 01645698393",
+	"CHIEF_EXECUTIVE_EMAIL_LABEL": "Email: minhnn15294@gmail.com",
 
 	"USERNAME_PLACEHOLDER": "Username",
 	"PASSWORD_PLACEHOLDER": "Password",
@@ -308,5 +325,9 @@
 
 	"USER": "User",
 	"EDITOR": "Content Editor",
-	"ADMIN": "Administrator"
+	"ADMIN": "Administrator",
+
+	"TEST_QUESTION_HEADING": "Question {{index}}:",
+	"READING_HEADING": "Essay {{index}}:",
+	"CHANGE_NOTIFICATION": "(*) The question above has been updated since the last time you took this test."
 }
