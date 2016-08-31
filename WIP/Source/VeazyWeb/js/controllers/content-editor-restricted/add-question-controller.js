@@ -205,7 +205,8 @@
 						question.attachment = $scope.attachment;
 						question.etaTime = $scope.minMp3Length;
 						if (question.attachment == null) {
-							$scope.uploadErrorMsg = 'NO_AUDIO_FILE_MSG';
+							// $scope.uploadErrorMsg = 'NO_AUDIO_FILE_MSG';
+							$scope.errorMsg = 'NO_AUDIO_FILE_MSG';
 							return;
 						}
 						// if (question.etaTime < $scope.minMp3Length) {
@@ -248,7 +249,7 @@
 				console.log(response);
 				switch (response.code) {
 					case CODE.SUCCESS: {
-						$state.go('editor.question.list');
+						$state.go('editor.question.detail', {questionId: response.data.questionId});
 						break;
 					}
 					case CODE.UNAUTHORIZED: {

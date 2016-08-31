@@ -293,9 +293,11 @@
 	"MANAGE_HYPERLINK": "Manage",
 	"BAN_HYPERLINK": "Ban",
 	"UNBAN_HYPERLINK": "Unban",
+	"ASSIGN_AS_USER_HYPERLINK": "Assign as user",
 	"ASSIGN_AS_EDITOR_HYPERLINK": "Assign as editor",
 	"ASSIGN_AS_ADMIN_HYPERLINK": "Assign as admin",
 	"OCCUPATION_LABEL": "Occupation",
+	"ASSIGN_AS_USER_BUTTON_LABEL": "Assign as user",
 	"ASSIGN_AS_EDITOR_BUTTON_LABEL": "Assign as editor",
 	"ASSIGN_AS_ADMIN_BUTTON_LABEL": "Assign as admin",
 	"BAN_BUTTON_LABEL": "Ban",
@@ -334,5 +336,7 @@
 	"SHOW_ONLY_REPORTS_WHERE_HEADING": "Show only reports where",
 	"UNREAD_ONLY": "Unread Only",
 	"ALL_REPORTS": "All Reports",
-	"REQUIRED_MIN_NUMBER_OF_QUESTIONS_ERROR_MSG": "A test is required to have at least 5 questions!"
+	"REQUIRED_MIN_NUMBER_OF_QUESTIONS_ERROR_MSG": "A test is required to have at least 5 questions!",
+
+	"CLOSE_BUTTON_LABEL": "Close"
 }
