@@ -218,6 +218,36 @@
 					return deferred.promise;
 				}
 			}
+		}).state('test.firsttimeresult', {
+			url: '/:examId/first-result',
+			templateUrl: 'partials/logged-user-restricted/first-result.html',
+			controller: 'lastExamResultCtrl',
+			resolve: {
+				getLastExamResult: function($state, $stateParams, $q, ExamService, veazyConfig) {
+					var CODE = veazyConfig.CODE;
+					var deferred = $q.defer();
+					var examId = $stateParams.examId;
+					ExamService.getHistory(examId).then(function(response) {
+						switch (response.code) {
+							case CODE.SUCCESS: {
+								deferred.resolve(response);
+								break;
+							}
+							case CODE.UNAUTHORIZED: {
+								deferred.reject();
+								$state.go('login');
+								break;
+							}
+							default: {
+								deferred.reject();
+							}
+						}
+					}, function(reject) {
+						deferred.reject();
+					});
+					return deferred.promise;
+				}
+			}
 		//test result page for logged user
 		}).state('test.savedresult', {
 			url: '/:examId/result',
@@ -251,8 +281,8 @@
 			}
 		//retake test page
 		}).state('test.retake', {
-			url: '/:examId/retake',
-			templateUrl: 'partials/take-test.html',
+			url: '/:examId/revision',
+			templateUrl: 'partials/logged-user-restricted/retake-test.html',
 			controller: 'retakeTestCtrl',
 			resolve: {
 				getExam: function($state, $stateParams, $q, ExamService, veazyConfig) {
@@ -284,28 +314,28 @@
 				}
 			}
 		})
-		// .state('test.retakeresult', {
-		// 	url: '/:examId/retake/result',
-		// 	templateUrl: 'partials/logged-user-restricted/retake-test-result.html',
-		// 	controller: 'retakeTestResultCtrl',
-		// 	params: {
-		// 		examResult: null
-		// 	},
-		// 	resolve: {
-		// 		getExamResult: function($timeout, $state, $stateParams, $q, ExamService) {
-		// 			var deferred = $q.defer();
-		// 			$timeout(function() {
-		// 				if ($stateParams.examResult) {
-		// 					deferred.resolve();
-		// 				} else {
-		// 					deferred.reject();
-		// 					$state.go('test.retake', {examId: $stateParams.examId});
-		// 				}
-		// 			});
-		// 			return deferred.promise;
-		// 		}
-		// 	}
-		// })
+		.state('test.retakeresult', {
+			url: '/:examId/revision/result',
+			templateUrl: 'partials/logged-user-restricted/retake-test-result.html',
+			controller: 'retakeTestResultCtrl',
+			params: {
+				examResult: null
+			},
+			resolve: {
+				getExamResult: function($timeout, $state, $stateParams, $q, ExamService) {
+					var deferred = $q.defer();
+					$timeout(function() {
+						if ($stateParams.examResult) {
+							deferred.resolve();
+						} else {
+							deferred.reject();
+							$state.go('test.retake', {examId: $stateParams.examId});
+						}
+					});
+					return deferred.promise;
+				}
+			}
+		})
 
 		.state('user', {
 			url: '/user',
@@ -350,7 +380,7 @@
 			controller: 'userStatisticsCtrl'
 		//test history page
 		}).state('user.testhistory', {
-			url: '/testhistory',
+			url: '/test-history',
 			templateUrl: 'partials/logged-user-restricted/test-history.html',
 			controller: 'testHistoryCtrl'
 		})

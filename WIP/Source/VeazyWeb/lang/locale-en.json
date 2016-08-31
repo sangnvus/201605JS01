@@ -331,12 +331,15 @@
 
 	"TEST_QUESTION_HEADING": "Question {{index}}:",
 	"READING_HEADING": "Essay {{index}}:",
-	"CHANGE_NOTIFICATION": "(*) The question above has been updated since the last time you took this test.",
+	"CHANGE_NOTIFICATION": "(*) The question above has been updated since the first time you took this test.",
+	"READING_CHANGE_NOTIFICATION": "(*) The reading above has been updated since the first time you took this test.",
 
 	"SHOW_ONLY_REPORTS_WHERE_HEADING": "Show only reports where",
 	"UNREAD_ONLY": "Unread Only",
 	"ALL_REPORTS": "All Reports",
 	"REQUIRED_MIN_NUMBER_OF_QUESTIONS_ERROR_MSG": "A test is required to have at least 5 questions!",
 
-	"CLOSE_BUTTON_LABEL": "Close"
+	"CLOSE_BUTTON_LABEL": "Close",
+	"NOT_SCORED_LABEL": "Not score",
+	"NOT_SCORED_NOTIFICATION": "(*) This test is not scored!"
 }

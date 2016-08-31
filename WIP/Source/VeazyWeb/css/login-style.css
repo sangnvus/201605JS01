@@ -111,12 +111,18 @@
 /*-----------------------------------*/
 /* Validation Effect */
 /*-----------------------------------*/
-.login .ng-invalid.ng-dirty {
-	border-color: #d9534f !important;
+.login input.ng-invalid.ng-dirty {
+	/*border-color: #d9534f !important;*/
+	border-color: #F44336;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgb(228, 118, 110);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgb(228, 118, 110);
 }
 
-.login .ng-valid.ng-dirty {
-	border-color: #5cb85c !important;
+.login input.ng-valid.ng-dirty {
+	/*border-color: #5cb85c !important;*/
+	border-color: #4CAF50;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgb(166, 208, 117);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgb(166, 208, 117);
 }
 
 
