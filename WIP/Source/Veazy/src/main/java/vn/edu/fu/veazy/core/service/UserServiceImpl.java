@@ -6,11 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import vn.edu.fu.veazy.core.common.Const;
 import vn.edu.fu.veazy.core.common.utils.Utils;
 import vn.edu.fu.veazy.core.dao.GenericDao;
 import vn.edu.fu.veazy.core.exception.PasswordIncorrectException;
 import vn.edu.fu.veazy.core.form.RegisterForm;
 import vn.edu.fu.veazy.core.form.UpdateUserForm;
+import vn.edu.fu.veazy.core.model.ReportModel;
 import vn.edu.fu.veazy.core.model.UserModel;
 
 @Service
@@ -18,6 +20,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private GenericDao<UserModel, Integer> userDao;
+
+    @Autowired
+    private GenericDao<ReportModel, Integer> reportDao;
 
     @Override
     @Transactional
@@ -194,6 +199,25 @@ public class UserServiceImpl implements UserService {
 	@Override
     @Transactional
 	public void changeUserRoll(Integer userId, int role) throws Exception {
+        UserModel sample = new UserModel();
+        sample.setRole(role);
+        sample.setIsBanned(false);
+        List<UserModel> listEditor = userDao.findByExample(sample);
+        if (listEditor != null && listEditor.size() > 0) {
+            for (UserModel m : listEditor) {
+                ReportModel rep = new ReportModel();
+                rep.setReceiverId(m.getId());
+                List<ReportModel> listRep = reportDao.findByExample(rep);
+                if (listRep != null && listRep.size() > 0) {
+                    for (ReportModel r : listRep) {
+                        r.setReceiverId(userId);
+                        reportDao.save(r);
+                    }
+                }
+                m.setRole(Const.ROLE_LEARNER);
+                userDao.save(m);
+            }
+        }
 		UserModel user = findUserById(userId);
 		user.setRole(role);
 		userDao.update(user);
