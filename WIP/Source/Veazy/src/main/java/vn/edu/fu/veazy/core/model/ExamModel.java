@@ -22,6 +22,8 @@ import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
+import vn.edu.fu.veazy.core.common.Const;
+
 /**
  *
  * @author Hoang Linh
@@ -132,6 +134,44 @@ public class ExamModel extends BasicModel {
 
     public void setFinishState(Boolean finishState) {
         this.finishState = finishState;
+    }
+
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        ExamModel m = new ExamModel();
+        m.setUserId(userId);
+        m.setCourseId(courseId);
+        m.setQuestionSkill(questionSkill);
+        m.getListQuestions().clear();
+        for (ExamQuestionModel q : listQuestions) {
+            ExamQuestionModel model = (ExamQuestionModel) q.clone();
+            model.setExam(m);
+            if (model.getQuestionType() != Const.QUESTIONTYPE_GROUP) {
+                List<ExamAnswerModel> listAns = q.getListAnswers();
+                List<ExamAnswerModel> listAns1 = new ArrayList<>();
+                for (ExamAnswerModel ans : listAns) {
+                    ExamAnswerModel eam1 = (ExamAnswerModel) ans.clone();
+                    eam1.setQuestion(model);
+                    listAns1.add(eam1);
+                }
+                model.setListAnswers(listAns1);
+            } else {
+                List<ExamQuestionModel> listQues = q.getListQuestions();
+                List<ExamQuestionModel> listQues1 = new ArrayList<>();
+                for (ExamQuestionModel ques : listQues) {
+                    ExamQuestionModel eqm1 = (ExamQuestionModel) ques.clone();
+                    eqm1.setParentQuestion(model);
+                    listQues1.add(eqm1);
+                }
+                model.setListQuestions(listQues1);
+            }
+            m.getListQuestions().add(model);
+        }
+        m.setResult(result);
+        m.setTakenTime(takenTime);
+        m.setEtaTime(etaTime);
+        m.setFinishState(finishState);
+        return m;
     }
 
 }

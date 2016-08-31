@@ -90,4 +90,13 @@ public class ExamAnswerModel extends BasicModel {
     public void setIsSelected(Boolean isSelected) {
         this.isSelected = isSelected;
     }
+
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        ExamAnswerModel ans = new ExamAnswerModel();
+        ans.setAnswer(answer);
+        ans.setIsRight(isRight);
+        ans.setIsSelected(isSelected);
+        return ans;
+    }
 }

@@ -116,7 +116,6 @@ public class ExamQuestionModel extends BasicModel {
             }
             this.numberOfQuestion = listQuestions.size();
         }
-//        this.numberOfQuestion = form.getNumberOfQuestion();
     }
 
     public ExamModel getExam() {
@@ -206,6 +205,19 @@ public class ExamQuestionModel extends BasicModel {
 
     public void setIsChanged(Boolean isChanged) {
         this.isChanged = isChanged;
+    }
+
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        ExamQuestionModel q = new ExamQuestionModel();
+        q.setAttachment(attachment);
+        q.setIsChanged(isChanged);
+        q.setNumberOfQuestion(numberOfQuestion);
+        q.setQuestion(question);
+        q.setQuestionAnswerType(questionAnswerType);
+        q.setQuestionId(questionId);
+        q.setQuestionType(questionType);
+        return q;
     }
 
 }

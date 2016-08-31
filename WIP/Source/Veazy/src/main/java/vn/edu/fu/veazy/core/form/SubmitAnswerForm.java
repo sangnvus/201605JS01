@@ -3,6 +3,7 @@ package vn.edu.fu.veazy.core.form;
 public class SubmitAnswerForm {
 
     private String answer;
+    private Boolean isRight;
     private Boolean isSelected;
     
     public SubmitAnswerForm() {
@@ -21,6 +22,14 @@ public class SubmitAnswerForm {
 
     public void setAnswer(String answer) {
         this.answer = answer;
+    }
+
+    public Boolean getIsRight() {
+        return isRight;
+    }
+
+    public void setIsRight(Boolean isRight) {
+        this.isRight = isRight;
     }
 
     public Boolean getIsSelected() {

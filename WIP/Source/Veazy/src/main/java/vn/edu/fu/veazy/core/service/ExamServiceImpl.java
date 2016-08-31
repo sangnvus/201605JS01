@@ -7,14 +7,18 @@ package vn.edu.fu.veazy.core.service;
 
 import java.util.List;
 
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import vn.edu.fu.veazy.core.common.Const;
 import vn.edu.fu.veazy.core.common.utils.Utils;
+import vn.edu.fu.veazy.core.controller.LessonController;
 import vn.edu.fu.veazy.core.dao.GenericDao;
 import vn.edu.fu.veazy.core.exception.CorruptedFormException;
+import vn.edu.fu.veazy.core.form.AnswerForm;
+import vn.edu.fu.veazy.core.form.QuestionForm;
 import vn.edu.fu.veazy.core.form.SubmitAnswerForm;
 import vn.edu.fu.veazy.core.form.SubmitExamForm;
 import vn.edu.fu.veazy.core.form.SubmitQuestionForm;
@@ -28,6 +32,9 @@ import vn.edu.fu.veazy.core.model.ExamQuestionModel;
  */
 @Service
 public class ExamServiceImpl implements ExamService {
+
+    /** Logger object . */
+    private final static org.slf4j.Logger LOGGER = LoggerFactory.getLogger(ExamServiceImpl.class);
 
     @Autowired
     private GenericDao<ExamModel, Integer> examDao;
@@ -102,15 +109,20 @@ public class ExamServiceImpl implements ExamService {
         if (result.length == 2 && result[1] > 0) {
             examResult = Utils.round(result[0] / result[1], 2) * 100;
         }
-        exam.setResult(examResult);
-//        exam.setTakenTime(0);
-        exam.setTakenTime(form.getTakenTime());
-        //save in case is new exam
+        ExamModel m = (ExamModel) exam.clone();
+        m.setResult(examResult);
+//      exam.setTakenTime(0);
+        m.setTakenTime(form.getTakenTime());
+      //save in case is new exam
         if (!exam.getFinishState()) {
+            exam.setResult(examResult);
+//          exam.setTakenTime(0);
+            exam.setTakenTime(form.getTakenTime());
+          //save in case is new exam
             exam.setFinishState(true);
             updateExam(exam);
         }
-        return exam;
+        return m;
     }
 
     private Double[] calcResult(List<SubmitQuestionForm> listUserQuestions,
@@ -123,6 +135,9 @@ public class ExamServiceImpl implements ExamService {
             Integer questionId = answerForm.getQuestionId();
             for (ExamQuestionModel m : listOriginQuestions) {
                 if (questionId == m.getQuestionId()) {
+                    if (answerForm.getIsChanged() != null && answerForm.getIsChanged()) {
+                        updateQuestion(answerForm, m);
+                    }
                     if (m.getQuestionType() == Const.QUESTIONTYPE_GROUP) {
                         Double[] result = calcResult(answerForm.getListQuestions(), m.getListQuestions());
                         userRight += result[0];
@@ -164,6 +179,58 @@ public class ExamServiceImpl implements ExamService {
         }
 //        if (totalRight > 0) return new Utils.round(userRight/totalRight, 2) * 100;
         return new Double[]{userRight, totalRight};
+    }
+    
+    private void updateQuestion(SubmitQuestionForm from, ExamQuestionModel to) {
+        to.setAttachment(from.getAttachment());
+        to.setQuestion(from.getQuestion());
+        to.setQuestionAnswerType(from.getQuestionAnswerType());
+        to.setQuestionType(from.getQuestionType());
+        to.getListAnswers().clear();
+        if (from.getQuestionType() != Const.QUESTIONTYPE_GROUP) {
+            List<SubmitAnswerForm> listAns = from.getListAnswers();
+            if (listAns != null && listAns.size() > 1) {
+                for (SubmitAnswerForm form1 : listAns) {
+                    ExamAnswerModel model = new ExamAnswerModel();
+                    model.setAnswer(form1.getAnswer());
+                    model.setIsRight(form1.getIsRight());
+                    model.setIsSelected(form1.getIsSelected());
+                    model.setQuestion(to);
+                    to.getListAnswers().add(model);
+                }
+            }
+            to.setNumberOfQuestion(1);
+        } else {
+            List<SubmitQuestionForm> listQuestions = from.getListQuestions();
+            to.getListQuestions().clear();
+            for (SubmitQuestionForm form1 : listQuestions) {
+                ExamQuestionModel model1 = new ExamQuestionModel();
+//                updateQuestion(form1, model1);
+                // hotfix
+                model1.setAttachment(form1.getAttachment());
+                model1.setQuestion(form1.getQuestion());
+                model1.setQuestionAnswerType(form1.getQuestionAnswerType());
+                model1.setQuestionType(form1.getQuestionType());
+                model1.getListAnswers().clear();
+                model1.setQuestionType(Const.QUESTIONTYPE_SINGULAR);
+                model1.setNumberOfQuestion(0);
+                model1.setParentQuestion(to);
+                List<SubmitAnswerForm> listAns = form1.getListAnswers();
+                if (listAns != null && listAns.size() > 1) {
+                    for (SubmitAnswerForm form2 : listAns) {
+                        ExamAnswerModel model = new ExamAnswerModel();
+                        model.setAnswer(form2.getAnswer());
+                        model.setIsRight(form2.getIsRight());
+                        model.setIsSelected(form2.getIsSelected());
+                        model.setQuestion(model1);
+                        model1.getListAnswers().add(model);
+                    }
+                }
+                
+                to.getListQuestions().add(model1);
+            }
+            to.setNumberOfQuestion(listQuestions.size());
+        }
     }
 
 }
