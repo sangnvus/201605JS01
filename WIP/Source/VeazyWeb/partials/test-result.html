@@ -6,7 +6,7 @@
 			<h5><label translate="NUMBER_OF_QUESTIONS_HEADING"></label> {{exam.totalNumberOfQuestions}}</h5>
 			<h5><label translate="TIME_ALLOWED_HEADING"></label> {{exam.etaTime | timeDuration : 'text'}}</h5>
 			<h5><label translate="TIME_TAKEN_HEADING"></label> {{exam.takenTime | timeDuration : 'text'}}</h5>
-			<h5><label translate="RESULT_HEADING"></label> {{'NOT_SCORED_LABEL' | translate}}</h5>
+			<h5><label translate="RESULT_HEADING"></label> {{exam.totalPts}}%</h5>
 		</div>
 	</div>
 	<!-- <h3 class="text-right" style="margin-right: 15px; color: red;">{{'RESULT_HEADING' | translate}}{{exam.result}}%</h3> -->

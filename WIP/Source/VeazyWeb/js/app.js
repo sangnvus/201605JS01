@@ -117,7 +117,29 @@
 		}).state('courselist', {
 			url: '/courses/:courseId',
 			templateUrl: 'partials/course-list.html',
-			controller: 'courseListCtrl'
+			controller: 'courseListCtrl',
+			resolve: {
+				getLessonList: function($stateParams, $q, LessonService, veazyConfig) {
+					var CODE = veazyConfig.CODE;
+					var courseId = $stateParams.courseId;
+					var deferred = $q.defer();
+					LessonService.getLessonsInCourse(courseId).then(function(response) {
+						switch (response.code) {
+							case CODE.SUCCESS: {
+								// console.log(response);
+								deferred.resolve(response);
+								break;
+							}
+							default: {
+								deferred.reject();
+							}
+						}
+					}, function(reject) {
+						deferred.reject();
+					});
+					return deferred.promise;
+				}
+			}
 		//lesson detail
 		}).state('lessondetail', {
 			url: '/lessons/:lessonId',
