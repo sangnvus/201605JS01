@@ -93,6 +93,8 @@
 						return deferred.promise;
 					}
 				}
+			}).closePromise.then(function() {
+				$state.reload();
 			});
 		};
 
@@ -149,7 +151,8 @@
 				// console.log(response);
 				switch (response.code) {
 					case CODE.SUCCESS: {
-						user.role = userCode;
+						// user.role = userCode;
+						$state.reload();
 						break;
 					}
 					case CODE.UNAUTHORIZED: {
@@ -171,7 +174,8 @@
 				// console.log(response);
 				switch (response.code) {
 					case CODE.SUCCESS: {
-						user.role = editorCode;
+						// user.role = editorCode;
+						$state.reload();
 						break;
 					}
 					case CODE.UNAUTHORIZED: {
