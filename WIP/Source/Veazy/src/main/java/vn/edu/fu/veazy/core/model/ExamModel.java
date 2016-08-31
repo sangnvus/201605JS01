@@ -139,6 +139,7 @@ public class ExamModel extends BasicModel {
     @Override
     public Object clone() throws CloneNotSupportedException {
         ExamModel m = new ExamModel();
+        m.setId(id);
         m.setUserId(userId);
         m.setCourseId(courseId);
         m.setQuestionSkill(questionSkill);
