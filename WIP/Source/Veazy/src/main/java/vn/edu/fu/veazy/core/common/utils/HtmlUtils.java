@@ -10,11 +10,11 @@ public class HtmlUtils {
         if (Utils.isNullOrEmpty(document)) return true;
         Document doc = Jsoup.parse(document);
         if (doc == null) return false;
-        Elements el = doc.select(":containsOwn(\u00a0)");
-        if (el != null) {
-            el.remove();
-        }
-        return Utils.isNullOrEmpty(doc.text());
+//        Elements el = doc.select(":containsOwn(\u00a0)");
+//        if (el != null) {
+//            el.remove();
+//        }
+        return Utils.isNullOrEmpty(doc.text().replace("\u00a0", ""));
     }
     
 }
