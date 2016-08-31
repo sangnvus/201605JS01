@@ -4,48 +4,50 @@
 	<div class="form-box">
 		<table class="table table-hover">
 			<tr>
-				<td><label translate="OCCUPATION_LABEL"></label></td>
-				<td>{{(user.role | role ) | translate}}</td>
+				<td class="col-md-4"><label translate="OCCUPATION_LABEL"></label></td>
+				<td class="col-md-8">{{(user.role | role ) | translate}}</td>
 			</tr>
 			<tr>
-				<td><label translate="FIRSTNAME_LABEL"></label></td>
-				<td>{{user.firstName}}</td>
+				<td class="col-md-4"><label translate="FIRSTNAME_LABEL"></label></td>
+				<td class="col-md-8">{{user.firstName}}</td>
 			</tr>
 			<tr>
-				<td><label translate="LASTNAME_LABEL"></label></td>
-				<td>{{user.lastName}}</td>
+				<td class="col-md-4"><label translate="LASTNAME_LABEL"></label></td>
+				<td class="col-md-8">{{user.lastName}}</td>
 			</tr>
 			<tr>
-				<td><label translate="BIRTHDAY_LABEL"></label></td>
-				<td>{{user.dob | dateFormat}}</td>
+				<td class="col-md-4"><label translate="BIRTHDAY_LABEL"></label></td>
+				<td class="col-md-8">{{user.dob | dateFormat}}</td>
 			</tr>
 			<tr>
-				<td><label translate="ADDRESS_LABEL"></label></td>
-				<td>{{user.address}}</td>
+				<td class="col-md-4"><label translate="ADDRESS_LABEL"></label></td>
+				<td class="col-md-8">{{user.address}}</td>
 			</tr>
 			<tr>
-				<td><label translate="HOBBY_LABEL"></label></td>
-				<td>{{user.hobby}}</td>
+				<td class="col-md-4"><label translate="HOBBY_LABEL"></label></td>
+				<td class="col-md-8">{{user.hobby}}</td>
 			</tr>
 			<tr>
-				<td><label translate="ABOUT_ME_LABEL"></label></td>
-				<td>{{user.bio}}</td>
+				<td class="col-md-4"><label translate="ABOUT_ME_LABEL"></label></td>
+				<td class="col-md-8">{{user.bio}}</td>
 			</tr>
 			<tr>
-				<td><label translate="FAVORITE_QUOTE"></label></td>
-				<td>{{user.quote}}</td>
+				<td class="col-md-4"><label translate="FAVORITE_QUOTE"></label></td>
+				<td class="col-md-8">{{user.quote}}</td>
 			</tr>
 			<tr>
-				<td><label translate="WEBSITE_LABEL"></label></td>
-				<td><a ng-href="http://{{user.website}}">{{user.website}}</a></td>
+				<td class="col-md-4"><label translate="WEBSITE_LABEL"></label></td>
+				<td class="col-md-8"><a ng-href="http://{{user.website}}">{{user.website}}</a></td>
 			</tr>
 		</table>
 	</div>
 	<div class="button-box text-right">
-		<button class="btn btn-success btn-sm" ng-click="" translate="ASSIGN_AS_EDITOR_BUTTON_LABEL"></button>
-		<button class="btn btn-primary btn-sm" ng-click="" translate="ASSIGN_AS_ADMIN_BUTTON_LABEL"></button>
-		<button class="btn btn-danger btn-sm" ng-click="" translate="BAN_BUTTON_LABEL"></button>
-		<button class="btn btn-default btn-sm" ng-click="closeDialog()" translate="CANCEL_BUTTON_LABEL"></button>
+		<button class="btn btn-primary btn-sm" ng-click="assignAsUser()" translate="ASSIGN_AS_USER_BUTTON_LABEL" ng-if="user.role !== CODE.USER"></button>
+		<button class="btn btn-success btn-sm" ng-click="assignAsEditor()" translate="ASSIGN_AS_EDITOR_BUTTON_LABEL" ng-if="user.role !== CODE.EDITOR"></button>
+		<button class="btn btn-warning btn-sm" ng-click="assignAsAdmin()" translate="ASSIGN_AS_ADMIN_BUTTON_LABEL" ng-if="user.role !== CODE.ADMIN"></button>
+		<button class="btn btn-danger btn-sm" ng-click="banUser()" translate="BAN_BUTTON_LABEL" ng-if="user.isBanned === true"></button>
+		<button class="btn btn-danger btn-sm" ng-click="unbanUser()" translate="BAN_BUTTON_LABEL" ng-if="user.isBanned === false"></button>
+		<button class="btn btn-default btn-sm" ng-click="closeDialog()" translate="CLOSE_BUTTON_LABEL"></button>
 	</div>
 </form>
 </div>

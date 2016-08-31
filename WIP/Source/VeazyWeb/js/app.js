@@ -572,6 +572,40 @@
 			controller: 'userManagementCtrl',
 			authorizeAdmin: true,
 			resolve: {}
+		}).state('admin.profile', {
+			url: '/profile',
+			controller: 'adminProfileCtrl',
+			templateUrl: 'partials/admin-restricted/admin-profile.html',
+			resolve: {
+				getUser: function($q, $state, UserService, veazyConfig) {
+					var deferred = $q.defer();
+					var CODE = veazyConfig.CODE;
+
+					UserService.getCurrentUser().then(function(response) {
+						console.log(response);
+						switch (response.code) {
+							case CODE.SUCCESS: {
+								deferred.resolve(response);
+								break;
+							}
+							case CODE.UNAUTHORIZED: {
+								$state.go('login');
+								deferred.reject();
+							}
+							case CODE.NO_PERMISSION: {
+								$state.go('forbidden');
+								deferred.reject();
+							}
+							default: {
+								deferred.reject();
+							}
+						}
+					}, function(reject) {
+						deferred.reject();
+					});
+					return deferred.promise;
+				}
+			}
 		});
 	}]);
 

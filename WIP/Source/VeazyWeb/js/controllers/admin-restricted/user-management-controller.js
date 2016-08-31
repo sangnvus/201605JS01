@@ -88,10 +88,6 @@
 						return deferred.promise;
 					}
 				}
-				// controller: 'updateProfileCtrl',
-				// data: {
-				// 	user: $scope.user
-				// }
 			});
 		};
 
@@ -141,6 +137,28 @@
 			});
 		};
 
+		$scope.assignAsUser = function(user) {
+			var userCode = veazyConfig.CODE.USER;
+			var userId = user.id;
+			UserService.changeRole(userId, userCode).then(function(response) {
+				// console.log(response);
+				switch (response.code) {
+					case CODE.SUCCESS: {
+						user.role = userCode;
+						break;
+					}
+					case CODE.UNAUTHORIZED: {
+						$state.go('login');
+						break;
+					}
+					case CODE.NO_PERMISSION: {
+						$state.go('forbidden');
+						break;
+					}
+				}
+			});
+		};
+
 		$scope.assignAsEditor = function(user) {
 			var editorCode = veazyConfig.CODE.EDITOR;
 			var userId = user.id;
@@ -149,6 +167,28 @@
 				switch (response.code) {
 					case CODE.SUCCESS: {
 						user.role = editorCode;
+						break;
+					}
+					case CODE.UNAUTHORIZED: {
+						$state.go('login');
+						break;
+					}
+					case CODE.NO_PERMISSION: {
+						$state.go('forbidden');
+						break;
+					}
+				}
+			});
+		};
+
+		$scope.assignAsAdmin = function(user) {
+			var adminCode = veazyConfig.CODE.ADMIN;
+			var userId = user.id;
+			UserService.changeRole(userId, adminCode).then(function(response) {
+				// console.log(response);
+				switch (response.code) {
+					case CODE.SUCCESS: {
+						user.role = adminCode;
 						break;
 					}
 					case CODE.UNAUTHORIZED: {

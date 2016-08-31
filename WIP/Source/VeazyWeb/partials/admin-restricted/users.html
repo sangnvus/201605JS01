@@ -77,8 +77,9 @@
 										<ul class="dropdown-menu">
 											<li><a href="" ng-click="banUser(user)" translate="BAN_HYPERLINK" ng-if="user.isBanned === false"></a></li>
 											<li><a href="" ng-click="unbanUser(user)" translate="UNBAN_HYPERLINK" ng-if="user.isBanned === true"></a></li>
-											<li><a href="" ng-click="assignAsEditor(user)" translate="ASSIGN_AS_EDITOR_HYPERLINK"></a></li>
-											<li><a href="" ng-click="" translate="ASSIGN_AS_ADMIN_HYPERLINK"></a></li>
+											<li><a href="" ng-click="assignAsUser(user)" translate="ASSIGN_AS_USER_HYPERLINK" ng-if="user.role !== CODE.USER"></a></li>
+											<li><a href="" ng-click="assignAsEditor(user)" translate="ASSIGN_AS_EDITOR_HYPERLINK" ng-if="user.role !== CODE.EDITOR"></a></li>
+											<li><a href="" ng-click="assignAsAdmin(user)" translate="ASSIGN_AS_ADMIN_HYPERLINK" ng-if="user.role !== CODE.ADMIN"></a></li>
 										</ul>
 									</div>
 								</td>
