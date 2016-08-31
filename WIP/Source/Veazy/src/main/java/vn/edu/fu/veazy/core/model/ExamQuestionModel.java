@@ -217,6 +217,25 @@ public class ExamQuestionModel extends BasicModel {
         q.setQuestionAnswerType(questionAnswerType);
         q.setQuestionId(questionId);
         q.setQuestionType(questionType);
+        if (q.getQuestionType() != Const.QUESTIONTYPE_GROUP) {
+            List<ExamAnswerModel> listAns = this.getListAnswers();
+            List<ExamAnswerModel> listAns1 = new ArrayList<>();
+            for (ExamAnswerModel ans : listAns) {
+                ExamAnswerModel eam1 = (ExamAnswerModel) ans.clone();
+                eam1.setQuestion(q);
+                listAns1.add(eam1);
+            }
+            q.setListAnswers(listAns1);
+        } else {
+            List<ExamQuestionModel> listQues = this.getListQuestions();
+            List<ExamQuestionModel> listQues1 = new ArrayList<>();
+            for (ExamQuestionModel ques : listQues) {
+                ExamQuestionModel eqm1 = (ExamQuestionModel) ques.clone();
+                eqm1.setParentQuestion(q);
+                listQues1.add(eqm1);
+            }
+            q.setListQuestions(listQues1);
+        }
         return q;
     }
 

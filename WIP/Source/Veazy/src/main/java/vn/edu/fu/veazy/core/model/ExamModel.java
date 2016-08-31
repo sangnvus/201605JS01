@@ -147,25 +147,6 @@ public class ExamModel extends BasicModel {
         for (ExamQuestionModel q : listQuestions) {
             ExamQuestionModel model = (ExamQuestionModel) q.clone();
             model.setExam(m);
-            if (model.getQuestionType() != Const.QUESTIONTYPE_GROUP) {
-                List<ExamAnswerModel> listAns = q.getListAnswers();
-                List<ExamAnswerModel> listAns1 = new ArrayList<>();
-                for (ExamAnswerModel ans : listAns) {
-                    ExamAnswerModel eam1 = (ExamAnswerModel) ans.clone();
-                    eam1.setQuestion(model);
-                    listAns1.add(eam1);
-                }
-                model.setListAnswers(listAns1);
-            } else {
-                List<ExamQuestionModel> listQues = q.getListQuestions();
-                List<ExamQuestionModel> listQues1 = new ArrayList<>();
-                for (ExamQuestionModel ques : listQues) {
-                    ExamQuestionModel eqm1 = (ExamQuestionModel) ques.clone();
-                    eqm1.setParentQuestion(model);
-                    listQues1.add(eqm1);
-                }
-                model.setListQuestions(listQues1);
-            }
             m.getListQuestions().add(model);
         }
         m.setResult(result);
