@@ -848,10 +848,12 @@
 			id: 2,
 			name: 'Draft'
 		}],
-		roles: [{
-			id: 1, 
-			name: 'ADMIN'
-		}, {
+		roles: [
+		// {
+			// id: 1, 
+			// name: 'ADMIN'
+		// }, 
+		{
 			id: 2, 
 			name: 'EDITOR'
 		}, {

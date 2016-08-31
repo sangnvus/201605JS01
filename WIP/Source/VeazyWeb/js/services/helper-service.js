@@ -81,9 +81,11 @@
 					} else {
 						questionPts = self.calculateSingleQuestionMark(question);
 					}
+					// console.log(questionPts)
 					// question.questionPts = questionPts;
 					// question.questionPts = self.calculateSingleQuestionMark(question);
 					totalPts += questionPts;
+					// console.log(questionPts, totalPts);
 				}
 
 				return (totalPts.toFixed(2)) * 100;

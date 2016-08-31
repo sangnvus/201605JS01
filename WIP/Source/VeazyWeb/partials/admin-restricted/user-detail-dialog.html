@@ -44,7 +44,7 @@
 	<div class="button-box text-right">
 		<button class="btn btn-primary btn-sm" ng-click="assignAsUser()" translate="ASSIGN_AS_USER_BUTTON_LABEL" ng-if="user.role !== CODE.USER"></button>
 		<button class="btn btn-success btn-sm" ng-click="assignAsEditor()" translate="ASSIGN_AS_EDITOR_BUTTON_LABEL" ng-if="user.role !== CODE.EDITOR"></button>
-		<button class="btn btn-warning btn-sm" ng-click="assignAsAdmin()" translate="ASSIGN_AS_ADMIN_BUTTON_LABEL" ng-if="user.role !== CODE.ADMIN"></button>
+		<!-- <button class="btn btn-warning btn-sm" ng-click="assignAsAdmin()" translate="ASSIGN_AS_ADMIN_BUTTON_LABEL" ng-if="user.role !== CODE.ADMIN"></button> -->
 		<button class="btn btn-danger btn-sm" ng-click="banUser()" translate="BAN_BUTTON_LABEL" ng-if="user.isBanned === true"></button>
 		<button class="btn btn-danger btn-sm" ng-click="unbanUser()" translate="BAN_BUTTON_LABEL" ng-if="user.isBanned === false"></button>
 		<button class="btn btn-default btn-sm" ng-click="closeDialog()" translate="CLOSE_BUTTON_LABEL"></button>

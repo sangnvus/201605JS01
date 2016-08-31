@@ -94,27 +94,27 @@
 			});
 		};
 
-		$scope.assignAsAdmin = function() {
-			var adminCode = veazyConfig.CODE.ADMIN;
-			var userId = $scope.user.id;
-			UserService.changeRole(userId, adminCode).then(function(response) {
-				// console.log(response);
-				switch (response.code) {
-					case CODE.SUCCESS: {
-						$scope.user.role = adminCode;
-						break;
-					}
-					case CODE.UNAUTHORIZED: {
-						$state.go('login');
-						break;
-					}
-					case CODE.NO_PERMISSION: {
-						$state.go('forbidden');
-						break;
-					}
-				}
-			});
-		};
+		// $scope.assignAsAdmin = function() {
+		// 	var adminCode = veazyConfig.CODE.ADMIN;
+		// 	var userId = $scope.user.id;
+		// 	UserService.changeRole(userId, adminCode).then(function(response) {
+		// 		// console.log(response);
+		// 		switch (response.code) {
+		// 			case CODE.SUCCESS: {
+		// 				$scope.user.role = adminCode;
+		// 				break;
+		// 			}
+		// 			case CODE.UNAUTHORIZED: {
+		// 				$state.go('login');
+		// 				break;
+		// 			}
+		// 			case CODE.NO_PERMISSION: {
+		// 				$state.go('forbidden');
+		// 				break;
+		// 			}
+		// 		}
+		// 	});
+		// };
 	};
 
 	userDetailCtrl.$inject = ['$scope', '$state', 'ngDialog', 'veazyConfig', 'getUser', 'UserService'];

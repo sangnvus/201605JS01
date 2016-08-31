@@ -31,6 +31,7 @@
 			var mark = Helper.calculateExamMark($scope.exam);
 			var numberOfQuestions = Helper.calculateTotalNumberOfQuestion($scope.exam);
 			$scope.exam.result = mark / numberOfQuestions;
+			console.log(mark, numberOfQuestions)
 		}
 
 		// $scope.grade = $scope.exam.totalPts / $scope.exam.totalNumberOfQuestions;

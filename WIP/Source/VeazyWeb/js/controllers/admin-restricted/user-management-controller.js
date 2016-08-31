@@ -18,6 +18,11 @@
 				case CODE.SUCCESS: {
 					// console.log(response.data);
 					$scope.userList = response.data.listUsers;
+					for (var i = 0; i < $scope.userList.length; i++) {
+						if ($scope.userList[i].role === CODE.ADMIN) {
+							$scope.userList.splice(i, 1);
+						}
+					}
 					$scope.filteredUserList = $scope.userList;
 
 					//pagination
@@ -181,27 +186,27 @@
 			});
 		};
 
-		$scope.assignAsAdmin = function(user) {
-			var adminCode = veazyConfig.CODE.ADMIN;
-			var userId = user.id;
-			UserService.changeRole(userId, adminCode).then(function(response) {
-				// console.log(response);
-				switch (response.code) {
-					case CODE.SUCCESS: {
-						user.role = adminCode;
-						break;
-					}
-					case CODE.UNAUTHORIZED: {
-						$state.go('login');
-						break;
-					}
-					case CODE.NO_PERMISSION: {
-						$state.go('forbidden');
-						break;
-					}
-				}
-			});
-		};
+		// $scope.assignAsAdmin = function(user) {
+		// 	var adminCode = veazyConfig.CODE.ADMIN;
+		// 	var userId = user.id;
+		// 	UserService.changeRole(userId, adminCode).then(function(response) {
+		// 		// console.log(response);
+		// 		switch (response.code) {
+		// 			case CODE.SUCCESS: {
+		// 				user.role = adminCode;
+		// 				break;
+		// 			}
+		// 			case CODE.UNAUTHORIZED: {
+		// 				$state.go('login');
+		// 				break;
+		// 			}
+		// 			case CODE.NO_PERMISSION: {
+		// 				$state.go('forbidden');
+		// 				break;
+		// 			}
+		// 		}
+		// 	});
+		// };
 	};
 
 	userManagementCtrl.$inject = ['$scope', 'UserService', 'veazyConfig', 'ngDialog', '$state', '$filter'];
