@@ -96,7 +96,7 @@ public class ExamAnswerModel extends BasicModel {
         ExamAnswerModel ans = new ExamAnswerModel();
         ans.setAnswer(answer);
         ans.setIsRight(isRight);
-        ans.setIsSelected(isSelected);
+//        ans.setIsSelected(isSelected);
         return ans;
     }
 }

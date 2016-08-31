@@ -102,14 +102,19 @@ public class ExamServiceImpl implements ExamService {
         }
         
         //calculate result
+        ExamModel m = (ExamModel) exam.clone();
         List<SubmitQuestionForm> listQuestion = form.getListQuestions();
-        List<ExamQuestionModel> listOriginQuestion = exam.getListQuestions();
+        List<ExamQuestionModel> listOriginQuestion = null;
+        if (!exam.getFinishState()) {
+            listOriginQuestion = exam.getListQuestions();
+        } else {
+            listOriginQuestion = m.getListQuestions();
+        }
         Double[] result = calcResult(listQuestion, listOriginQuestion);
         Double examResult = 0d;
         if (result.length == 2 && result[1] > 0) {
             examResult = Utils.round(result[0] / result[1], 2) * 100;
         }
-        ExamModel m = (ExamModel) exam.clone();
         m.setResult(examResult);
 //      exam.setTakenTime(0);
         m.setTakenTime(form.getTakenTime());
