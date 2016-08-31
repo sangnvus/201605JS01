@@ -327,6 +327,10 @@
 
 	"TEST_QUESTION_HEADING": "{{index}}番:",
 	"READING_HEADING": "{{index}}の論文：",
-	"CHANGE_NOTIFICATION": "（*）上の質問は、あなたがこのテストを受けた最後の時間以降に更新されました。"
+	"CHANGE_NOTIFICATION": "（*）上の質問は、あなたがこのテストを受けた最後の時間以降に更新されました。",
 
+	"SHOW_ONLY_REPORTS_WHERE_HEADING": "情報タイプのみを表示",
+	"UNREAD_ONLY": "未読のみ",
+	"ALL_REPORTS": "全部",
+	"REQUIRED_MIN_NUMBER_OF_QUESTIONS_ERROR_MSG": "テストには質問が５以上ある必要です！"
 }

@@ -1,6 +1,30 @@
 <div class="container-fluid report-list">
 	<div class="row">
 		<div class="col-md-12">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<h3 translate="SHOW_ONLY_REPORTS_WHERE_HEADING"></h3>
+					<div class="form-horizontal">
+						<div class="form-group">
+							<label class="control-label col-sm-2" translate="TYPE_LABEL"></label>
+							<div class="col-sm-2">
+								<select class="form-control input-sm" ng-model="selectedReportType" ng-options="type as type.name | translate for type in reportTypes track by type.id"></select>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<div class="col-sm-2 col-sm-offset-2">
+								<button class="btn btn-sm btn-success" translate="FILTER_BUTTON_LABEL" ng-click="filterReport()"></button>
+							</div>
+						</div>
+					</div>  
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-md-12">
 
 			<!-- report list -->
 			<div class="panel panel-default">
@@ -10,7 +34,7 @@
 				<div class="panel-body">
 					<table class="table table-striped table-hover">
 						<tbody>
-							<tr ng-repeat="report in reportList">
+							<tr ng-repeat="report in filteredReportList | start: (currentPage - 1) * numPerPage | limitTo: numPerPage">
 								<td class="col-md-10">
 
 									<!-- english ver -->
@@ -41,7 +65,7 @@
 									</span>
 								</td>
 								<td class="col-md-2 text-right">
-									<button class="btn btn-sm btn-primary" translate="MARK_AS_CHECKED_BUTTON_LABEL"></button>
+									<button class="btn btn-sm btn-primary" translate="MARK_AS_CHECKED_BUTTON_LABEL" ng-click="markReportAsRead(report)" ng-hide="report.readFlag"></button>
 								</td>
 							</tr>
 						</tbody>
@@ -51,7 +75,7 @@
 
 			<!-- pagination -->
 			<div class="text-center">
-				<uib-pagination class="pagination" total-items="reportList.length" ng-model="currentPage" max-size="5" boundary-links="true" items-per-page="numPerPage" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></uib-pagination>
+				<uib-pagination class="pagination" total-items="filteredReportList.length" ng-model="currentPage" max-size="5" boundary-links="true" items-per-page="numPerPage" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></uib-pagination>
 			</div>
 		</div>
 	</div>

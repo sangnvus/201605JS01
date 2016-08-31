@@ -555,21 +555,24 @@
 			url: '/admin',
 			abstract: true,
 			templateUrl: 'partials/admin-restricted/admin.html',
-			controller: 'adminSideBarCtrl'
+			controller: 'adminSideBarCtrl',
 		})
 		//admin dashboard page
 		.state('admin.dashboard', {
 			url: '/dashboard',
 			templateUrl: 'partials/admin-restricted/dashboard.html',
-			controller: 'adminDashboadCtrl'
+			controller: 'adminDashboadCtrl',
+			authorizeAdmin: true,
+			resolve: {}
 		})
 		//user list page
 		.state('admin.users', {
 			url: '/users',
 			templateUrl: 'partials/admin-restricted/users.html',
-			controller: 'userManagementCtrl'
-		})
-		;
+			controller: 'userManagementCtrl',
+			authorizeAdmin: true,
+			resolve: {}
+		});
 	}]);
 
 	//authorization
@@ -583,7 +586,6 @@
 					var deferred = $q.defer();
 					var role;
 					UserService.checkLoggedIn().then(function(response) {
-						console.log(response);
 						switch (response.code) {
 							//already login
 							case CODE.SUCCESS: {
@@ -624,7 +626,6 @@
 					var deferred = $q.defer();
 					var role;
 					UserService.checkLoggedIn().then(function(response) {
-						console.log(response);
 						switch (response.code) {
 							//already login
 							case CODE.SUCCESS: {
@@ -641,7 +642,39 @@
 							//haven't logged in  yet
 							default: {
 								deferred.reject();
-								console.log('not logged in');
+								$state.go('login');
+							}
+						}
+					}, function() {
+						deferred.reject();
+					});
+					return deferred.promise;
+				};
+			}
+
+			//check if editor --> resolve, if user/admin --> 403
+			if (newState.authorizeAdmin) {
+				newState.resolve.checkLoggedIn = function(UserService, $state, $q, veazyConfig) {
+					var CODE = veazyConfig.CODE;
+					var deferred = $q.defer();
+					var role;
+					UserService.checkLoggedIn().then(function(response) {
+						switch (response.code) {
+							//already login
+							case CODE.SUCCESS: {
+								role = response.data.role;
+								if (role === CODE.ADMIN) {
+									deferred.resolve();
+								} else {
+									deferred.reject();
+									$state.go('forbidden');
+								}
+								break;
+							}
+
+							//haven't logged in  yet
+							default: {
+								deferred.reject();
 								$state.go('login');
 							}
 						}

@@ -27,9 +27,12 @@
 
 							<div class="form-group">
 								<label translate="NUMBER_OF_QUESTIONS_LABEL"></label>
-								<input type="number" class="form-control" name="numberOfQuestion" ng-model="numberOfQuestion" required></input>
-								<p ng-show="setupExamForm.numberOfQuestion.$error.min">Required at least 10!</p>
-								<p class="error" ng-show="error" translate="{{error}}"></p>
+								<input type="number" class="form-control" name="numberOfQuestion" ng-model="numberOfQuestion" required min="{{minNumberOfQuestions}}"></input>
+							</div>
+
+							<div class="form-group">
+								<p class="msg-error" ng-show="setupExamForm.numberOfQuestion.$error.min" translate="REQUIRED_MIN_NUMBER_OF_QUESTIONS_ERROR_MSG"></p>
+								<p class="msg-error" ng-show="error" translate="{{error}}"></p>
 							</div>
 
 							<div class="form-group">

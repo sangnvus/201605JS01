@@ -81,10 +81,12 @@
 				name: 'audio',
 				fn: function(item) {
 					if (item.type === 'audio/mp3') {
-						$scope.uploadErrorMsg = null;
+						// $scope.uploadErrorMsg = null;
+						$scope.errorMsg = null;
 						return true;
 					} else {
-						$scope.uploadErrorMsg = 'NOT_VALID_AUDIO_FILE_ERROR_MSG';
+						// $scope.uploadErrorMsg = 'NOT_VALID_AUDIO_FILE_ERROR_MSG';
+						$scope.errorMsg = 'NOT_VALID_AUDIO_FILE_ERROR_MSG';
 					}
 				}
 			}]

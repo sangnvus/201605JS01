@@ -82,9 +82,9 @@
 				}
 			},
 			changeRole: {
-				url: url + '/users/change_roll',
+				url: url + '/users/change_roll/:userId/:role',
 				method: 'GET',
-				paras: {
+				params: {
 					userId: '@userId',
 					role: '@role'
 				}

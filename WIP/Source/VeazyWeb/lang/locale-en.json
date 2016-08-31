@@ -154,7 +154,7 @@
 	"QUESTION_TAB": "Questions",
 	"QUESTION_LIST_TAB": "Question List",
 	"ADD_QUESTION_TAB": "Add Question",
-	"REPORT_TAB": "Report",
+	"REPORT_TAB": "Reports",
 	"CHANGE_LANGUAGE_TAB": "Change Language",
 	"LOGOUT_TAB": "Logout",
 
@@ -329,5 +329,10 @@
 
 	"TEST_QUESTION_HEADING": "Question {{index}}:",
 	"READING_HEADING": "Essay {{index}}:",
-	"CHANGE_NOTIFICATION": "(*) The question above has been updated since the last time you took this test."
+	"CHANGE_NOTIFICATION": "(*) The question above has been updated since the last time you took this test.",
+
+	"SHOW_ONLY_REPORTS_WHERE_HEADING": "Show only reports where",
+	"UNREAD_ONLY": "Unread Only",
+	"ALL_REPORTS": "All Reports",
+	"REQUIRED_MIN_NUMBER_OF_QUESTIONS_ERROR_MSG": "A test is required to have at least 5 questions!"
 }

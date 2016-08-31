@@ -28,6 +28,21 @@
 					});
 				});
 				return deferred.promise;
+			},
+			markAsRead: function(reportId) {
+				var deferred = $q.defer();
+				var reportFactory = new Report({
+					reportId: reportId
+				});
+
+				$timeout(function() {
+					reportFactory.$markAsRead(function(response) {
+						deferred.resolve(response);
+					}, function(reject) {
+						deferred.reject();
+					});
+				});
+				return deferred.promise;
 			}
 		};
 	};

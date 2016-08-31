@@ -118,21 +118,15 @@
 			var timepicker = $scope.vm.date;
 			var etaTime = parseInt(moment.duration(timepicker.minutes(), 'minute').format('ss')) + timepicker.seconds();
 			if ($scope.selectedTestSkill.id === CODE.LISTENING_SKILL) {
-				// console.log('1')
 				if ($scope.uploaded === true) {
-					// console.log('2')
 					question.etaTime = $scope.minMp3Length;
 				} 
 				else {
-					// console.log('3')
 					question.etaTime = $scope.question.etaTime;
 				}
 			} else {
-				// console.log('4')
 				question.etaTime = etaTime;
 			}
-			// var etaTime = parseInt(moment.duration(timepicker.minutes(), 'minute').format('ss')) + timepicker.seconds();
-			// question.etaTime = etaTime;
 
 			switch ($scope.selectedQuestionType.id) {
 				case CODE.SINGLE_QUESTION_TYPE: {
@@ -154,15 +148,6 @@
 							return;
 						};
 					}
-
-					// if ($scope.selectedTestSkill.id === CODE.LISTENING_SKILL) {
-					// 	// question.attachment = $scope.attachment;
-					// 	if (question.attachment == null) {
-					// 		$scope.uploadErrorMsg = 'NO_AUDIO_FILE';
-					// 		return;
-					// 	}
-					// }
-					// break;
 					break;
 				}
 				case CODE.GROUP_QUESTION_TYPE: {
@@ -187,9 +172,9 @@
 				}
 			}
 
-			console.log(question);
+			// console.log(question);
 			QuestionService.update(question).then(function(response) {
-				console.log(response);
+				// console.log(response);
 				switch (response.code) {
 					case CODE.SUCCESS: {
 						$state.go('editor.question.detail', {
@@ -207,8 +192,6 @@
 						break;
 					}
 				}
-			}, function(reject) {
-
 			});
 		};
 

@@ -15,6 +15,13 @@
 				params: {
 					reportId: '@reportId'
 				}
+			},
+			markAsRead: {
+				url: url + '/read/:reportId',
+				method: 'GET',
+				params: {
+					reportId: '@reportId'
+				}
 			}
 		});
 	};

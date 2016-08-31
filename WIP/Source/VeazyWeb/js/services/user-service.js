@@ -221,7 +221,7 @@
 				var deferred = $q.defer();
 				$timeout(function() {
 					userFactory.$changeRole(function(response) {
-						deferred.resolve(resolve);
+						deferred.resolve(response);
 					}, function(reject) {
 						deferred.reject();
 					});
